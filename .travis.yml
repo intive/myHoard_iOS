@@ -3,6 +3,7 @@ language: objective-c
 rvm: 1.9.3
 
 script:
+  - xctool -v
   - xctool -workspace MyHoard.xcworkspace -scheme MyHoard -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
   - xctool test -workspace MyHoard.xcworkspace -scheme MyHoardTests -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
 
