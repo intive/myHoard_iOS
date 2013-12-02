@@ -4,7 +4,7 @@ rvm: 1.9.3
 
 script:
   - xctool -workspace MyHoard.xcworkspace -scheme MyHoard -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
-  - xctool test -workspace MyHoard.xcworkspace -scheme MyHoard -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO -freshSimulator -freshInstall
+  - xctool -workspace MyHoard.xcworkspace -scheme MyHoard -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO build test -freshSimulator -freshInstall
 
 notifications:
   email:
