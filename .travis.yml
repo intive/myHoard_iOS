@@ -2,6 +2,10 @@ language: objective-c
 
 rvm: 1.9.3
 
+before_script:
+  - brew update
+  - brew install xctool
+
 script:
   - xctool -workspace MyHoard.xcworkspace -scheme MyHoard -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
   - xctool -workspace MyHoard.xcworkspace -scheme MyHoard -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO build test -freshSimulator -freshInstall
@@ -9,3 +13,4 @@ script:
 notifications:
   email:
     - sebastian.jedruszkiewicz@blstream.com
+    - karol.kogut@blstream.com
