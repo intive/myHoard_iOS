@@ -8,7 +8,7 @@ before_script:
 
 script:
   - xctool -workspace MyHoard.xcworkspace -scheme MyHoard -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
-  - xctool -workspace MyHoard.xcworkspace -scheme MyHoard -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO build test -freshSimulator -freshInstall
+  - xctool test -workspace MyHoard.xcworkspace -scheme MyHoardTests -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
 
 notifications:
   email:
