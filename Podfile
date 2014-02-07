@@ -4,6 +4,6 @@ pod 'AFNetworking'
 
 target :MyHoardTests, :exclusive => true do
     pod 'Kiwi/XCTest'
+    pod 'Nocilla'
 end
-
 
