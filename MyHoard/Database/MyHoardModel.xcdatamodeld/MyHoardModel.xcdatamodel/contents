@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3401" systemVersion="13B42" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="MHCollection" representedClassName="MHCollection" syncable="YES">
+        <attribute name="objCreatedDate" attributeType="Date" syncable="YES"/>
+        <attribute name="objDescription" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="objId" attributeType="String" syncable="YES"/>
+        <attribute name="objItemsNumber" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="objModifiedDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="objName" attributeType="String" syncable="YES"/>
+        <attribute name="objOwner" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="objTags" optional="YES" attributeType="Transformable" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="MHCollection" positionX="-8415" positionY="-2115" width="128" height="163"/>
+    </elements>
+</model>
