@@ -30,6 +30,11 @@
 		A4050E81A1BC4A589193A896 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F724743366084FAC90257055 /* libPods.a */; };
 		B02743679DB841A98A3C2D60 /* libPods-MyHoardTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A54F99CDCE2468DACC4FBD3 /* libPods-MyHoardTests.a */; };
 		B8F16086EB65413C89F6F7BB /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F724743366084FAC90257055 /* libPods.a */; };
+		CE6C31B618B1167C00983736 /* CollectionDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6C31B518B1167C00983736 /* CollectionDetailsViewController.m */; };
+		CE6C31B918B1293400983736 /* CollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6C31B818B1293400983736 /* CollectionViewController.m */; };
+		CE6C31BC18B1422100983736 /* MHItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6C31BB18B1422100983736 /* MHItemViewController.m */; };
+		CE6C31BF18B1423400983736 /* MHItemDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6C31BE18B1423400983736 /* MHItemDetailsViewController.m */; };
+		CEEA28BB18B0DFCF0005D212 /* MHItem.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEA28BA18B0DFCF0005D212 /* MHItem.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,6 +80,16 @@
 		537CF83918AE0D5D008A7E04 /* MHCoreDataContextForTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHCoreDataContextForTests.h; sourceTree = "<group>"; };
 		537CF83A18AE0D5D008A7E04 /* MHCoreDataContextForTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHCoreDataContextForTests.m; sourceTree = "<group>"; };
 		6040C246B171497C91A4ABBE /* Pods-MyHoardTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyHoardTests.xcconfig"; path = "Pods/Pods-MyHoardTests.xcconfig"; sourceTree = "<group>"; };
+		CE6C31B418B1167C00983736 /* CollectionDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionDetailsViewController.h; sourceTree = "<group>"; };
+		CE6C31B518B1167C00983736 /* CollectionDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionDetailsViewController.m; sourceTree = "<group>"; };
+		CE6C31B718B1293400983736 /* CollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionViewController.h; sourceTree = "<group>"; };
+		CE6C31B818B1293400983736 /* CollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionViewController.m; sourceTree = "<group>"; };
+		CE6C31BA18B1422100983736 /* MHItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHItemViewController.h; sourceTree = "<group>"; };
+		CE6C31BB18B1422100983736 /* MHItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHItemViewController.m; sourceTree = "<group>"; };
+		CE6C31BD18B1423400983736 /* MHItemDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHItemDetailsViewController.h; sourceTree = "<group>"; };
+		CE6C31BE18B1423400983736 /* MHItemDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHItemDetailsViewController.m; sourceTree = "<group>"; };
+		CEEA28B918B0DFCF0005D212 /* MHItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHItem.h; sourceTree = "<group>"; };
+		CEEA28BA18B0DFCF0005D212 /* MHItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHItem.m; sourceTree = "<group>"; };
 		F724743366084FAC90257055 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -145,9 +160,17 @@
 				537CF82918AD6282008A7E04 /* Database */,
 				23D321AF184BBFFA002FC13A /* AppDelegate.h */,
 				23D321B0184BBFFA002FC13A /* AppDelegate.m */,
-				23D321B2184BBFFA002FC13A /* Main.storyboard */,
+				CE6C31BA18B1422100983736 /* MHItemViewController.h */,
+				CE6C31BB18B1422100983736 /* MHItemViewController.m */,
+				CE6C31BD18B1423400983736 /* MHItemDetailsViewController.h */,
+				CE6C31BE18B1423400983736 /* MHItemDetailsViewController.m */,
+				CE6C31B418B1167C00983736 /* CollectionDetailsViewController.h */,
+				CE6C31B518B1167C00983736 /* CollectionDetailsViewController.m */,
+				CE6C31B718B1293400983736 /* CollectionViewController.h */,
+				CE6C31B818B1293400983736 /* CollectionViewController.m */,
 				23D321B5184BBFFA002FC13A /* ViewController.h */,
 				23D321B6184BBFFA002FC13A /* ViewController.m */,
+				23D321B2184BBFFA002FC13A /* Main.storyboard */,
 				23D321B8184BBFFA002FC13A /* Images.xcassets */,
 				23D321A7184BBFFA002FC13A /* Supporting Files */,
 			);
@@ -189,6 +212,8 @@
 			isa = PBXGroup;
 			children = (
 				537CF82A18AD643D008A7E04 /* MyHoardModel.xcdatamodeld */,
+				CEEA28B918B0DFCF0005D212 /* MHItem.h */,
+				CEEA28BA18B0DFCF0005D212 /* MHItem.m */,
 				537CF82D18AD6AD1008A7E04 /* MHCollection.h */,
 				537CF82E18AD6AD1008A7E04 /* MHCollection.m */,
 				537CF83118AD7D6E008A7E04 /* MHCoreDataContext.h */,
@@ -376,9 +401,14 @@
 				23D321B7184BBFFA002FC13A /* ViewController.m in Sources */,
 				23D321B1184BBFFA002FC13A /* AppDelegate.m in Sources */,
 				537CF83618AD8FBF008A7E04 /* MHDatabaseManager.m in Sources */,
+				CE6C31BC18B1422100983736 /* MHItemViewController.m in Sources */,
 				537CF82C18AD643D008A7E04 /* MyHoardModel.xcdatamodeld in Sources */,
 				23D321AD184BBFFA002FC13A /* main.m in Sources */,
+				CEEA28BB18B0DFCF0005D212 /* MHItem.m in Sources */,
+				CE6C31B618B1167C00983736 /* CollectionDetailsViewController.m in Sources */,
 				537CF82F18AD6AD1008A7E04 /* MHCollection.m in Sources */,
+				CE6C31BF18B1423400983736 /* MHItemDetailsViewController.m in Sources */,
+				CE6C31B918B1293400983736 /* CollectionViewController.m in Sources */,
 				537CF83318AD7D6E008A7E04 /* MHCoreDataContext.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

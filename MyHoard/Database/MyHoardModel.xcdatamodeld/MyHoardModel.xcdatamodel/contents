@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3401" systemVersion="13B42" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3401" systemVersion="12F45" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="MHCollection" representedClassName="MHCollection" syncable="YES">
         <attribute name="objCreatedDate" attributeType="Date" syncable="YES"/>
         <attribute name="objDescription" optional="YES" attributeType="String" syncable="YES"/>
@@ -10,7 +10,21 @@
         <attribute name="objOwner" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="objTags" optional="YES" attributeType="Transformable" syncable="YES"/>
     </entity>
+    <entity name="MHItem" representedClassName="MHItem" syncable="YES">
+        <attribute name="objCollectionId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="objCreatedDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="objDescription" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="objId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="objLocation" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="objMediaIds" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="objModifiedDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="objName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="objOwner" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="objQuantity" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="objTags" optional="YES" attributeType="Transformable" syncable="YES"/>
+    </entity>
     <elements>
         <element name="MHCollection" positionX="-8415" positionY="-2115" width="128" height="163"/>
+        <element name="MHItem" positionX="-8183" positionY="-2115" width="128" height="208"/>
     </elements>
 </model>

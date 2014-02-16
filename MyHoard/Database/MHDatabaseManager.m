@@ -10,6 +10,7 @@
 
 #import "MHCoreDataContext.h"
 #import "MHCollection.h"
+#import "MHItem.h"
 
 @implementation MHDatabaseManager
 
@@ -85,6 +86,53 @@
             objCollectionId:(NSString*)objCollectionId
                    objOwner:(NSString*)objOwner
 {
+    
+    //mandatory fields
+    if (!objId.length || !objName || !objCreatedDate) {
+        
+        NSLog(@"One of mandatory fields is not set: objId:%@, objName:%@, objCreatedDate:%@", objId, objName, objCreatedDate);
+        return;
+    }
+    
+    MHItem *item = [NSEntityDescription insertNewObjectForEntityForName:@"MHItem" inManagedObjectContext:[MHCoreDataContext getInstance].managedObjectContext];
+    
+    item.objId = objId;
+    item.objName = objName;
+    item.objCreatedDate = objCreatedDate;
+    
+    if (objDescription.length) {
+        item.objDescription = objDescription;
+    }
+    
+    if (objTags.count) {
+        item.objTags = objTags;
+    }
+    
+    if (objLocation.count) {
+        item.objLoctaion = objLocation;
+    }
+    
+    if (objQuantity) {
+        item.objQuantity = objQuantity;
+    }
+    
+    if (objMediaIds.count) {
+        item.objMediaIds = objMediaIds;
+    }
+    
+    if (objModifiedDate) {
+        item.objModifiedDate = objModifiedDate;
+    }
+    
+    if (objCollectionId.length) {
+        item.objCollectionId = objCollectionId;
+    }
+    
+    if (objOwner.length) {
+        item.objOwner = objOwner;
+    }
+    
+    [[MHCoreDataContext getInstance] saveContext];
 
 }
 
