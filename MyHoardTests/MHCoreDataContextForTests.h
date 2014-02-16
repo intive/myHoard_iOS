@@ -10,8 +10,6 @@
 
 @interface MHCoreDataContextForTests : MHCoreDataContext
 
-+ (MHCoreDataContextForTests *)getInstance;
-
 - (void)dropTestPersistentStore;
 
 @end

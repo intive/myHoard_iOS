@@ -17,20 +17,6 @@
 
 @implementation MHCoreDataContextForTests
 
-+ (MHCoreDataContextForTests *)getInstance
-{
-	static MHCoreDataContextForTests *cdcInstance;
-
-	@synchronized(self)
-	{
-		if (!cdcInstance)
-		{
-			cdcInstance = [[MHCoreDataContextForTests alloc] init];
-		}
-		return cdcInstance;
-	}
-}
-
 - (NSPersistentStoreCoordinator *)persistentStoreCoordinator
 {
     if (_persistentStoreCoordinatorForTest != nil)

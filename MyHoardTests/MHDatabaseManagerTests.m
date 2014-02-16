@@ -19,20 +19,22 @@ SPEC_BEGIN(MHDatabaseManagerTests)
 
 describe(@"MHDatabaseManager Tests", ^{
 
-    MHCoreDataContextForTests* cdcTest = [MHCoreDataContextForTests getInstance];
+    __block MHCoreDataContextForTests* cdcTest = nil;
 
     beforeEach(^{
+        cdcTest = [MHCoreDataContextForTests new];
         [MHCoreDataContext stub:@selector(getInstance) andReturn:cdcTest];
     });
 
     afterEach(^{
         [cdcTest dropTestPersistentStore];
+        cdcTest = nil;
     });
     
     it(@"Add objects to DB test", ^{
         [MHDatabaseManager insertCollectionWithObjId:@"1" objName:@"name" objDescription:@"1" objTags:@[@"1", @"2"] objItemsNumber:nil objCreatedDate:[NSDate date] objModifiedDate:nil objOwner:nil];
 
-        NSManagedObjectContext* context = [MHCoreDataContextForTests getInstance].managedObjectContext;
+        NSManagedObjectContext* context = cdcTest.managedObjectContext;
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
         NSEntityDescription *entity = [NSEntityDescription entityForName:@"MHCollection"
                                                   inManagedObjectContext:context];
@@ -52,11 +54,11 @@ describe(@"MHDatabaseManager Tests", ^{
         [[co.objTags should] equal:@[@"1", @"2"]];
     });
     
-  /*
+
     it(@"Add items to DB test", ^{
         [MHDatabaseManager insertItemWithObjId:@"1" objName:@"name" objDescription:@"1" objTags:@[@"1", @"2"] objLocation:nil objQuantity:nil objMediaIds:nil objCreatedDate:[NSDate date] objModifiedDate:nil objCollectionId:@"1" objOwner:nil];
         
-        NSManagedObjectContext* context = [MHCoreDataContextForTests getInstance].managedObjectContext;
+        NSManagedObjectContext* context = cdcTest.managedObjectContext;
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
         NSEntityDescription *entity = [NSEntityDescription entityForName:@"MHItem"
                                                   inManagedObjectContext:context];
@@ -76,7 +78,7 @@ describe(@"MHDatabaseManager Tests", ^{
         [[item.objTags should] equal:@[@"1", @"2"]];
 
     });
- */
+
     
 });
 
