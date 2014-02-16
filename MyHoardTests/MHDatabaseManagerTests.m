@@ -30,13 +30,16 @@ describe(@"MHDatabaseManager Tests", ^{
     });
     
     it(@"Add objects to DB test", ^{
+        
+#pragma Colletion test:
+        
         [MHDatabaseManager insertCollectionWithObjId:@"1" objName:@"name" objDescription:@"1" objTags:@[@"1", @"2"] objItemsNumber:nil objCreatedDate:[NSDate date] objModifiedDate:nil objOwner:nil];
 
         NSManagedObjectContext* context = [MHCoreDataContextForTests getInstance].managedObjectContext;
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-        NSEntityDescription *entity = [NSEntityDescription entityForName:@"MHCollection"
+        NSEntityDescription *entityColl = [NSEntityDescription entityForName:@"MHCollection"
                                                   inManagedObjectContext:context];
-        [fetchRequest setEntity:entity];
+        [fetchRequest setEntity:entityColl];
         NSError* error = nil;
         NSArray *fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
 
@@ -50,34 +53,30 @@ describe(@"MHDatabaseManager Tests", ^{
         [[co.objName should] equal:@"name"];
         [[theValue(co.objTags.count) should] equal:theValue(2)];
         [[co.objTags should] equal:@[@"1", @"2"]];
-    });
-    
-  /*
-    it(@"Add items to DB test", ^{
+        
+#pragma Item test:
+        
         [MHDatabaseManager insertItemWithObjId:@"1" objName:@"name" objDescription:@"1" objTags:@[@"1", @"2"] objLocation:nil objQuantity:nil objMediaIds:nil objCreatedDate:[NSDate date] objModifiedDate:nil objCollectionId:@"1" objOwner:nil];
         
-        NSManagedObjectContext* context = [MHCoreDataContextForTests getInstance].managedObjectContext;
-        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-        NSEntityDescription *entity = [NSEntityDescription entityForName:@"MHItem"
+        NSEntityDescription *entityItem = [NSEntityDescription entityForName:@"MHItem"
                                                   inManagedObjectContext:context];
-        [fetchRequest setEntity:entity];
-        NSError* error = nil;
-        NSArray *fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
+        [fetchRequest setEntity:entityItem];
+        
+        NSArray *fetchedObjectsItem = [context executeFetchRequest:fetchRequest error:&error];
         
         [[error should] beNil];
-        [[fetchedObjects should] beNonNil];
-        [[theValue(fetchedObjects.count) should] equal:theValue(1)];
+        [[fetchedObjectsItem should] beNonNil];
+        [[theValue(fetchedObjectsItem.count) should] equal:theValue(1)];
         
-        MHItem* item = [fetchedObjects objectAtIndex:0];
+        MHItem* item = [fetchedObjectsItem objectAtIndex:0];
         
         [[item.objId should] equal:@"1"];
         [[item.objName should] equal:@"name"];
         [[theValue(item.objTags.count) should] equal:theValue(2)];
         [[item.objTags should] equal:@[@"1", @"2"]];
-
+        
     });
- */
-    
+
 });
 
 SPEC_END
