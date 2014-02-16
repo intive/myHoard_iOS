@@ -31,7 +31,7 @@ describe(@"MHDatabaseManager Tests", ^{
         cdcTest = nil;
     });
     
-    it(@"Add objects to DB test", ^{
+    it(@"Add collections to DB test", ^{
         [MHDatabaseManager insertCollectionWithObjId:@"1" objName:@"name" objDescription:@"1" objTags:@[@"1", @"2"] objItemsNumber:nil objCreatedDate:[NSDate date] objModifiedDate:nil objOwner:nil];
 
         NSManagedObjectContext* context = cdcTest.managedObjectContext;
