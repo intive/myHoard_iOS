@@ -139,8 +139,21 @@
 
 + (MHItem*)getItemWithObjId:(NSString*)objId
 {
-    return nil;
-}
+    NSFetchRequest *fetch = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"MHItem" inManagedObjectContext: [MHCoreDataContext getInstance].managedObjectContext];
+    [fetch setEntity:entityDescription];
+    [fetch setPredicate:[NSPredicate predicateWithFormat:@"objId = %@", objId]];
+    NSError *error = nil;
+    NSArray *fetchedObjects = [[MHCoreDataContext getInstance].managedObjectContext executeFetchRequest:fetch error:&error];
+    
+    if([fetchedObjects count] == 1)
+    {
+        MHItem *item = [fetchedObjects objectAtIndex:0];
+        return item;
+    }
+    else
+        return nil;
+  }
 
 + (NSArray*)getAllItemsForCollectionWithObjId:(NSString*)collectionObjId
 {
