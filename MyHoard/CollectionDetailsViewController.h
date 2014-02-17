@@ -10,8 +10,8 @@
 
 @interface CollectionDetailsViewController : UITableViewController
 
-@property (strong, nonatomic) IBOutlet UITextField *collectionNameTextField;
-@property (strong, nonatomic) IBOutlet UITextField *collectionIdTextField;
+@property (weak, nonatomic) IBOutlet UITextField *collectionNameTextField;
+@property (weak, nonatomic) IBOutlet UITextField *collectionIdTextField;
 
 
 - (IBAction)cancel:(id)sender;

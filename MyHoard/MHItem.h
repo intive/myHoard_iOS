@@ -11,16 +11,16 @@
 
 @interface MHItem : NSManagedObject
 
-@property (nonatomic, retain) NSString *objId;
-@property (nonatomic, retain) NSString *objName;
-@property (nonatomic, retain) NSString *objDescription;
-@property (nonatomic, retain) NSArray *objTags;
-@property (nonatomic, retain) NSDictionary *objLoctaion;
-@property (nonatomic, retain) NSNumber *objQuantity;
-@property (nonatomic, retain) NSArray *objMediaIds;
-@property (nonatomic, retain) NSDate *objCreatedDate;
-@property (nonatomic, retain) NSDate *objModifiedDate;
-@property (nonatomic, retain) NSString *objCollectionId;
-@property (nonatomic, retain) NSString *objOwner;
+@property (nonatomic, strong) NSString *objId;
+@property (nonatomic, strong) NSString *objName;
+@property (nonatomic, strong) NSString *objDescription;
+@property (nonatomic, strong) NSArray *objTags;
+@property (nonatomic, strong) NSDictionary *objLoctaion;
+@property (nonatomic, strong) NSNumber *objQuantity;
+@property (nonatomic, strong) NSArray *objMediaIds;
+@property (nonatomic, strong) NSDate *objCreatedDate;
+@property (nonatomic, strong) NSDate *objModifiedDate;
+@property (nonatomic, strong) NSString *objCollectionId;
+@property (nonatomic, strong) NSString *objOwner;
 
 @end

@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreData/CoreData.h>
 
-@interface CollectionViewController : UITableViewController
+@interface CollectionViewController : UITableViewController <NSFetchedResultsControllerDelegate>
 
-@property (nonatomic, strong) NSMutableArray *collections;
+@property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 
 @end

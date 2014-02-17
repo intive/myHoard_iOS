@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreData/CoreData.h>
 
-@interface MHItemViewController : UITableViewController
+@interface MHItemViewController : UITableViewController <NSFetchedResultsControllerDelegate>
 
-@property (nonatomic, strong) NSMutableArray *items;
+@property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 
 @end

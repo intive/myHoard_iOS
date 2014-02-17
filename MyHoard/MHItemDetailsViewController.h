@@ -10,8 +10,8 @@
 
 @interface MHItemDetailsViewController : UITableViewController
 
-@property (strong, nonatomic) IBOutlet UITextField *itemNameTextField;
-@property (strong, nonatomic) IBOutlet UITextField *itemIdTextField;
+@property (weak, nonatomic) IBOutlet UITextField *itemNameTextField;
+@property (weak, nonatomic) IBOutlet UITextField *itemIdTextField;
 
 - (IBAction)cancel:(id)sender;
 - (IBAction)done:(id)sender;

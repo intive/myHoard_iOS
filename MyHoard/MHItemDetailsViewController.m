@@ -45,11 +45,14 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (indexPath.section == 0) {
+    enum {kSectionItemName = 0, kSectionItemId};
+
+    if (indexPath.section == kSectionItemName) {
         [self.itemNameTextField becomeFirstResponder];
-    }else if (indexPath.section == 1) {
+    }else if (indexPath.section == kSectionItemId) {
         [self.itemIdTextField becomeFirstResponder];
     }
+  
 }
 
 - (void)didReceiveMemoryWarning
