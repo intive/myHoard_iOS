@@ -1,16 +1,28 @@
 language: objective-c
-
 rvm: 1.9.3
-
 before_script:
-  - brew update
-  - brew upgrade xctool
-
+- brew update
+- brew upgrade xctool
+- openssl aes-256-cbc -k "$ENCRYPTION_SECRET" -in scripts/profile/MyHoard_AdHoc_Distribution.mobileprovision.enc -d -a -out scripts/profile/MyHoard_AdHoc_Distribution.mobileprovision
+- openssl aes-256-cbc -k "$ENCRYPTION_SECRET" -in scripts/certs/dist.p12.enc -d -a -out scripts/certs/dist.p12
+- openssl aes-256-cbc -k "$ENCRYPTION_SECRET" -in scripts/certs/dist.p12.enc -d -a -out scripts/certs/dist.p12
+- ./scripts/add-key.sh
 script:
-  - xctool -workspace MyHoard.xcworkspace -scheme MyHoard -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
-  - xctool test -workspace MyHoard.xcworkspace -scheme MyHoardTests -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
-
+- xctool -workspace MyHoard.xcworkspace -scheme MyHoard -sdk iphoneos -configuration Release OBJROOT=$PWD/build SYMROOT=$PWD/build ONLY_ACTIVE_ARCH=NO
+- xctool test -workspace MyHoard.xcworkspace -scheme MyHoardTests -sdk iphonesimulator
+  ONLY_ACTIVE_ARCH=NO
+after_script:
+- ./scripts/remove-key.sh
+after_success:
+- ./scripts/sign-and-upload.sh
 notifications:
   email:
-    - sebastian.jedruszkiewicz@blstream.com
-    - karol.kogut@blstream.com
+  - sebastian.jedruszkiewicz@blstream.com
+  - karol.kogut@blstream.com
+env:
+  global:
+  - secure: dpoYPkSt1AybS7nIAek7+N8HcmBPOKzrBW26EiopfC6DIt8AqnkO3pk1rkrs3+chP298Ah9oytOVk0LgtnId/DYgIEdWHX1jbLMQnXKHBefDJXvd63vzUj2LAKVmXo4RE0diHPtwFIoi7V8m+YTNgFrJtTK1UqyurhhTWrRRDrU=
+  - APP_NAME="MyHoard"
+  - 'DEVELOPER_NAME="iPhone Distribution: {BLStream} ({XTRY58ZV6V})"'
+  - PROFILE_NAME="MyHoard_AdHoc_Distribution"
+  - secure: U8VugqPamlZ2ybSzDwWDV1Aq9RxsAWn5v1MyYe5qsLRguDw34iHDdyhiGeqld9R/unkTsheSPP8eI0RDOn383rgr35MKp6M9WbYfN6rBW8cBhIKbkOBHH7oM+0sWhXlg46rMMbG+85BaP8VmIMNEl6LfhMUSm4K2+IMZxblHAmc=
