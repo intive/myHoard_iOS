@@ -23,6 +23,6 @@ env:
   global:
   - secure: dpoYPkSt1AybS7nIAek7+N8HcmBPOKzrBW26EiopfC6DIt8AqnkO3pk1rkrs3+chP298Ah9oytOVk0LgtnId/DYgIEdWHX1jbLMQnXKHBefDJXvd63vzUj2LAKVmXo4RE0diHPtwFIoi7V8m+YTNgFrJtTK1UqyurhhTWrRRDrU=
   - APP_NAME="MyHoard"
-  - 'DEVELOPER_NAME="iPhone Distribution: {BLStream} ({XTRY58ZV6V})"'
+  - 'DEVELOPER_NAME="iPhone Distribution: BLStream (XTRY58ZV6V)"'
   - PROFILE_NAME="MyHoard_AdHoc_Distribution"
   - secure: U8VugqPamlZ2ybSzDwWDV1Aq9RxsAWn5v1MyYe5qsLRguDw34iHDdyhiGeqld9R/unkTsheSPP8eI0RDOn383rgr35MKp6M9WbYfN6rBW8cBhIKbkOBHH7oM+0sWhXlg46rMMbG+85BaP8VmIMNEl6LfhMUSm4K2+IMZxblHAmc=
