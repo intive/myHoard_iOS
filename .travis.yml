@@ -8,7 +8,7 @@ before_script:
 - openssl aes-256-cbc -k "$ENCRYPTION_SECRET" -in scripts/certs/dist.p12.enc -d -a -out scripts/certs/dist.p12
 - ./scripts/add-key.sh
 script:
-- xctool -workspace MyHoard.xcworkspace -scheme MyHoard -sdk iphoneos -configuration Release OBJROOT=$PWD/build SYMROOT=$PWD/build ONLY_ACTIVE_ARCH=NO
+- xctool -workspace MyHoard.xcworkspace -scheme MyHoard -sdk iphoneos -configuration Release OBJROOT="$PWD/build" SYMROOT="$PWD/build" ONLY_ACTIVE_ARCH=NO
 - xctool test -workspace MyHoard.xcworkspace -scheme MyHoardTests -sdk iphonesimulator
   ONLY_ACTIVE_ARCH=NO
 after_script:
