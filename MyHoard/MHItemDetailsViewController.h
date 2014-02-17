@@ -12,9 +12,11 @@
 
 @property (weak, nonatomic) IBOutlet UITextField *itemNameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *itemIdTextField;
+@property (weak, nonatomic) IBOutlet UITextField *itemCollectionIdTextField;
 
 - (IBAction)cancel:(id)sender;
 - (IBAction)done:(id)sender;
-- (IBAction)delete:(id)sender;
+- (IBAction)deleteItem:(id)sender;
+- (IBAction)deleteItemCollection:(id)sender;
 
 @end

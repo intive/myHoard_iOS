@@ -35,6 +35,7 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     self.itemIdTextField.delegate = self;
     self.itemNameTextField.delegate = self;
+    self.itemCollectionIdTextField.delegate = self;
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -45,12 +46,14 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    enum {kSectionItemName = 0, kSectionItemId};
+    enum {kSectionItemName = 0, kSectionItemId, kSectionItemCollectionId};
 
     if (indexPath.section == kSectionItemName) {
         [self.itemNameTextField becomeFirstResponder];
     }else if (indexPath.section == kSectionItemId) {
         [self.itemIdTextField becomeFirstResponder];
+    }else if (indexPath.section == kSectionItemCollectionId) {
+        [self.itemCollectionIdTextField becomeFirstResponder];
     }
   
 }
@@ -67,7 +70,7 @@
 {
 #warning Potentially incomplete method implementation.
     // Return the number of sections.
-    return 2;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -137,20 +140,34 @@
 
 - (IBAction)done:(id)sender {
     
-    [MHDatabaseManager insertItemWithObjId:[NSString stringWithFormat:@"%@", self.itemIdTextField.text] objName:[NSString stringWithFormat:@"%@", self.itemNameTextField.text] objDescription:nil objTags:nil objLocation:nil objQuantity:nil objMediaIds:nil objCreatedDate:[NSDate date] objModifiedDate:nil objCollectionId:nil objOwner:nil];
+    [MHDatabaseManager insertItemWithObjId:[NSString stringWithFormat:@"%@", self.itemIdTextField.text] objName:[NSString stringWithFormat:@"%@", self.itemNameTextField.text] objDescription:nil objTags:nil objLocation:nil objQuantity:nil objMediaIds:nil objCreatedDate:[NSDate date] objModifiedDate:nil objCollectionId:[NSString stringWithFormat:@"%@", self.itemCollectionIdTextField.text] objOwner:nil];
     
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (IBAction)delete:(UIButton *)sender {
+- (IBAction)deleteItem:(id)sender {
     
-    if (![self.itemIdTextField.text length] > 0) {
+    if (!self.itemIdTextField.text.length) {
         NSLog(@"To delete an item you need to specify objId");
+        return;
     }
     
     [MHDatabaseManager removeItemWithObjId:self.itemIdTextField.text];
     
     [self dismissViewControllerAnimated:YES completion:nil];
     
+}
+
+- (IBAction)deleteItemCollection:(id)sender {
+    
+    
+    if (!self.itemCollectionIdTextField.text.length) {
+        NSLog(@"To delete an item you need to specify objCollectionId");
+        return;
+    }
+    
+    [MHDatabaseManager removeAllItemForCollectionWithObjId:self.itemCollectionIdTextField.text];
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 @end
