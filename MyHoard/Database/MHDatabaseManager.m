@@ -149,7 +149,24 @@
 
 + (void)removeItemWithObjId:(NSString*)objId
 {
-
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"MHItem" inManagedObjectContext:[MHCoreDataContext getInstance].managedObjectContext];
+    [fetchRequest setEntity:entity];
+    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"objId==%@", objId]];
+    
+    NSError *error = nil;
+    
+    NSArray *fetchedObjects = [[MHCoreDataContext getInstance].managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    
+    if (fetchedObjects != nil) {
+        for (NSManagedObject *object in fetchedObjects) {
+            [[MHCoreDataContext getInstance].managedObjectContext deleteObject:object];
+        }
+    }
+    
+    [[MHCoreDataContext getInstance] saveContext];
+    
 }
 
 + (void)removeAllItemForCollectionWithObjId:(NSString*)collectionObjId

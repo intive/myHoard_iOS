@@ -15,5 +15,6 @@
 
 - (IBAction)cancel:(id)sender;
 - (IBAction)done:(id)sender;
+- (IBAction)delete:(id)sender;
 
 @end

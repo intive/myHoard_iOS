@@ -141,4 +141,16 @@
     
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+
+- (IBAction)delete:(UIButton *)sender {
+    
+    if (![self.itemIdTextField.text length] > 0) {
+        NSLog(@"To delete an item you need to specify objId");
+    }
+    
+    [MHDatabaseManager removeItemWithObjId:self.itemIdTextField.text];
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+    
+}
 @end

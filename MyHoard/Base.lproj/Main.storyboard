@@ -117,6 +117,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <button key="tableFooterView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="tsC-NU-kzd">
+                            <rect key="frame" x="0.0" y="265" width="320" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <state key="normal" title="Delete"/>
+                            <connections>
+                                <action selector="delete:" destination="wAp-lX-3ho" eventType="touchUpInside" id="kVg-lO-WqP"/>
+                            </connections>
+                        </button>
                         <sections>
                             <tableViewSection headerTitle="Item name" id="tEe-6q-4Af">
                                 <cells>
