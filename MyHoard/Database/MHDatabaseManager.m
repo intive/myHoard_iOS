@@ -69,6 +69,7 @@
 
 + (void)removeCollectionWithId:(NSString*)objId
 {
+    [[MHCoreDataContext getInstance].managedObjectContext deleteObject:[self getCollectionWithObjId:objId]];
 
 }
 
