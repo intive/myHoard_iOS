@@ -170,4 +170,21 @@
     
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+
+- (IBAction)search:(id)sender {
+    
+    if (!self.itemCollectionIdTextField.text.length) {
+        NSLog(@"To search for an item you must specify objCollectionId");
+        return;
+    }
+    
+    NSArray *result = [MHDatabaseManager getAllItemsForCollectionWithObjId:self.itemCollectionIdTextField.text];
+    
+    for (id object in result) {
+        NSLog(@"%@", object);
+    }
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 @end

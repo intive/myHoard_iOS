@@ -157,7 +157,23 @@
 
 + (NSArray*)getAllItemsForCollectionWithObjId:(NSString*)collectionObjId
 {
-    return nil;
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc]init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"MHItem" inManagedObjectContext:[MHCoreDataContext getInstance].managedObjectContext];
+    
+    [fetchRequest setEntity:entity];
+    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"objCollectionId==%@", collectionObjId]];
+    
+    NSError *error = nil;
+    
+    NSArray *fetchedObjects = [[MHCoreDataContext getInstance].managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    
+    if (fetchedObjects.count <= 0)
+        NSLog(@"No maching objects found");
+    
+    
+    return fetchedObjects;
+    
 }
 
 + (void)removeItemWithObjId:(NSString*)objId

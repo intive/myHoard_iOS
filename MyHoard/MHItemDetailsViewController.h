@@ -18,5 +18,6 @@
 - (IBAction)done:(id)sender;
 - (IBAction)deleteItem:(id)sender;
 - (IBAction)deleteItemCollection:(id)sender;
+- (IBAction)search:(id)sender;
 
 @end
