@@ -78,7 +78,68 @@ describe(@"MHDatabaseManager Tests", ^{
         [[item.objTags should] equal:@[@"1", @"2"]];
 
     });
+    
+    it(@"Remove items by objCollectionId form DB test", ^{
+       
+       [MHDatabaseManager insertItemWithObjId:@"1" objName:@"name" objDescription:@"1" objTags:@[@"1", @"2"] objLocation:nil objQuantity:nil objMediaIds:nil objCreatedDate:[NSDate date] objModifiedDate:nil objCollectionId:@"carsCollection" objOwner:nil];
+        
+       [MHDatabaseManager insertItemWithObjId:@"2" objName:@"name2" objDescription:@"2" objTags:@[@"3", @"4"] objLocation:nil objQuantity:nil objMediaIds:nil objCreatedDate:[NSDate date] objModifiedDate:nil objCollectionId:@"otherCollection" objOwner:nil];
+        
+        [MHDatabaseManager removeAllItemForCollectionWithObjId:@"carsCollection"];
+        
+        NSManagedObjectContext* context = cdcTest.managedObjectContext;
+        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+        NSEntityDescription *entity = [NSEntityDescription entityForName:@"MHItem"
+                                                  inManagedObjectContext:context];
+        [fetchRequest setEntity:entity];
+        NSError* error = nil;
+        NSArray *fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
+        
+        [[error should] beNil];
+        [[fetchedObjects should] beNonNil];
+        [[theValue(fetchedObjects.count) should] equal:theValue(1)];
+        
+        MHItem* item = [fetchedObjects objectAtIndex:0];
+        
+        [[item.objId should] equal:@"2"];
+        [[item.objName should] equal:@"name2"];
+        [[theValue(item.objTags.count) should] equal:theValue(2)];
+        [[item.objTags should] equal:@[@"3", @"4"]];
+        [[item.objCollectionId should] equal:@"otherCollection"];
 
+        [[fetchedObjects shouldNot]contain:@"carsCollection"];
+        
+    });
+    
+    it(@"Get all items by objCollectionId from DB test", ^{
+        
+        [MHDatabaseManager insertItemWithObjId:@"1" objName:@"name" objDescription:@"1" objTags:@[@"1", @"2"] objLocation:nil objQuantity:nil objMediaIds:nil objCreatedDate:[NSDate date] objModifiedDate:nil objCollectionId:@"testId" objOwner:nil];
+        
+        NSArray *fetchedObjects = [MHDatabaseManager getAllItemsForCollectionWithObjId:@"testId"];
+        
+        [[fetchedObjects should] beNonNil];
+        [[theValue(fetchedObjects.count) should] equal:theValue(1)];
+        
+        MHItem *item = [fetchedObjects objectAtIndex:0];
+        
+        [[item.objCollectionId should] equal:@"testId"];
+        [[item.objCollectionId shouldNot] equal:@"test2"];
+        [[item.objCollectionId shouldNot] equal:@"2test"];
+        [[item.objCollectionId should] startWithString:@"test"];
+        
+    });
+
+    it(@"Get item by objId from DB test", ^{
+        
+        [MHDatabaseManager insertItemWithObjId:@"1" objName:@"name" objDescription:@"1" objTags:@[@"1", @"2"] objLocation:nil objQuantity:nil objMediaIds:nil objCreatedDate:[NSDate date] objModifiedDate:nil objCollectionId:@"test" objOwner:nil];
+        
+        MHItem *item = [MHDatabaseManager getItemWithObjId:@"1"];
+        
+        [[item should] beNonNil];
+        [[item.objId should] equal:@"1"];
+        [[item.objCollectionId should] equal:@"test"];
+        
+    });
     
 });
 
