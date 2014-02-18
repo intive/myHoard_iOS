@@ -59,6 +59,15 @@
 
 + (MHCollection*)getCollectionWithObjId:(NSString*)objId
 {
+    int i;
+    NSMutableArray *collections = [[NSMutableArray alloc]init];
+    collections = [NSMutableArray arrayWithArray:[self getAllCollections]];
+    for(i=0; i<[collections count]; i++){
+    if([[[collections objectAtIndex:i] objId] isEqualToString:objId]){
+        NSLog(@"%@",[[collections objectAtIndex:i] objId]);
+        return [collections objectAtIndex:i];
+    }
+    }
     return nil;
 }
 
