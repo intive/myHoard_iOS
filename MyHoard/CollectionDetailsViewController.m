@@ -87,6 +87,32 @@
     
 }
 
+- (IBAction)deleteCollection:(id)sender {
+    
+    if (!self.collectionIdTextField.text.length) {
+        NSLog(@"To delete a collection you need to specify objId");
+        return;
+    }
+    
+    [MHDatabaseManager removeCollectionWithId:self.collectionIdTextField.text];
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+    
+}
+
+
+- (IBAction)search:(id)sender {
+    
+    if (!self.collectionIdTextField.text.length) {
+        NSLog(@"To search for a collection you need to specify objId");
+        return;
+    }
+    
+    NSLog(@"%@",[MHDatabaseManager getCollectionWithObjId:self.collectionIdTextField.text]);
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+    
+}
 
 
 @end

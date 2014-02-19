@@ -16,5 +16,7 @@
 
 - (IBAction)cancel:(id)sender;
 - (IBAction)done:(id)sender;
+- (IBAction)deleteCollection:(id)sender;
+- (IBAction)search:(id)sender;
 
 @end

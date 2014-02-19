@@ -204,9 +204,10 @@
     
     NSArray *fetchedObjects = [[MHCoreDataContext getInstance].managedObjectContext executeFetchRequest:fetchRequest error:&error];
     
-    if (error != nil)
+    if (error != nil){
         NSLog(@"Unresolved error: %@, %@", error, [error userInfo]);
-
+        return nil;
+    }
     
     return fetchedObjects;
     

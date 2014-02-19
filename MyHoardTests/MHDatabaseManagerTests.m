@@ -102,10 +102,9 @@ describe(@"MHDatabaseManager Tests", ^{
         [[fetchedObjects should] beNonNil];
         [[theValue(fetchedObjects.count) should] equal:theValue(1)];
         
-        [fetchedObjects enumerateObjectsUsingBlock:^(MHItem *item, NSUInteger idx, BOOL *stop) {
+        for(MHItem *item in fetchedObjects){
             [[item.objCollectionId shouldNot] equal:@"carsCollection"];
-            [[item.objCollectionId should] equal:@"otherCollection"];
-        }];
+        }
         
     });
     
