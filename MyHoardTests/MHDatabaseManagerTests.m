@@ -206,6 +206,38 @@ describe(@"MHDatabaseManager Tests", ^{
         [[theValue(co.objTags.count) should] equal:theValue(2)];
         [[co.objTags should] equal:@[@"2", @"1"]];
     });
+    it(@"Get collection by objId from DB test", ^{
+        [MHDatabaseManager insertCollectionWithObjId:@"1" objName:@"name" objDescription:@"1" objTags:@[@"1", @"2"] objItemsNumber:nil objCreatedDate:[NSDate date] objModifiedDate:nil objOwner:nil];
+        [MHDatabaseManager insertCollectionWithObjId:@"2" objName:@"name2" objDescription:@"2" objTags:@[@"2", @"1"] objItemsNumber:nil objCreatedDate:[NSDate date] objModifiedDate:nil objOwner:nil];
+        
+        MHCollection *co = [MHDatabaseManager getCollectionWithObjId:@"1"];
+        
+        [[co.objId should] equal:@"1"];
+        [[co.objName should] equal:@"name"];
+        [[theValue(co.objTags.count) should] equal:theValue(2)];
+        [[co.objTags should] equal:@[@"1", @"2"]];
+        
+        MHCollection *co2 = [MHDatabaseManager getCollectionWithObjId:@"2"];
+        
+        [[co2.objId should] equal:@"2"];
+        [[co2.objName should] equal:@"name2"];
+        [[theValue(co2.objTags.count) should] equal:theValue(2)];
+        [[co2.objTags should] equal:@[@"2", @"1"]];
+        
+        MHCollection *co3 = [MHDatabaseManager getCollectionWithObjId:@"1"];//checking if it is possible to get the same data more time then one
+        
+        [[co3.objId should] equal:@"1"];
+        [[co3.objName should] equal:@"name"];
+        [[theValue(co3.objTags.count) should] equal:theValue(2)];
+        [[co3.objTags should] equal:@[@"1", @"2"]];
+        
+        MHCollection *co4 = [MHDatabaseManager getCollectionWithObjId:@"72"];//checking if it is not getting items witch is not matching an Id
+        
+        [[co4.objId should] beNil];
+        [[co4.objName should] beNil];
+        [[theValue(co4.objTags.count) should] equal:theValue(0)];
+        [[co4.objTags should] beNil];
+    });
 
 });
 
