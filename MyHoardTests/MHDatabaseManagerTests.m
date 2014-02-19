@@ -127,16 +127,17 @@ describe(@"MHDatabaseManager Tests", ^{
         
     });
 
-    it(@"Get item by objId from DB test", ^{
+    it(@"Take item from DB test", ^{
+        NSDate *itemCreatedDate = [NSDate date];
+        [MHDatabaseManager insertItemWithObjId:@"1" objName:@"name" objDescription:@"1" objTags:@[@"1", @"2"] objLocation:nil objQuantity:nil objMediaIds:nil objCreatedDate:itemCreatedDate objModifiedDate:nil objCollectionId:@"1" objOwner:nil];
         
-        [MHDatabaseManager insertItemWithObjId:@"1" objName:@"name" objDescription:@"1" objTags:@[@"1", @"2"] objLocation:nil objQuantity:nil objMediaIds:nil objCreatedDate:[NSDate date] objModifiedDate:nil objCollectionId:@"test" objOwner:nil];
+        MHItem *item = [MHDatabaseManager itemWithObjId:@"1"];
         
-        MHItem *item = [MHDatabaseManager getItemWithObjId:@"1"];
-        
-        [[item should] beNonNil];
         [[item.objId should] equal:@"1"];
-        [[item.objCollectionId should] equal:@"test"];
-        
+        [[item.objName should] equal:@"name"];
+        [[theValue(item.objTags.count) should] equal:theValue(2)];
+        [[item.objTags should] equal:@[@"1", @"2"]];
+        [[item.objCreatedDate] should ] equal:itemCreatedDate];
     });
 
     it(@"Id of collecion should be unique", ^{
