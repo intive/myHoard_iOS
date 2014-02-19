@@ -31,7 +31,6 @@
         return;
     }
 
-#warning check if objId exist in DB
     if ([MHDatabaseManager getCollectionWithObjId:objId]) {
         NSLog(@"All collections must have a unique objId");
         return;
