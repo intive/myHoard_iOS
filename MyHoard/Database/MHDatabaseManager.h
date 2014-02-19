@@ -43,7 +43,7 @@
                    objOwner:(NSString*)objOwner;
 
 
-+ (MHItem*)getItemWithObjId:(NSString*)objId;
++ (MHItem*)itemWithObjId:(NSString*)objId;
 
 + (NSArray*)getAllItemsForCollectionWithObjId:(NSString*)collectionObjId;
 
