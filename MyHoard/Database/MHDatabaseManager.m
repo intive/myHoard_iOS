@@ -31,8 +31,11 @@
         return;
     }
 
-#warning check if objId exist in DB
-
+    if ([MHDatabaseManager getCollectionWithObjId:objId]) {
+        NSLog(@"All collections must have a unique objId");
+        return;
+    }
+    
     MHCollection* collection = [NSEntityDescription insertNewObjectForEntityForName:@"MHCollection" inManagedObjectContext:[MHCoreDataContext getInstance].managedObjectContext];
 
     collection.objId = objId;
@@ -106,6 +109,11 @@
         return;
     }
     
+    if ([MHDatabaseManager itemWithObjId:objId]) {
+        NSLog(@"All items must have an unique objId");
+        return;
+    }
+    
     MHItem *item = [NSEntityDescription insertNewObjectForEntityForName:@"MHItem" inManagedObjectContext:[MHCoreDataContext getInstance].managedObjectContext];
     
     item.objId = objId;
@@ -149,7 +157,7 @@
 }
 
 
-+ (MHItem*)getItemWithObjId:(NSString*)objId
++ (MHItem*)itemWithObjId:(NSString*)objId
 {
     NSFetchRequest *fetch = [[NSFetchRequest alloc] init];
     NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"MHItem" inManagedObjectContext: [MHCoreDataContext getInstance].managedObjectContext];
@@ -180,9 +188,9 @@
     
     NSArray *fetchedObjects = [[MHCoreDataContext getInstance].managedObjectContext executeFetchRequest:fetchRequest error:&error];
     
-    if (fetchedObjects.count <= 0)
-        NSLog(@"No maching objects found");
-    
+    if (error != nil)
+        NSLog(@"Unresolved error: %@, %@", error, [error userInfo]);
+
     
     return fetchedObjects;
     
@@ -200,10 +208,12 @@
     
     NSArray *fetchedObjects = [[MHCoreDataContext getInstance].managedObjectContext executeFetchRequest:fetchRequest error:&error];
     
-    if (fetchedObjects != nil) {
+    if (fetchedObjects != nil && error == nil) {
         for (NSManagedObject *object in fetchedObjects) {
             [[MHCoreDataContext getInstance].managedObjectContext deleteObject:object];
         }
+    }else {
+        NSLog(@"Unresolved error: %@, %@", error, [error userInfo]);
     }
     
     [[MHCoreDataContext getInstance] saveContext];
@@ -222,10 +232,12 @@
     
     NSArray *fetchedObjects = [[MHCoreDataContext getInstance].managedObjectContext executeFetchRequest:fetchRequest error:&error];
     
-    if (fetchedObjects != nil) {
+    if (fetchedObjects != nil && error == nil) {
         for (NSManagedObject *object in fetchedObjects) {
             [[MHCoreDataContext getInstance].managedObjectContext deleteObject:object];
         }
+    }else {
+        NSLog(@"Unresolved error: %@, %@", error, [error userInfo]);
     }
     
     [[MHCoreDataContext getInstance] saveContext];
