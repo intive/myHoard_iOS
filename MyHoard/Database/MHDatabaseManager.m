@@ -76,7 +76,23 @@
 
 + (NSArray*)getAllCollections
 {
-    return nil;
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc]init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"MHCollection" inManagedObjectContext:[MHCoreDataContext getInstance].managedObjectContext];
+    
+    [fetchRequest setEntity:entity];
+    [fetchRequest setSortDescriptors:
+     
+     @[ [[NSSortDescriptor alloc] initWithKey: @"objName" ascending:YES] ]];
+    
+    NSError *error = nil;
+    
+    NSArray *fetchedObjects = [[MHCoreDataContext getInstance].managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    
+    if (error != nil)
+        NSLog(@"Unresolved error: %@, %@", error, [error userInfo]);
+    
+    
+    return fetchedObjects;
 }
 
 + (void)removeCollectionWithId:(NSString*)objId
