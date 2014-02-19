@@ -59,16 +59,18 @@
 
 + (MHCollection*)getCollectionWithObjId:(NSString*)objId
 {
-    int i;
-    NSMutableArray *collections = [[NSMutableArray alloc]init];
-    collections = [NSMutableArray arrayWithArray:[self getAllCollections]];
-    for(i=0; i<[collections count]; i++){
-    if([[[collections objectAtIndex:i] objId] isEqualToString:objId]){
-        NSLog(@"%@",[[collections objectAtIndex:i] objId]);
-        return [collections objectAtIndex:i];
+    NSFetchRequest *fetch = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"MHCollection" inManagedObjectContext: [MHCoreDataContext getInstance].managedObjectContext];
+    [fetch setEntity:entityDescription];
+    [fetch setPredicate:[NSPredicate predicateWithFormat:@"objId = %@", objId]];
+    NSError *error = nil;
+    NSArray *fetchedObjects = [[MHCoreDataContext getInstance].managedObjectContext executeFetchRequest:fetch error:&error];
+    
+    if([fetchedObjects count] == 1)
+    {
+        return [fetchedObjects objectAtIndex:0];
     }
-    }
-    return nil;
+        return nil;
 }
 
 + (NSArray*)getAllCollections
