@@ -108,7 +108,7 @@
         return;
     }
     
-    if ([MHDatabaseManager getItemWithObjId:objId]) {
+    if ([MHDatabaseManager itemWithObjId:objId]) {
         NSLog(@"All items must have an unique objId");
         return;
     }

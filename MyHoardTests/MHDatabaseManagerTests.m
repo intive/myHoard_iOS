@@ -137,7 +137,7 @@ describe(@"MHDatabaseManager Tests", ^{
         [[item.objName should] equal:@"name"];
         [[theValue(item.objTags.count) should] equal:theValue(2)];
         [[item.objTags should] equal:@[@"1", @"2"]];
-        [[item.objCreatedDate] should ] equal:itemCreatedDate];
+        [[item.objCreatedDate should ] equal:itemCreatedDate];
     });
 
     it(@"Id of collecion should be unique", ^{
