@@ -31,6 +31,8 @@ describe(@"MHDatabaseManager Tests", ^{
         cdcTest = nil;
     });
     
+    
+    
     it(@"Add collections to DB test", ^{
         [MHDatabaseManager insertCollectionWithObjId:@"1" objName:@"name" objDescription:@"1" objTags:@[@"1", @"2"] objItemsNumber:nil objCreatedDate:[NSDate date] objModifiedDate:nil objOwner:nil];
 
@@ -52,6 +54,7 @@ describe(@"MHDatabaseManager Tests", ^{
         [[co.objName should] equal:@"name"];
         [[theValue(co.objTags.count) should] equal:theValue(2)];
         [[co.objTags should] equal:@[@"1", @"2"]];
+        
     });
     
 
@@ -99,15 +102,10 @@ describe(@"MHDatabaseManager Tests", ^{
         [[fetchedObjects should] beNonNil];
         [[theValue(fetchedObjects.count) should] equal:theValue(1)];
         
-        MHItem* item = [fetchedObjects objectAtIndex:0];
-        
-        [[item.objId should] equal:@"2"];
-        [[item.objName should] equal:@"name2"];
-        [[theValue(item.objTags.count) should] equal:theValue(2)];
-        [[item.objTags should] equal:@[@"3", @"4"]];
-        [[item.objCollectionId should] equal:@"otherCollection"];
-
-        [[fetchedObjects shouldNot]contain:@"carsCollection"];
+        [fetchedObjects enumerateObjectsUsingBlock:^(MHItem *item, NSUInteger idx, BOOL *stop) {
+            [[item.objCollectionId shouldNot] equal:@"carsCollection"];
+            [[item.objCollectionId should] equal:@"otherCollection"];
+        }];
         
     });
     
