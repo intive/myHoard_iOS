@@ -1,6 +1,7 @@
 language: objective-c
 rvm: 1.9.3
 before_script:
+- sudo easy_install cpp-coveralls
 - brew update
 - brew upgrade xctool
 - openssl aes-256-cbc -k "$ENCRYPTION_SECRET" -in scripts/profile/MyHoard_AdHoc_Distribution.mobileprovision.enc -d -a -out scripts/profile/MyHoard_AdHoc_Distribution.mobileprovision
@@ -9,10 +10,11 @@ before_script:
 - ./scripts/add-key.sh
 script:
 - xctool -workspace MyHoard.xcworkspace -scheme MyHoard -sdk iphoneos -configuration Release OBJROOT="$PWD/build" SYMROOT="$PWD/build" ONLY_ACTIVE_ARCH=NO
-- xctool test -workspace MyHoard.xcworkspace -scheme MyHoardTests -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
+- xctool test -workspace MyHoard.xcworkspace -scheme MyHoardTests -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO -configuration Debug
 after_script:
 - ./scripts/remove-key.sh
 after_success:
+- ./scripts/coveralls.sh
 - ./scripts/sign-and-upload.sh
 notifications:
   email:
