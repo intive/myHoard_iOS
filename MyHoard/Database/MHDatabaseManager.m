@@ -156,7 +156,7 @@
 }
 
 
-+ (MHItem*)getItemWithObjId:(NSString*)objId
++ (MHItem*)itemWithObjId:(NSString*)objId
 {
     NSFetchRequest *fetch = [[NSFetchRequest alloc] init];
     NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"MHItem" inManagedObjectContext: [MHCoreDataContext getInstance].managedObjectContext];
