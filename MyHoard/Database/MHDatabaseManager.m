@@ -68,14 +68,15 @@
     [fetch setPredicate:[NSPredicate predicateWithFormat:@"objId = %@", objId]];
     NSError *error = nil;
     NSArray *fetchedObjects = [[MHCoreDataContext getInstance].managedObjectContext executeFetchRequest:fetch error:&error];
-    
-    if([fetchedObjects count] == 1)
-    {
-        return [fetchedObjects objectAtIndex:0];
+    if(error==nil){
+        if([fetchedObjects count] == 1)
+        {
+            return [fetchedObjects objectAtIndex:0];
+        }
     }
-        return nil;
+    NSLog(@"Unresolved error: %@, %@", error, [error userInfo]);
+    return nil;
 }
-
 + (NSArray*)getAllCollections
 {
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc]init];
