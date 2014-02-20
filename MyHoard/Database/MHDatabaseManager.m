@@ -109,10 +109,14 @@
     
     NSArray *fetchedObjects = [[MHCoreDataContext getInstance].managedObjectContext executeFetchRequest:fetchRequest error:&error];
     
-    if (fetchedObjects) {
+    if (fetchedObjects && error==nil) {
         for (NSManagedObject *obj in fetchedObjects) {
             [[MHCoreDataContext getInstance].managedObjectContext deleteObject:obj];
         }
+    }
+    
+    else {
+        NSLog(@"Unresolved error: %@, %@", error, [error userInfo]);
     }
     
     [[MHCoreDataContext getInstance] saveContext];
