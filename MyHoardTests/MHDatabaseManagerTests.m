@@ -194,6 +194,7 @@ describe(@"MHDatabaseManager Tests", ^{
         NSArray *fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
 
         [[error should] beNil];
+        [[[error userInfo]should]beNil];
         [[fetchedObjects should] beNonNil];
         [[theValue(fetchedObjects.count) should] equal:theValue(1)];
 
@@ -235,6 +236,47 @@ describe(@"MHDatabaseManager Tests", ^{
         [[co4.objName should] beNil];
         [[theValue(co4.objTags.count) should] equal:theValue(0)];
         [[co4.objTags should] beNil];
+    });
+    
+    it(@"Remove item with objId", ^{
+       
+        [MHDatabaseManager insertItemWithObjId:@"1" objName:@"name" objDescription:@"1" objTags:@[@"1", @"2"] objLocation:nil objQuantity:nil objMediaIds:nil objCreatedDate:[NSDate date] objModifiedDate:nil objCollectionId:@"testId" objOwner:nil];
+        [MHDatabaseManager insertItemWithObjId:@"2" objName:@"name2" objDescription:@"2" objTags:@[@"1", @"2"] objLocation:nil objQuantity:nil objMediaIds:nil objCreatedDate:[NSDate date] objModifiedDate:nil objCollectionId:@"testId" objOwner:nil];
+        
+        [MHDatabaseManager removeItemWithObjId:@"1"];
+        
+        NSManagedObjectContext *context = cdcTest.managedObjectContext;
+        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+        NSEntityDescription *entity = [NSEntityDescription entityForName:@"MHItem" inManagedObjectContext:context];
+        
+        [fetchRequest setEntity:entity];
+        
+        NSError *error = nil;
+        NSArray *fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
+        
+        [[error should] beNil];
+        [[[error userInfo]should]beNil];
+        [[fetchedObjects should] beNonNil];
+        [[theValue(fetchedObjects.count)should]equal:theValue(1)];
+        
+        MHItem *item = [fetchedObjects objectAtIndex:0];
+        
+        [[item.objId should]equal:@"2"];
+        [[item.objName should] equal:@"name2"];
+        [[theValue(item.objTags.count)should]equal:theValue(2)];
+        
+    });
+    
+    it(@"Get all collections", ^{
+       
+        [MHDatabaseManager insertCollectionWithObjId:@"1" objName:@"name" objDescription:@"1" objTags:@[@"1", @"2"] objItemsNumber:nil objCreatedDate:[NSDate date] objModifiedDate:nil objOwner:nil];
+        [MHDatabaseManager insertCollectionWithObjId:@"2" objName:@"name2" objDescription:@"2" objTags:@[@"2", @"1"] objItemsNumber:nil objCreatedDate:[NSDate date] objModifiedDate:nil objOwner:nil];
+        
+        NSArray *result = [MHDatabaseManager getAllCollections];
+        
+        [[result should]beNonNil];
+        [[theValue(result.count)should]equal:theValue(2)];
+        
     });
 
 });

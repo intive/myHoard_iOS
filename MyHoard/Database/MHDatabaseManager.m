@@ -82,6 +82,8 @@
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc]init];
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"MHCollection" inManagedObjectContext:[MHCoreDataContext getInstance].managedObjectContext];
     
+    [fetchRequest setEntity:entity];
+    
     [fetchRequest setSortDescriptors:@[ [[NSSortDescriptor alloc] initWithKey: @"objName" ascending:YES] ]];
     
     NSError *error = nil;
