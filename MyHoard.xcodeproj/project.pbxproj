@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A90B37718B8CBA0003A3E32 /* MHMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A90B37618B8CBA0003A3E32 /* MHMedia.m */; };
 		2302787418B4C0A900FCD528 /* GcovTestObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 2302787318B4C0A900FCD528 /* GcovTestObserver.m */; };
 		23D321A1184BBFFA002FC13A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23D321A0184BBFFA002FC13A /* Foundation.framework */; };
 		23D321A3184BBFFA002FC13A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23D321A2184BBFFA002FC13A /* CoreGraphics.framework */; };
@@ -49,6 +50,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1A90B37518B8CBA0003A3E32 /* MHMedia.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHMedia.h; sourceTree = "<group>"; };
+		1A90B37618B8CBA0003A3E32 /* MHMedia.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHMedia.m; sourceTree = "<group>"; };
 		2302787318B4C0A900FCD528 /* GcovTestObserver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GcovTestObserver.m; sourceTree = "<group>"; };
 		23D3219D184BBFFA002FC13A /* MyHoard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyHoard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		23D321A0184BBFFA002FC13A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -215,6 +218,8 @@
 			isa = PBXGroup;
 			children = (
 				537CF82A18AD643D008A7E04 /* MyHoardModel.xcdatamodeld */,
+				1A90B37518B8CBA0003A3E32 /* MHMedia.h */,
+				1A90B37618B8CBA0003A3E32 /* MHMedia.m */,
 				CEEA28B918B0DFCF0005D212 /* MHItem.h */,
 				CEEA28BA18B0DFCF0005D212 /* MHItem.m */,
 				537CF82D18AD6AD1008A7E04 /* MHCollection.h */,
@@ -403,6 +408,7 @@
 			files = (
 				23D321B7184BBFFA002FC13A /* ViewController.m in Sources */,
 				23D321B1184BBFFA002FC13A /* AppDelegate.m in Sources */,
+				1A90B37718B8CBA0003A3E32 /* MHMedia.m in Sources */,
 				537CF83618AD8FBF008A7E04 /* MHDatabaseManager.m in Sources */,
 				CE6C31BC18B1422100983736 /* MHItemViewController.m in Sources */,
 				537CF82C18AD643D008A7E04 /* MyHoardModel.xcdatamodeld in Sources */,

@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class MHCollection, MHItem;
+@class MHCollection, MHItem, MHMedia;
 
 @interface MHDatabaseManager : NSObject
 
@@ -50,5 +50,14 @@
 + (void)removeItemWithObjId:(NSString*)objId;
 
 + (void)removeAllItemForCollectionWithObjId:(NSString*)collectionObjId;
+
+#pragma mark - Media
++ (void)insertMediaWithObjId:(NSString*)objId
+                          objItem:(NSString*)objItem
+                   objCreatedDate:(NSDate*)objCreatedDate
+                         objOwner:(NSString*)objOwner
+                     objLocalPath:(NSString*)objLocalPath;
+
++ (MHMedia*)mediaWithObjId:(NSString*)objId;
 
 @end

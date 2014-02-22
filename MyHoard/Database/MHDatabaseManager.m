@@ -11,6 +11,8 @@
 #import "MHCoreDataContext.h"
 #import "MHCollection.h"
 #import "MHItem.h"
+#import "MHMedia.h"
+
 
 @implementation MHDatabaseManager
 
@@ -280,4 +282,60 @@
     
 }
 
+#pragma mark - Media
++ (void)insertMediaWithObjId:(NSString*)objId
+                     objItem:(NSString*)objItem
+              objCreatedDate:(NSDate*)objCreatedDate
+                    objOwner:(NSString*)objOwner
+                objLocalPath:(NSString*)objLocalPath
+{
+    // mandatory fields
+    if (!objId.length || !objCreatedDate)
+    {
+        NSLog(@"One of mandatory fields is not set: objId:%@, objCreatedDate:%@", objId, objCreatedDate);
+        return;
+    }
+    
+    if ([MHDatabaseManager mediaWithObjId:objId]) {
+        NSLog(@"All meida must have a unique objId");
+        return;
+    }
+    
+    MHMedia* media = [NSEntityDescription insertNewObjectForEntityForName:@"MHMedia" inManagedObjectContext:[MHCoreDataContext getInstance].managedObjectContext];
+        
+    media.objId = objId;
+    media.objCreatedDate = objCreatedDate;
+        
+    if (objItem.length)
+        media.objItem = objItem;
+    
+    if (objLocalPath.length)
+        media.objLocalPath = objLocalPath;
+    
+    if (objOwner.length)
+        media.objOwner = objOwner;
+    
+    [[MHCoreDataContext getInstance] saveContext];
+}
+
++ (MHMedia*)mediaWithObjId:(NSString*)objId
+{
+    NSFetchRequest *fetch = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"MHMedia" inManagedObjectContext: [MHCoreDataContext getInstance].managedObjectContext];
+    [fetch setEntity:entityDescription];
+    [fetch setPredicate:[NSPredicate predicateWithFormat:@"objId = %@", objId]];
+    NSError *error = nil;
+    NSArray *fetchedObjects = [[MHCoreDataContext getInstance].managedObjectContext executeFetchRequest:fetch error:&error];
+    if(error==nil){
+        if([fetchedObjects count] == 1)
+        {
+            return [fetchedObjects objectAtIndex:0];
+        }
+    }
+    NSLog(@"Unresolved error: %@, %@", error, [error userInfo]);
+    return nil;
+}
+
+
 @end
+
