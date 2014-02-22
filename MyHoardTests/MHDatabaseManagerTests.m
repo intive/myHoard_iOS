@@ -13,6 +13,7 @@
 #import "MHDatabaseManager.h"
 #import "MHCollection.h"
 #import "MHItem.h"
+#import "MHMedia.h"
 
 
 SPEC_BEGIN(MHDatabaseManagerTests)
@@ -223,7 +224,7 @@ describe(@"MHDatabaseManager Tests", ^{
         [[theValue(co2.objTags.count) should] equal:theValue(2)];
         [[co2.objTags should] equal:@[@"2", @"1"]];
         
-        MHCollection *co3 = [MHDatabaseManager getCollectionWithObjId:@"1"];//checking if it is possible to get the same data more time then one
+        MHCollection *co3 = [MHDatabaseManager getCollectionWithObjId:@"1"];//checking if it is possible to get the same data more time than one
         
         [[co3.objId should] equal:@"1"];
         [[co3.objName should] equal:@"name"];
@@ -278,6 +279,78 @@ describe(@"MHDatabaseManager Tests", ^{
         [[theValue(result.count)should]equal:theValue(2)];
         
     });
+    
+    it(@"Add media to DB test", ^{
+        [MHDatabaseManager insertMediaWithObjId:@"1" objItem:@"ciekaweCoTUSieBedzieWpisywac" objCreatedDate:[NSDate date] objOwner:@"ja" objLocalPath:@"sciezka"];
+        
+        NSManagedObjectContext* context = cdcTest.managedObjectContext;
+        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+        NSEntityDescription *entity = [NSEntityDescription entityForName:@"MHMedia"
+                                                  inManagedObjectContext:context];
+        [fetchRequest setEntity:entity];
+        NSError* error = nil;
+        NSArray *fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
+        
+        [[error should] beNil];
+        [[fetchedObjects should] beNonNil];
+        [[theValue(fetchedObjects.count) should] equal:theValue(1)];
+        
+        MHMedia* me = [fetchedObjects objectAtIndex:0];
+        
+        [[me.objId should] equal:@"1"];
+        [[me.objItem should] equal:@"ciekaweCoTUSieBedzieWpisywac"];
+        [[me.objCreatedDate should] beKindOfClass:[NSDate class]];
+        [[me.objOwner should] equal:@"ja"];
+        [[me.objLocalPath should] equal:@"sciezka"];
+        
+    });
+    
+    it(@"Id of media should be unique", ^{
+        [MHDatabaseManager insertMediaWithObjId:@"1" objItem:@"ciekaweCoTUSieBedzieWpisywac" objCreatedDate:[NSDate date] objOwner:@"ja" objLocalPath:@"sciezka"];
+        [MHDatabaseManager insertMediaWithObjId:@"2" objItem:@"ciekawe" objCreatedDate:[NSDate date] objOwner:@"ja" objLocalPath:@"sciezka2"];
+        
+        // the same as first one, should not be added to db
+        [MHDatabaseManager insertMediaWithObjId:@"1" objItem:@"tuZmienie" objCreatedDate:[NSDate date] objOwner:@"ja" objLocalPath:@"sciezka"];
+        
+        NSManagedObjectContext* context = cdcTest.managedObjectContext;
+        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+        NSEntityDescription *entity = [NSEntityDescription entityForName:@"MHMedia"
+                                                  inManagedObjectContext:context];
+        [fetchRequest setEntity:entity];
+        NSError* error = nil;
+        NSArray *fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
+        
+        [[error should] beNil];
+        [[fetchedObjects should] beNonNil];
+        [[theValue(fetchedObjects.count) should] equal:theValue(2)];
+    });
+    
+    it(@"Get collection by objId from DB test", ^{
+        [MHDatabaseManager insertMediaWithObjId:@"1" objItem:@"ciekawe" objCreatedDate:[NSDate date] objOwner:@"ja" objLocalPath:@"sciezka"];
+        
+        [MHDatabaseManager insertMediaWithObjId:@"2" objItem:@"ciekawe2" objCreatedDate:[NSDate date] objOwner:@"ja2" objLocalPath:@"sciezka2"];
+        
+        MHMedia *me = [MHDatabaseManager mediaWithObjId:@"1"];
+        
+        [[me.objId should] equal:@"1"];
+        [[me.objLocalPath should] equal:@"sciezka"];
+        
+        MHMedia *me2 = [MHDatabaseManager mediaWithObjId:@"2"];
+        
+        [[me2.objId should] equal:@"2"];
+        [[me2.objLocalPath should] equal:@"sciezka2"];
+        
+        MHMedia *me3 = [MHDatabaseManager mediaWithObjId:@"1"];//checking if it is possible to get the same data more time than one
+        [[me3.objId should] equal:@"1"];
+        [[me3.objLocalPath should] equal:@"sciezka"];
+        [[me should] equal:me3];//with the same result
+        
+        MHMedia *me4 = [MHDatabaseManager mediaWithObjId:@"72"];//checking if it is not getting items witch is not matching an Id
+        
+        [[me4.objId should] beNil];
+        });
+
+
 
 });
 
