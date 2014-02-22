@@ -12,6 +12,8 @@
 
 @property (weak, nonatomic) IBOutlet UITextField *collectionNameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *collectionIdTextField;
+@property (weak, nonatomic) IBOutlet UIButton *deleteCollectionByIdButton;
+@property (weak, nonatomic) IBOutlet UIButton *searchButton;
 
 
 - (IBAction)cancel:(id)sender;

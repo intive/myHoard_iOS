@@ -36,6 +36,8 @@
 		CE6C31B918B1293400983736 /* CollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6C31B818B1293400983736 /* CollectionViewController.m */; };
 		CE6C31BC18B1422100983736 /* MHItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6C31BB18B1422100983736 /* MHItemViewController.m */; };
 		CE6C31BF18B1423400983736 /* MHItemDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6C31BE18B1423400983736 /* MHItemDetailsViewController.m */; };
+		CE9ECD1C18B778E900038C18 /* MHItemDetailsViewControllerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9ECD1B18B778E800038C18 /* MHItemDetailsViewControllerTest.m */; };
+		CEA1083E18B82E6F00E70ED0 /* MHCollectionDetailsViewControllerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA1083D18B82E6F00E70ED0 /* MHCollectionDetailsViewControllerTest.m */; };
 		CEEA28BB18B0DFCF0005D212 /* MHItem.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEA28BA18B0DFCF0005D212 /* MHItem.m */; };
 /* End PBXBuildFile section */
 
@@ -93,6 +95,8 @@
 		CE6C31BB18B1422100983736 /* MHItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHItemViewController.m; sourceTree = "<group>"; };
 		CE6C31BD18B1423400983736 /* MHItemDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHItemDetailsViewController.h; sourceTree = "<group>"; };
 		CE6C31BE18B1423400983736 /* MHItemDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHItemDetailsViewController.m; sourceTree = "<group>"; };
+		CE9ECD1B18B778E800038C18 /* MHItemDetailsViewControllerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHItemDetailsViewControllerTest.m; sourceTree = "<group>"; };
+		CEA1083D18B82E6F00E70ED0 /* MHCollectionDetailsViewControllerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHCollectionDetailsViewControllerTest.m; sourceTree = "<group>"; };
 		CEEA28B918B0DFCF0005D212 /* MHItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHItem.h; sourceTree = "<group>"; };
 		CEEA28BA18B0DFCF0005D212 /* MHItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHItem.m; sourceTree = "<group>"; };
 		F724743366084FAC90257055 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -196,6 +200,8 @@
 		23D321C5184BBFFA002FC13A /* MyHoardTests */ = {
 			isa = PBXGroup;
 			children = (
+				CE9ECD1B18B778E800038C18 /* MHItemDetailsViewControllerTest.m */,
+				CEA1083D18B82E6F00E70ED0 /* MHCollectionDetailsViewControllerTest.m */,
 				23D321CB184BBFFA002FC13A /* MyHoardTests.m */,
 				537CF83718ADFEAB008A7E04 /* MHDatabaseManagerTests.m */,
 				537CF83C18AE0D6E008A7E04 /* Helpers */,
@@ -426,9 +432,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEA1083E18B82E6F00E70ED0 /* MHCollectionDetailsViewControllerTest.m in Sources */,
 				2302787418B4C0A900FCD528 /* GcovTestObserver.m in Sources */,
 				23D321CC184BBFFA002FC13A /* MyHoardTests.m in Sources */,
 				537CF83B18AE0D5D008A7E04 /* MHCoreDataContextForTests.m in Sources */,
+				CE9ECD1C18B778E900038C18 /* MHItemDetailsViewControllerTest.m in Sources */,
 				537CF83818ADFEAB008A7E04 /* MHDatabaseManagerTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

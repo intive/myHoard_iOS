@@ -109,10 +109,10 @@
             </objects>
             <point key="canvasLocation" x="355" y="-768"/>
         </scene>
-        <!--Item Details View Controller - Add Item-->
+        <!--Item Details View Controller - MHItemDetailsViewController-->
         <scene sceneID="vAa-O0-ldL">
             <objects>
-                <tableViewController id="wAp-lX-3ho" customClass="MHItemDetailsViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="MHItemDetailsViewController" title="MHItemDetailsViewController" id="wAp-lX-3ho" customClass="MHItemDetailsViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="none" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="GJd-cr-zca">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -163,7 +163,7 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3XQ-an-oj1">
+                                                <button opaque="NO" tag="1" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3XQ-an-oj1">
                                                     <rect key="frame" x="248" y="7" width="46" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <state key="normal" title="Delete">
@@ -222,14 +222,19 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Item" systemItem="done" id="gGE-EI-gBo">
                             <connections>
-                                <action selector="done:" destination="wAp-lX-3ho" id="gW4-zU-HAx"/>
+                                <action selector="done:" destination="wAp-lX-3ho" id="hKs-J3-wpx"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="cancelBarButton" destination="bP2-7m-Y5e" id="pj5-Kj-SCP"/>
+                        <outlet property="deleteItemByCollectionId" destination="YvN-kq-pH2" id="clU-fJ-XzN"/>
+                        <outlet property="deleteItemById" destination="3XQ-an-oj1" id="778-6A-KX0"/>
+                        <outlet property="doneBarButton" destination="gGE-EI-gBo" id="eWH-Dk-J2F"/>
                         <outlet property="itemCollectionIdTextField" destination="NYp-z4-s4g" id="RaI-3c-1ev"/>
                         <outlet property="itemIdTextField" destination="Pza-pK-TRh" id="mmM-D7-7BA"/>
                         <outlet property="itemNameTextField" destination="1dw-8L-Xom" id="crW-Zx-nCp"/>
+                        <outlet property="searchButton" destination="Nn6-9O-aUW" id="ETY-js-YTU"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DYx-xv-3Vx" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -239,7 +244,7 @@
         <!--Collection Details View Controller - Add Collection-->
         <scene sceneID="mx2-4c-puE">
             <objects>
-                <tableViewController id="txq-x4-H3S" customClass="CollectionDetailsViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="CollectionDetailsViewController" id="txq-x4-H3S" customClass="CollectionDetailsViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="gxb-xT-WGi">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -251,7 +256,7 @@
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <connections>
-                                <action selector="search:" destination="txq-x4-H3S" eventType="touchUpInside" id="ua1-J9-n13"/>
+                                <action selector="search:" destination="txq-x4-H3S" eventType="touchUpInside" id="aqs-jM-Ye3"/>
                             </connections>
                         </button>
                         <sections>
@@ -264,7 +269,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jGf-ag-bae">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fQf-aR-GbI">
                                                     <rect key="frame" x="0.0" y="7" width="320" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -284,12 +289,6 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lMI-yq-WCO">
-                                                    <rect key="frame" x="0.0" y="7" width="243" height="30"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
-                                                </textField>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ahy-93-rh3">
                                                     <rect key="frame" x="251" y="7" width="46" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -297,9 +296,15 @@
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                     <connections>
-                                                        <action selector="deleteCollection:" destination="txq-x4-H3S" eventType="touchUpInside" id="ynK-AO-rwy"/>
+                                                        <action selector="deleteCollection:" destination="txq-x4-H3S" eventType="touchUpInside" id="fjj-pt-NgN"/>
                                                     </connections>
                                                 </button>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PuP-0Q-RkT">
+                                                    <rect key="frame" x="0.0" y="7" width="243" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -324,8 +329,10 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="collectionIdTextField" destination="lMI-yq-WCO" id="pcs-Eb-8PW"/>
-                        <outlet property="collectionNameTextField" destination="jGf-ag-bae" id="TCH-VE-wfI"/>
+                        <outlet property="collectionIdTextField" destination="PuP-0Q-RkT" id="zTM-BA-lZn"/>
+                        <outlet property="collectionNameTextField" destination="fQf-aR-GbI" id="wyR-ui-JCd"/>
+                        <outlet property="deleteCollectionByIdButton" destination="Ahy-93-rh3" id="LeP-H2-keX"/>
+                        <outlet property="searchButton" destination="D8L-bn-ElB" id="0GH-bZ-ZAY"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="o6R-WT-Qzq" userLabel="First Responder" sceneMemberID="firstResponder"/>
