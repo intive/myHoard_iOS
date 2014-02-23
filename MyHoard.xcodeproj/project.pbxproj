@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1A90B37718B8CBA0003A3E32 /* MHMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A90B37618B8CBA0003A3E32 /* MHMedia.m */; };
 		2302787418B4C0A900FCD528 /* GcovTestObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 2302787318B4C0A900FCD528 /* GcovTestObserver.m */; };
 		23D321A1184BBFFA002FC13A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23D321A0184BBFFA002FC13A /* Foundation.framework */; };
 		23D321A3184BBFFA002FC13A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23D321A2184BBFFA002FC13A /* CoreGraphics.framework */; };
@@ -24,7 +23,6 @@
 		23D321CA184BBFFA002FC13A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 23D321C8184BBFFA002FC13A /* InfoPlist.strings */; };
 		23D321CC184BBFFA002FC13A /* MyHoardTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D321CB184BBFFA002FC13A /* MyHoardTests.m */; };
 		537CF82C18AD643D008A7E04 /* MyHoardModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 537CF82A18AD643D008A7E04 /* MyHoardModel.xcdatamodeld */; };
-		537CF82F18AD6AD1008A7E04 /* MHCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 537CF82E18AD6AD1008A7E04 /* MHCollection.m */; };
 		537CF83318AD7D6E008A7E04 /* MHCoreDataContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 537CF83218AD7D6E008A7E04 /* MHCoreDataContext.m */; };
 		537CF83618AD8FBF008A7E04 /* MHDatabaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 537CF83518AD8FBF008A7E04 /* MHDatabaseManager.m */; };
 		537CF83818ADFEAB008A7E04 /* MHDatabaseManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 537CF83718ADFEAB008A7E04 /* MHDatabaseManagerTests.m */; };
@@ -32,13 +30,15 @@
 		A4050E81A1BC4A589193A896 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F724743366084FAC90257055 /* libPods.a */; };
 		B02743679DB841A98A3C2D60 /* libPods-MyHoardTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A54F99CDCE2468DACC4FBD3 /* libPods-MyHoardTests.a */; };
 		B8F16086EB65413C89F6F7BB /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F724743366084FAC90257055 /* libPods.a */; };
+		CE142D5218B996DC00D62DBF /* MHCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = CE142D5118B996DC00D62DBF /* MHCollection.m */; };
+		CE142D5518B996E700D62DBF /* MHItem.m in Sources */ = {isa = PBXBuildFile; fileRef = CE142D5418B996E700D62DBF /* MHItem.m */; };
+		CE142D5818B996F200D62DBF /* MHMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = CE142D5718B996F200D62DBF /* MHMedia.m */; };
 		CE6C31B618B1167C00983736 /* CollectionDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6C31B518B1167C00983736 /* CollectionDetailsViewController.m */; };
 		CE6C31B918B1293400983736 /* CollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6C31B818B1293400983736 /* CollectionViewController.m */; };
 		CE6C31BC18B1422100983736 /* MHItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6C31BB18B1422100983736 /* MHItemViewController.m */; };
 		CE6C31BF18B1423400983736 /* MHItemDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6C31BE18B1423400983736 /* MHItemDetailsViewController.m */; };
 		CE9ECD1C18B778E900038C18 /* MHItemDetailsViewControllerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9ECD1B18B778E800038C18 /* MHItemDetailsViewControllerTest.m */; };
 		CEA1083E18B82E6F00E70ED0 /* MHCollectionDetailsViewControllerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA1083D18B82E6F00E70ED0 /* MHCollectionDetailsViewControllerTest.m */; };
-		CEEA28BB18B0DFCF0005D212 /* MHItem.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEA28BA18B0DFCF0005D212 /* MHItem.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,8 +52,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1A90B37518B8CBA0003A3E32 /* MHMedia.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHMedia.h; sourceTree = "<group>"; };
-		1A90B37618B8CBA0003A3E32 /* MHMedia.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHMedia.m; sourceTree = "<group>"; };
 		2302787318B4C0A900FCD528 /* GcovTestObserver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GcovTestObserver.m; sourceTree = "<group>"; };
 		23D3219D184BBFFA002FC13A /* MyHoard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyHoard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		23D321A0184BBFFA002FC13A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -77,8 +75,6 @@
 		34776571ECDB45F8B34A8019 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		3A54F99CDCE2468DACC4FBD3 /* libPods-MyHoardTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MyHoardTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		537CF82B18AD643D008A7E04 /* MyHoardModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MyHoardModel.xcdatamodel; sourceTree = "<group>"; };
-		537CF82D18AD6AD1008A7E04 /* MHCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MHCollection.h; path = Database/MHCollection.h; sourceTree = "<group>"; };
-		537CF82E18AD6AD1008A7E04 /* MHCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MHCollection.m; path = Database/MHCollection.m; sourceTree = "<group>"; };
 		537CF83118AD7D6E008A7E04 /* MHCoreDataContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MHCoreDataContext.h; path = Database/MHCoreDataContext.h; sourceTree = "<group>"; };
 		537CF83218AD7D6E008A7E04 /* MHCoreDataContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MHCoreDataContext.m; path = Database/MHCoreDataContext.m; sourceTree = "<group>"; };
 		537CF83418AD8FBF008A7E04 /* MHDatabaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MHDatabaseManager.h; path = Database/MHDatabaseManager.h; sourceTree = "<group>"; };
@@ -87,6 +83,12 @@
 		537CF83918AE0D5D008A7E04 /* MHCoreDataContextForTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHCoreDataContextForTests.h; sourceTree = "<group>"; };
 		537CF83A18AE0D5D008A7E04 /* MHCoreDataContextForTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHCoreDataContextForTests.m; sourceTree = "<group>"; };
 		6040C246B171497C91A4ABBE /* Pods-MyHoardTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyHoardTests.xcconfig"; path = "Pods/Pods-MyHoardTests.xcconfig"; sourceTree = "<group>"; };
+		CE142D5018B996DC00D62DBF /* MHCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHCollection.h; sourceTree = "<group>"; };
+		CE142D5118B996DC00D62DBF /* MHCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHCollection.m; sourceTree = "<group>"; };
+		CE142D5318B996E700D62DBF /* MHItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHItem.h; sourceTree = "<group>"; };
+		CE142D5418B996E700D62DBF /* MHItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHItem.m; sourceTree = "<group>"; };
+		CE142D5618B996F200D62DBF /* MHMedia.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHMedia.h; sourceTree = "<group>"; };
+		CE142D5718B996F200D62DBF /* MHMedia.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHMedia.m; sourceTree = "<group>"; };
 		CE6C31B418B1167C00983736 /* CollectionDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionDetailsViewController.h; sourceTree = "<group>"; };
 		CE6C31B518B1167C00983736 /* CollectionDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionDetailsViewController.m; sourceTree = "<group>"; };
 		CE6C31B718B1293400983736 /* CollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionViewController.h; sourceTree = "<group>"; };
@@ -97,8 +99,6 @@
 		CE6C31BE18B1423400983736 /* MHItemDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHItemDetailsViewController.m; sourceTree = "<group>"; };
 		CE9ECD1B18B778E800038C18 /* MHItemDetailsViewControllerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHItemDetailsViewControllerTest.m; sourceTree = "<group>"; };
 		CEA1083D18B82E6F00E70ED0 /* MHCollectionDetailsViewControllerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHCollectionDetailsViewControllerTest.m; sourceTree = "<group>"; };
-		CEEA28B918B0DFCF0005D212 /* MHItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHItem.h; sourceTree = "<group>"; };
-		CEEA28BA18B0DFCF0005D212 /* MHItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHItem.m; sourceTree = "<group>"; };
 		F724743366084FAC90257055 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -224,12 +224,12 @@
 			isa = PBXGroup;
 			children = (
 				537CF82A18AD643D008A7E04 /* MyHoardModel.xcdatamodeld */,
-				1A90B37518B8CBA0003A3E32 /* MHMedia.h */,
-				1A90B37618B8CBA0003A3E32 /* MHMedia.m */,
-				CEEA28B918B0DFCF0005D212 /* MHItem.h */,
-				CEEA28BA18B0DFCF0005D212 /* MHItem.m */,
-				537CF82D18AD6AD1008A7E04 /* MHCollection.h */,
-				537CF82E18AD6AD1008A7E04 /* MHCollection.m */,
+				CE142D5618B996F200D62DBF /* MHMedia.h */,
+				CE142D5718B996F200D62DBF /* MHMedia.m */,
+				CE142D5318B996E700D62DBF /* MHItem.h */,
+				CE142D5418B996E700D62DBF /* MHItem.m */,
+				CE142D5018B996DC00D62DBF /* MHCollection.h */,
+				CE142D5118B996DC00D62DBF /* MHCollection.m */,
 				537CF83118AD7D6E008A7E04 /* MHCoreDataContext.h */,
 				537CF83218AD7D6E008A7E04 /* MHCoreDataContext.m */,
 				537CF83418AD8FBF008A7E04 /* MHDatabaseManager.h */,
@@ -414,17 +414,17 @@
 			files = (
 				23D321B7184BBFFA002FC13A /* ViewController.m in Sources */,
 				23D321B1184BBFFA002FC13A /* AppDelegate.m in Sources */,
-				1A90B37718B8CBA0003A3E32 /* MHMedia.m in Sources */,
+				CE142D5818B996F200D62DBF /* MHMedia.m in Sources */,
+				CE142D5218B996DC00D62DBF /* MHCollection.m in Sources */,
 				537CF83618AD8FBF008A7E04 /* MHDatabaseManager.m in Sources */,
 				CE6C31BC18B1422100983736 /* MHItemViewController.m in Sources */,
 				537CF82C18AD643D008A7E04 /* MyHoardModel.xcdatamodeld in Sources */,
 				23D321AD184BBFFA002FC13A /* main.m in Sources */,
-				CEEA28BB18B0DFCF0005D212 /* MHItem.m in Sources */,
 				CE6C31B618B1167C00983736 /* CollectionDetailsViewController.m in Sources */,
-				537CF82F18AD6AD1008A7E04 /* MHCollection.m in Sources */,
 				CE6C31BF18B1423400983736 /* MHItemDetailsViewController.m in Sources */,
 				CE6C31B918B1293400983736 /* CollectionViewController.m in Sources */,
 				537CF83318AD7D6E008A7E04 /* MHCoreDataContext.m in Sources */,
+				CE142D5518B996E700D62DBF /* MHItem.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

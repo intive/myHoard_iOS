@@ -2,20 +2,30 @@
 //  MHMedia.h
 //  MyHoard
 //
-//  Created by Konrad Gnoinski on 22/02/14.
+//  Created by user on 2/23/14.
 //  Copyright (c) 2014 BLStream. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
+@class MHItem;
 
 @interface MHMedia : NSManagedObject
 
+@property (nonatomic, retain) NSDate * objCreatedDate;
 @property (nonatomic, retain) NSString * objId;
 @property (nonatomic, retain) NSString * objItem;
-@property (nonatomic, retain) NSDate * objCreatedDate;
-@property (nonatomic, retain) NSString * objOwner;
 @property (nonatomic, retain) NSString * objLocalPath;
+@property (nonatomic, retain) NSString * objOwner;
+@property (nonatomic, retain) NSSet *media;
+@end
+
+@interface MHMedia (CoreDataGeneratedAccessors)
+
+- (void)addMediaObject:(MHItem *)value;
+- (void)removeMediaObject:(MHItem *)value;
+- (void)addMedia:(NSSet *)values;
+- (void)removeMedia:(NSSet *)values;
 
 @end

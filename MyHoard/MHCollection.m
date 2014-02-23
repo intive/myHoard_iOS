@@ -2,22 +2,24 @@
 //  MHCollection.m
 //  MyHoard
 //
-//  Created by Karol Kogut on 13.02.2014.
+//  Created by user on 2/23/14.
 //  Copyright (c) 2014 BLStream. All rights reserved.
 //
 
 #import "MHCollection.h"
+#import "MHItem.h"
 
 
 @implementation MHCollection
 
-@dynamic objId;
-@dynamic objName;
-@dynamic objDescription;
-@dynamic objTags;
-@dynamic objItemsNumber;
 @dynamic objCreatedDate;
+@dynamic objDescription;
+@dynamic objId;
+@dynamic objItemsNumber;
 @dynamic objModifiedDate;
+@dynamic objName;
 @dynamic objOwner;
+@dynamic objTags;
+@dynamic collection;
 
 @end

@@ -39,7 +39,8 @@
     }
     
     MHCollection* collection = [NSEntityDescription insertNewObjectForEntityForName:@"MHCollection" inManagedObjectContext:[MHCoreDataContext getInstance].managedObjectContext];
-
+    
+    
     collection.objId = objId;
     collection.objName = objName;
     collection.objCreatedDate = objCreatedDate;
@@ -140,9 +141,9 @@
 {
     
     //mandatory fields
-    if (!objId.length || !objName || !objCreatedDate) {
+    if (!objId.length || !objName || !objCreatedDate || !objCollectionId.length) {
         
-        NSLog(@"One of mandatory fields is not set: objId:%@, objName:%@, objCreatedDate:%@", objId, objName, objCreatedDate);
+        NSLog(@"One of mandatory fields is not set: objId:%@, objName:%@, objCreatedDate:%@, objCollectionId:%@", objId, objName, objCreatedDate, objCollectionId);
         return;
     }
     
@@ -151,11 +152,19 @@
         return;
     }
     
+    //check if collection does exist
+    if (![MHDatabaseManager getCollectionWithObjId:objCollectionId]){
+        NSLog(@"Collection with Id: %@ does not exist! To add item create collection with specified Id", objCollectionId);
+        return;
+    }
+    
     MHItem *item = [NSEntityDescription insertNewObjectForEntityForName:@"MHItem" inManagedObjectContext:[MHCoreDataContext getInstance].managedObjectContext];
     
     item.objId = objId;
     item.objName = objName;
     item.objCreatedDate = objCreatedDate;
+    item.objCollectionId = objCollectionId;
+    
     
     if (objDescription.length) {
         item.objDescription = objDescription;
@@ -166,7 +175,7 @@
     }
     
     if (objLocation.count) {
-        item.objLoctaion = objLocation;
+        item.objLocation = objLocation;
     }
     
     if (objQuantity) {
@@ -181,16 +190,16 @@
         item.objModifiedDate = objModifiedDate;
     }
     
-    if (objCollectionId.length) {
-        item.objCollectionId = objCollectionId;
-    }
-    
     if (objOwner.length) {
         item.objOwner = objOwner;
     }
     
+    //Add item with objCollectionId to a specified collection
+    [[MHDatabaseManager getCollectionWithObjId:objCollectionId] addCollectionObject:item];
+    [item setItem:[MHDatabaseManager getCollectionWithObjId:objCollectionId]];
+    
     [[MHCoreDataContext getInstance] saveContext];
-
+    
 }
 
 

@@ -60,6 +60,8 @@ describe(@"MHDatabaseManager Tests", ^{
     
 
     it(@"Add items to DB test", ^{
+        [MHDatabaseManager insertCollectionWithObjId:@"1" objName:@"name" objDescription:@"1" objTags:@[@"1", @"2"] objItemsNumber:nil objCreatedDate:[NSDate date] objModifiedDate:nil objOwner:nil];
+
         [MHDatabaseManager insertItemWithObjId:@"1" objName:@"name" objDescription:@"1" objTags:@[@"1", @"2"] objLocation:nil objQuantity:nil objMediaIds:nil objCreatedDate:[NSDate date] objModifiedDate:nil objCollectionId:@"1" objOwner:nil];
         
         NSManagedObjectContext* context = cdcTest.managedObjectContext;
@@ -84,6 +86,10 @@ describe(@"MHDatabaseManager Tests", ^{
     });
     
     it(@"Remove items by objCollectionId form DB test", ^{
+        
+        [MHDatabaseManager insertCollectionWithObjId:@"carsCollection" objName:@"name" objDescription:@"1" objTags:@[@"1", @"2"] objItemsNumber:nil objCreatedDate:[NSDate date] objModifiedDate:nil objOwner:nil];
+        [MHDatabaseManager insertCollectionWithObjId:@"otherCollection" objName:@"name" objDescription:@"1" objTags:@[@"1", @"2"] objItemsNumber:nil objCreatedDate:[NSDate date] objModifiedDate:nil objOwner:nil];
+
        
        [MHDatabaseManager insertItemWithObjId:@"1" objName:@"name" objDescription:@"1" objTags:@[@"1", @"2"] objLocation:nil objQuantity:nil objMediaIds:nil objCreatedDate:[NSDate date] objModifiedDate:nil objCollectionId:@"carsCollection" objOwner:nil];
         
@@ -111,6 +117,9 @@ describe(@"MHDatabaseManager Tests", ^{
     
     it(@"Get all items by objCollectionId from DB test", ^{
         
+        [MHDatabaseManager insertCollectionWithObjId:@"testId" objName:@"name" objDescription:@"1" objTags:@[@"1", @"2"] objItemsNumber:nil objCreatedDate:[NSDate date] objModifiedDate:nil objOwner:nil];
+
+        
         [MHDatabaseManager insertItemWithObjId:@"1" objName:@"name" objDescription:@"1" objTags:@[@"1", @"2"] objLocation:nil objQuantity:nil objMediaIds:nil objCreatedDate:[NSDate date] objModifiedDate:nil objCollectionId:@"testId" objOwner:nil];
         
         NSArray *fetchedObjects = [MHDatabaseManager getAllItemsForCollectionWithObjId:@"testId"];
@@ -128,6 +137,9 @@ describe(@"MHDatabaseManager Tests", ^{
     });
 
     it(@"Take item from DB test", ^{
+        
+        [MHDatabaseManager insertCollectionWithObjId:@"1" objName:@"name" objDescription:@"1" objTags:@[@"1", @"2"] objItemsNumber:nil objCreatedDate:[NSDate date] objModifiedDate:nil objOwner:nil];
+        
         NSDate *itemCreatedDate = [NSDate date];
         [MHDatabaseManager insertItemWithObjId:@"1" objName:@"name" objDescription:@"1" objTags:@[@"1", @"2"] objLocation:nil objQuantity:nil objMediaIds:nil objCreatedDate:itemCreatedDate objModifiedDate:nil objCollectionId:@"1" objOwner:nil];
         
@@ -161,6 +173,9 @@ describe(@"MHDatabaseManager Tests", ^{
     });
 
     it(@"Id of item should be unique", ^{
+        
+        [MHDatabaseManager insertCollectionWithObjId:@"testId" objName:@"name" objDescription:@"1" objTags:@[@"1", @"2"] objItemsNumber:nil objCreatedDate:[NSDate date] objModifiedDate:nil objOwner:nil];
+        
         [MHDatabaseManager insertItemWithObjId:@"1" objName:@"name" objDescription:@"1" objTags:@[@"1", @"2"] objLocation:nil objQuantity:nil objMediaIds:nil objCreatedDate:[NSDate date] objModifiedDate:nil objCollectionId:@"testId" objOwner:nil];
         [MHDatabaseManager insertItemWithObjId:@"2" objName:@"name2" objDescription:@"2" objTags:@[@"1", @"2"] objLocation:nil objQuantity:nil objMediaIds:nil objCreatedDate:[NSDate date] objModifiedDate:nil objCollectionId:@"testId" objOwner:nil];
 
@@ -240,6 +255,8 @@ describe(@"MHDatabaseManager Tests", ^{
     });
     
     it(@"Remove item with objId", ^{
+        
+        [MHDatabaseManager insertCollectionWithObjId:@"testId" objName:@"name" objDescription:@"1" objTags:@[@"1", @"2"] objItemsNumber:nil objCreatedDate:[NSDate date] objModifiedDate:nil objOwner:nil];
        
         [MHDatabaseManager insertItemWithObjId:@"1" objName:@"name" objDescription:@"1" objTags:@[@"1", @"2"] objLocation:nil objQuantity:nil objMediaIds:nil objCreatedDate:[NSDate date] objModifiedDate:nil objCollectionId:@"testId" objOwner:nil];
         [MHDatabaseManager insertItemWithObjId:@"2" objName:@"name2" objDescription:@"2" objTags:@[@"1", @"2"] objLocation:nil objQuantity:nil objMediaIds:nil objCreatedDate:[NSDate date] objModifiedDate:nil objCollectionId:@"testId" objOwner:nil];
@@ -350,7 +367,39 @@ describe(@"MHDatabaseManager Tests", ^{
         [[me4.objId should] beNil];
         });
 
-
+    it(@"Add item to a specified collection", ^{
+       
+        [MHDatabaseManager insertCollectionWithObjId:@"testId" objName:@"name" objDescription:@"1" objTags:@[@"1", @"2"] objItemsNumber:nil objCreatedDate:[NSDate date] objModifiedDate:nil objOwner:nil];
+        
+        [MHDatabaseManager insertItemWithObjId:@"1" objName:@"name" objDescription:@"1" objTags:@[@"1", @"2"] objLocation:nil objQuantity:nil objMediaIds:nil objCreatedDate:[NSDate date] objModifiedDate:nil objCollectionId:@"testId" objOwner:nil];
+        [MHDatabaseManager insertItemWithObjId:@"2" objName:@"name2" objDescription:@"2" objTags:@[@"1", @"2"] objLocation:nil objQuantity:nil objMediaIds:nil objCreatedDate:[NSDate date] objModifiedDate:nil objCollectionId:@"testId" objOwner:nil];
+        [MHDatabaseManager insertItemWithObjId:@"3" objName:@"Michael Jordan" objDescription:@"1" objTags:@[@"1", @"2"] objLocation:nil objQuantity:nil objMediaIds:nil objCreatedDate:[NSDate date] objModifiedDate:nil objCollectionId:@"testId" objOwner:nil];
+        
+        [MHDatabaseManager insertItemWithObjId:@"4" objName:@"LeBron James" objDescription:@"2" objTags:@[@"1", @"2"] objLocation:nil objQuantity:nil objMediaIds:nil objCreatedDate:[NSDate date] objModifiedDate:nil objCollectionId:@"" objOwner:nil];
+        
+        NSManagedObjectContext *context = cdcTest.managedObjectContext;
+        NSFetchRequest * fetchRequest = [[NSFetchRequest alloc]init];
+        NSEntityDescription *entity = [NSEntityDescription entityForName:@"MHItem" inManagedObjectContext:context];
+        
+        [fetchRequest setEntity:entity];
+        [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"objId==%@", @"4"]];
+        
+        NSError *error = nil;
+        NSArray *fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
+        
+        [[error should]beNil];
+        [[fetchedObjects should]beNonNil];
+        [[theValue(fetchedObjects.count)should]equal:theValue(0)];
+        
+        MHCollection *collection = [MHDatabaseManager getCollectionWithObjId:@"testId"];
+        [[theValue(collection.collection.count)should]equal:theValue(3)];
+        
+        for(MHItem *item in collection.collection){
+            [[item.objCollectionId should]equal:@"testId"];
+            [[item.itemMedia should]beNil];
+        }
+        
+    });
 
 });
 

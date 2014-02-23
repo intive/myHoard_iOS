@@ -2,19 +2,21 @@
 //  MHMedia.m
 //  MyHoard
 //
-//  Created by Konrad Gnoinski on 22/02/14.
+//  Created by user on 2/23/14.
 //  Copyright (c) 2014 BLStream. All rights reserved.
 //
 
 #import "MHMedia.h"
+#import "MHItem.h"
 
 
 @implementation MHMedia
 
+@dynamic objCreatedDate;
 @dynamic objId;
 @dynamic objItem;
-@dynamic objCreatedDate;
-@dynamic objOwner;
 @dynamic objLocalPath;
+@dynamic objOwner;
+@dynamic media;
 
 @end
