@@ -28,7 +28,7 @@
 
 - (void)addItemObject:(MHItem *)value;
 - (void)removeItemObject:(MHItem *)value;
-- (void)addItem:(NSSet *)values;
-- (void)removeItem:(NSSet *)values;
+- (void)addItems:(NSSet *)values;
+- (void)removeItems:(NSSet *)values;
 
 @end

@@ -52,7 +52,7 @@
         collection.objTags = objTags;
 
     if (objItemsNumber)
-        collection.objItemsNumber = [[NSNumber alloc]initWithInt:0];
+        collection.objItemsNumber = @0;
 
     if (objModifiedDate)
         collection.objModifiedDate = objModifiedDate;
