@@ -24,7 +24,15 @@
 @property (nonatomic, retain) NSString * objOwner;
 @property (nonatomic, retain) NSNumber * objQuantity;
 @property (nonatomic, retain) NSArray * objTags;
-@property (nonatomic, retain) MHCollection *item;
-@property (nonatomic, retain) MHMedia *itemMedia;
+@property (nonatomic, retain) MHCollection *collection;
+@property (nonatomic, retain) NSSet *itemMedia;
+@end
+
+@interface MHItem (CoreDataGeneratedAccessors)
+
+- (void)addItemMediaObject:(MHMedia *)value;
+- (void)removeItemMediaObject:(MHMedia *)value;
+- (void)addItemMedia:(NSSet *)values;
+- (void)removeItemMedia:(NSSet *)values;
 
 @end

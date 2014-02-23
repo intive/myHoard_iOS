@@ -18,14 +18,6 @@
 @property (nonatomic, retain) NSString * objItem;
 @property (nonatomic, retain) NSString * objLocalPath;
 @property (nonatomic, retain) NSString * objOwner;
-@property (nonatomic, retain) NSSet *media;
-@end
-
-@interface MHMedia (CoreDataGeneratedAccessors)
-
-- (void)addMediaObject:(MHItem *)value;
-- (void)removeMediaObject:(MHItem *)value;
-- (void)addMedia:(NSSet *)values;
-- (void)removeMedia:(NSSet *)values;
+@property (nonatomic, retain) MHItem *media;
 
 @end

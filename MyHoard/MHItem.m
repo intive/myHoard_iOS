@@ -24,7 +24,7 @@
 @dynamic objOwner;
 @dynamic objQuantity;
 @dynamic objTags;
-@dynamic item;
+@dynamic collection;
 @dynamic itemMedia;
 
 @end

@@ -20,6 +20,6 @@
 @dynamic objName;
 @dynamic objOwner;
 @dynamic objTags;
-@dynamic collection;
+@dynamic item;
 
 @end

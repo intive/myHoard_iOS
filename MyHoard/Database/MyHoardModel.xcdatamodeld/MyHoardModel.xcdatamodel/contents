@@ -9,7 +9,7 @@
         <attribute name="objName" attributeType="String" syncable="YES"/>
         <attribute name="objOwner" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="objTags" optional="YES" attributeType="Transformable" syncable="YES"/>
-        <relationship name="collection" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MHItem" inverseName="item" inverseEntity="MHItem" syncable="YES"/>
+        <relationship name="item" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MHItem" inverseName="collection" inverseEntity="MHItem" syncable="YES"/>
     </entity>
     <entity name="MHItem" representedClassName="MHItem" syncable="YES">
         <attribute name="objCollectionId" optional="YES" attributeType="String" syncable="YES"/>
@@ -23,8 +23,8 @@
         <attribute name="objOwner" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="objQuantity" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="objTags" optional="YES" attributeType="Transformable" syncable="YES"/>
-        <relationship name="item" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="MHCollection" inverseName="collection" inverseEntity="MHCollection" syncable="YES"/>
-        <relationship name="itemMedia" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="MHMedia" inverseName="media" inverseEntity="MHMedia" syncable="YES"/>
+        <relationship name="collection" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="MHCollection" inverseName="item" inverseEntity="MHCollection" syncable="YES"/>
+        <relationship name="itemMedia" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MHMedia" inverseName="media" inverseEntity="MHMedia" syncable="YES"/>
     </entity>
     <entity name="MHMedia" representedClassName="MHMedia" syncable="YES">
         <attribute name="objCreatedDate" optional="YES" attributeType="Date" syncable="YES"/>
@@ -32,7 +32,7 @@
         <attribute name="objItem" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="objLocalPath" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="objOwner" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="media" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MHItem" inverseName="itemMedia" inverseEntity="MHItem" syncable="YES"/>
+        <relationship name="media" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="MHItem" inverseName="itemMedia" inverseEntity="MHItem" syncable="YES"/>
     </entity>
     <elements>
         <element name="MHCollection" positionX="-8415" positionY="-2115" width="128" height="178"/>

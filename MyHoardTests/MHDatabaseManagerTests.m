@@ -392,11 +392,13 @@ describe(@"MHDatabaseManager Tests", ^{
         [[theValue(fetchedObjects.count)should]equal:theValue(0)];
         
         MHCollection *collection = [MHDatabaseManager getCollectionWithObjId:@"testId"];
-        [[theValue(collection.collection.count)should]equal:theValue(3)];
+        [[theValue(collection.item.count)should]equal:theValue(3)];
+        [[collection.objItemsNumber should]equal:theValue(3)];
         
-        for(MHItem *item in collection.collection){
+        for(MHItem *item in collection.item){
             [[item.objCollectionId should]equal:@"testId"];
-            [[item.itemMedia should]beNil];
+            [[item.itemMedia should]beNonNil];
+            [[theValue(item.itemMedia.count)should]equal:theValue(0)];
         }
         
     });

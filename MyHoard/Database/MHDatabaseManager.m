@@ -52,7 +52,7 @@
         collection.objTags = objTags;
 
     if (objItemsNumber)
-        collection.objItemsNumber = objItemsNumber;
+        collection.objItemsNumber = [[NSNumber alloc]initWithInt:0];
 
     if (objModifiedDate)
         collection.objModifiedDate = objModifiedDate;
@@ -195,8 +195,11 @@
     }
     
     //Add item with objCollectionId to a specified collection
-    [[MHDatabaseManager getCollectionWithObjId:objCollectionId] addCollectionObject:item];
-    [item setItem:[MHDatabaseManager getCollectionWithObjId:objCollectionId]];
+    [[MHDatabaseManager getCollectionWithObjId:objCollectionId] addItemObject:item];
+    [item setCollection:[MHDatabaseManager getCollectionWithObjId:objCollectionId]];
+    
+    int value = [[MHDatabaseManager getCollectionWithObjId:objCollectionId].objItemsNumber intValue];
+    [MHDatabaseManager getCollectionWithObjId:objCollectionId].objItemsNumber = [NSNumber numberWithInt:value + 1];
     
     [[MHCoreDataContext getInstance] saveContext];
     

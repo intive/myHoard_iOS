@@ -21,14 +21,14 @@
 @property (nonatomic, retain) NSString * objName;
 @property (nonatomic, retain) NSString * objOwner;
 @property (nonatomic, retain) NSArray * objTags;
-@property (nonatomic, retain) NSSet *collection;
+@property (nonatomic, retain) NSSet *item;
 @end
 
 @interface MHCollection (CoreDataGeneratedAccessors)
 
-- (void)addCollectionObject:(MHItem *)value;
-- (void)removeCollectionObject:(MHItem *)value;
-- (void)addCollection:(NSSet *)values;
-- (void)removeCollection:(NSSet *)values;
+- (void)addItemObject:(MHItem *)value;
+- (void)removeItemObject:(MHItem *)value;
+- (void)addItem:(NSSet *)values;
+- (void)removeItem:(NSSet *)values;
 
 @end
