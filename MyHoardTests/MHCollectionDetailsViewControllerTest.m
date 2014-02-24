@@ -68,6 +68,21 @@
     XCTAssertNotNil(_vc.searchButton, @"");
 }
 
+- (void)testThatNavigationItemTitleExist {
+    
+    XCTAssertNotNil(_vc.navigationItem.title, @"");
+}
+
+- (void)testThatDoneButtonExist {
+    
+    XCTAssertNotNil(_vc.navigationItem.rightBarButtonItem, @"");
+}
+
+- (void)testThatCancelButtonExist {
+    
+    XCTAssertNotNil(_vc.navigationItem.leftBarButtonItem, @"");
+}
+
 
 #pragma Actions
 
@@ -81,6 +96,18 @@
     
     NSString *action = [_vc.searchButton actionsForTarget:_vc forControlEvent:UIControlEventTouchUpInside][0];
     XCTAssertNotEqualObjects(action, @"search", @"Action should be search");
+}
+
+- (void)testCancelButtonAction {
+    
+    SEL selector = NSSelectorFromString(@"cancel:");
+    XCTAssertTrue([_vc respondsToSelector:selector], @"_vc should respond to selector cancelPressed:");
+}
+
+- (void)testDoneButtonAction {
+    
+    SEL selector = NSSelectorFromString(@"done:");
+    XCTAssertTrue([_vc respondsToSelector:selector], @"_vc should respond to selector donePressed:");
 }
 
 @end

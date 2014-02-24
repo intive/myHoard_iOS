@@ -39,6 +39,8 @@
 		CE99180C18BA633D006CB520 /* MHMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = CE99180B18BA633D006CB520 /* MHMedia.m */; };
 		CE9ECD1C18B778E900038C18 /* MHItemDetailsViewControllerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9ECD1B18B778E800038C18 /* MHItemDetailsViewControllerTest.m */; };
 		CEA1083E18B82E6F00E70ED0 /* MHCollectionDetailsViewControllerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA1083D18B82E6F00E70ED0 /* MHCollectionDetailsViewControllerTest.m */; };
+		CEABF90E18BB838D00A6A2F3 /* MHItemViewControllerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CEABF90D18BB838D00A6A2F3 /* MHItemViewControllerTest.m */; };
+		CEABF91218BB98BB00A6A2F3 /* MHCollectionViewControllerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CEABF91118BB98BB00A6A2F3 /* MHCollectionViewControllerTest.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -99,6 +101,8 @@
 		CE99180B18BA633D006CB520 /* MHMedia.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHMedia.m; sourceTree = "<group>"; };
 		CE9ECD1B18B778E800038C18 /* MHItemDetailsViewControllerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHItemDetailsViewControllerTest.m; sourceTree = "<group>"; };
 		CEA1083D18B82E6F00E70ED0 /* MHCollectionDetailsViewControllerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHCollectionDetailsViewControllerTest.m; sourceTree = "<group>"; };
+		CEABF90D18BB838D00A6A2F3 /* MHItemViewControllerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHItemViewControllerTest.m; sourceTree = "<group>"; };
+		CEABF91118BB98BB00A6A2F3 /* MHCollectionViewControllerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHCollectionViewControllerTest.m; sourceTree = "<group>"; };
 		F724743366084FAC90257055 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -201,7 +205,9 @@
 			isa = PBXGroup;
 			children = (
 				CE9ECD1B18B778E800038C18 /* MHItemDetailsViewControllerTest.m */,
+				CEABF90D18BB838D00A6A2F3 /* MHItemViewControllerTest.m */,
 				CEA1083D18B82E6F00E70ED0 /* MHCollectionDetailsViewControllerTest.m */,
+				CEABF91118BB98BB00A6A2F3 /* MHCollectionViewControllerTest.m */,
 				23D321CB184BBFFA002FC13A /* MyHoardTests.m */,
 				537CF83718ADFEAB008A7E04 /* MHDatabaseManagerTests.m */,
 				537CF83C18AE0D6E008A7E04 /* Helpers */,
@@ -437,6 +443,8 @@
 				23D321CC184BBFFA002FC13A /* MyHoardTests.m in Sources */,
 				537CF83B18AE0D5D008A7E04 /* MHCoreDataContextForTests.m in Sources */,
 				CE9ECD1C18B778E900038C18 /* MHItemDetailsViewControllerTest.m in Sources */,
+				CEABF90E18BB838D00A6A2F3 /* MHItemViewControllerTest.m in Sources */,
+				CEABF91218BB98BB00A6A2F3 /* MHCollectionViewControllerTest.m in Sources */,
 				537CF83818ADFEAB008A7E04 /* MHDatabaseManagerTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

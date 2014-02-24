@@ -8,7 +8,7 @@
         <!--Collection View Controller - Collections-->
         <scene sceneID="0ob-0z-d32">
             <objects>
-                <tableViewController id="QN7-bn-rCU" customClass="CollectionViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="CollectionViewController" id="QN7-bn-rCU" customClass="CollectionViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="0bS-Wk-ZV2">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -61,7 +61,7 @@
         <!--Item View Controller - Items-->
         <scene sceneID="2of-PM-mIm">
             <objects>
-                <tableViewController id="H0d-zx-8U3" customClass="MHItemViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="MHItemViewController" id="H0d-zx-8U3" customClass="MHItemViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="jRM-68-thg">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
