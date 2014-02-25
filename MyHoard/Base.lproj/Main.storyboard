@@ -48,7 +48,7 @@
                     <navigationItem key="navigationItem" title="Collections" id="m4Y-B8-bCA">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="8zE-An-v2J">
                             <connections>
-                                <segue destination="Etg-7t-qKE" kind="modal" id="FQe-jf-bm2"/>
+                                <segue destination="Etg-7t-qKE" kind="modal" identifier="collectionSegue" id="FQe-jf-bm2"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

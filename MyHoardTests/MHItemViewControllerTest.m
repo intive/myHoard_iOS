@@ -37,6 +37,20 @@
     [super tearDown];
 }
 
+- (void)testViewDidLoad {
+    
+    [_vc viewDidLoad];
+    
+    NSError *error;
+    if (![[_vc fetchedResultsController] performFetch:&error]) {
+        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        exit(-1);
+    }
+    
+    XCTAssertNotNil(_vc.fetchedResultsController, @"");
+    XCTAssertNil(error, @"");
+}
+
 - (void)testStoryboardShouldExist {
     
     XCTAssertNotNil(storyboard, @"");
