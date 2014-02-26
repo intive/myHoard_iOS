@@ -12,24 +12,16 @@
 
 -(UIImage*) thumbnail
 {
-    NSURL *url = [NSURL fileURLWithPath:self.objLocalPath];
-    NSMutableArray *thumbnails = [[NSMutableArray alloc]init];
-    ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-    [library assetForURL:url
-             resultBlock:^(ALAsset *asset)
-     {
-         CGImageRef ref = [asset aspectRatioThumbnail];
-         UIImage *thumbnail = [UIImage imageWithCGImage:ref];
-         [thumbnails addObject:thumbnail];
-     }
-     
-            failureBlock:^(NSError *error)
-     {
-         NSLog(@"Unresolved error: %@, %@", error, [error userInfo]);
-     }
-     ];
-    return [thumbnails objectAtIndex:1];
-
+    UIImage *originalImage = [[UIImage alloc]init];
+    originalImage = [self image];
+    CGSize destinationSize;
+    destinationSize.height = 150;
+    destinationSize.width = 150;
+    UIGraphicsBeginImageContext(destinationSize);
+    [originalImage drawInRect:CGRectMake(0,0,destinationSize.width,destinationSize.height)];
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return newImage;
 }
 
 -(UIImage*) image
