@@ -13,14 +13,14 @@
 -(UIImage*) thumbnail
 {
     NSURL *url = [NSURL fileURLWithPath:self.objLocalPath];
-    NSMutableArray *thumbnails = [[NSMutableArray alloc]init];
     ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+    UIImage *thumbnail1 = [[UIImage alloc]init];
     [library assetForURL:url
              resultBlock:^(ALAsset *asset)
      {
          CGImageRef ref = [asset aspectRatioThumbnail];
          UIImage *thumbnail = [UIImage imageWithCGImage:ref];
-         [thumbnails addObject:thumbnail];
+         [thumbnail1 setValue:thumbnail forKey:@"thumbnail"];
      }
      
             failureBlock:^(NSError *error)
@@ -28,20 +28,20 @@
          NSLog(@"Unresolved error: %@, %@", error, [error userInfo]);
      }
      ];
-    return [thumbnails objectAtIndex:1];
+    return thumbnail1;
 
 }
 
 -(UIImage*) image
 {
     NSURL *url = [NSURL fileURLWithPath:self.objLocalPath];
-    NSMutableArray *images = [[NSMutableArray alloc]init];
     ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+    UIImage *image1 = [[UIImage alloc]init];
     [library assetForURL:url
              resultBlock:^(ALAsset *asset)
      {
          UIImage *image = [UIImage imageWithCGImage:[[asset defaultRepresentation] fullScreenImage]];
-         [images addObject:image];
+         [image1 setValue:image forKey:@"image"];
      }
      
             failureBlock:^(NSError *error)
@@ -50,7 +50,7 @@
      }
      ];
     
-    return [images objectAtIndex:1];
+    return image1;
 }
 
 @end
