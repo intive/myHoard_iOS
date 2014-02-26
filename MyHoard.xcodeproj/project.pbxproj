@@ -41,6 +41,7 @@
 		CEA1083E18B82E6F00E70ED0 /* MHCollectionDetailsViewControllerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA1083D18B82E6F00E70ED0 /* MHCollectionDetailsViewControllerTest.m */; };
 		CEABF90E18BB838D00A6A2F3 /* MHItemViewControllerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CEABF90D18BB838D00A6A2F3 /* MHItemViewControllerTest.m */; };
 		CEABF91218BB98BB00A6A2F3 /* MHCollectionViewControllerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CEABF91118BB98BB00A6A2F3 /* MHCollectionViewControllerTest.m */; };
+		E7B7C83618BCDE1D00DA26E9 /* MHMediaHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = E7B7C83518BCDE1D00DA26E9 /* MHMediaHelper.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -103,6 +104,8 @@
 		CEA1083D18B82E6F00E70ED0 /* MHCollectionDetailsViewControllerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHCollectionDetailsViewControllerTest.m; sourceTree = "<group>"; };
 		CEABF90D18BB838D00A6A2F3 /* MHItemViewControllerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHItemViewControllerTest.m; sourceTree = "<group>"; };
 		CEABF91118BB98BB00A6A2F3 /* MHCollectionViewControllerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHCollectionViewControllerTest.m; sourceTree = "<group>"; };
+		E7B7C83418BCDE1D00DA26E9 /* MHMediaHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MHMediaHelper.h; path = ../MHMediaHelper.h; sourceTree = "<group>"; };
+		E7B7C83518BCDE1D00DA26E9 /* MHMediaHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MHMediaHelper.m; path = ../MHMediaHelper.m; sourceTree = "<group>"; };
 		F724743366084FAC90257055 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -177,6 +180,8 @@
 				CE6C31BB18B1422100983736 /* MHItemViewController.m */,
 				CE6C31BD18B1423400983736 /* MHItemDetailsViewController.h */,
 				CE6C31BE18B1423400983736 /* MHItemDetailsViewController.m */,
+				E7B7C83418BCDE1D00DA26E9 /* MHMediaHelper.h */,
+				E7B7C83518BCDE1D00DA26E9 /* MHMediaHelper.m */,
 				CE6C31B418B1167C00983736 /* CollectionDetailsViewController.h */,
 				CE6C31B518B1167C00983736 /* CollectionDetailsViewController.m */,
 				CE6C31B718B1293400983736 /* CollectionViewController.h */,
@@ -429,6 +434,7 @@
 				CE6C31B618B1167C00983736 /* CollectionDetailsViewController.m in Sources */,
 				CE6C31BF18B1423400983736 /* MHItemDetailsViewController.m in Sources */,
 				CE6C31B918B1293400983736 /* CollectionViewController.m in Sources */,
+				E7B7C83618BCDE1D00DA26E9 /* MHMediaHelper.m in Sources */,
 				537CF83318AD7D6E008A7E04 /* MHCoreDataContext.m in Sources */,
 				CE99180918BA632D006CB520 /* MHItem.m in Sources */,
 			);
