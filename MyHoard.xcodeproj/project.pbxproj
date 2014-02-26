@@ -34,13 +34,13 @@
 		CE6C31B918B1293400983736 /* CollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6C31B818B1293400983736 /* CollectionViewController.m */; };
 		CE6C31BC18B1422100983736 /* MHItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6C31BB18B1422100983736 /* MHItemViewController.m */; };
 		CE6C31BF18B1423400983736 /* MHItemDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6C31BE18B1423400983736 /* MHItemDetailsViewController.m */; };
-		CE8F7B5A18BE1D5300F89452 /* MHCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8F7B5918BE1D5300F89452 /* MHCollection.m */; };
-		CE8F7B5D18BE1D7F00F89452 /* MHItem.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8F7B5C18BE1D7F00F89452 /* MHItem.m */; };
-		CE8F7B6018BE1DA100F89452 /* MHMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = CE8F7B5F18BE1DA100F89452 /* MHMedia.m */; };
 		CE9ECD1C18B778E900038C18 /* MHItemDetailsViewControllerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9ECD1B18B778E800038C18 /* MHItemDetailsViewControllerTest.m */; };
 		CEA1083E18B82E6F00E70ED0 /* MHCollectionDetailsViewControllerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA1083D18B82E6F00E70ED0 /* MHCollectionDetailsViewControllerTest.m */; };
 		CEABF90E18BB838D00A6A2F3 /* MHItemViewControllerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CEABF90D18BB838D00A6A2F3 /* MHItemViewControllerTest.m */; };
 		CEABF91218BB98BB00A6A2F3 /* MHCollectionViewControllerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CEABF91118BB98BB00A6A2F3 /* MHCollectionViewControllerTest.m */; };
+		CEE097B118BE82560060721A /* MHCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE097B018BE82560060721A /* MHCollection.m */; };
+		CEE097B418BE82700060721A /* MHItem.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE097B318BE82700060721A /* MHItem.m */; };
+		CEE097B718BE82940060721A /* MHMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE097B618BE82940060721A /* MHMedia.m */; };
 		E7B7C83618BCDE1D00DA26E9 /* MHMediaHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = E7B7C83518BCDE1D00DA26E9 /* MHMediaHelper.m */; };
 /* End PBXBuildFile section */
 
@@ -94,16 +94,16 @@
 		CE6C31BB18B1422100983736 /* MHItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHItemViewController.m; sourceTree = "<group>"; };
 		CE6C31BD18B1423400983736 /* MHItemDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHItemDetailsViewController.h; sourceTree = "<group>"; };
 		CE6C31BE18B1423400983736 /* MHItemDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHItemDetailsViewController.m; sourceTree = "<group>"; };
-		CE8F7B5818BE1D5300F89452 /* MHCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHCollection.h; sourceTree = "<group>"; };
-		CE8F7B5918BE1D5300F89452 /* MHCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHCollection.m; sourceTree = "<group>"; };
-		CE8F7B5B18BE1D7F00F89452 /* MHItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHItem.h; sourceTree = "<group>"; };
-		CE8F7B5C18BE1D7F00F89452 /* MHItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHItem.m; sourceTree = "<group>"; };
-		CE8F7B5E18BE1DA100F89452 /* MHMedia.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHMedia.h; sourceTree = "<group>"; };
-		CE8F7B5F18BE1DA100F89452 /* MHMedia.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHMedia.m; sourceTree = "<group>"; };
 		CE9ECD1B18B778E800038C18 /* MHItemDetailsViewControllerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHItemDetailsViewControllerTest.m; sourceTree = "<group>"; };
 		CEA1083D18B82E6F00E70ED0 /* MHCollectionDetailsViewControllerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHCollectionDetailsViewControllerTest.m; sourceTree = "<group>"; };
 		CEABF90D18BB838D00A6A2F3 /* MHItemViewControllerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHItemViewControllerTest.m; sourceTree = "<group>"; };
 		CEABF91118BB98BB00A6A2F3 /* MHCollectionViewControllerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHCollectionViewControllerTest.m; sourceTree = "<group>"; };
+		CEE097AF18BE82560060721A /* MHCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHCollection.h; sourceTree = "<group>"; };
+		CEE097B018BE82560060721A /* MHCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHCollection.m; sourceTree = "<group>"; };
+		CEE097B218BE82700060721A /* MHItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHItem.h; sourceTree = "<group>"; };
+		CEE097B318BE82700060721A /* MHItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHItem.m; sourceTree = "<group>"; };
+		CEE097B518BE82940060721A /* MHMedia.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHMedia.h; sourceTree = "<group>"; };
+		CEE097B618BE82940060721A /* MHMedia.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHMedia.m; sourceTree = "<group>"; };
 		E7B7C83418BCDE1D00DA26E9 /* MHMediaHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MHMediaHelper.h; path = ../MHMediaHelper.h; sourceTree = "<group>"; };
 		E7B7C83518BCDE1D00DA26E9 /* MHMediaHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MHMediaHelper.m; path = ../MHMediaHelper.m; sourceTree = "<group>"; };
 		F724743366084FAC90257055 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -235,12 +235,12 @@
 			isa = PBXGroup;
 			children = (
 				537CF82A18AD643D008A7E04 /* MyHoardModel.xcdatamodeld */,
-				CE8F7B5E18BE1DA100F89452 /* MHMedia.h */,
-				CE8F7B5F18BE1DA100F89452 /* MHMedia.m */,
-				CE8F7B5B18BE1D7F00F89452 /* MHItem.h */,
-				CE8F7B5C18BE1D7F00F89452 /* MHItem.m */,
-				CE8F7B5818BE1D5300F89452 /* MHCollection.h */,
-				CE8F7B5918BE1D5300F89452 /* MHCollection.m */,
+				CEE097B518BE82940060721A /* MHMedia.h */,
+				CEE097B618BE82940060721A /* MHMedia.m */,
+				CEE097B218BE82700060721A /* MHItem.h */,
+				CEE097B318BE82700060721A /* MHItem.m */,
+				CEE097AF18BE82560060721A /* MHCollection.h */,
+				CEE097B018BE82560060721A /* MHCollection.m */,
 				537CF83118AD7D6E008A7E04 /* MHCoreDataContext.h */,
 				537CF83218AD7D6E008A7E04 /* MHCoreDataContext.m */,
 				537CF83418AD8FBF008A7E04 /* MHDatabaseManager.h */,
@@ -425,16 +425,16 @@
 			files = (
 				23D321B7184BBFFA002FC13A /* ViewController.m in Sources */,
 				23D321B1184BBFFA002FC13A /* AppDelegate.m in Sources */,
-				CE8F7B5D18BE1D7F00F89452 /* MHItem.m in Sources */,
 				537CF83618AD8FBF008A7E04 /* MHDatabaseManager.m in Sources */,
+				CEE097B418BE82700060721A /* MHItem.m in Sources */,
 				CE6C31BC18B1422100983736 /* MHItemViewController.m in Sources */,
 				537CF82C18AD643D008A7E04 /* MyHoardModel.xcdatamodeld in Sources */,
-				CE8F7B5A18BE1D5300F89452 /* MHCollection.m in Sources */,
+				CEE097B118BE82560060721A /* MHCollection.m in Sources */,
 				23D321AD184BBFFA002FC13A /* main.m in Sources */,
 				CE6C31B618B1167C00983736 /* CollectionDetailsViewController.m in Sources */,
 				CE6C31BF18B1423400983736 /* MHItemDetailsViewController.m in Sources */,
 				CE6C31B918B1293400983736 /* CollectionViewController.m in Sources */,
-				CE8F7B6018BE1DA100F89452 /* MHMedia.m in Sources */,
+				CEE097B718BE82940060721A /* MHMedia.m in Sources */,
 				E7B7C83618BCDE1D00DA26E9 /* MHMediaHelper.m in Sources */,
 				537CF83318AD7D6E008A7E04 /* MHCoreDataContext.m in Sources */,
 			);

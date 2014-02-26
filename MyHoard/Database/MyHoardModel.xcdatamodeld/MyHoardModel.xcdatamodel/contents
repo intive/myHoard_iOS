@@ -24,7 +24,7 @@
         <attribute name="objQuantity" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="objTags" optional="YES" attributeType="Transformable" syncable="YES"/>
         <relationship name="collection" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="MHCollection" inverseName="items" inverseEntity="MHCollection" syncable="YES"/>
-        <relationship name="itemMedia" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MHMedia" inverseName="media" inverseEntity="MHMedia" syncable="YES"/>
+        <relationship name="itemMedia" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MHMedia" inverseName="media" inverseEntity="MHMedia" syncable="YES"/>
     </entity>
     <entity name="MHMedia" representedClassName="MHMedia" syncable="YES">
         <attribute name="objCreatedDate" optional="YES" attributeType="Date" syncable="YES"/>

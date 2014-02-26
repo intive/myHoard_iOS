@@ -28,14 +28,13 @@
 {
     [super viewDidLoad];
     
-    //[NSFetchedResultsController deleteCacheWithName:@"Root"];
+    [NSFetchedResultsController deleteCacheWithName:@"Root"];
     
     NSError *error;
     if (![[self fetchedResultsController] performFetch:&error]) {
         NSLog(@"Unresolved error, %@, %@", error, [error userInfo]);
         exit(-1);
     }
-
 }
 
 - (void)didReceiveMemoryWarning

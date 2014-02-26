@@ -54,11 +54,13 @@ static id partialMockForView() {
 
     XCTAssertNotNil(_vc.fetchedResultsController, @"");
     
-    MHItem *fetchedItem = [_vc.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    MHItem *fetchedItem2 = [_vc.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    MHItem *fetchedItem1 = [_vc.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
     
-    XCTAssertNotNil(fetchedItem, @"");
-    XCTAssertEqualObjects(fetchedItem.objName, @"name", @"");
-    
+    XCTAssertNotNil(fetchedItem1, @"");
+    XCTAssertEqualObjects(fetchedItem1.objName, @"name", @"");
+    XCTAssertNotNil(fetchedItem2, @"");
+    XCTAssertEqualObjects(fetchedItem2.objName, @"name2", @"");
 }
 
 - (void)testStoryboardShouldExist {

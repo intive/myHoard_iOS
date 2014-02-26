@@ -34,13 +34,13 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
+    [NSFetchedResultsController deleteCacheWithName:@"Root"];
+    
     NSError *error;
     if (![[self fetchedResultsController] performFetch:&error]) {
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
         exit(-1);
     }
-    
-    
 }
 
 - (void)didReceiveMemoryWarning
