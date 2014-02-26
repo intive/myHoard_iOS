@@ -38,13 +38,13 @@
     
     [_vc viewDidLoad];
     
-    _vc.itemNameTextField.delegate = self;
-    _vc.itemIdTextField.delegate = self;
-    _vc.itemCollectionIdTextField.delegate = self;
+    XCTAssertNotNil(_vc.itemNameTextField.delegate, @"");
+    XCTAssertNotNil(_vc.itemIdTextField.delegate, @"");
+    XCTAssertNotNil(_vc.itemCollectionIdTextField.delegate, @"");
     
-    XCTAssertEqualObjects(_vc.itemNameTextField.delegate, self, @"");
-    XCTAssertEqualObjects(_vc.itemIdTextField.delegate, self, @"");
-    XCTAssertEqualObjects(_vc.itemCollectionIdTextField.delegate, self, @"");
+    XCTAssertEqualObjects(_vc.itemNameTextField.delegate, _vc, @"");
+    XCTAssertEqualObjects(_vc.itemIdTextField.delegate, _vc, @"");
+    XCTAssertEqualObjects(_vc.itemCollectionIdTextField.delegate, _vc, @"");
 }
 
 - (void)testStoryboardShouldExist {

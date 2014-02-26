@@ -2,7 +2,7 @@
 //  MHCollection.h
 //  MyHoard
 //
-//  Created by user on 2/23/14.
+//  Created by user on 2/26/14.
 //  Copyright (c) 2014 BLStream. All rights reserved.
 //
 
@@ -21,13 +21,13 @@
 @property (nonatomic, retain) NSString * objName;
 @property (nonatomic, retain) NSString * objOwner;
 @property (nonatomic, retain) NSArray * objTags;
-@property (nonatomic, retain) NSSet *item;
+@property (nonatomic, retain) NSSet *items;
 @end
 
 @interface MHCollection (CoreDataGeneratedAccessors)
 
-- (void)addItemObject:(MHItem *)value;
-- (void)removeItemObject:(MHItem *)value;
+- (void)addItemsObject:(MHItem *)value;
+- (void)removeItemsObject:(MHItem *)value;
 - (void)addItems:(NSSet *)values;
 - (void)removeItems:(NSSet *)values;
 

@@ -9,7 +9,7 @@
         <attribute name="objName" attributeType="String" syncable="YES"/>
         <attribute name="objOwner" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="objTags" optional="YES" attributeType="Transformable" syncable="YES"/>
-        <relationship name="item" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MHItem" inverseName="collection" inverseEntity="MHItem" syncable="YES"/>
+        <relationship name="items" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MHItem" inverseName="collection" inverseEntity="MHItem" syncable="YES"/>
     </entity>
     <entity name="MHItem" representedClassName="MHItem" syncable="YES">
         <attribute name="objCollectionId" optional="YES" attributeType="String" syncable="YES"/>
@@ -23,7 +23,7 @@
         <attribute name="objOwner" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="objQuantity" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="objTags" optional="YES" attributeType="Transformable" syncable="YES"/>
-        <relationship name="collection" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="MHCollection" inverseName="item" inverseEntity="MHCollection" syncable="YES"/>
+        <relationship name="collection" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="MHCollection" inverseName="items" inverseEntity="MHCollection" syncable="YES"/>
         <relationship name="itemMedia" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MHMedia" inverseName="media" inverseEntity="MHMedia" syncable="YES"/>
     </entity>
     <entity name="MHMedia" representedClassName="MHMedia" syncable="YES">

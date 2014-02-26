@@ -8,6 +8,10 @@
 
 #import <XCTest/XCTest.h>
 #import "MHItemViewController.h"
+#import "MHItem.h"
+#import "MHCoreDataContextForTests.h"
+#import "MHDatabaseManager.h"
+#import "Kiwi.h"
 
 @interface MHItemViewControllerTest : XCTestCase
 
@@ -18,6 +22,13 @@
     UIStoryboard *storyboard;
     MHItemViewController *_vc;
     UITableViewCell *cell;
+}
+
+static id partialMockForView() {
+    
+    MHItemViewController *viewController = [[MHItemViewController alloc]init];
+    id mockViewController = [KWMock partialMockForObject:viewController];
+    return mockViewController;
 }
 
 - (void)setUp
@@ -40,15 +51,14 @@
 - (void)testViewDidLoad {
     
     [_vc viewDidLoad];
-    
-    NSError *error;
-    if (![[_vc fetchedResultsController] performFetch:&error]) {
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-        exit(-1);
-    }
-    
+
     XCTAssertNotNil(_vc.fetchedResultsController, @"");
-    XCTAssertNil(error, @"");
+    
+    MHItem *fetchedItem = [_vc.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    
+    XCTAssertNotNil(fetchedItem, @"");
+    XCTAssertEqualObjects(fetchedItem.objName, @"name", @"");
+    
 }
 
 - (void)testStoryboardShouldExist {
@@ -90,3 +100,71 @@
 }
 
 @end
+
+SPEC_BEGIN(test)
+
+    describe(@"MHItemViewController", ^{
+        
+        __block MHCoreDataContextForTests* mhi = nil;
+        
+        beforeEach(^{
+            mhi = [MHCoreDataContextForTests new];
+            [MHCoreDataContext stub:@selector(getInstance) andReturn:mhi];
+        });
+        
+        afterEach(^{
+            [mhi dropTestPersistentStore];
+            mhi = nil;
+        });
+       
+        it(@"Should return number of sections", ^{
+            
+            MHItemViewController *_vc = [[MHItemViewController alloc]init];
+           
+            id mockFetchedResultsController = [KWMock mockForClass:[NSFetchedResultsController class]];
+            [[mockFetchedResultsController stubAndReturn:[NSObject new]]section];
+            
+            id mockViewController = partialMockForView();
+            [[mockViewController stubAndReturn:mockFetchedResultsController]fetchedResultsController];
+            
+            NSInteger numberOfSections = [mockViewController numberOfSectionsInTableView:_vc.tableView];
+            
+            [[theValue(numberOfSections) should]equal:theValue(1)];
+            
+        });
+        
+        it(@"NSFetchResultsController should return object at index path", ^{
+            
+            [MHDatabaseManager insertCollectionWithObjId:@"testId" objName:@"name" objDescription:@"1" objTags:@[@"1", @"2"] objItemsNumber:nil objCreatedDate:[NSDate date] objModifiedDate:nil objOwner:nil];
+            
+            [MHDatabaseManager insertItemWithObjId:@"1" objName:@"name" objDescription:@"1" objTags:@[@"1", @"2"] objLocation:nil objQuantity:nil objMediaIds:nil objCreatedDate:[NSDate date] objModifiedDate:nil objCollectionId:@"testId" objOwner:nil];
+            
+            NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+            NSEntityDescription *entity = [NSEntityDescription entityForName:@"MHItem" inManagedObjectContext:[MHCoreDataContext getInstance].managedObjectContext];
+            [fetchRequest setEntity:entity];
+
+            NSSortDescriptor *sort = [[NSSortDescriptor alloc] initWithKey:@"objName" ascending:NO];
+            
+            [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
+            
+            [fetchRequest setFetchBatchSize:20];
+            
+            NSFetchedResultsController *rc = [[NSFetchedResultsController alloc]initWithFetchRequest:fetchRequest managedObjectContext:mhi.managedObjectContext sectionNameKeyPath:nil cacheName:@"Root"];
+            
+            NSError *error = nil;
+            
+            [rc performFetch:&error];
+            
+            MHItem *item = [rc objectAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+            
+            [[error should]beNil];
+            [[item should]beNonNil];
+            [[item.objName should]equal:@"name"];
+            
+            [MHDatabaseManager removeCollectionWithId:@"testId"];
+            [MHDatabaseManager removeAllItemForCollectionWithObjId:@"testId"];
+            
+        });
+    });
+
+SPEC_END

@@ -392,10 +392,10 @@ describe(@"MHDatabaseManager Tests", ^{
         [[theValue(fetchedObjects.count)should]equal:theValue(0)];
         
         MHCollection *collection = [MHDatabaseManager getCollectionWithObjId:@"testId"];
-        [[theValue(collection.item.count)should]equal:theValue(3)];
+        [[theValue(collection.items.count)should]equal:theValue(3)];
         [[collection.objItemsNumber should]equal:theValue(3)];
         
-        for(MHItem *item in collection.item){
+        for(MHItem *item in collection.items){
             [[item.objCollectionId should]equal:@"testId"];
             [[item.itemMedia should]beNonNil];
             [[theValue(item.itemMedia.count)should]equal:theValue(0)];

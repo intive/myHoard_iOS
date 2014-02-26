@@ -195,7 +195,7 @@
     }
     
     //Add item with objCollectionId to a specified collection
-    [[MHDatabaseManager getCollectionWithObjId:objCollectionId] addItemObject:item];
+    [[MHDatabaseManager getCollectionWithObjId:objCollectionId] addItemsObject:item];
     [item setCollection:[MHDatabaseManager getCollectionWithObjId:objCollectionId]];
     
     int value = [[MHDatabaseManager getCollectionWithObjId:objCollectionId].objItemsNumber intValue];

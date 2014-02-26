@@ -8,6 +8,7 @@
 
 #import <XCTest/XCTest.h>
 #import "CollectionViewController.h"
+#import "MHCollection.h"
 
 @interface MHCollectionViewControllerTest : XCTestCase
 
@@ -41,14 +42,12 @@
     
     [_vc viewDidLoad];
     
-    NSError *error;
-    if (![[_vc fetchedResultsController] performFetch:&error]) {
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-        exit(-1);
-    }
-    
     XCTAssertNotNil(_vc.fetchedResultsController, @"");
-    XCTAssertNil(error, @"");
+    
+    MHCollection *fetchedCollection = [_vc.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    
+    XCTAssertNotNil(fetchedCollection, @"");
+    XCTAssertEqualObjects(fetchedCollection.objId, @"somecollection", @"");
 }
 
 - (void)testStoryboardShouldExist {

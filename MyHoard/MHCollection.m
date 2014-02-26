@@ -2,7 +2,7 @@
 //  MHCollection.m
 //  MyHoard
 //
-//  Created by user on 2/23/14.
+//  Created by user on 2/26/14.
 //  Copyright (c) 2014 BLStream. All rights reserved.
 //
 
@@ -20,6 +20,6 @@
 @dynamic objName;
 @dynamic objOwner;
 @dynamic objTags;
-@dynamic item;
+@dynamic items;
 
 @end
