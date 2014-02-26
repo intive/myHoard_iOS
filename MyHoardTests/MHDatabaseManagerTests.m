@@ -402,6 +402,41 @@ describe(@"MHDatabaseManager Tests", ^{
         }
         
     });
+    it(@"Remove media with objId", ^{
+        
+        NSDate *testDate = [NSDate date];
+        
+        [MHDatabaseManager insertCollectionWithObjId:@"testId" objName:@"name" objDescription:@"1" objTags:@[@"1", @"2"] objItemsNumber:nil objCreatedDate:[NSDate date] objModifiedDate:nil objOwner:nil];
+        
+        [MHDatabaseManager insertItemWithObjId:@"testId" objName:@"name" objDescription:@"1" objTags:@[@"1", @"2"] objLocation:nil objQuantity:nil objMediaIds:nil objCreatedDate:[NSDate date] objModifiedDate:nil objCollectionId:@"testId" objOwner:nil];
+        [MHDatabaseManager insertMediaWithObjId:@"1" objItem:@"1" objCreatedDate:[NSDate date] objOwner:nil objLocalPath:nil];
+        [MHDatabaseManager insertMediaWithObjId:@"2" objItem:@"2" objCreatedDate:testDate objOwner:nil objLocalPath:nil];
+        
+        [MHDatabaseManager removeMediaWithObjId:@"1"];
+        
+        NSManagedObjectContext *context = cdcTest.managedObjectContext;
+        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+        NSEntityDescription *entity = [NSEntityDescription entityForName:@"MHMedia" inManagedObjectContext:context];
+        
+        [fetchRequest setEntity:entity];
+        
+        NSError *error = nil;
+        NSArray *fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
+        
+        [[error should] beNil];
+        [[[error userInfo]should]beNil];
+        [[fetchedObjects should] beNonNil];
+        [[theValue(fetchedObjects.count)should]equal:theValue(1)];
+        
+        MHMedia *media = [fetchedObjects objectAtIndex:0];
+        
+        [[media.objId should] equal:@"2"];
+        [[media.objItem should] equal:@"2"];
+        [[media.objCreatedDate should] equal:testDate];
+
+        
+    });
+
 
 });
 

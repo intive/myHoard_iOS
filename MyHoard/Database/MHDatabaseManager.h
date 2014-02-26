@@ -60,4 +60,6 @@
 
 + (MHMedia*)mediaWithObjId:(NSString*)objId;
 
++ (void)removeMediaWithObjId:(NSString*)objId;
+
 @end
