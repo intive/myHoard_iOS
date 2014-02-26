@@ -54,6 +54,12 @@ static id partialMockForView() {
 
     XCTAssertNotNil(_vc.fetchedResultsController, @"");
     
+    [MHDatabaseManager insertCollectionWithObjId:@"testId" objName:@"name" objDescription:@"1" objTags:@[@"1", @"2"] objItemsNumber:nil objCreatedDate:[NSDate date] objModifiedDate:nil objOwner:nil];
+    
+    [MHDatabaseManager insertItemWithObjId:@"1" objName:@"name" objDescription:@"1" objTags:@[@"1", @"2"] objLocation:nil objQuantity:nil objMediaIds:nil objCreatedDate:[NSDate date] objModifiedDate:nil objCollectionId:@"testId" objOwner:nil];
+    
+    [MHDatabaseManager insertItemWithObjId:@"2" objName:@"name2" objDescription:@"2" objTags:@[@"3", @"4"] objLocation:nil objQuantity:nil objMediaIds:nil objCreatedDate:[NSDate date] objModifiedDate:nil objCollectionId:@"testId" objOwner:nil];
+    
     MHItem *fetchedItem2 = [_vc.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
     MHItem *fetchedItem1 = [_vc.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
     
@@ -61,6 +67,9 @@ static id partialMockForView() {
     XCTAssertEqualObjects(fetchedItem1.objName, @"name", @"");
     XCTAssertNotNil(fetchedItem2, @"");
     XCTAssertEqualObjects(fetchedItem2.objName, @"name2", @"");
+    
+    [MHDatabaseManager removeAllItemForCollectionWithObjId:@"testId"];
+    [MHDatabaseManager removeCollectionWithId:@"testId"];
 }
 
 - (void)testStoryboardShouldExist {

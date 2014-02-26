@@ -9,6 +9,7 @@
 #import <XCTest/XCTest.h>
 #import "CollectionViewController.h"
 #import "MHCollection.h"
+#import "MHDatabaseManager.h"
 
 @interface MHCollectionViewControllerTest : XCTestCase
 
@@ -44,10 +45,14 @@
     
     XCTAssertNotNil(_vc.fetchedResultsController, @"");
     
+    [MHDatabaseManager insertCollectionWithObjId:@"testId" objName:@"name" objDescription:@"1" objTags:@[@"1", @"2"] objItemsNumber:nil objCreatedDate:[NSDate date] objModifiedDate:nil objOwner:nil];
+    
     MHCollection *fetchedCollection = [_vc.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
     
     XCTAssertNotNil(fetchedCollection, @"");
-    XCTAssertEqualObjects(fetchedCollection.objId, @"somecollection", @"");
+    XCTAssertEqualObjects(fetchedCollection.objId, @"testId", @"");
+    
+    [MHDatabaseManager removeCollectionWithId:@"testId"];
 }
 
 - (void)testStoryboardShouldExist {
