@@ -122,17 +122,49 @@ describe(@"MHCollectionViewController", ^{
     
     it(@"Should return number of sections", ^{
         
-        CollectionViewController *_vc = [[CollectionViewController alloc]init];
-        
         id mockFetchedResultsController = [KWMock mockForClass:[NSFetchedResultsController class]];
-        [[mockFetchedResultsController stubAndReturn:[NSObject new]]section];
+        [[mockFetchedResultsController stubAndReturn:@[[NSObject new]]]sections];
         
         id mockViewController = partialMockForView();
         [[mockViewController stubAndReturn:mockFetchedResultsController]fetchedResultsController];
         
-        NSInteger numberOfSections = [mockViewController numberOfSectionsInTableView:_vc.tableView];
+        UITableView *tableView = [[UITableView alloc]init];
+        id mockTableView = [KWMock partialMockForObject:tableView];
+        [[mockTableView stubAndReturn:[KWValue valueWithInteger:1]]numberOfSectionsInTableView:mockTableView];
+        
+        NSInteger numberOfSections = [mockViewController numberOfSectionsInTableView:mockTableView];
         
         [[theValue(numberOfSections) should]equal:theValue(1)];
+        
+    });
+    
+    it(@"Should return number of rows in section", ^{
+       
+        NSInteger numberOfRows = 23;
+        
+        id mockSectionInfo = [KWMock mockForProtocol:@protocol(NSFetchedResultsSectionInfo)];
+        [[mockSectionInfo stubAndReturn:[KWValue valueWithInteger:numberOfRows]]numberOfObjects];
+        
+        id mockFetchedResultsController = [KWMock mockForClass:[NSFetchedResultsController class]];
+        [[mockFetchedResultsController stubAndReturn:@[mockSectionInfo]]sections];
+        
+        UITableView *tableView = [[UITableView alloc]init];
+        id mockTableView = [KWMock partialMockForObject:tableView];
+        [[mockTableView stubAndReturn:[KWValue valueWithInteger:numberOfRows]]numberOfRowsInSection:0];
+        
+        id mockViewController = partialMockForView();
+        
+        [[mockViewController stubAndReturn:mockFetchedResultsController] fetchedResultsController];
+        
+        NSInteger numberOfRowsInSection = [mockTableView numberOfRowsInSection:0];
+        NSInteger numberORISFromMSI = [mockSectionInfo numberOfObjects];
+        NSInteger numberOSIMFRC = [[mockFetchedResultsController sections] count];
+        NSInteger numberORISFromMVC = [mockViewController numberOfSectionsInTableView:mockTableView];
+        
+        [[theValue(numberOfRowsInSection)should]equal:theValue(numberOfRows)];
+        [[theValue(numberOfRows)should]equal:theValue(numberORISFromMSI)];
+        [[theValue(numberOSIMFRC)should]equal:theValue(1)];
+        [[theValue(numberORISFromMVC)should]equal:theValue(1)];
         
     });
     
