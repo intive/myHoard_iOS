@@ -41,6 +41,7 @@
 		CEE097B118BE82560060721A /* MHCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE097B018BE82560060721A /* MHCollection.m */; };
 		CEE097B418BE82700060721A /* MHItem.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE097B318BE82700060721A /* MHItem.m */; };
 		CEE097B718BE82940060721A /* MHMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE097B618BE82940060721A /* MHMedia.m */; };
+		E7A16B3018BE8F7E003BC466 /* MHMediaHelperTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E7A16B2F18BE8F7E003BC466 /* MHMediaHelperTests.m */; };
 		E7B7C83618BCDE1D00DA26E9 /* MHMediaHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = E7B7C83518BCDE1D00DA26E9 /* MHMediaHelper.m */; };
 /* End PBXBuildFile section */
 
@@ -104,6 +105,7 @@
 		CEE097B318BE82700060721A /* MHItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHItem.m; sourceTree = "<group>"; };
 		CEE097B518BE82940060721A /* MHMedia.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHMedia.h; sourceTree = "<group>"; };
 		CEE097B618BE82940060721A /* MHMedia.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHMedia.m; sourceTree = "<group>"; };
+		E7A16B2F18BE8F7E003BC466 /* MHMediaHelperTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHMediaHelperTests.m; sourceTree = "<group>"; };
 		E7B7C83418BCDE1D00DA26E9 /* MHMediaHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MHMediaHelper.h; path = ../MHMediaHelper.h; sourceTree = "<group>"; };
 		E7B7C83518BCDE1D00DA26E9 /* MHMediaHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MHMediaHelper.m; path = ../MHMediaHelper.m; sourceTree = "<group>"; };
 		F724743366084FAC90257055 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -214,6 +216,7 @@
 				CEA1083D18B82E6F00E70ED0 /* MHCollectionDetailsViewControllerTest.m */,
 				CEABF91118BB98BB00A6A2F3 /* MHCollectionViewControllerTest.m */,
 				23D321CB184BBFFA002FC13A /* MyHoardTests.m */,
+				E7A16B2F18BE8F7E003BC466 /* MHMediaHelperTests.m */,
 				537CF83718ADFEAB008A7E04 /* MHDatabaseManagerTests.m */,
 				537CF83C18AE0D6E008A7E04 /* Helpers */,
 				23D321C6184BBFFA002FC13A /* Supporting Files */,
@@ -446,6 +449,7 @@
 			files = (
 				CEA1083E18B82E6F00E70ED0 /* MHCollectionDetailsViewControllerTest.m in Sources */,
 				2302787418B4C0A900FCD528 /* GcovTestObserver.m in Sources */,
+				E7A16B3018BE8F7E003BC466 /* MHMediaHelperTests.m in Sources */,
 				23D321CC184BBFFA002FC13A /* MyHoardTests.m in Sources */,
 				537CF83B18AE0D5D008A7E04 /* MHCoreDataContextForTests.m in Sources */,
 				CE9ECD1C18B778E900038C18 /* MHItemDetailsViewControllerTest.m in Sources */,

@@ -23,15 +23,18 @@ PODS:
     - Kiwi/ARC
     - Kiwi/NonARC
   - Nocilla (0.8.1)
+  - OCMock (2.2.3)
 
 DEPENDENCIES:
   - AFNetworking
   - Kiwi/XCTest
   - Nocilla
+  - OCMock (~> 2.2.3)
 
 SPEC CHECKSUMS:
   AFNetworking: c7d7901a83f631414c7eda1737261f696101a5cd
   Kiwi: 04c51e880831d291748ec702d42c4101f7eb95c9
   Nocilla: 0c8075046df476b1bc6482caa7f6a69db1a9b277
+  OCMock: 74e4ddbcef134170dcc844f91c691f13868075d7
 
 COCOAPODS: 0.29.0
