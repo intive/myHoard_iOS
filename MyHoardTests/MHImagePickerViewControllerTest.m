@@ -38,6 +38,16 @@
     [super tearDown];
 }
 
+- (void)testViewDidLoad {
+    
+    [_vc viewDidLoad];
+    
+    XCTAssertNotNil(_vc.capturedImages, @"");
+    if (_vc.imagePickerController.sourceType == UIImagePickerControllerSourceTypeCamera) {
+        XCTAssertEqual(_vc.navigationItem.rightBarButtonItem.enabled, NO, @"");
+    }
+}
+
 - (void)testStoryboardShouldExist {
     
     XCTAssertNotNil(storyboard, @"");
@@ -56,6 +66,31 @@
 - (void)testThatLibraryButtonExist {
     
     XCTAssertNotNil(_vc.navigationItem.leftBarButtonItem, @"");
+}
+
+- (void)testShowImagePickerForSource {
+    
+    if (_vc.imagePickerController.sourceType == UIImagePickerControllerSourceTypeCamera) {
+        XCTAssertEqual(_vc.imagePickerController.showsCameraControls, NO, @"");
+        XCTAssertEqual([NSBundle mainBundle], @"MHImagePickerViewController", @"");
+        XCTAssertEqual(_vc.MHIPView.frame, _vc.imagePickerController.cameraOverlayView.frame, @"");
+        XCTAssertEqual(_vc.imagePickerController.cameraOverlayView, _vc.MHIPView, @"");
+        XCTAssertNil(_vc.MHIPView, @"");
+    }
+    
+    XCTAssertEqual(_vc.presentedViewController, _vc.imagePickerController, @"");
+}
+
+- (void)testDone {
+    
+    SEL selector = NSSelectorFromString(@"done:");
+    XCTAssertTrue([_vc respondsToSelector:selector], @"_vc should respond to selector done");
+}
+
+- (void)testTakePhoto {
+    
+    SEL selector = NSSelectorFromString(@"takePhoto:");
+    XCTAssertTrue([_vc respondsToSelector:selector], @"_vc should respond to selector takePhoto");
 }
 
 - (void)testShowImagePickerForPhotoLibrary {
