@@ -12,6 +12,7 @@
 #import "MHDatabaseManager.h"
 #import "MHMedia.h"
 
+
 @interface MHImagePickerViewControllerTest : XCTestCase {
     
     MHImagePickerViewController *_vc;
@@ -155,6 +156,7 @@
     
 }
 
+- (void)testIsLocationInImage {
     XCTAssertEqual([_vc isLocationInImage:@"testImage.JPG"], true, @"");
 }
 
@@ -202,5 +204,7 @@
     
     [MHDatabaseManager removeMediaWithObjId:mediaObjId];
 }
+
+
 
 @end

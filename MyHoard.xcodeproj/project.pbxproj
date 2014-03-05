@@ -127,6 +127,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				93C7876D18C4EB3D0079359A /* ImageIO.framework in Frameworks */,
 				23D321A3184BBFFA002FC13A /* CoreGraphics.framework in Frameworks */,
 				23D321A5184BBFFA002FC13A /* UIKit.framework in Frameworks */,
 				23D321A1184BBFFA002FC13A /* Foundation.framework in Frameworks */,
@@ -173,6 +174,7 @@
 		23D3219F184BBFFA002FC13A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				93C7876C18C4EB3D0079359A /* ImageIO.framework */,
 				23D321A0184BBFFA002FC13A /* Foundation.framework */,
 				23D321A2184BBFFA002FC13A /* CoreGraphics.framework */,
 				23D321A4184BBFFA002FC13A /* UIKit.framework */,
@@ -223,6 +225,7 @@
 		23D321C5184BBFFA002FC13A /* MyHoardTests */ = {
 			isa = PBXGroup;
 			children = (
+				93CCCDF518C726D100F4A084 /* testImage.JPG */,
 				CE92CB5A18C38D49005038D9 /* MHImagePickerViewControllerTest.m */,
 				CE9ECD1B18B778E800038C18 /* MHItemDetailsViewControllerTest.m */,
 				CEABF90D18BB838D00A6A2F3 /* MHItemViewControllerTest.m */,
@@ -369,6 +372,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				23D321CA184BBFFA002FC13A /* InfoPlist.strings in Resources */,
+				93CCCDF618C726D100F4A084 /* testImage.JPG in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
