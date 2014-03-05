@@ -28,6 +28,8 @@
 		537CF83618AD8FBF008A7E04 /* MHDatabaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 537CF83518AD8FBF008A7E04 /* MHDatabaseManager.m */; };
 		537CF83818ADFEAB008A7E04 /* MHDatabaseManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 537CF83718ADFEAB008A7E04 /* MHDatabaseManagerTests.m */; };
 		537CF83B18AE0D5D008A7E04 /* MHCoreDataContextForTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 537CF83A18AE0D5D008A7E04 /* MHCoreDataContextForTests.m */; };
+		93C7876D18C4EB3D0079359A /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93C7876C18C4EB3D0079359A /* ImageIO.framework */; };
+		93CCCDF618C726D100F4A084 /* testImage.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 93CCCDF518C726D100F4A084 /* testImage.JPG */; };
 		A4050E81A1BC4A589193A896 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F724743366084FAC90257055 /* libPods.a */; };
 		B02743679DB841A98A3C2D60 /* libPods-MyHoardTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A54F99CDCE2468DACC4FBD3 /* libPods-MyHoardTests.a */; };
 		B8F16086EB65413C89F6F7BB /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F724743366084FAC90257055 /* libPods.a */; };

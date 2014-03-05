@@ -13,6 +13,8 @@
 
 @interface MHImagePickerViewController ()
 
+- (BOOL)isLocationInImage:(NSString *)fileName;
+
 @end
 
 @implementation MHImagePickerViewController
@@ -69,6 +71,87 @@
     self.imagePickerController = imagePickerController;
     [self presentViewController:self.imagePickerController animated:YES completion:nil];
 }
+
+- (BOOL)isLocationInImage:(NSString *)fileName
+{
+    CFURLRef url = CFURLCreateFromFileSystemRepresentation (kCFAllocatorDefault, (const UInt8 *)[fileName UTF8String], [fileName length], false);
+    
+    if (!url) {
+        printf ("Bad input file path\n");
+        return false;
+    }
+    
+    CGImageSourceRef myImageSource;
+    
+    myImageSource = CGImageSourceCreateWithURL(url, NULL);
+    
+    CFDictionaryRef imagePropertiesDictionary;
+    
+    imagePropertiesDictionary = CGImageSourceCopyPropertiesAtIndex(myImageSource, 0, NULL);
+    
+    CFNumberRef imageLocation = (CFNumberRef)CFDictionaryGetValue(imagePropertiesDictionary, kCGImagePropertyGPSDictionary);
+    if (!imageLocation)
+    {
+        CFRelease(imagePropertiesDictionary);
+        CFRelease(myImageSource);
+        
+        NSLog(@"No location");
+        return false;
+    }
+    else
+    {
+        return true;
+    }
+
+}
+
+- (CLLocationCoordinate2D)locationForImage:(NSString *)fileName
+{
+    CFURLRef url = CFURLCreateFromFileSystemRepresentation (kCFAllocatorDefault, (const UInt8 *)[fileName UTF8String], [fileName length], false);
+    
+    if (!url)
+    {
+        printf ("Bad input file path\n");
+    }
+    
+    CGImageSourceRef myImageSource;
+    myImageSource = CGImageSourceCreateWithURL(url, NULL);
+    CFDictionaryRef imagePropertiesDictionary;
+    imagePropertiesDictionary = CGImageSourceCopyPropertiesAtIndex(myImageSource, 0, NULL);
+    CFDictionaryRef imageLocation = CFDictionaryGetValue(imagePropertiesDictionary, kCGImagePropertyGPSDictionary);
+    if (!imageLocation)
+    {
+
+        
+        CFRelease(imagePropertiesDictionary);
+        CFRelease(myImageSource);
+        NSLog(@"No location");
+        return kCLLocationCoordinate2DInvalid;
+    }
+    else
+    {
+        CLLocationDegrees latitude;
+        CLLocationDegrees longtitude;
+        if ([@"N"  isEqualToString: (NSString *)CFDictionaryGetValue(imageLocation, kCGImagePropertyGPSLatitudeRef)]) {
+             latitude = [(NSString *)CFDictionaryGetValue(imageLocation, kCGImagePropertyGPSLatitude) doubleValue];
+        } else {
+             latitude = -[(NSString *)CFDictionaryGetValue(imageLocation, kCGImagePropertyGPSLatitude) doubleValue];
+        }
+        if ([@"E"  isEqualToString:(NSString *)CFDictionaryGetValue(imageLocation, kCGImagePropertyGPSLongitudeRef)]) {
+             longtitude = [(NSString *)CFDictionaryGetValue(imageLocation, kCGImagePropertyGPSLongitude) doubleValue];
+        } else {
+             longtitude = -[(NSString *)CFDictionaryGetValue(imageLocation, kCGImagePropertyGPSLongitude) doubleValue];
+        }
+        
+        
+        CFRelease(imagePropertiesDictionary);
+        CFRelease(myImageSource);
+        
+        return CLLocationCoordinate2DMake(latitude, longtitude);
+    }
+}
+
+
 
 #pragma Xib toolbar actions 
 

@@ -121,6 +121,44 @@
     
 }
 
+- (void)testLocationFromImage {
+    
+    
+    CFURLRef url = CFURLCreateFromFileSystemRepresentation (kCFAllocatorDefault, (const UInt8 *)[@"testImage.jpg" UTF8String], [@"testImage.jpg" length], false);
+    
+    CGImageSourceRef myImageSource = CGImageSourceCreateWithURL(url, NULL);
+    
+    CFDictionaryRef imagePropertiesDictionary;
+    imagePropertiesDictionary = CGImageSourceCopyPropertiesAtIndex(myImageSource, 0, NULL);
+    CFDictionaryRef imageLocation = CFDictionaryGetValue(imagePropertiesDictionary, kCGImagePropertyGPSDictionary);
+    
+    CLLocationDegrees latitude;
+    CLLocationDegrees longtitude;
+    if ([@"N"  isEqualToString: (NSString *)CFDictionaryGetValue(imageLocation, kCGImagePropertyGPSLatitudeRef)]) {
+        latitude = [(NSString *)CFDictionaryGetValue(imageLocation, kCGImagePropertyGPSLatitude) doubleValue];
+    } else {
+        latitude = -[(NSString *)CFDictionaryGetValue(imageLocation, kCGImagePropertyGPSLatitude) doubleValue];
+    }
+    if ([@"E"  isEqualToString:(NSString *)CFDictionaryGetValue(imageLocation, kCGImagePropertyGPSLongitudeRef)]) {
+        longtitude = [(NSString *)CFDictionaryGetValue(imageLocation, kCGImagePropertyGPSLongitude) doubleValue];
+    } else {
+        longtitude = -[(NSString *)CFDictionaryGetValue(imageLocation, kCGImagePropertyGPSLongitude) doubleValue];
+    }
+    
+    CLLocationCoordinate2D testCoordinates = CLLocationCoordinate2DMake(latitude, longtitude);
+    
+    MHImagePickerViewController *_vc;
+    CLLocationCoordinate2D methodFromTestCoordinates = [_vc locationForImage:@"testImage.jpg"];
+    
+    XCTAssertEqual(theValue(testCoordinates.latitude), theValue(methodFromTestCoordinates.latitude), @"");
+    XCTAssertEqual(theValue(testCoordinates.longitude), theValue(methodFromTestCoordinates.longitude), @"");
+    
+}
+
+- (void)testLocationInImage {
+    
+}
+
 - (void)testDidFinishPickingMediaWithInfo {
     
     id mockVC = [OCMockObject partialMockForObject:_vc];

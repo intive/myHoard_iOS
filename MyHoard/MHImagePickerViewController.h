@@ -7,6 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <ImageIO/ImageIO.h>
+#import <CoreLocation/CoreLocation.h>
+
 
 @interface MHImagePickerViewController : UIViewController <UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
@@ -25,5 +28,6 @@
 - (IBAction)showImagePickerForPhotoLibrary:(id)sender;
 - (IBAction)done:(id)sender;
 - (IBAction)takePhoto:(id)sender;
+- (CLLocationCoordinate2D)locationForImage:(NSString *)fileName;
 
 @end
