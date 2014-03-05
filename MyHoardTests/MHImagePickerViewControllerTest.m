@@ -155,8 +155,7 @@
     
 }
 
-- (void)testLocationInImage {
-    
+    XCTAssertEqual([_vc isLocationInImage:@"testImage.JPG"], true, @"");
 }
 
 - (void)testDidFinishPickingMediaWithInfo {

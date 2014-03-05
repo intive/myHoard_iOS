@@ -29,5 +29,6 @@
 - (IBAction)done:(id)sender;
 - (IBAction)takePhoto:(id)sender;
 - (CLLocationCoordinate2D)locationForImage:(NSString *)fileName;
+- (BOOL)isLocationInImage:(NSString *)fileName;
 
 @end

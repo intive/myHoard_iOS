@@ -13,7 +13,6 @@
 
 @interface MHImagePickerViewController ()
 
-- (BOOL)isLocationInImage:(NSString *)fileName;
 
 @end
 

@@ -94,6 +94,8 @@
 		537CF83918AE0D5D008A7E04 /* MHCoreDataContextForTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHCoreDataContextForTests.h; sourceTree = "<group>"; };
 		537CF83A18AE0D5D008A7E04 /* MHCoreDataContextForTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHCoreDataContextForTests.m; sourceTree = "<group>"; };
 		6040C246B171497C91A4ABBE /* Pods-MyHoardTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyHoardTests.xcconfig"; path = "Pods/Pods-MyHoardTests.xcconfig"; sourceTree = "<group>"; };
+		93C7876C18C4EB3D0079359A /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		93CCCDF518C726D100F4A084 /* testImage.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = testImage.JPG; sourceTree = "<group>"; };
 		CE6C31B418B1167C00983736 /* CollectionDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionDetailsViewController.h; sourceTree = "<group>"; };
 		CE6C31B518B1167C00983736 /* CollectionDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionDetailsViewController.m; sourceTree = "<group>"; };
 		CE6C31B718B1293400983736 /* CollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionViewController.h; sourceTree = "<group>"; };
