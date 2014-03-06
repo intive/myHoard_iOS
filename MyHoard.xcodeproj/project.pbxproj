@@ -46,6 +46,9 @@
 		CEA1083E18B82E6F00E70ED0 /* MHCollectionDetailsViewControllerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA1083D18B82E6F00E70ED0 /* MHCollectionDetailsViewControllerTest.m */; };
 		CEABF90E18BB838D00A6A2F3 /* MHItemViewControllerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CEABF90D18BB838D00A6A2F3 /* MHItemViewControllerTest.m */; };
 		CEABF91218BB98BB00A6A2F3 /* MHCollectionViewControllerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CEABF91118BB98BB00A6A2F3 /* MHCollectionViewControllerTest.m */; };
+		CED4B03118C8903800A84155 /* MHUserSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CED4B03018C8903800A84155 /* MHUserSettingsViewController.m */; };
+		CED4B03318C8918700A84155 /* MHUserSettingsViewControllerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CED4B03218C8918700A84155 /* MHUserSettingsViewControllerTest.m */; };
+		CED4B03518C892A300A84155 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CED4B03418C892A300A84155 /* Settings.bundle */; };
 		CEE097B118BE82560060721A /* MHCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE097B018BE82560060721A /* MHCollection.m */; };
 		CEE097B418BE82700060721A /* MHItem.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE097B318BE82700060721A /* MHItem.m */; };
 		CEE097B718BE82940060721A /* MHMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE097B618BE82940060721A /* MHMedia.m */; };
@@ -117,6 +120,10 @@
 		CEA1083D18B82E6F00E70ED0 /* MHCollectionDetailsViewControllerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHCollectionDetailsViewControllerTest.m; sourceTree = "<group>"; };
 		CEABF90D18BB838D00A6A2F3 /* MHItemViewControllerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHItemViewControllerTest.m; sourceTree = "<group>"; };
 		CEABF91118BB98BB00A6A2F3 /* MHCollectionViewControllerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHCollectionViewControllerTest.m; sourceTree = "<group>"; };
+		CED4B02F18C8903800A84155 /* MHUserSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHUserSettingsViewController.h; sourceTree = "<group>"; };
+		CED4B03018C8903800A84155 /* MHUserSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHUserSettingsViewController.m; sourceTree = "<group>"; };
+		CED4B03218C8918700A84155 /* MHUserSettingsViewControllerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHUserSettingsViewControllerTest.m; sourceTree = "<group>"; };
+		CED4B03418C892A300A84155 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		CEE097AF18BE82560060721A /* MHCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHCollection.h; sourceTree = "<group>"; };
 		CEE097B018BE82560060721A /* MHCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHCollection.m; sourceTree = "<group>"; };
 		CEE097B218BE82700060721A /* MHItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHItem.h; sourceTree = "<group>"; };
@@ -210,10 +217,13 @@
 				CE92CB5618C321EF005038D9 /* MHImagePickerViewController.m */,
 				1A0D0B6518C7C742004B99BA /* MHLocation.h */,
 				1A0D0B6618C7C742004B99BA /* MHLocation.m */,
+				CED4B02F18C8903800A84155 /* MHUserSettingsViewController.h */,
+				CED4B03018C8903800A84155 /* MHUserSettingsViewController.m */,
 				CE92CB5718C321EF005038D9 /* MHImagePickerViewController.xib */,
 				23D321B2184BBFFA002FC13A /* Main.storyboard */,
 				23D321B8184BBFFA002FC13A /* Images.xcassets */,
 				23D321A7184BBFFA002FC13A /* Supporting Files */,
+				CED4B03418C892A300A84155 /* Settings.bundle */,
 			);
 			path = MyHoard;
 			sourceTree = "<group>";
@@ -233,6 +243,7 @@
 			isa = PBXGroup;
 			children = (
 				93CCCDF518C726D100F4A084 /* testImage.JPG */,
+				CED4B03218C8918700A84155 /* MHUserSettingsViewControllerTest.m */,
 				CE92CB5A18C38D49005038D9 /* MHImagePickerViewControllerTest.m */,
 				CE9ECD1B18B778E800038C18 /* MHItemDetailsViewControllerTest.m */,
 				CEABF90D18BB838D00A6A2F3 /* MHItemViewControllerTest.m */,
@@ -370,6 +381,7 @@
 			files = (
 				23D321B9184BBFFA002FC13A /* Images.xcassets in Resources */,
 				CE92CB5918C321EF005038D9 /* MHImagePickerViewController.xib in Resources */,
+				CED4B03518C892A300A84155 /* Settings.bundle in Resources */,
 				23D321AB184BBFFA002FC13A /* InfoPlist.strings in Resources */,
 				23D321B4184BBFFA002FC13A /* Main.storyboard in Resources */,
 			);
@@ -463,6 +475,7 @@
 				CE6C31BC18B1422100983736 /* MHItemViewController.m in Sources */,
 				537CF82C18AD643D008A7E04 /* MyHoardModel.xcdatamodeld in Sources */,
 				CEE097B118BE82560060721A /* MHCollection.m in Sources */,
+				CED4B03118C8903800A84155 /* MHUserSettingsViewController.m in Sources */,
 				23D321AD184BBFFA002FC13A /* main.m in Sources */,
 				CE6C31B618B1167C00983736 /* CollectionDetailsViewController.m in Sources */,
 				CE6C31BF18B1423400983736 /* MHItemDetailsViewController.m in Sources */,
@@ -486,6 +499,7 @@
 				CE9ECD1C18B778E900038C18 /* MHItemDetailsViewControllerTest.m in Sources */,
 				CEABF90E18BB838D00A6A2F3 /* MHItemViewControllerTest.m in Sources */,
 				CEABF91218BB98BB00A6A2F3 /* MHCollectionViewControllerTest.m in Sources */,
+				CED4B03318C8918700A84155 /* MHUserSettingsViewControllerTest.m in Sources */,
 				1A0D0B6918C7DDA9004B99BA /* MHLocationTests.m in Sources */,
 				537CF83818ADFEAB008A7E04 /* MHDatabaseManagerTests.m in Sources */,
 			);

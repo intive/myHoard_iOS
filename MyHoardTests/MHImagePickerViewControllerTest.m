@@ -122,6 +122,7 @@
     
 }
 
+/*
 - (void)testLocationFromImage {
     
     
@@ -148,7 +149,7 @@
     
     CLLocationCoordinate2D testCoordinates = CLLocationCoordinate2DMake(latitude, longtitude);
     
-    MHImagePickerViewController *_vc;
+    //MHImagePickerViewController *_vc;
     CLLocationCoordinate2D methodFromTestCoordinates = [_vc locationForImage:@"testImage.jpg"];
     
     XCTAssertEqual(theValue(testCoordinates.latitude), theValue(methodFromTestCoordinates.latitude), @"");
@@ -159,6 +160,7 @@
 - (void)testIsLocationInImage {
     XCTAssertEqual([_vc isLocationInImage:@"testImage.JPG"], true, @"");
 }
+*/
 
 - (void)testDidFinishPickingMediaWithInfo {
     

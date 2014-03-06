@@ -371,11 +371,66 @@
                         <segue destination="OiG-dl-cgV" kind="relationship" relationship="viewControllers" id="ER0-2p-SbD"/>
                         <segue destination="rAE-l0-a3Z" kind="relationship" relationship="viewControllers" id="bHK-aV-A7e"/>
                         <segue destination="3V6-nR-w50" kind="relationship" relationship="viewControllers" id="ly8-G7-4Bh"/>
+                        <segue destination="uMG-eA-gXz" kind="relationship" relationship="viewControllers" id="8zk-i7-meZ"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mOG-vb-uz4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1170" y="-428"/>
+        </scene>
+        <!--User Settings View Controller - Choose server-->
+        <scene sceneID="W74-iy-n56">
+            <objects>
+                <viewController storyboardIdentifier="MHUserSettingsViewController" id="wsz-pT-sSI" customClass="MHUserSettingsViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="kEU-yN-IEf"/>
+                        <viewControllerLayoutGuide type="bottom" id="t0v-it-TBT"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="rFg-IA-0RU">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Oxc-Bz-tTK">
+                                <rect key="frame" x="0.0" y="64" width="320" height="162"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="wsz-pT-sSI" id="IK3-W5-Fy5"/>
+                                    <outlet property="delegate" destination="wsz-pT-sSI" id="9iT-uU-qE5"/>
+                                </connections>
+                            </pickerView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bP0-LA-ZXH">
+                                <rect key="frame" x="30" y="287" width="89" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Get default">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="serverPreference:" destination="wsz-pT-sSI" eventType="touchUpInside" id="X97-GP-gxc"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QZO-Em-LSw">
+                                <rect key="frame" x="192" y="287" width="108" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Set default">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="setServerPreference:" destination="wsz-pT-sSI" eventType="touchUpInside" id="pkV-Fx-3VT"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Choose server" id="SUp-tC-qaw"/>
+                    <connections>
+                        <outlet property="defaultServerButton" destination="bP0-LA-ZXH" id="YBG-qc-uui"/>
+                        <outlet property="defaultServerPicker" destination="Oxc-Bz-tTK" id="jda-bE-9hF"/>
+                        <outlet property="setDefaultServerButton" destination="QZO-Em-LSw" id="NB4-Uh-sj7"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="o33-Li-pyc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="435" y="-1461"/>
         </scene>
         <!--Navigation Controller - Items-->
         <scene sceneID="aed-dk-zHa">
@@ -493,6 +548,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DiO-it-T2L" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-113" y="627"/>
+        </scene>
+        <!--Navigation Controller - User settings-->
+        <scene sceneID="OJw-Up-v1h">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="uMG-eA-gXz" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="User settings" id="FW1-g9-m4a"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="icf-Yf-9hJ">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="wsz-pT-sSI" kind="relationship" relationship="rootViewController" id="BAi-Nx-sG7"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="I6K-zd-9cB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-91" y="-1461"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

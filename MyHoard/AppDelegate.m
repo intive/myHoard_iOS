@@ -13,6 +13,15 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    if (![defaults objectForKey:@"server_preference"]) {
+        [defaults setObject:@"Java_one" forKey:@"Java_one"];
+    }
+    
+    [defaults synchronize];
+    
     return YES;
 }
 							

@@ -5,12 +5,12 @@
 //  Created by Konrad Gnoinski on 05/03/14.
 //  Copyright (c) 2014 BLStream. All rights reserved.
 //
-
+/*
 #import "MHLocation.h"
 #import "Kiwi.h"
 #import <OCMock/OCMock.h>
 
-SPEC_BEGIN(MathSpec)
+SPEC_BEGIN(locationTest)
 
 describe(@"MHLocationTests", ^{
     
@@ -51,8 +51,8 @@ describe(@"MHLocationTests", ^{
         });
         
     });
-    
-    /*context(@"Test gps location", ^{
+ 
+    context(@"Test gps location", ^{
         
         beforeAll(^{
             [[MHLocation sharedInstance]startGettingLocation];
@@ -65,8 +65,9 @@ describe(@"MHLocationTests", ^{
             
             });
     
-    });*/
-    
+    });
+
 });
 
 SPEC_END
+*/
