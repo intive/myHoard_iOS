@@ -33,6 +33,7 @@
 		93C7876D18C4EB3D0079359A /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93C7876C18C4EB3D0079359A /* ImageIO.framework */; };
 		93CCCDF618C726D100F4A084 /* testImage.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 93CCCDF518C726D100F4A084 /* testImage.JPG */; };
 		A4050E81A1BC4A589193A896 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F724743366084FAC90257055 /* libPods.a */; };
+		A7E4B51418C90BB40042EAC9 /* AlternativeDesign.json in Resources */ = {isa = PBXBuildFile; fileRef = A7E4B51318C90BB40042EAC9 /* AlternativeDesign.json */; };
 		B02743679DB841A98A3C2D60 /* libPods-MyHoardTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A54F99CDCE2468DACC4FBD3 /* libPods-MyHoardTests.a */; };
 		B8F16086EB65413C89F6F7BB /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F724743366084FAC90257055 /* libPods.a */; };
 		CE6C31B618B1167C00983736 /* CollectionDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6C31B518B1167C00983736 /* CollectionDetailsViewController.m */; };
@@ -104,8 +105,9 @@
 		6040C246B171497C91A4ABBE /* Pods-MyHoardTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyHoardTests.xcconfig"; path = "Pods/Pods-MyHoardTests.xcconfig"; sourceTree = "<group>"; };
 		93C7876C18C4EB3D0079359A /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		93CCCDF518C726D100F4A084 /* testImage.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = testImage.JPG; sourceTree = "<group>"; };
-		A7A348F218C881B600FA1B6C /* libPods-MyHoardTests-TSMessages.a */ = {isa = PBXFileReference; lastKnownFileType = file; name = "libPods-MyHoardTests-TSMessages.a"; path = "Pods/build/Debug-iphoneos/libPods-MyHoardTests-TSMessages.a"; sourceTree = "<group>"; };
-		A7A348F418C88F2900FA1B6C /* libPods-TSMessages.a */ = {isa = PBXFileReference; lastKnownFileType = file; name = "libPods-TSMessages.a"; path = "Pods/build/Debug-iphoneos/libPods-TSMessages.a"; sourceTree = "<group>"; };
+		A7A348F218C881B600FA1B6C /* libPods-MyHoardTests-TSMessages.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-MyHoardTests-TSMessages.a"; path = "Pods/build/Debug-iphoneos/libPods-MyHoardTests-TSMessages.a"; sourceTree = "<group>"; };
+		A7A348F418C88F2900FA1B6C /* libPods-TSMessages.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-TSMessages.a"; path = "Pods/build/Debug-iphoneos/libPods-TSMessages.a"; sourceTree = "<group>"; };
+		A7E4B51318C90BB40042EAC9 /* AlternativeDesign.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = AlternativeDesign.json; sourceTree = "<group>"; };
 		CE6C31B418B1167C00983736 /* CollectionDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionDetailsViewController.h; sourceTree = "<group>"; };
 		CE6C31B518B1167C00983736 /* CollectionDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionDetailsViewController.m; sourceTree = "<group>"; };
 		CE6C31B718B1293400983736 /* CollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionViewController.h; sourceTree = "<group>"; };
@@ -205,6 +207,7 @@
 			isa = PBXGroup;
 			children = (
 				537CF82918AD6282008A7E04 /* Database */,
+				A7E4B51318C90BB40042EAC9 /* AlternativeDesign.json */,
 				23D321AF184BBFFA002FC13A /* AppDelegate.h */,
 				23D321B0184BBFFA002FC13A /* AppDelegate.m */,
 				CE6C31BA18B1422100983736 /* MHItemViewController.h */,
@@ -386,6 +389,7 @@
 				23D321B9184BBFFA002FC13A /* Images.xcassets in Resources */,
 				CE92CB5918C321EF005038D9 /* MHImagePickerViewController.xib in Resources */,
 				CED4B03518C892A300A84155 /* Settings.bundle in Resources */,
+				A7E4B51418C90BB40042EAC9 /* AlternativeDesign.json in Resources */,
 				23D321AB184BBFFA002FC13A /* InfoPlist.strings in Resources */,
 				23D321B4184BBFFA002FC13A /* Main.storyboard in Resources */,
 			);
