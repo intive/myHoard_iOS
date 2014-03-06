@@ -101,6 +101,8 @@
 		6040C246B171497C91A4ABBE /* Pods-MyHoardTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyHoardTests.xcconfig"; path = "Pods/Pods-MyHoardTests.xcconfig"; sourceTree = "<group>"; };
 		93C7876C18C4EB3D0079359A /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		93CCCDF518C726D100F4A084 /* testImage.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = testImage.JPG; sourceTree = "<group>"; };
+		A7A348F218C881B600FA1B6C /* libPods-MyHoardTests-TSMessages.a */ = {isa = PBXFileReference; lastKnownFileType = file; name = "libPods-MyHoardTests-TSMessages.a"; path = "Pods/build/Debug-iphoneos/libPods-MyHoardTests-TSMessages.a"; sourceTree = "<group>"; };
+		A7A348F418C88F2900FA1B6C /* libPods-TSMessages.a */ = {isa = PBXFileReference; lastKnownFileType = file; name = "libPods-TSMessages.a"; path = "Pods/build/Debug-iphoneos/libPods-TSMessages.a"; sourceTree = "<group>"; };
 		CE6C31B418B1167C00983736 /* CollectionDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionDetailsViewController.h; sourceTree = "<group>"; };
 		CE6C31B518B1167C00983736 /* CollectionDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionDetailsViewController.m; sourceTree = "<group>"; };
 		CE6C31B718B1293400983736 /* CollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionViewController.h; sourceTree = "<group>"; };
@@ -179,6 +181,8 @@
 		23D3219F184BBFFA002FC13A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A7A348F418C88F2900FA1B6C /* libPods-TSMessages.a */,
+				A7A348F218C881B600FA1B6C /* libPods-MyHoardTests-TSMessages.a */,
 				93C7876C18C4EB3D0079359A /* ImageIO.framework */,
 				23D321A0184BBFFA002FC13A /* Foundation.framework */,
 				23D321A2184BBFFA002FC13A /* CoreGraphics.framework */,

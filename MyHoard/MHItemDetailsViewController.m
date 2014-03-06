@@ -8,6 +8,7 @@
 
 #import "MHItemDetailsViewController.h"
 #import "MHDatabaseManager.h"
+#import  <TSMessage.h>
 
 @interface MHItemDetailsViewController ()
 
@@ -36,6 +37,14 @@
     self.itemIdTextField.delegate = self;
     self.itemNameTextField.delegate = self;
     self.itemCollectionIdTextField.delegate = self;
+    
+    [TSMessage setDefaultViewController:self];
+    
+    [TSMessage showNotificationWithTitle:NSLocalizedString(@"Success", nil)
+                                subtitle:NSLocalizedString(@"Some task was successfully completed!", nil)
+                                    type:TSMessageNotificationTypeSuccess];
+    
+    
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
