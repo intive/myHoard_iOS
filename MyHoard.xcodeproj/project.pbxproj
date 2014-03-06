@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A0D0B6718C7C742004B99BA /* MHLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A0D0B6618C7C742004B99BA /* MHLocation.m */; };
+		1A0D0B6918C7DDA9004B99BA /* MHLocationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A0D0B6818C7DDA9004B99BA /* MHLocationTests.m */; };
 		2302787418B4C0A900FCD528 /* GcovTestObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 2302787318B4C0A900FCD528 /* GcovTestObserver.m */; };
 		230E6D3618BFF2FD00B9418E /* MHMediaHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 230E6D3518BFF2FD00B9418E /* MHMediaHelper.m */; };
 		23D321A1184BBFFA002FC13A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23D321A0184BBFFA002FC13A /* Foundation.framework */; };
@@ -61,6 +63,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1A0D0B6518C7C742004B99BA /* MHLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHLocation.h; sourceTree = "<group>"; };
+		1A0D0B6618C7C742004B99BA /* MHLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHLocation.m; sourceTree = "<group>"; };
+		1A0D0B6818C7DDA9004B99BA /* MHLocationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHLocationTests.m; sourceTree = "<group>"; };
 		2302787318B4C0A900FCD528 /* GcovTestObserver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GcovTestObserver.m; sourceTree = "<group>"; };
 		230E6D3418BFF2FD00B9418E /* MHMediaHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHMediaHelper.h; sourceTree = "<group>"; };
 		230E6D3518BFF2FD00B9418E /* MHMediaHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHMediaHelper.m; sourceTree = "<group>"; };
@@ -203,6 +208,8 @@
 				23D321B5184BBFFA002FC13A /* ViewController.h */,
 				CE92CB5518C321EF005038D9 /* MHImagePickerViewController.h */,
 				CE92CB5618C321EF005038D9 /* MHImagePickerViewController.m */,
+				1A0D0B6518C7C742004B99BA /* MHLocation.h */,
+				1A0D0B6618C7C742004B99BA /* MHLocation.m */,
 				CE92CB5718C321EF005038D9 /* MHImagePickerViewController.xib */,
 				23D321B2184BBFFA002FC13A /* Main.storyboard */,
 				23D321B8184BBFFA002FC13A /* Images.xcassets */,
@@ -233,6 +240,7 @@
 				CEABF91118BB98BB00A6A2F3 /* MHCollectionViewControllerTest.m */,
 				23D321CB184BBFFA002FC13A /* MyHoardTests.m */,
 				E7A16B2F18BE8F7E003BC466 /* MHMediaHelperTests.m */,
+				1A0D0B6818C7DDA9004B99BA /* MHLocationTests.m */,
 				537CF83718ADFEAB008A7E04 /* MHDatabaseManagerTests.m */,
 				537CF83C18AE0D6E008A7E04 /* Helpers */,
 				23D321C6184BBFFA002FC13A /* Supporting Files */,
@@ -451,6 +459,7 @@
 				537CF83618AD8FBF008A7E04 /* MHDatabaseManager.m in Sources */,
 				CEE097B418BE82700060721A /* MHItem.m in Sources */,
 				CE92CB5818C321EF005038D9 /* MHImagePickerViewController.m in Sources */,
+				1A0D0B6718C7C742004B99BA /* MHLocation.m in Sources */,
 				CE6C31BC18B1422100983736 /* MHItemViewController.m in Sources */,
 				537CF82C18AD643D008A7E04 /* MyHoardModel.xcdatamodeld in Sources */,
 				CEE097B118BE82560060721A /* MHCollection.m in Sources */,
@@ -477,6 +486,7 @@
 				CE9ECD1C18B778E900038C18 /* MHItemDetailsViewControllerTest.m in Sources */,
 				CEABF90E18BB838D00A6A2F3 /* MHItemViewControllerTest.m in Sources */,
 				CEABF91218BB98BB00A6A2F3 /* MHCollectionViewControllerTest.m in Sources */,
+				1A0D0B6918C7DDA9004B99BA /* MHLocationTests.m in Sources */,
 				537CF83818ADFEAB008A7E04 /* MHDatabaseManagerTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
