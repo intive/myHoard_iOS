@@ -1,22 +1,24 @@
 PODS:
-  - AFNetworking (2.1.0):
+  - AFNetworking (2.2.0):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
     - AFNetworking/UIKit
-  - AFNetworking/NSURLConnection (2.1.0):
+  - AFNetworking/NSURLConnection (2.2.0):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/NSURLSession (2.1.0):
+  - AFNetworking/NSURLSession (2.2.0):
     - AFNetworking/NSURLConnection
-  - AFNetworking/Reachability (2.1.0)
-  - AFNetworking/Security (2.1.0)
-  - AFNetworking/Serialization (2.1.0)
-  - AFNetworking/UIKit (2.1.0):
+  - AFNetworking/Reachability (2.2.0)
+  - AFNetworking/Security (2.2.0)
+  - AFNetworking/Serialization (2.2.0)
+  - AFNetworking/UIKit (2.2.0):
     - AFNetworking/NSURLConnection
+    - AFNetworking/NSURLSession
+  - HexColors (2.2.1)
   - Kiwi/ARC (2.2.3)
   - Kiwi/NonARC (2.2.3)
   - Kiwi/XCTest (2.2.3):
@@ -24,17 +26,23 @@ PODS:
     - Kiwi/NonARC
   - Nocilla (0.8.1)
   - OCMock (2.2.3)
+  - TSMessages (0.9.5):
+    - HexColors
 
 DEPENDENCIES:
   - AFNetworking
   - Kiwi/XCTest
   - Nocilla
   - OCMock (~> 2.2.3)
+  - TSMessages (~> 0.9.2)
+  - TSMessages (~> 0.9.5)
 
 SPEC CHECKSUMS:
-  AFNetworking: c7d7901a83f631414c7eda1737261f696101a5cd
+  AFNetworking: e8cfd8f3fe3bfe19124a0cc63f4d45752d892a56
+  HexColors: 3a68db077cd6572a8f7d4aa1add284dd2436a934
   Kiwi: 04c51e880831d291748ec702d42c4101f7eb95c9
   Nocilla: 0c8075046df476b1bc6482caa7f6a69db1a9b277
   OCMock: 74e4ddbcef134170dcc844f91c691f13868075d7
+  TSMessages: ef34a0acfedb5acbcc60454824d756a0da0471c4
 
 COCOAPODS: 0.29.0
