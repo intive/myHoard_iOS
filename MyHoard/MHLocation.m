@@ -58,37 +58,38 @@ static MHLocation *sharedInstance;
 
 - (void)geolocateWithCity:(NSString*) city
                withStreet:(NSString*) street
-           withPostalCode:(NSString*) postal{
+           withPostalCode:(NSString*) postal
+          completionBlock:(MHLocationCompletionBlock)completionBlock{
     
     if (!city.length)
     {
         NSLog(@"One of mandatory fields is not set: city:%@", city);
         return;
     }
-    NSString *geostring=[[NSString alloc]init];
-    if(city.length && street.length && postal.length){
-        geostring = [NSString stringWithFormat:@"%@, %@, %@", city,street,postal];
-    }else if(city.length && street.length){
-        geostring = [NSString stringWithFormat:@"%@, %@", city,street];
+    NSMutableString *geostring=[[NSMutableString  alloc]init];
+    [geostring appendFormat:@"%@",city];
+    
+    if (street.length)
+    {
+        [geostring appendFormat:@", %@",street];
     }
-    else if(city.length && postal.length){
-        geostring = [NSString stringWithFormat:@"%@, %@", city,postal];
+    if (postal.length)
+    {
+        [geostring appendFormat:@", %@",postal];
     }
-    else if(city.length){
-        geostring = [NSString stringWithFormat:@"%@", city];
-    }
-    NSLog(@"geostring %@",geostring);
+    
     [self->geocoder geocodeAddressString:geostring
                        completionHandler:^(NSArray *coordinates, NSError
                                            *error) {
                            if (coordinates.count)
                            {
                                CLPlacemark *placemark = coordinates[0];
-                               _geolocation=placemark.location;
+                               completionBlock(placemark.location);
                            }
                            else
                            {
                                //error
+                               completionBlock(nil);
                            }
                        }];
     

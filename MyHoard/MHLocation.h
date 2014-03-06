@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
-#import "ViewController.h"
+typedef void (^MHLocationCompletionBlock)(CLLocation* object);
 
 @interface  MHLocation : NSObject <CLLocationManagerDelegate> {
     CLLocationManager *locationManager;
@@ -16,14 +16,14 @@
 }
 
 @property (strong, readonly) CLLocation *currentLocation;
-@property (strong, readonly) CLLocation *geolocation;
-
 
 + (MHLocation *)sharedInstance;
 - (void)startGettingLocation;
 - (void)stopGettingLocation;
 - (void)geolocateWithCity:(NSString*) city
                withStreet:(NSString*) street
-           withPostalCode:(NSString*) postal;
+           withPostalCode:(NSString*) postal
+          completionBlock:(MHLocationCompletionBlock)completionBlock;
+
 @end
 
