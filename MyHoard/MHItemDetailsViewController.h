@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MHItemDetailsViewController : UITableViewController
+@interface MHItemDetailsViewController : UITableViewController <UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *itemNameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *itemIdTextField;

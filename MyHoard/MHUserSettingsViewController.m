@@ -40,7 +40,7 @@
 - (IBAction)serverPreference:(id)sender {
     
     _selectedServer = [[NSString alloc]initWithString:[self defaultServerPreferences]];
-    int selectedRow = [_serverChoice indexOfObject:_selectedServer];
+    NSUInteger selectedRow = [_serverChoice indexOfObject:_selectedServer];
     [_defaultServerPicker selectRow:selectedRow inComponent:0 animated:YES];
     
 }
