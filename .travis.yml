@@ -4,6 +4,7 @@ branches:
   only:
     - master
 before_script:
+- sudo gem install cocoapods
 - sudo easy_install cpp-coveralls
 - sudo easy_install PyYAML
 - brew update
