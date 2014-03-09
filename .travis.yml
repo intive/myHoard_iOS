@@ -4,7 +4,6 @@ branches:
   only:
     - master
 before_script:
-- sudo gem install cocoapods
 - sudo easy_install cpp-coveralls
 - sudo easy_install PyYAML
 - brew update
@@ -14,6 +13,7 @@ before_script:
 - openssl aes-256-cbc -k "$ENCRYPTION_SECRET" -in scripts/certs/dist.p12.enc -d -a -out scripts/certs/dist.p12
 - ./scripts/add-key.sh
 script:
+- gem install --no-ri --no-rdoc cocoapods
 - xctool -workspace MyHoard.xcworkspace -scheme MyHoard -sdk iphoneos -configuration Release OBJROOT="$PWD/build" SYMROOT="$PWD/build" ONLY_ACTIVE_ARCH=NO
 - xctool test -workspace MyHoard.xcworkspace -scheme MyHoardTests -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO -configuration Debug
 after_script:
