@@ -124,17 +124,29 @@
 
 
 - (void)testLocationFromImage {
+    NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+    NSString *filePath = [bundle pathForResource:@"testImage" ofType:@"JPG"];
+    
+    CLLocationCoordinate2D testCoordinates = [_vc locationForImage:filePath];
 
+    NSString *testLatitude = [NSString stringWithFormat:@"%f", 53.4306916667];
+    NSString *latitudeFromImage = [NSString stringWithFormat:@"%f", testCoordinates.latitude];
     
-    CLLocationCoordinate2D testCoordinates = [_vc locationForImage:@"testImage.jpg"];
+    NSString *testLongtitude = [NSString stringWithFormat:@"%f", 14.5553416667];
+    NSString *longtitudeFromImage = [NSString stringWithFormat:@"%f", testCoordinates.longitude];
+
+    XCTAssertEqual([testLatitude doubleValue], [latitudeFromImage doubleValue], @"");
+    XCTAssertEqual([testLongtitude doubleValue], [longtitudeFromImage doubleValue], @"");
     
-    XCTAssertEqual(14.5553, testCoordinates.latitude, @"");
-    XCTAssertEqual(53.4307, testCoordinates.longitude, @"");
+    
     
 }
 
 - (void)testIsLocationInImage {
-    XCTAssertEqual([_vc isLocationInImage:@"testImage.JPG"], true, @"");
+    NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+    NSString *filePath = [bundle pathForResource:@"testImage" ofType:@"JPG"];
+
+    XCTAssertEqual([_vc isLocationInImage:(NSString *)filePath], YES, @"");
 }
 
 
