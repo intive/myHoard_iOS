@@ -102,6 +102,45 @@ static id partialMockForView() {
     XCTAssertNotNil(_vc.navigationItem.rightBarButtonItem, @"");
 }
 
+-(void)testSortByName{
+    [_vc viewDidLoad];
+    
+    XCTAssertNotNil(_vc.fetchedResultsController, @"");
+    
+    NSString *dateString = @"01-02-2010";
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"dd-MM-yyyy"];
+    NSDate *date1 = [[NSDate alloc] init];
+    date1 = [dateFormatter dateFromString:dateString];
+    
+    NSString *dateString2 = @"01-02-2009";
+    NSDateFormatter *dateFormatter2 = [[NSDateFormatter alloc] init];
+    [dateFormatter2 setDateFormat:@"dd-MM-yyyy"];
+    NSDate *date2 = [[NSDate alloc] init];
+    date2 = [dateFormatter2 dateFromString:dateString2];
+    
+    [MHDatabaseManager insertCollectionWithObjId:@"1" objName:@"baa" objDescription:@"1" objTags:@[@"1", @"2"] objItemsNumber:nil objCreatedDate:date1 objModifiedDate:nil objOwner:nil];
+    [MHDatabaseManager insertCollectionWithObjId:@"2" objName:@"aa" objDescription:@"1" objTags:@[@"1", @"2"] objItemsNumber:nil objCreatedDate:date2 objModifiedDate:nil objOwner:nil];
+    MHCollection *collection1 = [_vc.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    XCTAssertEqualObjects(collection1.objName, @"aa", @"");
+    [MHDatabaseManager removeCollectionWithId:@"1"];
+        [MHDatabaseManager removeCollectionWithId:@"2"];
+}
+
+-(void)testSortByDate{
+    [_vc viewDidLoad];
+    
+    XCTAssertNotNil(_vc.fetchedResultsController, @"");
+    
+    [MHDatabaseManager insertCollectionWithObjId:@"1" objName:@"baa" objDescription:@"1" objTags:@[@"1", @"2"] objItemsNumber:nil objCreatedDate:[NSDate date] objModifiedDate:nil objOwner:nil];
+    [MHDatabaseManager insertCollectionWithObjId:@"2" objName:@"aa" objDescription:@"1" objTags:@[@"1", @"2"] objItemsNumber:nil objCreatedDate:[NSDate date] objModifiedDate:nil objOwner:nil];
+    MHCollection *collection1 = [_vc.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    XCTAssertEqualObjects(collection1.objName, @"aa", @"");
+    [MHDatabaseManager removeCollectionWithId:@"1"];
+    [MHDatabaseManager removeCollectionWithId:@"2"];
+
+}
+
 @end
 
 SPEC_BEGIN(newTest)
@@ -197,6 +236,7 @@ describe(@"MHCollectionViewController", ^{
         [MHDatabaseManager removeCollectionWithId:@"testId"];
         
     });
+
 });
 
 SPEC_END
