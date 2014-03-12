@@ -53,6 +53,7 @@
 		CEE097B118BE82560060721A /* MHCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE097B018BE82560060721A /* MHCollection.m */; };
 		CEE097B418BE82700060721A /* MHItem.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE097B318BE82700060721A /* MHItem.m */; };
 		CEE097B718BE82940060721A /* MHMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE097B618BE82940060721A /* MHMedia.m */; };
+		E73D71F918D09907000AEBBB /* UIColor+customColors.m in Sources */ = {isa = PBXBuildFile; fileRef = E73D71F818D09907000AEBBB /* UIColor+customColors.m */; };
 		E7A16B3018BE8F7E003BC466 /* MHMediaHelperTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E7A16B2F18BE8F7E003BC466 /* MHMediaHelperTests.m */; };
 /* End PBXBuildFile section */
 
@@ -134,6 +135,8 @@
 		CEE097B318BE82700060721A /* MHItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHItem.m; sourceTree = "<group>"; };
 		CEE097B518BE82940060721A /* MHMedia.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHMedia.h; sourceTree = "<group>"; };
 		CEE097B618BE82940060721A /* MHMedia.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHMedia.m; sourceTree = "<group>"; };
+		E73D71F718D09907000AEBBB /* UIColor+customColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+customColors.h"; sourceTree = "<group>"; };
+		E73D71F818D09907000AEBBB /* UIColor+customColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+customColors.m"; sourceTree = "<group>"; };
 		E7A16B2F18BE8F7E003BC466 /* MHMediaHelperTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHMediaHelperTests.m; sourceTree = "<group>"; };
 		F724743366084FAC90257055 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -216,6 +219,8 @@
 				CE6C31BE18B1423400983736 /* MHItemDetailsViewController.m */,
 				CE6C31B418B1167C00983736 /* CollectionDetailsViewController.h */,
 				CE6C31B518B1167C00983736 /* CollectionDetailsViewController.m */,
+				E73D71F718D09907000AEBBB /* UIColor+customColors.h */,
+				E73D71F818D09907000AEBBB /* UIColor+customColors.m */,
 				CE6C31B718B1293400983736 /* CollectionViewController.h */,
 				CE6C31B818B1293400983736 /* CollectionViewController.m */,
 				23D321B6184BBFFA002FC13A /* ViewController.m */,
@@ -490,6 +495,7 @@
 				CE6C31B918B1293400983736 /* CollectionViewController.m in Sources */,
 				230E6D3618BFF2FD00B9418E /* MHMediaHelper.m in Sources */,
 				CEE097B718BE82940060721A /* MHMedia.m in Sources */,
+				E73D71F918D09907000AEBBB /* UIColor+customColors.m in Sources */,
 				537CF83318AD7D6E008A7E04 /* MHCoreDataContext.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
