@@ -238,7 +238,6 @@
 			isa = PBXGroup;
 			children = (
 				537CF82918AD6282008A7E04 /* Database */,
-				A7E4B51318C90BB40042EAC9 /* AlternativeDesign.json */,
 				23D321AF184BBFFA002FC13A /* AppDelegate.h */,
 				23D321B0184BBFFA002FC13A /* AppDelegate.m */,
 				CE6C31BA18B1422100983736 /* MHItemViewController.h */,
@@ -247,8 +246,8 @@
 				CE6C31BE18B1423400983736 /* MHItemDetailsViewController.m */,
 				CE6C31B418B1167C00983736 /* CollectionDetailsViewController.h */,
 				CE6C31B518B1167C00983736 /* CollectionDetailsViewController.m */,
-				23D321B6184BBFFA002FC13A /* ViewController.m */,
 				23D321B5184BBFFA002FC13A /* ViewController.h */,
+				23D321B6184BBFFA002FC13A /* ViewController.m */,
 				CE92CB5518C321EF005038D9 /* MHImagePickerViewController.h */,
 				CE92CB5618C321EF005038D9 /* MHImagePickerViewController.m */,
 				1A0D0B6518C7C742004B99BA /* MHLocation.h */,
@@ -257,14 +256,14 @@
 				CED4B03018C8903800A84155 /* MHUserSettingsViewController.m */,
 				CE92CB5718C321EF005038D9 /* MHImagePickerViewController.xib */,
 				23D321B2184BBFFA002FC13A /* Main.storyboard */,
-				1A059F2B18D200B700ECC6D0 /* MHAddItem2ViewController.m */,
+				1A059F2F18D200B700ECC6D0 /* MHBrowseCollectionViewController.h */,
 				1A059F2C18D200B700ECC6D0 /* MHBrowseCollectionViewController.m */,
 				1A059F2D18D200B700ECC6D0 /* MHAddItem2ViewController.h */,
+				1A059F2B18D200B700ECC6D0 /* MHAddItem2ViewController.m */,
 				1A059F2E18D200B700ECC6D0 /* MHAddItemViewController.h */,
-				1A059F2F18D200B700ECC6D0 /* MHBrowseCollectionViewController.h */,
 				1A059F3018D200B700ECC6D0 /* MHAddItemViewController.m */,
-				1A059F3118D200B700ECC6D0 /* MHAddCollectionViewController.m */,
 				1A059F3218D200B700ECC6D0 /* MHAddCollectionViewController.h */,
+				1A059F3118D200B700ECC6D0 /* MHAddCollectionViewController.m */,
 				1A059F3B18D200E400ECC6D0 /* myHOARD.png */,
 				1A059F3318D200B700ECC6D0 /* camera.png */,
 				1A059F3418D200B700ECC6D0 /* addImage.png */,
@@ -274,8 +273,8 @@
 				9370CAEA18CFC1E400C77461 /* MHCollectionCell.m */,
 				93C28E4018D1E83B0011E41E /* MHBaseViewController.h */,
 				93C28E4118D1E83B0011E41E /* MHBaseViewController.m */,
-				9370CAF318CFC30A00C77461 /* MHCollectionViewController.m */,
 				9370CAF218CFC30A00C77461 /* MHCollectionViewController.h */,
+				9370CAF318CFC30A00C77461 /* MHCollectionViewController.m */,
 				23FB2BCD18D23DDF009EFDE7 /* UIColor+customColors.h */,
 				23FB2BCE18D23DDF009EFDE7 /* UIColor+customColors.m */,
 				23D321B8184BBFFA002FC13A /* Images.xcassets */,
@@ -288,6 +287,7 @@
 		23D321A7184BBFFA002FC13A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				A7E4B51318C90BB40042EAC9 /* AlternativeDesign.json */,
 				23D321A8184BBFFA002FC13A /* MyHoard-Info.plist */,
 				23D321A9184BBFFA002FC13A /* InfoPlist.strings */,
 				23D321AC184BBFFA002FC13A /* main.m */,
