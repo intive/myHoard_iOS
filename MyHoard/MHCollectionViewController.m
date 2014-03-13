@@ -44,6 +44,7 @@
     _objectChanges = [NSMutableArray array];
     _sectionChanges = [NSMutableArray array];
     animatingCell = nil;
+    self.collectionView.backgroundColor = [UIColor appBackgroundColor];
 }
 
 - (void)didReceiveMemoryWarning

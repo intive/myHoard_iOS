@@ -14,7 +14,8 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        // Initialization code
+        self.backgroundColor = [UIColor collectionThumbnailOutlineColor];
+        self.collectionTitle.textColor = [UIColor collectionNameFrontColor];
     }
     return self;
 }
