@@ -291,6 +291,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Etg-7t-qKE" sceneMemberID="viewController">
                     <toolbarItems/>
+                    <navigationItem key="navigationItem" id="YGQ-32-0YJ"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="zcg-QI-9la">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -464,6 +465,9 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="bzQ-Af-eKQ" kind="relationship" relationship="rootViewController" id="zk1-pH-ndx"/>
+                    </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PAI-9v-xLl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -493,7 +497,7 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="Gkf-mP-uKb" customClass="MHCollectionCell">
-                                        <rect key="frame" x="20" y="20" width="131" height="176"/>
+                                        <rect key="frame" x="20" y="84" width="131" height="176"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="131" height="176"/>
@@ -519,13 +523,15 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" id="r5l-fb-jnk"/>
                     <connections>
                         <outlet property="collectionView" destination="EUn-m5-KAh" id="wSN-bN-kfm"/>
+                        <segue destination="Etg-7t-qKE" kind="push" id="gfk-oT-lCP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NWp-Gh-aOk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="399" y="-66"/>
+            <point key="canvasLocation" x="383" y="-58"/>
         </scene>
         <!--Image Picker View Controller-->
         <scene sceneID="UfZ-ea-9fL">
