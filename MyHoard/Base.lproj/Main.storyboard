@@ -476,7 +476,7 @@
         <!--Collection View Controller-->
         <scene sceneID="n1Y-VN-b7i">
             <objects>
-                <viewController id="bzQ-Af-eKQ" customClass="MHCollectionViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MHCollectionViewController" id="bzQ-Af-eKQ" customClass="MHCollectionViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="kcj-A7-OpY"/>
                         <viewControllerLayoutGuide type="bottom" id="Scf-jM-cPp"/>
