@@ -20,6 +20,7 @@
     NSMutableArray *_objectChanges;
     NSMutableArray *_sectionChanges;
     NSTimer *timeToChangeCollection;
+    UICollectionViewCell *animatingCell;
 }
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -42,6 +43,7 @@
     
     _objectChanges = [NSMutableArray array];
     _sectionChanges = [NSMutableArray array];
+    animatingCell = nil;
 }
 
 - (void)didReceiveMemoryWarning
@@ -86,7 +88,7 @@
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
 
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"MHCollection" inManagedObjectContext:self.managedObjectContext];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"MHCollection" inManagedObjectContext:[MHCoreDataContext getInstance].managedObjectContext];
     [fetchRequest setEntity:entity];
         
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"objId" ascending:YES];
@@ -96,7 +98,7 @@
         
     // Edit the section name key path and cache name if appropriate.
     // nil for section name key path means "no sections".
-    NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:@"Master"];
+    NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:[MHCoreDataContext getInstance].managedObjectContext sectionNameKeyPath:nil cacheName:@"Master"];
     aFetchedResultsController.delegate = self;
     self.fetchedResultsController = aFetchedResultsController;
     
@@ -258,18 +260,24 @@ newIndexPath:(NSIndexPath *)newIndexPath
 
 -(void)resetIdleTimer
 {
-    timeToChangeCollection = [NSTimer scheduledTimerWithTimeInterval:20 target:self selector:@selector(idleTimerExceeded) userInfo:nil repeats:NO];
+    [self stopAnimationTimer];
+    timeToChangeCollection = [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(idleTimerExceeded) userInfo:nil repeats:NO];
 
 }
 
 -(void)idleTimerExceeded
 {
+    if (animatingCell != nil) {
+        //[animatingCell.kenberns animeStop];
+    }
     NSNumber *randomCell = [NSNumber numberWithUnsignedLong:(rand() % [self.collectionView numberOfSections])];
     NSIndexPath *cellPath = [NSIndexPath indexPathWithIndex:[randomCell unsignedIntegerValue]];
     
     UICollectionViewCell *cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:@"MHCollectionCell" forIndexPath:cellPath];
     [self.collectionView scrollToItemAtIndexPath:cellPath atScrollPosition:UICollectionViewScrollPositionTop animated:YES];
     //animating and showing cell, other things which needs to be implemented
+    //[cell.KenBerns anime];
+    animatingCell = cell;
     [self resetIdleTimer];
 }
 
@@ -292,6 +300,17 @@ newIndexPath:(NSIndexPath *)newIndexPath
     [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
     NSFetchedResultsController *frc = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:[MHCoreDataContext getInstance].managedObjectContext sectionNameKeyPath:nil cacheName:@"Root"];
     return frc;
+}
+
+- (void)stopAnimationTimer
+{
+    [timeToChangeCollection invalidate];
+    timeToChangeCollection = nil;
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [self stopAnimationTimer];
 }
 
 @end
