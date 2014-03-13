@@ -7,7 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MHCollectionCell.h"
+#import <CoreData/CoreData.h>
+#import "MHCollection.h"
 
-@interface MHCollectionViewController : UICollectionViewController
+@interface MHCollectionViewController : UICollectionViewController <UICollectionViewDataSource, UICollectionViewDelegate, NSFetchedResultsControllerDelegate>
+
+@property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
+@property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 
 @end

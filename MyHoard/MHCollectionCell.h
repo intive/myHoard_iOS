@@ -10,4 +10,6 @@
 
 @interface MHCollectionCell : UICollectionViewCell
 
+@property (weak, nonatomic) IBOutlet UILabel *collectionTitle;
+
 @end
