@@ -24,8 +24,7 @@ after_success:
 - ./scripts/sign-and-upload.sh
 notifications:
   email:
-  - sebastian.jedruszkiewicz@blstream.com
-  - karol.kogut@blstream.com
+  - pat2014-szn-ios-list@blstream.com
 env:
   global:
   - secure: dpoYPkSt1AybS7nIAek7+N8HcmBPOKzrBW26EiopfC6DIt8AqnkO3pk1rkrs3+chP298Ah9oytOVk0LgtnId/DYgIEdWHX1jbLMQnXKHBefDJXvd63vzUj2LAKVmXo4RE0diHPtwFIoi7V8m+YTNgFrJtTK1UqyurhhTWrRRDrU=
