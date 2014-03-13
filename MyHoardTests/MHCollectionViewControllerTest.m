@@ -7,7 +7,7 @@
 //
 
 #import <XCTest/XCTest.h>
-#import "CollectionViewController.h"
+#import "MHCollectionViewController.h"
 #import "MHCollection.h"
 #import "MHDatabaseManager.h"
 #import "Kiwi.h"
@@ -20,13 +20,12 @@
 @implementation MHCollectionViewControllerTest{
     
     UIStoryboard *storyboard;
-    CollectionViewController *_vc;
-    UITableViewCell *cell;
+    MHCollectionViewController *_vc;
 }
 
 static id partialMockForView() {
     
-    CollectionViewController *viewController = [[CollectionViewController alloc]init];
+    MHCollectionViewController *viewController = [[MHCollectionViewController alloc]init];
     id mockViewController = [KWMock partialMockForObject:viewController];
     return mockViewController;
 }
@@ -35,14 +34,12 @@ static id partialMockForView() {
 {
     [super setUp];
     storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    _vc = [storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([CollectionViewController class])];
+    _vc = [storyboard instantiateViewControllerWithIdentifier:NSStringFromClass([MHCollectionViewController class])];
     [_vc view];
-    cell = [_vc.tableView dequeueReusableCellWithIdentifier:@"CollectionsCell"];
 }
 
 - (void)tearDown
 {
-    cell = nil;
     _vc = nil;
     storyboard = nil;
     [super tearDown];
@@ -76,21 +73,6 @@ static id partialMockForView() {
 
 
 #pragma Outlets
-
-- (void)testThatCellExist {
-    
-    XCTAssertNotNil(cell, @"");
-}
-
-- (void)testThatTitleLabelExist {
-    
-    XCTAssertNotNil(cell.textLabel, @"");
-}
-
-- (void)testThatSubtitleLableExist {
-    
-    XCTAssertNotNil(cell.detailTextLabel, @"");
-}
 
 - (void)testThatNavigationItemTitleExist {
     
