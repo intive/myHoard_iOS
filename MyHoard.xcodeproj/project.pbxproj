@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A059F3518D200B700ECC6D0 /* MHAddItem2ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A059F2B18D200B700ECC6D0 /* MHAddItem2ViewController.m */; };
+		1A059F3618D200B700ECC6D0 /* MHBrowseCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A059F2C18D200B700ECC6D0 /* MHBrowseCollectionViewController.m */; };
+		1A059F3718D200B700ECC6D0 /* MHAddItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A059F3018D200B700ECC6D0 /* MHAddItemViewController.m */; };
+		1A059F3818D200B700ECC6D0 /* MHAddCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A059F3118D200B700ECC6D0 /* MHAddCollectionViewController.m */; };
+		1A059F3918D200B700ECC6D0 /* camera.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A059F3318D200B700ECC6D0 /* camera.png */; };
+		1A059F3A18D200B700ECC6D0 /* addImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A059F3418D200B700ECC6D0 /* addImage.png */; };
+		1A059F3C18D200E400ECC6D0 /* myHOARD.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A059F3B18D200E400ECC6D0 /* myHOARD.png */; };
 		1A0D0B6718C7C742004B99BA /* MHLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A0D0B6618C7C742004B99BA /* MHLocation.m */; };
 		1A0D0B6918C7DDA9004B99BA /* MHLocationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A0D0B6818C7DDA9004B99BA /* MHLocationTests.m */; };
 		2302787418B4C0A900FCD528 /* GcovTestObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 2302787318B4C0A900FCD528 /* GcovTestObserver.m */; };
@@ -69,6 +76,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1A059F2B18D200B700ECC6D0 /* MHAddItem2ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHAddItem2ViewController.m; sourceTree = "<group>"; };
+		1A059F2C18D200B700ECC6D0 /* MHBrowseCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHBrowseCollectionViewController.m; sourceTree = "<group>"; };
+		1A059F2D18D200B700ECC6D0 /* MHAddItem2ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHAddItem2ViewController.h; sourceTree = "<group>"; };
+		1A059F2E18D200B700ECC6D0 /* MHAddItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHAddItemViewController.h; sourceTree = "<group>"; };
+		1A059F2F18D200B700ECC6D0 /* MHBrowseCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHBrowseCollectionViewController.h; sourceTree = "<group>"; };
+		1A059F3018D200B700ECC6D0 /* MHAddItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHAddItemViewController.m; sourceTree = "<group>"; };
+		1A059F3118D200B700ECC6D0 /* MHAddCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHAddCollectionViewController.m; sourceTree = "<group>"; };
+		1A059F3218D200B700ECC6D0 /* MHAddCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHAddCollectionViewController.h; sourceTree = "<group>"; };
+		1A059F3318D200B700ECC6D0 /* camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = camera.png; sourceTree = "<group>"; };
+		1A059F3418D200B700ECC6D0 /* addImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = addImage.png; sourceTree = "<group>"; };
+		1A059F3B18D200E400ECC6D0 /* myHOARD.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = myHOARD.png; sourceTree = "<group>"; };
 		1A0D0B6518C7C742004B99BA /* MHLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHLocation.h; sourceTree = "<group>"; };
 		1A0D0B6618C7C742004B99BA /* MHLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHLocation.m; sourceTree = "<group>"; };
 		1A0D0B6818C7DDA9004B99BA /* MHLocationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHLocationTests.m; sourceTree = "<group>"; };
@@ -232,6 +250,17 @@
 				CED4B03018C8903800A84155 /* MHUserSettingsViewController.m */,
 				CE92CB5718C321EF005038D9 /* MHImagePickerViewController.xib */,
 				23D321B2184BBFFA002FC13A /* Main.storyboard */,
+				1A059F3B18D200E400ECC6D0 /* myHOARD.png */,
+				1A059F2B18D200B700ECC6D0 /* MHAddItem2ViewController.m */,
+				1A059F2C18D200B700ECC6D0 /* MHBrowseCollectionViewController.m */,
+				1A059F2D18D200B700ECC6D0 /* MHAddItem2ViewController.h */,
+				1A059F2E18D200B700ECC6D0 /* MHAddItemViewController.h */,
+				1A059F2F18D200B700ECC6D0 /* MHBrowseCollectionViewController.h */,
+				1A059F3018D200B700ECC6D0 /* MHAddItemViewController.m */,
+				1A059F3118D200B700ECC6D0 /* MHAddCollectionViewController.m */,
+				1A059F3218D200B700ECC6D0 /* MHAddCollectionViewController.h */,
+				1A059F3318D200B700ECC6D0 /* camera.png */,
+				1A059F3418D200B700ECC6D0 /* addImage.png */,
 				9370CAE918CFC1E400C77461 /* MHCollectionCell.h */,
 				9370CAEA18CFC1E400C77461 /* MHCollectionCell.m */,
 				9370CAF218CFC30A00C77461 /* MHCollectionViewController.h */,
@@ -397,8 +426,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				23D321B9184BBFFA002FC13A /* Images.xcassets in Resources */,
+				1A059F3918D200B700ECC6D0 /* camera.png in Resources */,
 				CE92CB5918C321EF005038D9 /* MHImagePickerViewController.xib in Resources */,
+				1A059F3A18D200B700ECC6D0 /* addImage.png in Resources */,
 				CED4B03518C892A300A84155 /* Settings.bundle in Resources */,
+				1A059F3C18D200E400ECC6D0 /* myHOARD.png in Resources */,
 				A7E4B51418C90BB40042EAC9 /* AlternativeDesign.json in Resources */,
 				23D321AB184BBFFA002FC13A /* InfoPlist.strings in Resources */,
 				23D321B4184BBFFA002FC13A /* Main.storyboard in Resources */,
@@ -484,6 +516,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1A059F3618D200B700ECC6D0 /* MHBrowseCollectionViewController.m in Sources */,
 				23D321B7184BBFFA002FC13A /* ViewController.m in Sources */,
 				23D321B1184BBFFA002FC13A /* AppDelegate.m in Sources */,
 				537CF83618AD8FBF008A7E04 /* MHDatabaseManager.m in Sources */,
@@ -491,6 +524,7 @@
 				9370CAEB18CFC1E400C77461 /* MHCollectionCell.m in Sources */,
 				CE92CB5818C321EF005038D9 /* MHImagePickerViewController.m in Sources */,
 				1A0D0B6718C7C742004B99BA /* MHLocation.m in Sources */,
+				1A059F3718D200B700ECC6D0 /* MHAddItemViewController.m in Sources */,
 				CE6C31BC18B1422100983736 /* MHItemViewController.m in Sources */,
 				537CF82C18AD643D008A7E04 /* MyHoardModel.xcdatamodeld in Sources */,
 				CEE097B118BE82560060721A /* MHCollection.m in Sources */,
@@ -499,6 +533,8 @@
 				CE6C31B618B1167C00983736 /* CollectionDetailsViewController.m in Sources */,
 				CE6C31BF18B1423400983736 /* MHItemDetailsViewController.m in Sources */,
 				9370CAF418CFC30A00C77461 /* MHCollectionViewController.m in Sources */,
+				1A059F3818D200B700ECC6D0 /* MHAddCollectionViewController.m in Sources */,
+				1A059F3518D200B700ECC6D0 /* MHAddItem2ViewController.m in Sources */,
 				230E6D3618BFF2FD00B9418E /* MHMediaHelper.m in Sources */,
 				93C28E4218D1E83B0011E41E /* MHBaseViewController.m in Sources */,
 				CEE097B718BE82940060721A /* MHMedia.m in Sources */,
