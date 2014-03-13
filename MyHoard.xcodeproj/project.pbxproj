@@ -58,7 +58,6 @@
 		CE9ECD1C18B778E900038C18 /* MHItemDetailsViewControllerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9ECD1B18B778E800038C18 /* MHItemDetailsViewControllerTest.m */; };
 		CEA1083E18B82E6F00E70ED0 /* MHCollectionDetailsViewControllerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA1083D18B82E6F00E70ED0 /* MHCollectionDetailsViewControllerTest.m */; };
 		CEABF90E18BB838D00A6A2F3 /* MHItemViewControllerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CEABF90D18BB838D00A6A2F3 /* MHItemViewControllerTest.m */; };
-		CEABF91218BB98BB00A6A2F3 /* MHCollectionViewControllerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CEABF91118BB98BB00A6A2F3 /* MHCollectionViewControllerTest.m */; };
 		CED4B03118C8903800A84155 /* MHUserSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CED4B03018C8903800A84155 /* MHUserSettingsViewController.m */; };
 		CED4B03318C8918700A84155 /* MHUserSettingsViewControllerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CED4B03218C8918700A84155 /* MHUserSettingsViewControllerTest.m */; };
 		CED4B03518C892A300A84155 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CED4B03418C892A300A84155 /* Settings.bundle */; };
@@ -154,7 +153,6 @@
 		CE9ECD1B18B778E800038C18 /* MHItemDetailsViewControllerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHItemDetailsViewControllerTest.m; sourceTree = "<group>"; };
 		CEA1083D18B82E6F00E70ED0 /* MHCollectionDetailsViewControllerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHCollectionDetailsViewControllerTest.m; sourceTree = "<group>"; };
 		CEABF90D18BB838D00A6A2F3 /* MHItemViewControllerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHItemViewControllerTest.m; sourceTree = "<group>"; };
-		CEABF91118BB98BB00A6A2F3 /* MHCollectionViewControllerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHCollectionViewControllerTest.m; sourceTree = "<group>"; };
 		CED4B02F18C8903800A84155 /* MHUserSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHUserSettingsViewController.h; sourceTree = "<group>"; };
 		CED4B03018C8903800A84155 /* MHUserSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHUserSettingsViewController.m; sourceTree = "<group>"; };
 		CED4B03218C8918700A84155 /* MHUserSettingsViewControllerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHUserSettingsViewControllerTest.m; sourceTree = "<group>"; };
@@ -305,7 +303,6 @@
 				CE9ECD1B18B778E800038C18 /* MHItemDetailsViewControllerTest.m */,
 				CEABF90D18BB838D00A6A2F3 /* MHItemViewControllerTest.m */,
 				CEA1083D18B82E6F00E70ED0 /* MHCollectionDetailsViewControllerTest.m */,
-				CEABF91118BB98BB00A6A2F3 /* MHCollectionViewControllerTest.m */,
 				23D321CB184BBFFA002FC13A /* MyHoardTests.m */,
 				E7A16B2F18BE8F7E003BC466 /* MHMediaHelperTests.m */,
 				1A0D0B6818C7DDA9004B99BA /* MHLocationTests.m */,
@@ -568,7 +565,6 @@
 				537CF83B18AE0D5D008A7E04 /* MHCoreDataContextForTests.m in Sources */,
 				CE9ECD1C18B778E900038C18 /* MHItemDetailsViewControllerTest.m in Sources */,
 				CEABF90E18BB838D00A6A2F3 /* MHItemViewControllerTest.m in Sources */,
-				CEABF91218BB98BB00A6A2F3 /* MHCollectionViewControllerTest.m in Sources */,
 				CED4B03318C8918700A84155 /* MHUserSettingsViewControllerTest.m in Sources */,
 				1A0D0B6918C7DDA9004B99BA /* MHLocationTests.m in Sources */,
 				537CF83818ADFEAB008A7E04 /* MHDatabaseManagerTests.m in Sources */,
