@@ -10,6 +10,7 @@
 #import "MHCollectionCell.h"
 #import <CoreData/CoreData.h>
 #import "MHCollection.h"
+#import "MHCoreDataContext.h"
 
 @interface MHCollectionViewController : UICollectionViewController <UICollectionViewDataSource, UICollectionViewDelegate, NSFetchedResultsControllerDelegate>
 
