@@ -75,7 +75,7 @@
     MHCollection *collect = [_collections objectAtIndex:indexPath.row];
     cell.textLabel.text = collect.objName;
 
-    cell.textColor = [UIColor collectionNameFrontColor];
+    cell.textLabel.textColor = [UIColor collectionNameFrontColor];
     cell.backgroundColor = [UIColor appBackgroundColor];
     return cell;
 }
