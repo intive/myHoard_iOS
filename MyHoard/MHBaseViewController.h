@@ -10,7 +10,7 @@
 
 @interface MHBaseViewController : UIViewController
 
-@property (readwrite) BOOL MHHamburger;
-@property (readwrite) BOOL MHLogo;
+@property (nonatomic, readwrite) BOOL disableMHHamburger;
+@property (nonatomic, readwrite) BOOL enableMHLogo;
 
 @end

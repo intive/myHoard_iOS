@@ -15,6 +15,7 @@
 
 @implementation MHBaseViewController
 
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -32,12 +33,30 @@
     [self.navigationController.navigationBar setTintColor:[UIColor blackColor]];
     self.view.backgroundColor = [UIColor appBackgroundColor];
     
-    if (![self MHHamburger]) {
+    if (![self disableMHHamburger]) {
         UIBarButtonItem *hamburger = [[UIBarButtonItem alloc] initWithTitle:@"\u2261" style:UIBarButtonItemStylePlain target:self action:nil];
         self.navigationItem.leftBarButtonItem = hamburger;
     };
     
-    if (![self MHLogo]) {
+    if ([self enableMHLogo]) {
+        self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logo.png"]];
+    };
+    
+}
+
+-(void)setDisableMHHamburger:(BOOL)disableMHHamburger{
+    _disableMHHamburger = disableMHHamburger;
+    if (!disableMHHamburger){
+        UIBarButtonItem *hamburger = [[UIBarButtonItem alloc] initWithTitle:@"\u2261" style:UIBarButtonItemStylePlain target:self action:nil];
+        self.navigationItem.leftBarButtonItem = hamburger;
+    } else {
+        self.navigationItem.leftBarButtonItem = nil;
+    }
+}
+
+-(void)setEnableMHLogo:(BOOL)enableMHLogo{
+    _enableMHLogo = enableMHLogo;
+    if (enableMHLogo) {
         self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logo.png"]];
     };
     

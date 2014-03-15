@@ -39,6 +39,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self setEnableMHLogo:YES];
     // Do any additional setup after loading the view, typically from a nib.
     
     _objectChanges = [NSMutableArray array];
