@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MHTagsView.h"
 
 @interface MHUserSettingsViewController : UIViewController <UIPickerViewDelegate, UIPickerViewDataSource>
 
@@ -14,6 +15,7 @@
 @property (strong, nonatomic) NSString *selectedServer;
 @property (strong, nonatomic) NSUserDefaults *defaults;
 
+@property (weak, nonatomic) IBOutlet MHTagsView *tagsView;
 @property (weak, nonatomic) IBOutlet UIPickerView *defaultServerPicker;
 @property (weak, nonatomic) IBOutlet UIButton *defaultServerButton;
 @property (weak, nonatomic) IBOutlet UIButton *setDefaultServerButton;

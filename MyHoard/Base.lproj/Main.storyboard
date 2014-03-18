@@ -403,6 +403,11 @@
                                     <action selector="setServerPreference:" destination="wsz-pT-sSI" eventType="touchUpInside" id="pkV-Fx-3VT"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eRc-mj-NXp" customClass="MHTagsView">
+                                <rect key="frame" x="80" y="389" width="160" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -411,6 +416,7 @@
                         <outlet property="defaultServerButton" destination="bP0-LA-ZXH" id="YBG-qc-uui"/>
                         <outlet property="defaultServerPicker" destination="Oxc-Bz-tTK" id="jda-bE-9hF"/>
                         <outlet property="setDefaultServerButton" destination="QZO-Em-LSw" id="NB4-Uh-sj7"/>
+                        <outlet property="tagsView" destination="eRc-mj-NXp" id="p6J-ym-qJv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="o33-Li-pyc" userLabel="First Responder" sceneMemberID="firstResponder"/>

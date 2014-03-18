@@ -49,6 +49,9 @@
 		A7E4B51418C90BB40042EAC9 /* AlternativeDesign.json in Resources */ = {isa = PBXBuildFile; fileRef = A7E4B51318C90BB40042EAC9 /* AlternativeDesign.json */; };
 		B02743679DB841A98A3C2D60 /* libPods-MyHoardTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A54F99CDCE2468DACC4FBD3 /* libPods-MyHoardTests.a */; };
 		B8F16086EB65413C89F6F7BB /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F724743366084FAC90257055 /* libPods.a */; };
+		CE529A7D18D8687B00A020E9 /* MHTagsView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE529A7A18D8687B00A020E9 /* MHTagsView.m */; };
+		CE529A7E18D8687B00A020E9 /* MHUserSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = CE529A7C18D8687B00A020E9 /* MHUserSettings.m */; };
+		CE529A8018D8688F00A020E9 /* MHUserSettingsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CE529A7F18D8688F00A020E9 /* MHUserSettingsTest.m */; };
 		CE6C31B618B1167C00983736 /* CollectionDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6C31B518B1167C00983736 /* CollectionDetailsViewController.m */; };
 		CE6C31BC18B1422100983736 /* MHItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6C31BB18B1422100983736 /* MHItemViewController.m */; };
 		CE6C31BF18B1423400983736 /* MHItemDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6C31BE18B1423400983736 /* MHItemDetailsViewController.m */; };
@@ -140,6 +143,11 @@
 		A7A348F218C881B600FA1B6C /* libPods-MyHoardTests-TSMessages.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-MyHoardTests-TSMessages.a"; path = "Pods/build/Debug-iphoneos/libPods-MyHoardTests-TSMessages.a"; sourceTree = "<group>"; };
 		A7A348F418C88F2900FA1B6C /* libPods-TSMessages.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-TSMessages.a"; path = "Pods/build/Debug-iphoneos/libPods-TSMessages.a"; sourceTree = "<group>"; };
 		A7E4B51318C90BB40042EAC9 /* AlternativeDesign.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = AlternativeDesign.json; sourceTree = "<group>"; };
+		CE529A7918D8687B00A020E9 /* MHTagsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHTagsView.h; sourceTree = "<group>"; };
+		CE529A7A18D8687B00A020E9 /* MHTagsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHTagsView.m; sourceTree = "<group>"; };
+		CE529A7B18D8687B00A020E9 /* MHUserSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHUserSettings.h; sourceTree = "<group>"; };
+		CE529A7C18D8687B00A020E9 /* MHUserSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHUserSettings.m; sourceTree = "<group>"; };
+		CE529A7F18D8688F00A020E9 /* MHUserSettingsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHUserSettingsTest.m; sourceTree = "<group>"; };
 		CE6C31B418B1167C00983736 /* CollectionDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionDetailsViewController.h; sourceTree = "<group>"; };
 		CE6C31B518B1167C00983736 /* CollectionDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionDetailsViewController.m; sourceTree = "<group>"; };
 		CE6C31BA18B1422100983736 /* MHItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHItemViewController.h; sourceTree = "<group>"; };
@@ -236,6 +244,10 @@
 			isa = PBXGroup;
 			children = (
 				537CF82918AD6282008A7E04 /* Database */,
+				CE529A7918D8687B00A020E9 /* MHTagsView.h */,
+				CE529A7A18D8687B00A020E9 /* MHTagsView.m */,
+				CE529A7B18D8687B00A020E9 /* MHUserSettings.h */,
+				CE529A7C18D8687B00A020E9 /* MHUserSettings.m */,
 				23D321AF184BBFFA002FC13A /* AppDelegate.h */,
 				23D321B0184BBFFA002FC13A /* AppDelegate.m */,
 				CE6C31BA18B1422100983736 /* MHItemViewController.h */,
@@ -297,6 +309,7 @@
 		23D321C5184BBFFA002FC13A /* MyHoardTests */ = {
 			isa = PBXGroup;
 			children = (
+				CE529A7F18D8688F00A020E9 /* MHUserSettingsTest.m */,
 				93CCCDF518C726D100F4A084 /* testImage.JPG */,
 				CED4B03218C8918700A84155 /* MHUserSettingsViewControllerTest.m */,
 				CE92CB5A18C38D49005038D9 /* MHImagePickerViewControllerTest.m */,
@@ -528,6 +541,7 @@
 			files = (
 				1A059F3618D200B700ECC6D0 /* MHBrowseCollectionViewController.m in Sources */,
 				23D321B7184BBFFA002FC13A /* ViewController.m in Sources */,
+				CE529A7E18D8687B00A020E9 /* MHUserSettings.m in Sources */,
 				23D321B1184BBFFA002FC13A /* AppDelegate.m in Sources */,
 				537CF83618AD8FBF008A7E04 /* MHDatabaseManager.m in Sources */,
 				CEE097B418BE82700060721A /* MHItem.m in Sources */,
@@ -549,6 +563,7 @@
 				93C28E4218D1E83B0011E41E /* MHBaseViewController.m in Sources */,
 				CEE097B718BE82940060721A /* MHMedia.m in Sources */,
 				23FB2BCF18D23DDF009EFDE7 /* UIColor+customColors.m in Sources */,
+				CE529A7D18D8687B00A020E9 /* MHTagsView.m in Sources */,
 				537CF83318AD7D6E008A7E04 /* MHCoreDataContext.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -565,6 +580,7 @@
 				537CF83B18AE0D5D008A7E04 /* MHCoreDataContextForTests.m in Sources */,
 				CE9ECD1C18B778E900038C18 /* MHItemDetailsViewControllerTest.m in Sources */,
 				CEABF90E18BB838D00A6A2F3 /* MHItemViewControllerTest.m in Sources */,
+				CE529A8018D8688F00A020E9 /* MHUserSettingsTest.m in Sources */,
 				CED4B03318C8918700A84155 /* MHUserSettingsViewControllerTest.m in Sources */,
 				1A0D0B6918C7DDA9004B99BA /* MHLocationTests.m in Sources */,
 				537CF83818ADFEAB008A7E04 /* MHDatabaseManagerTests.m in Sources */,

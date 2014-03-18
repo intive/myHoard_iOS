@@ -18,6 +18,7 @@ PODS:
   - AFNetworking/UIKit (2.2.0):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
+  - AutoScrollLabel (0.2.1)
   - HexColors (2.2.1)
   - Kiwi/ARC (2.2.3)
   - Kiwi/NonARC (2.2.3)
@@ -31,6 +32,7 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking
+  - AutoScrollLabel (~> 0.2)
   - Kiwi/XCTest
   - Nocilla
   - OCMock (~> 2.2.3)
@@ -38,6 +40,7 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   AFNetworking: e8cfd8f3fe3bfe19124a0cc63f4d45752d892a56
+  AutoScrollLabel: 4978b57536512a3ebf4705b1b5618354bcf4ac84
   HexColors: 3a68db077cd6572a8f7d4aa1add284dd2436a934
   Kiwi: 04c51e880831d291748ec702d42c4101f7eb95c9
   Nocilla: 0c8075046df476b1bc6482caa7f6a69db1a9b277

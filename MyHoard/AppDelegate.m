@@ -17,7 +17,7 @@
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
     if (![defaults objectForKey:@"server_preference"]) {
-        [defaults setObject:@"Java_one" forKey:@"Java_one"];
+        [defaults setObject:@"Python" forKey:@"Python"];
     }
     
     [defaults synchronize];
