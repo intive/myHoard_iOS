@@ -8,7 +8,14 @@
 
 #import "MHCollectionViewController.h"
 
+typedef NS_ENUM(NSInteger, CollectionSortMode) {
+    CollectionSortModeByName = 0,
+    CollectionSortModeByDate
+};
+
 @interface MHCollectionViewController ()
+
+@property (nonatomic, assign) CollectionSortMode sortMode;
 
 -(void)resetIdleTimer;
 -(void)idleTimerExceeded;
@@ -38,14 +45,18 @@
     
 - (void)viewDidLoad
 {
+
     [super viewDidLoad];
     [self setEnableMHLogo:YES];
     // Do any additional setup after loading the view, typically from a nib.
+
     
     _objectChanges = [NSMutableArray array];
     _sectionChanges = [NSMutableArray array];
     animatingCell = nil;
     self.collectionView.backgroundColor = [UIColor appBackgroundColor];
+
+    self.sortMode = CollectionSortModeByDate;
 }
 
 - (void)didReceiveMemoryWarning
@@ -86,35 +97,17 @@
     if (_fetchedResultsController != nil) {
     return _fetchedResultsController;
     }
-        
-    
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
 
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"MHCollection" inManagedObjectContext:[MHCoreDataContext getInstance].managedObjectContext];
-    [fetchRequest setEntity:entity];
-        
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"objId" ascending:YES];
-    NSArray *sortDescriptors = @[sortDescriptor];
-        
-    [fetchRequest setSortDescriptors:sortDescriptors];
-        
-    // Edit the section name key path and cache name if appropriate.
-    // nil for section name key path means "no sections".
-    NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:[MHCoreDataContext getInstance].managedObjectContext sectionNameKeyPath:nil cacheName:@"Master"];
-    aFetchedResultsController.delegate = self;
-    self.fetchedResultsController = aFetchedResultsController;
-    
-    NSError *error = nil;
-    NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-
-    //Automatically set to sort by collection's name since there is no UI to choose a way of sorting.
-        //self.fetchedResultsController = [self sortByDate];
-    
-    self.fetchedResultsController = [self sortByName];
-    _fetchedResultsController.delegate=self;
+    if (_sortMode == CollectionSortModeByDate) {
+        _fetchedResultsController = [self sortByDate];
+    } else {
+        _fetchedResultsController = [self sortByName];
+    }
+    _fetchedResultsController.delegate = self;
 
     return _fetchedResultsController;
 }
+
 - (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo
 atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type
 {
@@ -300,8 +293,22 @@ newIndexPath:(NSIndexPath *)newIndexPath
     [fetchRequest setEntity:entity];
     NSSortDescriptor *sort = [[NSSortDescriptor alloc] initWithKey:@"objCreatedDate" ascending:YES];
     [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
+    [fetchRequest setFetchBatchSize:20];
     NSFetchedResultsController *frc = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:[MHCoreDataContext getInstance].managedObjectContext sectionNameKeyPath:nil cacheName:@"Root"];
     return frc;
+}
+
+- (void)setSortMode:(CollectionSortMode)sortMode {
+    _sortMode = sortMode;
+    _fetchedResultsController = nil;
+    
+    NSError *error = nil;
+	if (![self.fetchedResultsController performFetch:&error]) {
+        // Replace this implementation with code to handle the error appropriately.
+        // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+	    NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+	    abort();
+	}
 }
 
 - (void)stopAnimationTimer
