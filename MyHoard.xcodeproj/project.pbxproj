@@ -60,7 +60,6 @@
 		CEA1083E18B82E6F00E70ED0 /* MHCollectionDetailsViewControllerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA1083D18B82E6F00E70ED0 /* MHCollectionDetailsViewControllerTest.m */; };
 		CEABF90E18BB838D00A6A2F3 /* MHItemViewControllerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CEABF90D18BB838D00A6A2F3 /* MHItemViewControllerTest.m */; };
 		CED4B03118C8903800A84155 /* MHUserSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CED4B03018C8903800A84155 /* MHUserSettingsViewController.m */; };
-		CED4B03318C8918700A84155 /* MHUserSettingsViewControllerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CED4B03218C8918700A84155 /* MHUserSettingsViewControllerTest.m */; };
 		CED4B03518C892A300A84155 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CED4B03418C892A300A84155 /* Settings.bundle */; };
 		CEE097B118BE82560060721A /* MHCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE097B018BE82560060721A /* MHCollection.m */; };
 		CEE097B418BE82700060721A /* MHItem.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE097B318BE82700060721A /* MHItem.m */; };
@@ -162,7 +161,6 @@
 		CEABF90D18BB838D00A6A2F3 /* MHItemViewControllerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHItemViewControllerTest.m; sourceTree = "<group>"; };
 		CED4B02F18C8903800A84155 /* MHUserSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHUserSettingsViewController.h; sourceTree = "<group>"; };
 		CED4B03018C8903800A84155 /* MHUserSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHUserSettingsViewController.m; sourceTree = "<group>"; };
-		CED4B03218C8918700A84155 /* MHUserSettingsViewControllerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHUserSettingsViewControllerTest.m; sourceTree = "<group>"; };
 		CED4B03418C892A300A84155 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		CEE097AF18BE82560060721A /* MHCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHCollection.h; sourceTree = "<group>"; };
 		CEE097B018BE82560060721A /* MHCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHCollection.m; sourceTree = "<group>"; };
@@ -319,7 +317,6 @@
 			children = (
 				CE529A7F18D8688F00A020E9 /* MHUserSettingsTest.m */,
 				93CCCDF518C726D100F4A084 /* testImage.JPG */,
-				CED4B03218C8918700A84155 /* MHUserSettingsViewControllerTest.m */,
 				CE92CB5A18C38D49005038D9 /* MHImagePickerViewControllerTest.m */,
 				CE9ECD1B18B778E800038C18 /* MHItemDetailsViewControllerTest.m */,
 				CEABF90D18BB838D00A6A2F3 /* MHItemViewControllerTest.m */,
@@ -587,7 +584,6 @@
 				CE9ECD1C18B778E900038C18 /* MHItemDetailsViewControllerTest.m in Sources */,
 				CEABF90E18BB838D00A6A2F3 /* MHItemViewControllerTest.m in Sources */,
 				CE529A8018D8688F00A020E9 /* MHUserSettingsTest.m in Sources */,
-				CED4B03318C8918700A84155 /* MHUserSettingsViewControllerTest.m in Sources */,
 				1A0D0B6918C7DDA9004B99BA /* MHLocationTests.m in Sources */,
 				537CF83818ADFEAB008A7E04 /* MHDatabaseManagerTests.m in Sources */,
 			);
