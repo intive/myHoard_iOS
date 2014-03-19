@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MHDropDownMenuViewController.h"
 
-@interface MHBaseViewController : UIViewController
+@interface MHBaseViewController : MHDropDownMenuViewController
 
 @property (nonatomic, readwrite) BOOL disableMHHamburger;
 @property (nonatomic, readwrite) BOOL enableMHLogo;

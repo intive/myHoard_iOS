@@ -31,6 +31,7 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 216;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
                                    initWithTarget:self
                                    action:@selector(dismissKeyboard)];
@@ -55,6 +56,19 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 216;
     
     self.disableMHHamburger = YES;
     
+    UIBarButtonItem *save = [[UIBarButtonItem alloc] initWithTitle:@"Save"
+                                                                  style:UIBarButtonItemStylePlain
+                                                                 target:self
+                                                                 action:@selector(add:)];
+    self.navigationController.navigationBar.topItem.rightBarButtonItems = @[save];
+
+    UIBarButtonItem *cancel = [[UIBarButtonItem alloc] initWithTitle:@"Cancel"
+                                                                  style:UIBarButtonItemStylePlain
+                                                                 target:self
+                                                                 action:@selector(cancel:)];
+    self.navigationController.navigationBar.topItem.leftBarButtonItems = @[cancel];
+
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -64,7 +78,7 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 216;
 }
 
 - (IBAction)cancel:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)add:(id)sender {
@@ -72,8 +86,14 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 216;
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"error" message:@"Some field is still blank" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
         [alert show];
     }else{
-    [MHDatabaseManager insertCollectionWithObjId:self.questionTextField.text objName:self.nameTextField.text objDescription:self.descriptionTextField.text objTags:nil objItemsNumber:nil objCreatedDate:[NSDate date] objModifiedDate:nil objOwner:nil];
-    [self.navigationController popViewControllerAnimated:YES];
+        [MHDatabaseManager insertCollectionWithObjId:self.questionTextField.text
+                                             objName:self.nameTextField.text
+                                      objDescription:self.descriptionTextField.text
+                                             objTags:nil objItemsNumber:nil
+                                      objCreatedDate:[NSDate date]
+                                     objModifiedDate:nil
+                                            objOwner:nil];
+        [self dismissViewControllerAnimated:YES completion:nil];
     }
 }
 

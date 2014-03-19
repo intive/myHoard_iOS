@@ -9,7 +9,7 @@
 #import "MHBaseViewController.h"
 #import "UIColor+customColors.h"
 
-@interface MHBaseViewController ()
+@interface MHBaseViewController () <MHDropDownMenuDelegate, MHDropDownMenuDataSource>
 
 @end
 
@@ -42,6 +42,19 @@
         self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logo.png"]];
     };
     
+    self.menuButtonImage = [UIImage imageNamed:@"icon_menu.png"];
+    self.menu.dataSource = self;
+    self.menu.delegate = self;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    if ([self numberOfItemsInDropDownMenu:nil]) {
+        self.menuButtonVisible = YES;
+    } else {
+        self.menuButtonVisible = NO;
+    }
 }
 
 -(void)setDisableMHHamburger:(BOOL)disableMHHamburger{
@@ -67,5 +80,12 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+#pragma MHDropDownMenu
+
+- (NSInteger)numberOfItemsInDropDownMenu:(MHDropDownMenu *)menu {
+    return 0;
+}
+
 
 @end

@@ -322,4 +322,32 @@ newIndexPath:(NSIndexPath *)newIndexPath
     [self stopAnimationTimer];
 }
 
+#pragma mark MHDropDownMenu
+
+- (NSInteger)numberOfItemsInDropDownMenu:(MHDropDownMenu *)menu {
+    return 2;
+}
+
+- (NSString*)titleInDropDownMenu:(MHDropDownMenu *)menu atIndex:(NSInteger)index {
+    switch (index) {
+        case 0:
+            return @"Add collection";
+            break;
+        default:
+            return @"unused menu item";
+    }
+}
+
+- (UIColor*)backgroundColorInDropDownMenu:(MHDropDownMenu *)menu atIndex:(NSInteger)index {
+    return [UIColor navigationBarBackgroundColor];
+}
+
+- (void)dropDownMenu:(MHDropDownMenu*)menu didSelectItemAtIndex:(NSUInteger)index {
+    if (index == 0) {
+        [self performSegueWithIdentifier:@"AddCollectionSegue" sender:nil];
+    } else {
+        NSLog(@"Unknown menu item %d selected:", index);
+    }
+}
+
 @end
