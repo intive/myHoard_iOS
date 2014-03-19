@@ -53,6 +53,8 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 216;
     self.tagsTextField.textColor = [UIColor colorWithRed:0.6535 green:0.5085 blue:0.0978 alpha:1.0];
     self.questionTextField.textColor = [UIColor colorWithRed:0.6535 green:0.5085 blue:0.0978 alpha:1.0];
     
+    self.disableMHHamburger = YES;
+    
 }
 
 - (void)didReceiveMemoryWarning

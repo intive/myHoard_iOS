@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MHAddCollectionViewController : UIViewController
+@interface MHAddCollectionViewController : MHBaseViewController
+
 @property (weak, nonatomic) IBOutlet UIView *nameBackgroundView;
 @property (weak, nonatomic) IBOutlet UIView *tagsBackgroundView;
 @property (weak, nonatomic) IBOutlet UIView *descriptionBackgroundView;
