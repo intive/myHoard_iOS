@@ -11,8 +11,6 @@
 		1A059F3618D200B700ECC6D0 /* MHBrowseCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A059F2C18D200B700ECC6D0 /* MHBrowseCollectionViewController.m */; };
 		1A059F3718D200B700ECC6D0 /* MHAddItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A059F3018D200B700ECC6D0 /* MHAddItemViewController.m */; };
 		1A059F3818D200B700ECC6D0 /* MHAddCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A059F3118D200B700ECC6D0 /* MHAddCollectionViewController.m */; };
-		1A059F3918D200B700ECC6D0 /* camera.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A059F3318D200B700ECC6D0 /* camera.png */; };
-		1A059F3A18D200B700ECC6D0 /* addImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 1A059F3418D200B700ECC6D0 /* addImage.png */; };
 		1A0D0B6718C7C742004B99BA /* MHLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A0D0B6618C7C742004B99BA /* MHLocation.m */; };
 		1A0D0B6918C7DDA9004B99BA /* MHLocationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A0D0B6818C7DDA9004B99BA /* MHLocationTests.m */; };
 		2302787418B4C0A900FCD528 /* GcovTestObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 2302787318B4C0A900FCD528 /* GcovTestObserver.m */; };
@@ -86,8 +84,6 @@
 		1A059F3018D200B700ECC6D0 /* MHAddItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHAddItemViewController.m; sourceTree = "<group>"; };
 		1A059F3118D200B700ECC6D0 /* MHAddCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHAddCollectionViewController.m; sourceTree = "<group>"; };
 		1A059F3218D200B700ECC6D0 /* MHAddCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHAddCollectionViewController.h; sourceTree = "<group>"; };
-		1A059F3318D200B700ECC6D0 /* camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = camera.png; sourceTree = "<group>"; };
-		1A059F3418D200B700ECC6D0 /* addImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = addImage.png; sourceTree = "<group>"; };
 		1A0D0B6518C7C742004B99BA /* MHLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHLocation.h; sourceTree = "<group>"; };
 		1A0D0B6618C7C742004B99BA /* MHLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHLocation.m; sourceTree = "<group>"; };
 		1A0D0B6818C7DDA9004B99BA /* MHLocationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHLocationTests.m; sourceTree = "<group>"; };
@@ -268,8 +264,6 @@
 				1A059F3018D200B700ECC6D0 /* MHAddItemViewController.m */,
 				1A059F3218D200B700ECC6D0 /* MHAddCollectionViewController.h */,
 				1A059F3118D200B700ECC6D0 /* MHAddCollectionViewController.m */,
-				1A059F3318D200B700ECC6D0 /* camera.png */,
-				1A059F3418D200B700ECC6D0 /* addImage.png */,
 				9370CAE918CFC1E400C77461 /* MHCollectionCell.h */,
 				9370CAEA18CFC1E400C77461 /* MHCollectionCell.m */,
 				93C28E4018D1E83B0011E41E /* MHBaseViewController.h */,
@@ -438,9 +432,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				23D321B9184BBFFA002FC13A /* Images.xcassets in Resources */,
-				1A059F3918D200B700ECC6D0 /* camera.png in Resources */,
 				CE92CB5918C321EF005038D9 /* MHImagePickerViewController.xib in Resources */,
-				1A059F3A18D200B700ECC6D0 /* addImage.png in Resources */,
 				CED4B03518C892A300A84155 /* Settings.bundle in Resources */,
 				A7E4B51418C90BB40042EAC9 /* AlternativeDesign.json in Resources */,
 				23D321AB184BBFFA002FC13A /* InfoPlist.strings in Resources */,
