@@ -5,7 +5,7 @@
 //  Created by user on 2/22/14.
 //  Copyright (c) 2014 BLStream. All rights reserved.
 //
-
+/*
 #import <XCTest/XCTest.h>
 #import "CollectionDetailsViewController.h"
 
@@ -122,3 +122,4 @@
 }
 
 @end
+ */
