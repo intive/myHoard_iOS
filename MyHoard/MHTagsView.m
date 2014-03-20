@@ -15,6 +15,9 @@
     _aslabelone = [[CBAutoScrollLabel alloc]init];
     _aslabeltwo = [[CBAutoScrollLabel alloc]init];
     
+    [self addSubview:_aslabelone];
+    [self addSubview:_aslabeltwo];
+    
     _duration = 1.0;
     _delay = 3.5;
 
@@ -47,7 +50,7 @@
     _aslabelone.textAlignment = NSTextAlignmentCenter;
     _aslabelone.fadeLength = 12.f;
     _aslabelone.scrollDirection = CBAutoScrollDirectionLeft;
-    _aslabelone.frame = CGRectMake(0, 0, 145, 50);
+    _aslabelone.frame = self.bounds;
     
 #pragma label two
     
@@ -58,7 +61,7 @@
     _aslabeltwo.textAlignment = NSTextAlignmentCenter;
     _aslabeltwo.fadeLength = 12.f;
     _aslabeltwo.scrollDirection = CBAutoScrollDirectionLeft;
-    _aslabeltwo.frame = CGRectMake(0, 0, 145, 50);
+    _aslabeltwo.frame = self.bounds;
 
 }
 
@@ -67,8 +70,6 @@
     self = [super initWithFrame:frame];
     if (self) {
         [self baseInit];
-        [self addSubview:_aslabelone];
-        [self addSubview:_aslabeltwo];
     }
     return self;
 }
@@ -77,8 +78,6 @@
     
     if (self = [super initWithCoder:aDecoder]) {
         [self baseInit];
-        [self addSubview:_aslabelone];
-        [self addSubview:_aslabeltwo];
     }
     return self;
 }
