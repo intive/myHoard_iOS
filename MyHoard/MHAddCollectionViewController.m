@@ -37,23 +37,20 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 216;
                                    action:@selector(dismissKeyboard)];
     
     [self.view addGestureRecognizer:tap];
-    self.view.backgroundColor = [UIColor colorWithRed:0.09375 green:0.09375 blue:0.09375 alpha:1.0];
+    self.view.backgroundColor = [UIColor darkerGray];
+    self.pickerHidingView.backgroundColor = [UIColor darkerGray];
     self.nameBackgroundView.backgroundColor = [UIColor appBackgroundColor];
     self.tagsBackgroundView.backgroundColor = [UIColor appBackgroundColor];
+    self.pickerHidingView.backgroundColor = [UIColor appBackgroundColor];
     self.descriptionBackgroundView.backgroundColor = [UIColor appBackgroundColor];
     self.questionBackgroundView.backgroundColor = [UIColor appBackgroundColor];
-    self.nameLabel.textColor = [UIColor colorWithRed:0.6535 green:0.5085 blue:0.0978 alpha:1.0];
-    self.tagsLabel.textColor = [UIColor colorWithRed:0.6535 green:0.5085 blue:0.0978 alpha:1.0];
-
-    self.descriptionLabel.textColor = [UIColor colorWithRed:0.6535 green:0.5085 blue:0.0978 alpha:1.0];
-
-    self.questionLabel.textColor = [UIColor colorWithRed:0.6535 green:0.5085 blue:0.0978 alpha:1.0];
-
-    self.nameTextField.textColor = [UIColor colorWithRed:0.6535 green:0.5085 blue:0.0978 alpha:1.0];
-    self.descriptionTextField.textColor = [UIColor colorWithRed:0.6535 green:0.5085 blue:0.0978 alpha:1.0];
-    self.tagsTextField.textColor = [UIColor colorWithRed:0.6535 green:0.5085 blue:0.0978 alpha:1.0];
-    self.questionTextField.textColor = [UIColor colorWithRed:0.6535 green:0.5085 blue:0.0978 alpha:1.0];
-    
+    self.nameTextField.textColor=[UIColor darkerYellow];
+    self.tagsTextField.textColor=[UIColor darkerYellow];
+    self.descriptionTextField.textColor=[UIColor darkerYellow];
+    self.typeLabel.textColor=[UIColor darkerYellow];
+    self.typeTitleLAbel.textColor=[UIColor darkerYellow];
+    [_pickerCancelColor setTitleColor:[UIColor darkerYellow] forState:UIControlStateNormal];
+    [_pickerSaveColor setTitleColor:[UIColor darkerYellow] forState:UIControlStateNormal];
     self.disableMHHamburger = YES;
     
     UIBarButtonItem *save = [[UIBarButtonItem alloc] initWithTitle:@"Save"
@@ -67,7 +64,7 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 216;
                                                                  target:self
                                                                  action:@selector(cancel:)];
     self.navigationController.navigationBar.topItem.leftBarButtonItems = @[cancel];
-
+    _items = [[NSArray alloc]initWithObjects:@"Public", @"Private", @"Offline", nil];
     
 }
 
@@ -77,19 +74,37 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 216;
     // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)typeButton:(id)sender {
+    [self dismissKeyboard];
+    if (self.pickerHidingView.alpha==1.0) {
+        self.pickerHidingView.alpha=0.0;
+    }else{
+        self.pickerHidingView.alpha=1.0;
+    }
+}
+
+- (IBAction)pickerCancel:(id)sender {
+    self.pickerHidingView.alpha=1.0;
+}
+
+- (IBAction)pickerSave:(id)sender {
+    self.pickerHidingView.alpha=1.0;
+}
+
 - (IBAction)cancel:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)add:(id)sender {
-    if ([self.questionTextField.text isEqualToString:@""] || [self.nameTextField.text isEqualToString:@""] || [self.descriptionTextField.text isEqualToString:@""]) {
+    if ([self.nameTextField.text isEqualToString:@""] || [self.nameTextField.text isEqualToString:@"name"]|| [self.descriptionTextField.text isEqualToString:@""] || [self.descriptionTextField.text isEqualToString:@"description"]) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"error" message:@"Some field is still blank" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
         [alert show];
     }else{
-        [MHDatabaseManager insertCollectionWithObjId:self.questionTextField.text
+        [MHDatabaseManager insertCollectionWithObjId:[NSString stringWithFormat:@"%u",arc4random()%10000]//in futere we will get it from server propably
                                              objName:self.nameTextField.text
                                       objDescription:self.descriptionTextField.text
-                                             objTags:nil objItemsNumber:nil
+                                             objTags:[NSArray arrayWithObject:self.tagsTextField.text]
+                                      objItemsNumber:nil
                                       objCreatedDate:[NSDate date]
                                      objModifiedDate:nil
                                             objOwner:nil];
@@ -108,10 +123,6 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 216;
     }
     else if (textField == self.descriptionTextField) {
         [textField resignFirstResponder];
-        [self.questionTextField becomeFirstResponder];
-    }
-    else if (textField == self.questionTextField) {
-        [textField resignFirstResponder];
     }
     return YES;
 }
@@ -120,7 +131,6 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 216;
     [_nameTextField resignFirstResponder];
     [_tagsTextField resignFirstResponder];
     [_descriptionTextField resignFirstResponder];
-    [_questionTextField resignFirstResponder];
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
@@ -169,6 +179,37 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 216;
     [self.view setFrame:viewFrame];
     
     [UIView commitAnimations];
+}
+
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
+{
+    return 1;
+}
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
+{
+    return [_items count];
+}
+
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row
+            forComponent:(NSInteger)component
+{
+    return [_items objectAtIndex:row];
+}
+
+-(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row
+      inComponent:(NSInteger)component
+{
+    _typeLabel.text=_items[row];
+}
+
+- (NSAttributedString *)pickerView:(UIPickerView *)pickerView attributedTitleForRow:(NSInteger)row forComponent:(NSInteger)component
+{
+    NSString *title = _items[row];
+    NSAttributedString *attString = [[NSAttributedString alloc] initWithString:title attributes:@{NSForegroundColorAttributeName:[UIColor darkerYellow]}];
+    
+    return attString;
+    
 }
 
 @end

@@ -27,5 +27,8 @@
 +(UIColor*)newCollectionViewFrontColor;
 +(UIColor*)photoNameFrontColor;
 +(UIColor*)noPhotoBackgroundColor;
++(UIColor*)darkerYellow;
++(UIColor*)lighterGray;
++(UIColor*)darkerGray;
 
 @end
