@@ -96,10 +96,14 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 216;
 }
 
 - (IBAction)add:(id)sender {
-    if ([self.nameTextField.text isEqualToString:@""] || [self.nameTextField.text isEqualToString:@"name"]|| [self.descriptionTextField.text isEqualToString:@""] || [self.descriptionTextField.text isEqualToString:@"description"]) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"error" message:@"Some field is still blank" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
+    if ([self.nameTextField.text isEqualToString:@""] || [self.nameTextField.text isEqualToString:@"Name"]|| [self.descriptionTextField.text isEqualToString:@""] || [self.descriptionTextField.text isEqualToString:@"Description"]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"error" message:@"Some field is not filled properly" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
         [alert show];
-    }else{
+    }else if([self.nameTextField.text length]<2){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"error" message:@"Name is to short" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
+        [alert show];
+    }
+    else{
         [MHDatabaseManager insertCollectionWithObjId:[NSString stringWithFormat:@"%u",arc4random()%10000]//in futere we will get it from server propably
                                              objName:self.nameTextField.text
                                       objDescription:self.descriptionTextField.text
