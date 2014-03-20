@@ -125,6 +125,23 @@
 
 }
 
++ (MHCollection*)getCollectionWithObjName:(NSString*)objName{
+    NSFetchRequest *fetch = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"MHCollection" inManagedObjectContext: [MHCoreDataContext getInstance].managedObjectContext];
+    [fetch setEntity:entityDescription];
+    [fetch setPredicate:[NSPredicate predicateWithFormat:@"objName = %@", objName]];
+    NSError *error = nil;
+    NSArray *fetchedObjects = [[MHCoreDataContext getInstance].managedObjectContext executeFetchRequest:fetch error:&error];
+    if(error==nil){
+        if([fetchedObjects count] == 1)
+        {
+            return [fetchedObjects objectAtIndex:0];
+        }
+    }
+    NSLog(@"Unresolved error: %@, %@", error, [error userInfo]);
+    return nil;
+}
+
 
 #pragma mark - Item
 + (void)insertItemWithObjId:(NSString*)objId

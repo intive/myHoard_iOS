@@ -24,6 +24,8 @@
 
 + (MHCollection*)getCollectionWithObjId:(NSString*)objId;
 
++ (MHCollection*)getCollectionWithObjName:(NSString*)objName;
+
 + (NSArray*)getAllCollections;
 
 + (void)removeCollectionWithId:(NSString*)objId;
