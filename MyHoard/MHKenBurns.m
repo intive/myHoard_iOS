@@ -13,11 +13,12 @@
 - (void)baseInit {
     
     _kenBurnsView = [[JBKenBurnsView alloc]init];
+    _kenBurnsView.frame = self.bounds;
+
+    [self addSubview:_kenBurnsView];
 
     [self setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin];
     [self setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
-    
-    _kenBurnsView.frame = self.bounds;
     
     _images = [[NSMutableArray alloc]init];
     
@@ -38,7 +39,6 @@
 {
     if (self = [super initWithFrame:frame]) {
         [self baseInit];
-        [self addSubview:_kenBurnsView];
     }
     return self;
 }
@@ -47,7 +47,6 @@
     
     if (self = [super initWithCoder:aDecoder]) {
         [self baseInit];
-        [self addSubview:_kenBurnsView];
     }
     return self;
 }
@@ -59,11 +58,6 @@
     [self animationTapperOff];
     [self animationTapperOn];
 
-}
-
-- (void)setImages:(NSMutableArray *)images {
-    
-    _images = images;
 }
 
 - (void)addImage:(UIImage *)image {
@@ -98,7 +92,13 @@
     
     _delay = delay;
     
-    [_kenBurnsView performSelector:@selector(animateWithImagesSelectorWrapper) withObject:nil afterDelay:_delay];
+    [self performSelector:@selector(animateWithImageSelectorWrapper) withObject:nil afterDelay:_delay];
+}
+
+- (void)animateWithImageSelectorWrapper {
+    
+    [_kenBurnsView animateWithImages:_images transitionDuration:_animationDuration loop:_shouldLoop isLandscape:_isLandscape];
+
 }
 
 @end

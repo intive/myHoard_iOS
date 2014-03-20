@@ -19,10 +19,10 @@
 @property (nonatomic) NSTimeInterval delay;
 
 - (void)beginAnimationWithImages:(NSMutableArray *)imagesArray withDuration:(NSTimeInterval)duration shouldLoop:(BOOL)loop isLandscape:(BOOL)isLandscape;
-- (void)setImages:(NSMutableArray *)images;
 - (void)addImage:(UIImage *)image;
 - (void)animationTapperOff;
 - (void)animationTapperOn;
 - (void)reloadAfterDelay:(NSTimeInterval)delay;
+- (void)animateWithImageSelectorWrapper;
 
 @end

@@ -47,7 +47,6 @@
 		A7E4B51418C90BB40042EAC9 /* AlternativeDesign.json in Resources */ = {isa = PBXBuildFile; fileRef = A7E4B51318C90BB40042EAC9 /* AlternativeDesign.json */; };
 		B02743679DB841A98A3C2D60 /* libPods-MyHoardTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A54F99CDCE2468DACC4FBD3 /* libPods-MyHoardTests.a */; };
 		B8F16086EB65413C89F6F7BB /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F724743366084FAC90257055 /* libPods.a */; };
-		CE28669518DB2A9D003AC446 /* JBKenBurnsView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE28669218DB2A9D003AC446 /* JBKenBurnsView.m */; };
 		CE28669618DB2A9D003AC446 /* MHKenBurns.m in Sources */ = {isa = PBXBuildFile; fileRef = CE28669418DB2A9D003AC446 /* MHKenBurns.m */; };
 		CE529A7D18D8687B00A020E9 /* MHTagsView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE529A7A18D8687B00A020E9 /* MHTagsView.m */; };
 		CE529A7E18D8687B00A020E9 /* MHUserSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = CE529A7C18D8687B00A020E9 /* MHUserSettings.m */; };
@@ -143,8 +142,6 @@
 		A7A348F218C881B600FA1B6C /* libPods-MyHoardTests-TSMessages.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-MyHoardTests-TSMessages.a"; path = "Pods/build/Debug-iphoneos/libPods-MyHoardTests-TSMessages.a"; sourceTree = "<group>"; };
 		A7A348F418C88F2900FA1B6C /* libPods-TSMessages.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-TSMessages.a"; path = "Pods/build/Debug-iphoneos/libPods-TSMessages.a"; sourceTree = "<group>"; };
 		A7E4B51318C90BB40042EAC9 /* AlternativeDesign.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = AlternativeDesign.json; sourceTree = "<group>"; };
-		CE28669118DB2A9D003AC446 /* JBKenBurnsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JBKenBurnsView.h; sourceTree = "<group>"; };
-		CE28669218DB2A9D003AC446 /* JBKenBurnsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JBKenBurnsView.m; sourceTree = "<group>"; };
 		CE28669318DB2A9D003AC446 /* MHKenBurns.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHKenBurns.h; sourceTree = "<group>"; };
 		CE28669418DB2A9D003AC446 /* MHKenBurns.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHKenBurns.m; sourceTree = "<group>"; };
 		CE529A7918D8687B00A020E9 /* MHTagsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHTagsView.h; sourceTree = "<group>"; };
@@ -260,7 +257,8 @@
 			isa = PBXGroup;
 			children = (
 				537CF82918AD6282008A7E04 /* Database */,
-				CE28669718DB2B3A003AC446 /* MHKenBurns */,
+				CE28669318DB2A9D003AC446 /* MHKenBurns.h */,
+				CE28669418DB2A9D003AC446 /* MHKenBurns.m */,
 				CE529A7918D8687B00A020E9 /* MHTagsView.h */,
 				CE529A7A18D8687B00A020E9 /* MHTagsView.m */,
 				CE529A7B18D8687B00A020E9 /* MHUserSettings.h */,
@@ -375,17 +373,6 @@
 				537CF83A18AE0D5D008A7E04 /* MHCoreDataContextForTests.m */,
 			);
 			name = Helpers;
-			sourceTree = "<group>";
-		};
-		CE28669718DB2B3A003AC446 /* MHKenBurns */ = {
-			isa = PBXGroup;
-			children = (
-				CE28669118DB2A9D003AC446 /* JBKenBurnsView.h */,
-				CE28669218DB2A9D003AC446 /* JBKenBurnsView.m */,
-				CE28669318DB2A9D003AC446 /* MHKenBurns.h */,
-				CE28669418DB2A9D003AC446 /* MHKenBurns.m */,
-			);
-			name = MHKenBurns;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -571,7 +558,6 @@
 				1A059F3718D200B700ECC6D0 /* MHAddItemViewController.m in Sources */,
 				CE6C31BC18B1422100983736 /* MHItemViewController.m in Sources */,
 				537CF82C18AD643D008A7E04 /* MyHoardModel.xcdatamodeld in Sources */,
-				CE28669518DB2A9D003AC446 /* JBKenBurnsView.m in Sources */,
 				CEE097B118BE82560060721A /* MHCollection.m in Sources */,
 				CED4B03118C8903800A84155 /* MHUserSettingsViewController.m in Sources */,
 				23D321AD184BBFFA002FC13A /* main.m in Sources */,
