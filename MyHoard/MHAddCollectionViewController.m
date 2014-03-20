@@ -96,11 +96,12 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 216;
 }
 
 - (IBAction)add:(id)sender {
+    NSString *result = [self.nameTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     if ([self.nameTextField.text isEqualToString:@""] || [self.nameTextField.text isEqualToString:@"Name"]|| [self.descriptionTextField.text isEqualToString:@""] || [self.descriptionTextField.text isEqualToString:@"Description"]) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"error" message:@"Some field is not filled properly" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
         [alert show];
-    }else if([self.nameTextField.text length]<2){
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"error" message:@"Name is to short" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
+    }else if([result length]<2){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"error" message:@"Name is to short(spaces, tab's are not included in counting)" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
         [alert show];
     }else if([self.nameTextField.text length]>64){
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"error" message:@"Name is to long(max64)" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
