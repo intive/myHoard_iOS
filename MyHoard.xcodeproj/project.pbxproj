@@ -15,6 +15,8 @@
 		1A0D0B6918C7DDA9004B99BA /* MHLocationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A0D0B6818C7DDA9004B99BA /* MHLocationTests.m */; };
 		2302787418B4C0A900FCD528 /* GcovTestObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 2302787318B4C0A900FCD528 /* GcovTestObserver.m */; };
 		230E6D3618BFF2FD00B9418E /* MHMediaHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 230E6D3518BFF2FD00B9418E /* MHMediaHelper.m */; };
+		235EB3C618DDAE3C0032D769 /* MHPasswordStrengthView.m in Sources */ = {isa = PBXBuildFile; fileRef = 235EB3C518DDAE3C0032D769 /* MHPasswordStrengthView.m */; };
+		235EB3C918DDF07E0032D769 /* MHLoginAndRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 235EB3C818DDF07E0032D769 /* MHLoginAndRegisterViewController.m */; };
 		23D321A1184BBFFA002FC13A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23D321A0184BBFFA002FC13A /* Foundation.framework */; };
 		23D321A3184BBFFA002FC13A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23D321A2184BBFFA002FC13A /* CoreGraphics.framework */; };
 		23D321A5184BBFFA002FC13A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23D321A4184BBFFA002FC13A /* UIKit.framework */; };
@@ -91,6 +93,10 @@
 		2302787318B4C0A900FCD528 /* GcovTestObserver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GcovTestObserver.m; sourceTree = "<group>"; };
 		230E6D3418BFF2FD00B9418E /* MHMediaHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHMediaHelper.h; sourceTree = "<group>"; };
 		230E6D3518BFF2FD00B9418E /* MHMediaHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHMediaHelper.m; sourceTree = "<group>"; };
+		235EB3C418DDAE3C0032D769 /* MHPasswordStrengthView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHPasswordStrengthView.h; sourceTree = "<group>"; };
+		235EB3C518DDAE3C0032D769 /* MHPasswordStrengthView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHPasswordStrengthView.m; sourceTree = "<group>"; };
+		235EB3C718DDF07E0032D769 /* MHLoginAndRegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHLoginAndRegisterViewController.h; sourceTree = "<group>"; };
+		235EB3C818DDF07E0032D769 /* MHLoginAndRegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHLoginAndRegisterViewController.m; sourceTree = "<group>"; };
 		23D3219D184BBFFA002FC13A /* MyHoard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyHoard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		23D321A0184BBFFA002FC13A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		23D321A2184BBFFA002FC13A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -210,6 +216,30 @@
 			name = MHDropDownMenu;
 			sourceTree = "<group>";
 		};
+		235EB3CA18DDF1530032D769 /* LoginAndRegister */ = {
+			isa = PBXGroup;
+			children = (
+				235EB3C418DDAE3C0032D769 /* MHPasswordStrengthView.h */,
+				235EB3C518DDAE3C0032D769 /* MHPasswordStrengthView.m */,
+				235EB3C718DDF07E0032D769 /* MHLoginAndRegisterViewController.h */,
+				235EB3C818DDF07E0032D769 /* MHLoginAndRegisterViewController.m */,
+			);
+			name = LoginAndRegister;
+			sourceTree = "<group>";
+		};
+		235EB3CB18DDF16F0032D769 /* Collections */ = {
+			isa = PBXGroup;
+			children = (
+				CE529A7918D8687B00A020E9 /* MHTagsView.h */,
+				CE529A7A18D8687B00A020E9 /* MHTagsView.m */,
+				9370CAE918CFC1E400C77461 /* MHCollectionCell.h */,
+				9370CAEA18CFC1E400C77461 /* MHCollectionCell.m */,
+				9370CAF218CFC30A00C77461 /* MHCollectionViewController.h */,
+				9370CAF318CFC30A00C77461 /* MHCollectionViewController.m */,
+			);
+			name = Collections;
+			sourceTree = "<group>";
+		};
 		23D32194184BBFF9002FC13A = {
 			isa = PBXGroup;
 			children = (
@@ -279,12 +309,8 @@
 				1A059F3018D200B700ECC6D0 /* MHAddItemViewController.m */,
 				1A059F3218D200B700ECC6D0 /* MHAddCollectionViewController.h */,
 				1A059F3118D200B700ECC6D0 /* MHAddCollectionViewController.m */,
-				9370CAE918CFC1E400C77461 /* MHCollectionCell.h */,
-				9370CAEA18CFC1E400C77461 /* MHCollectionCell.m */,
 				93C28E4018D1E83B0011E41E /* MHBaseViewController.h */,
 				93C28E4118D1E83B0011E41E /* MHBaseViewController.m */,
-				9370CAF218CFC30A00C77461 /* MHCollectionViewController.h */,
-				9370CAF318CFC30A00C77461 /* MHCollectionViewController.m */,
 				23FB2BCD18D23DDF009EFDE7 /* UIColor+customColors.h */,
 				23FB2BCE18D23DDF009EFDE7 /* UIColor+customColors.m */,
 				23D321B8184BBFFA002FC13A /* Images.xcassets */,
@@ -544,6 +570,7 @@
 				23F27A5518D8E59F00877D30 /* MHDropDownMenuViewController.m in Sources */,
 				CE92CB5818C321EF005038D9 /* MHImagePickerViewController.m in Sources */,
 				1A0D0B6718C7C742004B99BA /* MHLocation.m in Sources */,
+				235EB3C918DDF07E0032D769 /* MHLoginAndRegisterViewController.m in Sources */,
 				1A059F3718D200B700ECC6D0 /* MHAddItemViewController.m in Sources */,
 				CE6C31BC18B1422100983736 /* MHItemViewController.m in Sources */,
 				537CF82C18AD643D008A7E04 /* MyHoardModel.xcdatamodeld in Sources */,
@@ -557,6 +584,7 @@
 				230E6D3618BFF2FD00B9418E /* MHMediaHelper.m in Sources */,
 				93C28E4218D1E83B0011E41E /* MHBaseViewController.m in Sources */,
 				CEE097B718BE82940060721A /* MHMedia.m in Sources */,
+				235EB3C618DDAE3C0032D769 /* MHPasswordStrengthView.m in Sources */,
 				23FB2BCF18D23DDF009EFDE7 /* UIColor+customColors.m in Sources */,
 				23F27A5B18D9A6D100877D30 /* MHDropDownMenuItem.m in Sources */,
 				CE529A7D18D8687B00A020E9 /* MHTagsView.m in Sources */,
