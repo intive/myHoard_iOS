@@ -49,7 +49,6 @@
 		B02743679DB841A98A3C2D60 /* libPods-MyHoardTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A54F99CDCE2468DACC4FBD3 /* libPods-MyHoardTests.a */; };
 		B8F16086EB65413C89F6F7BB /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F724743366084FAC90257055 /* libPods.a */; };
 		CE28669618DB2A9D003AC446 /* MHKenBurns.m in Sources */ = {isa = PBXBuildFile; fileRef = CE28669418DB2A9D003AC446 /* MHKenBurns.m */; };
-		CE529A7D18D8687B00A020E9 /* MHTagsView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE529A7A18D8687B00A020E9 /* MHTagsView.m */; };
 		CE529A7E18D8687B00A020E9 /* MHUserSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = CE529A7C18D8687B00A020E9 /* MHUserSettings.m */; };
 		CE529A8018D8688F00A020E9 /* MHUserSettingsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CE529A7F18D8688F00A020E9 /* MHUserSettingsTest.m */; };
 		CE6C31B618B1167C00983736 /* CollectionDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6C31B518B1167C00983736 /* CollectionDetailsViewController.m */; };
@@ -147,8 +146,8 @@
 		A7E4B51318C90BB40042EAC9 /* AlternativeDesign.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = AlternativeDesign.json; sourceTree = "<group>"; };
 		CE28669318DB2A9D003AC446 /* MHKenBurns.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHKenBurns.h; sourceTree = "<group>"; };
 		CE28669418DB2A9D003AC446 /* MHKenBurns.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHKenBurns.m; sourceTree = "<group>"; };
-		CE529A7918D8687B00A020E9 /* MHTagsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHTagsView.h; sourceTree = "<group>"; };
-		CE529A7A18D8687B00A020E9 /* MHTagsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHTagsView.m; sourceTree = "<group>"; };
+		CE529A7918D8687B00A020E9 /* MHTagsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MHTagsView.h; path = "/Users/SJE/Desktop/Patronage 2014/myHoard_iOS/MyHoard/MHTagsView.h"; sourceTree = "<absolute>"; };
+		CE529A7A18D8687B00A020E9 /* MHTagsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MHTagsView.m; path = "/Users/SJE/Desktop/Patronage 2014/myHoard_iOS/MyHoard/MHTagsView.m"; sourceTree = "<absolute>"; };
 		CE529A7B18D8687B00A020E9 /* MHUserSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHUserSettings.h; sourceTree = "<group>"; };
 		CE529A7C18D8687B00A020E9 /* MHUserSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHUserSettings.m; sourceTree = "<group>"; };
 		CE529A7F18D8688F00A020E9 /* MHUserSettingsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHUserSettingsTest.m; sourceTree = "<group>"; };
@@ -233,6 +232,8 @@
 		235EB3CB18DDF16F0032D769 /* Collections */ = {
 			isa = PBXGroup;
 			children = (
+				CE28669318DB2A9D003AC446 /* MHKenBurns.h */,
+				CE28669418DB2A9D003AC446 /* MHKenBurns.m */,
 				CE529A7918D8687B00A020E9 /* MHTagsView.h */,
 				CE529A7A18D8687B00A020E9 /* MHTagsView.m */,
 				9370CAE918CFC1E400C77461 /* MHCollectionCell.h */,
@@ -284,10 +285,6 @@
 			isa = PBXGroup;
 			children = (
 				537CF82918AD6282008A7E04 /* Database */,
-				CE28669318DB2A9D003AC446 /* MHKenBurns.h */,
-				CE28669418DB2A9D003AC446 /* MHKenBurns.m */,
-				CE529A7918D8687B00A020E9 /* MHTagsView.h */,
-				CE529A7A18D8687B00A020E9 /* MHTagsView.m */,
 				235EB3CB18DDF16F0032D769 /* Collections */,
 				235EB3CA18DDF1530032D769 /* LoginAndRegister */,
 				CE529A7B18D8687B00A020E9 /* MHUserSettings.h */,
@@ -595,7 +592,6 @@
 				235EB3C618DDAE3C0032D769 /* MHPasswordStrengthView.m in Sources */,
 				23FB2BCF18D23DDF009EFDE7 /* UIColor+customColors.m in Sources */,
 				23F27A5B18D9A6D100877D30 /* MHDropDownMenuItem.m in Sources */,
-				CE529A7D18D8687B00A020E9 /* MHTagsView.m in Sources */,
 				CE28669618DB2A9D003AC446 /* MHKenBurns.m in Sources */,
 				537CF83318AD7D6E008A7E04 /* MHCoreDataContext.m in Sources */,
 			);
