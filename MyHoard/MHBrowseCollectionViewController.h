@@ -16,7 +16,7 @@
 
 @interface MHBrowseCollectionViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (retain)id <passCollectionName> delegate;
+@property (weak)id <passCollectionName> delegate;
 @property (nonatomic,strong)NSString *collectionNameString;
 @property (nonatomic, strong) NSMutableArray *collections;
 @property (nonatomic, strong) MHCollection* lastSelectedCollection;
