@@ -68,7 +68,7 @@
 }
 
 - (IBAction)textFieldDidChange:(UITextField *)textField {
-    if (textField == _passwordTextField1) {
+    if (textField == _passwordTextField) {
         [_passwordStrength setPassword:textField.text];
     }
 }
