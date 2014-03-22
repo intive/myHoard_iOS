@@ -22,7 +22,6 @@
 		23D321AD184BBFFA002FC13A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D321AC184BBFFA002FC13A /* main.m */; };
 		23D321B1184BBFFA002FC13A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D321B0184BBFFA002FC13A /* AppDelegate.m */; };
 		23D321B4184BBFFA002FC13A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 23D321B2184BBFFA002FC13A /* Main.storyboard */; };
-		23D321B7184BBFFA002FC13A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D321B6184BBFFA002FC13A /* ViewController.m */; };
 		23D321B9184BBFFA002FC13A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 23D321B8184BBFFA002FC13A /* Images.xcassets */; };
 		23D321C0184BBFFA002FC13A /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23D321BF184BBFFA002FC13A /* XCTest.framework */; };
 		23D321C1184BBFFA002FC13A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23D321A0184BBFFA002FC13A /* Foundation.framework */; };
@@ -60,7 +59,6 @@
 		CE9ECD1C18B778E900038C18 /* MHItemDetailsViewControllerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9ECD1B18B778E800038C18 /* MHItemDetailsViewControllerTest.m */; };
 		CEA1083E18B82E6F00E70ED0 /* MHCollectionDetailsViewControllerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA1083D18B82E6F00E70ED0 /* MHCollectionDetailsViewControllerTest.m */; };
 		CEABF90E18BB838D00A6A2F3 /* MHItemViewControllerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CEABF90D18BB838D00A6A2F3 /* MHItemViewControllerTest.m */; };
-		CED4B03118C8903800A84155 /* MHUserSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CED4B03018C8903800A84155 /* MHUserSettingsViewController.m */; };
 		CED4B03518C892A300A84155 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CED4B03418C892A300A84155 /* Settings.bundle */; };
 		CEE097B118BE82560060721A /* MHCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE097B018BE82560060721A /* MHCollection.m */; };
 		CEE097B418BE82700060721A /* MHItem.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE097B318BE82700060721A /* MHItem.m */; };
@@ -104,8 +102,6 @@
 		23D321AF184BBFFA002FC13A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		23D321B0184BBFFA002FC13A /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		23D321B3184BBFFA002FC13A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		23D321B5184BBFFA002FC13A /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		23D321B6184BBFFA002FC13A /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		23D321B8184BBFFA002FC13A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		23D321BE184BBFFA002FC13A /* MyHoardTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyHoardTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		23D321BF184BBFFA002FC13A /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -162,8 +158,6 @@
 		CE9ECD1B18B778E800038C18 /* MHItemDetailsViewControllerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHItemDetailsViewControllerTest.m; sourceTree = "<group>"; };
 		CEA1083D18B82E6F00E70ED0 /* MHCollectionDetailsViewControllerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHCollectionDetailsViewControllerTest.m; sourceTree = "<group>"; };
 		CEABF90D18BB838D00A6A2F3 /* MHItemViewControllerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHItemViewControllerTest.m; sourceTree = "<group>"; };
-		CED4B02F18C8903800A84155 /* MHUserSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHUserSettingsViewController.h; sourceTree = "<group>"; };
-		CED4B03018C8903800A84155 /* MHUserSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHUserSettingsViewController.m; sourceTree = "<group>"; };
 		CED4B03418C892A300A84155 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		CEE097AF18BE82560060721A /* MHCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHCollection.h; sourceTree = "<group>"; };
 		CEE097B018BE82560060721A /* MHCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHCollection.m; sourceTree = "<group>"; };
@@ -271,14 +265,10 @@
 				CE6C31BE18B1423400983736 /* MHItemDetailsViewController.m */,
 				CE6C31B418B1167C00983736 /* CollectionDetailsViewController.h */,
 				CE6C31B518B1167C00983736 /* CollectionDetailsViewController.m */,
-				23D321B5184BBFFA002FC13A /* ViewController.h */,
-				23D321B6184BBFFA002FC13A /* ViewController.m */,
 				CE92CB5518C321EF005038D9 /* MHImagePickerViewController.h */,
 				CE92CB5618C321EF005038D9 /* MHImagePickerViewController.m */,
 				1A0D0B6518C7C742004B99BA /* MHLocation.h */,
 				1A0D0B6618C7C742004B99BA /* MHLocation.m */,
-				CED4B02F18C8903800A84155 /* MHUserSettingsViewController.h */,
-				CED4B03018C8903800A84155 /* MHUserSettingsViewController.m */,
 				CE92CB5718C321EF005038D9 /* MHImagePickerViewController.xib */,
 				23D321B2184BBFFA002FC13A /* Main.storyboard */,
 				1A059F2F18D200B700ECC6D0 /* MHBrowseCollectionViewController.h */,
@@ -545,7 +535,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				1A059F3618D200B700ECC6D0 /* MHBrowseCollectionViewController.m in Sources */,
-				23D321B7184BBFFA002FC13A /* ViewController.m in Sources */,
 				23F27A5818D8E66D00877D30 /* MHDropDownMenu.m in Sources */,
 				CE529A7E18D8687B00A020E9 /* MHUserSettings.m in Sources */,
 				23D321B1184BBFFA002FC13A /* AppDelegate.m in Sources */,
@@ -559,7 +548,6 @@
 				CE6C31BC18B1422100983736 /* MHItemViewController.m in Sources */,
 				537CF82C18AD643D008A7E04 /* MyHoardModel.xcdatamodeld in Sources */,
 				CEE097B118BE82560060721A /* MHCollection.m in Sources */,
-				CED4B03118C8903800A84155 /* MHUserSettingsViewController.m in Sources */,
 				23D321AD184BBFFA002FC13A /* main.m in Sources */,
 				CE6C31B618B1167C00983736 /* CollectionDetailsViewController.m in Sources */,
 				CE6C31BF18B1423400983736 /* MHItemDetailsViewController.m in Sources */,
