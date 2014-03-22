@@ -67,7 +67,7 @@
 
 - (void)animationTapperOff {
     
-    UITapGestureRecognizer *tapper = [[UITapGestureRecognizer alloc]initWithTarget:_kenBurnsView action:@selector(stopKenBurns)];
+    UITapGestureRecognizer *tapper = [[UITapGestureRecognizer alloc]initWithTarget:_kenBurnsView action:@selector(stopMHKenBurns)];
     tapper.numberOfTapsRequired = 1;
     [_kenBurnsView addGestureRecognizer:tapper];
     [_kenBurnsView setUserInteractionEnabled:YES];
@@ -76,7 +76,7 @@
 
 - (void)animationTapperOn {
     
-    UITapGestureRecognizer *tapper = [[UITapGestureRecognizer alloc]initWithTarget:_kenBurnsView action:@selector(animateWithImagesSelectorWrapper)];
+    UITapGestureRecognizer *tapper = [[UITapGestureRecognizer alloc]initWithTarget:_kenBurnsView action:@selector(animateWithImageSelectorWrapper)];
     tapper.numberOfTapsRequired = 2;
     [_kenBurnsView addGestureRecognizer:tapper];
     [_kenBurnsView setUserInteractionEnabled:YES];
@@ -84,8 +84,8 @@
 }
 
 - (void)stopMHKenBurns {
-    
-    [_kenBurnsView performSelector:@selector(stopAnimation) withObject:nil];
+#warning  there is no such selector defined!
+//    [_kenBurnsView performSelector:@selector(stopAnimation) withObject:nil];
 }
 
 - (void)reloadAfterDelay:(NSTimeInterval)delay {
