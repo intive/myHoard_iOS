@@ -32,12 +32,33 @@
 {
     [super viewDidLoad];
     
-#warning - change colors!
+    self.disableMHHamburger = YES;
+    self.navigationItem.title = @"Register";
+    
     _passwordStrength.numberOfSections = 4;
-    _passwordStrength.startColor = [UIColor navigationBarBackgroundColor];
+    _passwordStrength.startColor = [UIColor darkerYellow];
     _passwordStrength.endColor = [UIColor redColor];
     _passwordStrengthLabel.textColor = [UIColor navigationBarBackgroundColor];
-    // Do any additional setup after loading the view.
+    
+    _emailTextField.backgroundColor = [UIColor lighterGray];
+    _emailTextField.textColor = [UIColor darkerYellow];
+    
+    _passwordTextField.backgroundColor = [UIColor lighterGray];
+    _passwordTextField.textColor = [UIColor darkerYellow];
+    
+    _passwordTextField1.backgroundColor = [UIColor lighterGray];
+    _passwordTextField1.textColor = [UIColor darkerYellow];
+    
+    [_emailTextField setValue:[UIColor darkerYellow] forKeyPath:@"_placeholderLabel.textColor"];
+    [_passwordTextField setValue:[UIColor darkerYellow] forKeyPath:@"_placeholderLabel.textColor"];
+    [_passwordTextField1 setValue:[UIColor darkerYellow] forKeyPath:@"_placeholderLabel.textColor"];
+    
+    _passwordTextField.secureTextEntry = YES;
+    _passwordTextField1.secureTextEntry = YES;
+    
+    _passwordTextField.delegate = self;
+    _passwordTextField1.delegate = self;
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -50,6 +71,12 @@
     if (textField == _passwordTextField1) {
         [_passwordStrength setPassword:textField.text];
     }
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    
+    [textField resignFirstResponder];
+    return NO;
 }
 
 /*

@@ -35,8 +35,58 @@
     NSInteger score = 0;
     NSInteger maxScore = 100;
 
-#warning - implement more sophisticated password strength check
-    score += password.length;
+    NSRange range;
+    
+    if ([password length] < 5) {
+        return 0;
+    }else if ([password length] < 10) {
+        score += 20;
+    }else {
+        score += 40;
+    }
+    
+    range = [password rangeOfCharacterFromSet:[NSCharacterSet illegalCharacterSet]];
+    
+    if (range.length) {
+        return 0;
+    }
+    
+    range = [password rangeOfCharacterFromSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    
+    if (range.length) {
+        return 0;
+    }
+    
+    range = [password rangeOfCharacterFromSet:[NSCharacterSet symbolCharacterSet]];
+    
+    if (range.length) {
+        return 0;
+    }
+    
+    range = [password rangeOfCharacterFromSet:[NSCharacterSet uppercaseLetterCharacterSet]];
+    
+    if (!range.length) {
+        score += 0;
+    }else {
+        score += 20;
+    }
+    
+    range = [password rangeOfCharacterFromSet:[NSCharacterSet lowercaseLetterCharacterSet]];
+    
+    if (!range.length) {
+        score += 0;
+    }else {
+        score += 20;
+    }
+    
+    range = [password rangeOfCharacterFromSet:[NSCharacterSet decimalDigitCharacterSet]];
+    
+    if (!range.length) {
+        score += 0;
+    }else {
+        score += 20;
+    }
+    
     
     if (score > maxScore) {
         score = maxScore;
