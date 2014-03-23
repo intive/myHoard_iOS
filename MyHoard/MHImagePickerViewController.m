@@ -73,11 +73,12 @@
 
 - (BOOL)isLocationInImage:(NSString *)fileName
 {
+    BOOL ret = NO;
     CFURLRef url = CFURLCreateFromFileSystemRepresentation (kCFAllocatorDefault, (const UInt8 *)[fileName UTF8String], [fileName length], false);
     
     if (!url) {
-        return false;
         NSLog(@"%s: Bad input file path", __PRETTY_FUNCTION__);
+        return ret;
     }
     
     CGImageSourceRef myImageSource;
@@ -89,19 +90,21 @@
     imagePropertiesDictionary = CGImageSourceCopyPropertiesAtIndex(myImageSource, 0, NULL);
     
     CFNumberRef imageLocation = (CFNumberRef)CFDictionaryGetValue(imagePropertiesDictionary, kCGImagePropertyGPSDictionary);
+
     if (!imageLocation)
     {
-        CFRelease(imagePropertiesDictionary);
-        CFRelease(myImageSource);
-        
-        return false;
         NSLog(@"%s: No location", __PRETTY_FUNCTION__);
     }
     else
     {
-        return true;
+        ret = YES;
     }
+    
+    CFRelease(imagePropertiesDictionary);
+    CFRelease(myImageSource);
+    CFRelease(url);
 
+    return ret;
 }
 
 - (CLLocationCoordinate2D)locationForImage:(NSString *)fileName
@@ -111,6 +114,7 @@
     if (!url)
     {
         NSLog (@"%s: Bad input file path", __PRETTY_FUNCTION__);
+        return kCLLocationCoordinate2DInvalid;
     }
     
     CGImageSourceRef myImageSource;
@@ -120,11 +124,10 @@
     CFDictionaryRef imageLocation = CFDictionaryGetValue(imagePropertiesDictionary, kCGImagePropertyGPSDictionary);
     if (!imageLocation)
     {
-
-        
         CFRelease(imagePropertiesDictionary);
         CFRelease(myImageSource);
-        NSLog(@"No location");
+        CFRelease(url);
+        NSLog(@"%s: No location", __PRETTY_FUNCTION__);
         return kCLLocationCoordinate2DInvalid;
     }
     else
@@ -145,6 +148,7 @@
         
         CFRelease(imagePropertiesDictionary);
         CFRelease(myImageSource);
+        CFRelease(url);
         
         return CLLocationCoordinate2DMake(latitude, longtitude);
     }
