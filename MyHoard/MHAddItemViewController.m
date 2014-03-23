@@ -76,7 +76,7 @@
     CFURLRef url = CFURLCreateFromFileSystemRepresentation (kCFAllocatorDefault, (const UInt8 *)[fileName UTF8String], [fileName length], false);
     
     if (!url) {
-        printf ("Bad input file path\n");
+        NSLog (@"Bad input file path");
         return false;
     }
     
@@ -110,7 +110,7 @@
     
     if (!url)
     {
-        printf ("Bad input file path\n");
+        NSLog (@"Bad input file path");
     }
     
     CGImageSourceRef myImageSource;
