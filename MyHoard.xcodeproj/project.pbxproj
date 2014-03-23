@@ -62,6 +62,7 @@
 		CEA1083E18B82E6F00E70ED0 /* MHCollectionDetailsViewControllerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA1083D18B82E6F00E70ED0 /* MHCollectionDetailsViewControllerTest.m */; };
 		CEA8F94518DE024600B75355 /* MHStartScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA8F94418DE024600B75355 /* MHStartScreenViewController.m */; };
 		CEABF90E18BB838D00A6A2F3 /* MHItemViewControllerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CEABF90D18BB838D00A6A2F3 /* MHItemViewControllerTest.m */; };
+		CEC22B1118DF6985002E7C76 /* MHBadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC22B1018DF6985002E7C76 /* MHBadgeView.m */; };
 		CED4B03518C892A300A84155 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CED4B03418C892A300A84155 /* Settings.bundle */; };
 		CEE097B118BE82560060721A /* MHCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE097B018BE82560060721A /* MHCollection.m */; };
 		CEE097B418BE82700060721A /* MHItem.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE097B318BE82700060721A /* MHItem.m */; };
@@ -167,6 +168,8 @@
 		CEA8F94318DE024600B75355 /* MHStartScreenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHStartScreenViewController.h; sourceTree = "<group>"; };
 		CEA8F94418DE024600B75355 /* MHStartScreenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHStartScreenViewController.m; sourceTree = "<group>"; };
 		CEABF90D18BB838D00A6A2F3 /* MHItemViewControllerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHItemViewControllerTest.m; sourceTree = "<group>"; };
+		CEC22B0F18DF6985002E7C76 /* MHBadgeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHBadgeView.h; sourceTree = "<group>"; };
+		CEC22B1018DF6985002E7C76 /* MHBadgeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHBadgeView.m; sourceTree = "<group>"; };
 		CED4B03418C892A300A84155 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		CEE097AF18BE82560060721A /* MHCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHCollection.h; sourceTree = "<group>"; };
 		CEE097B018BE82560060721A /* MHCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHCollection.m; sourceTree = "<group>"; };
@@ -288,8 +291,9 @@
 				537CF82918AD6282008A7E04 /* Database */,
 				235EB3CB18DDF16F0032D769 /* Collections */,
 				235EB3CA18DDF1530032D769 /* LoginAndRegister */,
-				CE529A7B18D8687B00A020E9 /* MHUserSettings.h */,
+				CEC22B1218DF699E002E7C76 /* MHBadgeView */,
 				CE529A7C18D8687B00A020E9 /* MHUserSettings.m */,
+				CE529A7B18D8687B00A020E9 /* MHUserSettings.h */,
 				23D321AF184BBFFA002FC13A /* AppDelegate.h */,
 				23D321B0184BBFFA002FC13A /* AppDelegate.m */,
 				CE6C31BA18B1422100983736 /* MHItemViewController.h */,
@@ -394,6 +398,15 @@
 				537CF83A18AE0D5D008A7E04 /* MHCoreDataContextForTests.m */,
 			);
 			name = Helpers;
+			sourceTree = "<group>";
+		};
+		CEC22B1218DF699E002E7C76 /* MHBadgeView */ = {
+			isa = PBXGroup;
+			children = (
+				CEC22B0F18DF6985002E7C76 /* MHBadgeView.h */,
+				CEC22B1018DF6985002E7C76 /* MHBadgeView.m */,
+			);
+			name = MHBadgeView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -576,6 +589,7 @@
 				CE92CB5818C321EF005038D9 /* MHImagePickerViewController.m in Sources */,
 				CEA8F94518DE024600B75355 /* MHStartScreenViewController.m in Sources */,
 				1A0D0B6718C7C742004B99BA /* MHLocation.m in Sources */,
+				CEC22B1118DF6985002E7C76 /* MHBadgeView.m in Sources */,
 				235EB3C918DDF07E0032D769 /* MHLoginAndRegisterViewController.m in Sources */,
 				1A059F3718D200B700ECC6D0 /* MHAddItemViewController.m in Sources */,
 				CE6C31BC18B1422100983736 /* MHItemViewController.m in Sources */,
