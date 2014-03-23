@@ -346,7 +346,7 @@ newIndexPath:(NSIndexPath *)newIndexPath
     if (index == 0) {
         [self performSegueWithIdentifier:@"AddCollectionSegue" sender:nil];
     } else {
-        NSLog(@"Unknown menu item %d selected:", index);
+        NSLog(@"Unknown menu item %lu selected:", (unsigned long)index);
     }
 }
 
