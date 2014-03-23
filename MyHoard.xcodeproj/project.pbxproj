@@ -33,6 +33,7 @@
 		23F27A5518D8E59F00877D30 /* MHDropDownMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23F27A5418D8E59F00877D30 /* MHDropDownMenuViewController.m */; };
 		23F27A5818D8E66D00877D30 /* MHDropDownMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 23F27A5718D8E66D00877D30 /* MHDropDownMenu.m */; };
 		23F27A5B18D9A6D100877D30 /* MHDropDownMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 23F27A5A18D9A6D100877D30 /* MHDropDownMenuItem.m */; };
+		23F64D2718DE682C003420E3 /* MHTagsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 23F64D2618DE682C003420E3 /* MHTagsView.m */; };
 		23FB2BCF18D23DDF009EFDE7 /* UIColor+customColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 23FB2BCE18D23DDF009EFDE7 /* UIColor+customColors.m */; };
 		537CF82C18AD643D008A7E04 /* MyHoardModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 537CF82A18AD643D008A7E04 /* MyHoardModel.xcdatamodeld */; };
 		537CF83318AD7D6E008A7E04 /* MHCoreDataContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 537CF83218AD7D6E008A7E04 /* MHCoreDataContext.m */; };
@@ -120,6 +121,8 @@
 		23F27A5718D8E66D00877D30 /* MHDropDownMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHDropDownMenu.m; sourceTree = "<group>"; };
 		23F27A5918D9A6D100877D30 /* MHDropDownMenuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHDropDownMenuItem.h; sourceTree = "<group>"; };
 		23F27A5A18D9A6D100877D30 /* MHDropDownMenuItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHDropDownMenuItem.m; sourceTree = "<group>"; };
+		23F64D2518DE682C003420E3 /* MHTagsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHTagsView.h; sourceTree = "<group>"; };
+		23F64D2618DE682C003420E3 /* MHTagsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHTagsView.m; sourceTree = "<group>"; };
 		23FB2BCD18D23DDF009EFDE7 /* UIColor+customColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+customColors.h"; sourceTree = "<group>"; };
 		23FB2BCE18D23DDF009EFDE7 /* UIColor+customColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+customColors.m"; sourceTree = "<group>"; };
 		34776571ECDB45F8B34A8019 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
@@ -146,8 +149,6 @@
 		A7E4B51318C90BB40042EAC9 /* AlternativeDesign.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = AlternativeDesign.json; sourceTree = "<group>"; };
 		CE28669318DB2A9D003AC446 /* MHKenBurns.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHKenBurns.h; sourceTree = "<group>"; };
 		CE28669418DB2A9D003AC446 /* MHKenBurns.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHKenBurns.m; sourceTree = "<group>"; };
-		CE529A7918D8687B00A020E9 /* MHTagsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MHTagsView.h; path = "/Users/SJE/Desktop/Patronage 2014/myHoard_iOS/MyHoard/MHTagsView.h"; sourceTree = "<absolute>"; };
-		CE529A7A18D8687B00A020E9 /* MHTagsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MHTagsView.m; path = "/Users/SJE/Desktop/Patronage 2014/myHoard_iOS/MyHoard/MHTagsView.m"; sourceTree = "<absolute>"; };
 		CE529A7B18D8687B00A020E9 /* MHUserSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHUserSettings.h; sourceTree = "<group>"; };
 		CE529A7C18D8687B00A020E9 /* MHUserSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHUserSettings.m; sourceTree = "<group>"; };
 		CE529A7F18D8688F00A020E9 /* MHUserSettingsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHUserSettingsTest.m; sourceTree = "<group>"; };
@@ -234,8 +235,8 @@
 			children = (
 				CE28669318DB2A9D003AC446 /* MHKenBurns.h */,
 				CE28669418DB2A9D003AC446 /* MHKenBurns.m */,
-				CE529A7918D8687B00A020E9 /* MHTagsView.h */,
-				CE529A7A18D8687B00A020E9 /* MHTagsView.m */,
+				23F64D2518DE682C003420E3 /* MHTagsView.h */,
+				23F64D2618DE682C003420E3 /* MHTagsView.m */,
 				9370CAE918CFC1E400C77461 /* MHCollectionCell.h */,
 				9370CAEA18CFC1E400C77461 /* MHCollectionCell.m */,
 				9370CAF218CFC30A00C77461 /* MHCollectionViewController.h */,
@@ -579,6 +580,7 @@
 				1A059F3718D200B700ECC6D0 /* MHAddItemViewController.m in Sources */,
 				CE6C31BC18B1422100983736 /* MHItemViewController.m in Sources */,
 				537CF82C18AD643D008A7E04 /* MyHoardModel.xcdatamodeld in Sources */,
+				23F64D2718DE682C003420E3 /* MHTagsView.m in Sources */,
 				CEE097B118BE82560060721A /* MHCollection.m in Sources */,
 				23D321AD184BBFFA002FC13A /* main.m in Sources */,
 				CE6C31B618B1167C00983736 /* CollectionDetailsViewController.m in Sources */,
