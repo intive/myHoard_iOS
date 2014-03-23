@@ -195,7 +195,6 @@
         _backgroundView.alpha = 0.0;
         [view addSubview:self];
 
-        y += MENU_BORDER;
         for(NSInteger i=_items.count-1;i >= 0;i--) {
             MHDropDownMenuItem* item = _items[i];
             
