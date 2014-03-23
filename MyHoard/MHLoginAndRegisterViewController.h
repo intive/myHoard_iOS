@@ -9,13 +9,20 @@
 #import "MHBaseViewController.h"
 #import "MHPasswordStrengthView.h"
 
-@interface MHLoginAndRegisterViewController : MHBaseViewController
+typedef enum  {
+	MHRegisterFlow = 1,
+	MHLoginFlow,
+} MHFlowType;
 
+@interface MHLoginAndRegisterViewController : MHBaseViewController
 
 @property (weak, nonatomic) IBOutlet UITextField *emailTextField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
 @property (weak, nonatomic) IBOutlet UITextField *confirmPasswordTextField;
 @property (weak, nonatomic) IBOutlet UILabel *passwordStrengthLabel1;
 @property (weak, nonatomic) IBOutlet MHPasswordStrengthView *passwordStrengthView;
+@property (assign, nonatomic) MHFlowType flowType;
+
+- (void)setLoginOrRegisterView:(MHFlowType)flow;
 
 @end

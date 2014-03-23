@@ -36,19 +36,15 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     
-    MHLoginAndRegisterViewController *loginAndRegisterViewController = [[MHLoginAndRegisterViewController alloc]init];
-    loginAndRegisterViewController = segue.destinationViewController;
+    MHLoginAndRegisterViewController * loginAndRegisterViewController = segue.destinationViewController;
     
     if ([segue.identifier isEqualToString:@"LoginSegue"]) {
         
-        if ([loginAndRegisterViewController view]) {
-            if (!loginAndRegisterViewController.confirmPasswordTextField.hidden && !loginAndRegisterViewController.passwordStrengthLabel1.hidden && !loginAndRegisterViewController.passwordStrengthView.hidden) {
-                loginAndRegisterViewController.confirmPasswordTextField.hidden = YES;
-                loginAndRegisterViewController.passwordStrengthLabel1.hidden = YES;
-                loginAndRegisterViewController.passwordStrengthView.hidden = YES;
-                loginAndRegisterViewController.navigationItem.title = @"Login";
-            }
-        }
+        [loginAndRegisterViewController setLoginOrRegisterView:MHLoginFlow];
+        
+    }else if ([segue.identifier isEqualToString:@"RegisterSegue"]) {
+        
+        [loginAndRegisterViewController setLoginOrRegisterView:MHRegisterFlow];
         
     }
 }
