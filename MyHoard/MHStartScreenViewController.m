@@ -40,12 +40,11 @@
     
     if ([segue.identifier isEqualToString:@"LoginSegue"]) {
         
-        [loginAndRegisterViewController setLoginOrRegisterView:MHLoginFlow];
+        loginAndRegisterViewController.flowType = MHLoginFlow;
         
     }else if ([segue.identifier isEqualToString:@"RegisterSegue"]) {
         
-        [loginAndRegisterViewController setLoginOrRegisterView:MHRegisterFlow];
-        
+        loginAndRegisterViewController.flowType = MHRegisterFlow;
     }
 }
 

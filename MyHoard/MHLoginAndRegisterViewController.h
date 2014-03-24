@@ -23,6 +23,4 @@ typedef enum  {
 @property (weak, nonatomic) IBOutlet MHPasswordStrengthView *passwordStrengthView;
 @property (assign, nonatomic) MHFlowType flowType;
 
-- (void)setLoginOrRegisterView:(MHFlowType)flow;
-
 @end

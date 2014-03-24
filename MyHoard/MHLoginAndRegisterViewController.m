@@ -31,31 +31,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-- (IBAction)textFieldDidChange:(UITextField *)textField {
-    if (textField == _passwordTextField) {
-        [_passwordStrength setPassword:textField.text];
-    }
-}
-
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
     
-    [textField resignFirstResponder];
-    return NO;
-}
-
-- (void)setLoginOrRegisterView:(MHFlowType)flowType {
-    
-    if (flowType == MHLoginFlow) {
-        
-        [super viewDidLoad];
+    if (_flowType == MHLoginFlow) {
         
         self.disableMHHamburger = YES;
         self.navigationItem.title = @"Login";
@@ -81,9 +58,7 @@
         
         _passwordTextField.delegate = self;
         
-    }else if (flowType == MHRegisterFlow) {
-        
-        [super viewDidLoad];
+    }else if (_flowType == MHRegisterFlow) {
         
         self.disableMHHamburger = YES;
         self.navigationItem.title = @"Register";
@@ -112,6 +87,25 @@
         _passwordTextField.delegate = self;
         _passwordTextField1.delegate = self;
     }
+
+}
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+- (IBAction)textFieldDidChange:(UITextField *)textField {
+    if (textField == _passwordTextField) {
+        [_passwordStrength setPassword:textField.text];
+    }
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    
+    [textField resignFirstResponder];
+    return NO;
 }
 
 /*
