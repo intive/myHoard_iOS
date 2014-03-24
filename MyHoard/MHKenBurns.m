@@ -84,8 +84,8 @@
 }
 
 - (void)stopMHKenBurns {
-#warning  there is no such selector defined!
-//    [_kenBurnsView performSelector:@selector(stopAnimation) withObject:nil];
+    
+    [_kenBurnsView performSelector:@selector(stopKenBurns) withObject:nil];
 }
 
 - (void)reloadAfterDelay:(NSTimeInterval)delay {

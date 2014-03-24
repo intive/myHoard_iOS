@@ -23,6 +23,6 @@
                   withBackgroundColor:(UIColor *)backgroundColor
                             withScale:(CGFloat)badgeScale;
 
-- (void)autoResizeBadgeWithValue:(NSNumber *)badgeValue;
+- (void)setBadgeValue:(NSNumber *)badgeValue;
 
 @end

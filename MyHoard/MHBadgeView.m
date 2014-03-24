@@ -9,12 +9,6 @@
 #import "MHBadgeView.h"
 #import "UIColor+customColors.h"
 
-@interface MHBadgeView ()
-
-- (void) drawRoundedRectWithContext:(CGContextRef)context withRect:(CGRect)rect;
-
-@end
-
 @implementation MHBadgeView
 
 - (id)initWithValue:(NSNumber *)badgeValue withTextColor:(UIColor *)badgeTextColor withBackgroundColor:(UIColor *)badgeBackgroundColor withScale:(CGFloat)badgeScale {
@@ -24,44 +18,34 @@
         
         self.contentScaleFactor = [[UIScreen mainScreen]scale];
         self.backgroundColor = [UIColor clearColor];
+        self.badgeValue = badgeValue;
         _badgeBackgroundColor = [UIColor darkerYellow];
-        _badgeValue = badgeValue;
         _badgeTextColor = [UIColor darkerGray];
         _badgeCorner = 0.40;
         _badgeScale = badgeScale;
-
-        [self autoResizeBadgeWithValue:badgeValue];
     }
     
     return self;
     
 }
 
-- (void)autoResizeBadgeWithValue:(NSNumber *)badgeValue {
+- (void)setBadgeValue:(NSNumber *)badgeValue {
+    
+    _badgeValue = badgeValue;
     
     NSString *badgeValueToString = [NSString stringWithFormat:@"%@", badgeValue];
-
-    CGSize returnAutoResizeValue;
-    CGFloat rectWidth;
-    CGFloat rectHeight;
+    
     CGSize badgeValueSize = [badgeValueToString sizeWithFont:[UIFont boldSystemFontOfSize:12]];
-    CGFloat spacing;
+    CGFloat offsetFator = 10;
     
     if ([badgeValueToString length] >= 2) {
         
-        spacing = [badgeValueToString length];
-        rectWidth = 25 + (badgeValueSize.width + spacing);
-        rectHeight = 25;
-        returnAutoResizeValue = CGSizeMake(rectWidth * _badgeScale, rectHeight * _badgeScale);
-    }else {
+        self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, badgeValueSize.width + offsetFator, self.frame.size.height);
         
-        returnAutoResizeValue = CGSizeMake(25 * _badgeScale, 25 * _badgeScale);
     }
     
-    self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, returnAutoResizeValue.width, returnAutoResizeValue.height);
-    
-    _badgeValue = badgeValue;
     [self setNeedsDisplay];
+    
 }
 
 + (MHBadgeView *)createBadgeWithValue:(NSNumber *)badgeValue withTextColor:(UIColor *)textColor withBackgroundColor:(UIColor *)backgroundColor withScale:(CGFloat)badgeScale {
@@ -69,34 +53,19 @@
     return [[self alloc] initWithValue:badgeValue withTextColor:textColor withBackgroundColor:backgroundColor withScale:badgeScale];
 }
 
--(void) drawRoundedRectWithContext:(CGContextRef)context withRect:(CGRect)rect {
+-(void) drawRoundedRect:(CGRect)rect {
     
-	CGContextSaveGState(context);
-	
-	CGFloat radius = CGRectGetMaxY(rect) * _badgeCorner;
-	CGFloat offset = CGRectGetMaxY(rect) * 0.10;
-	CGFloat maxX = CGRectGetMaxX(rect) - offset;
-	CGFloat maxY = CGRectGetMaxY(rect) - offset;
-	CGFloat minX = CGRectGetMinX(rect) + offset;
-	CGFloat minY = CGRectGetMinY(rect) + offset;
-    
-    CGContextBeginPath(context);
-	CGContextSetFillColorWithColor(context, [_badgeBackgroundColor CGColor]);
-	CGContextAddArc(context, maxX-radius, minY+radius, radius, M_PI+(M_PI/2), 0, 0);
-	CGContextAddArc(context, maxX-radius, maxY-radius, radius, 0, M_PI/2, 0);
-	CGContextAddArc(context, minX+radius, maxY-radius, radius, M_PI/2, M_PI, 0);
-	CGContextAddArc(context, minX+radius, minY+radius, radius, M_PI, M_PI+M_PI/2, 0);
-	CGContextSetShadowWithColor(context, CGSizeMake(1.0,1.0), 3, [[UIColor blackColor] CGColor]);
-    CGContextFillPath(context);
-    
-	CGContextRestoreGState(context);
+    self.layer.cornerRadius = 12;
+    self.layer.backgroundColor = [_badgeBackgroundColor CGColor];
+    self.layer.shadowRadius = 8;
+    self.layer.shadowOffset = CGSizeMake(0, 5);
+    self.layer.shadowOpacity = 0.5;
     
 }
 
 - (void)drawRect:(CGRect)rect {
 	
-	CGContextRef context = UIGraphicsGetCurrentContext();
-	[self drawRoundedRectWithContext:context withRect:rect];
+	[self drawRoundedRect:rect];
     
     NSString *badgeValueToString = [NSString stringWithFormat:@"%@", _badgeValue];
 	
