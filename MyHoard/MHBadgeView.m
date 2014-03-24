@@ -36,11 +36,11 @@
     NSString *badgeValueToString = [NSString stringWithFormat:@"%@", badgeValue];
     
     CGSize badgeValueSize = [badgeValueToString sizeWithFont:[UIFont boldSystemFontOfSize:12]];
-    CGFloat offsetFator = 10;
+    CGFloat offsetFactor = 10;
     
     if ([badgeValueToString length] >= 2) {
         
-        self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, badgeValueSize.width + offsetFator, self.frame.size.height);
+        self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, badgeValueSize.width + offsetFactor, self.frame.size.height);
         
     }
     
