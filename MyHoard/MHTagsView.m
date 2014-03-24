@@ -8,61 +8,45 @@
 
 #import "MHTagsView.h"
 
-@implementation MHTagsView
+@implementation MHTagsView {
+    NSInteger _tagIndex;
+    NSTimer* _timer;
+    NSInteger _currentLabel;
+    
+    NSArray* _labels;
+}
+
+- (CBAutoScrollLabel *)addAutoscrollLabelWithAlpha:(CGFloat)alpha {
+    CBAutoScrollLabel* a = [[CBAutoScrollLabel alloc] initWithFrame:self.bounds];
+
+    a.textColor = [UIColor lightGrayColor];
+    a.labelSpacing = self.frame.size.width;
+    a.pauseInterval = 2.0f;
+    a.scrollSpeed = 30.0f;
+    a.textAlignment = NSTextAlignmentCenter;
+    a.fadeLength = 10.0f;
+    a.scrollDirection = CBAutoScrollDirectionLeft;
+    a.font = [UIFont systemFontOfSize:12];
+    a.alpha = alpha;
+
+    [self addSubview:a];
+    return a;
+}
 
 - (void)baseInit {
     
-    _aslabelone = [[CBAutoScrollLabel alloc]init];
-    _aslabeltwo = [[CBAutoScrollLabel alloc]init];
+    CBAutoScrollLabel* l1 = [self addAutoscrollLabelWithAlpha:1.0];
+    CBAutoScrollLabel* l2 = [self addAutoscrollLabelWithAlpha:0.0];
     
-    [self addSubview:_aslabelone];
-    [self addSubview:_aslabeltwo];
+    _labels = @[l1, l2];
+    _currentLabel = 0;
     
-    _duration = 1.0;
-    _delay = 3.5;
-
-    _indexLabelOne = 0;
-    _indexLabelTwo = 1;
+    _tagIndex = 0;
     
-#pragma Different tag types for testing (all working properly)
+    _duration = 2.0;
+    _delay = 1.0;
     
-    //two kinds %2 == 1
-    //_tagList = [NSArray arrayWithObjects:@"#jkljkljkljkljkljklljkljghjghjghjghj", @"#LabelTwo", @"#LabelOne", @"#LabelTwo", @"#TagFourjusttoseeinfyoucanscroll", @"#LabelTwo", @"#hakunamatanahosannnapannaannna", nil];
-    
-    //short ones
-    //_tagList = [NSArray arrayWithObjects:@"#TagOne", @"#TagTwo", @"#TagThree", @"#TagFour", @"#TagFive", nil];
-    
-    //long ones
-    //_tagList = [NSArray arrayWithObjects:@"#jkljkljkljkljkljklljkljghjghjghjghj", @"#qweqweqweqweqweqweqweqweqeqwe", @"#fghgfhfghfghfghfghfghfgh", @"#cbvcvbcvbcvbcvbcvbcvbcvbcvb", @"#TagFourjusttoseeinfyoucanscroll", @"#iopiopiopiopiopiopiopio", @"#hakunamatanahosannnapannaannna", nil];
-    
-    //two kinds %2 == 0
-    _tagList = [NSArray arrayWithObjects:@"#jkljkljkljkljkljklljkljghjghjghjghj", @"#LabelTwo", @"#fghgfhfghfghfghfghfghfgh", @"#LabelTwo", @"#TagFourjusttoseeinfyoucanscroll", @"#LabelTwo", @"#hakunamatanahosannnapannaannna", @"#LabelTwo", nil];
-
-    //two kinds mix
-    //_tagList = [NSArray arrayWithObjects:@"#jkljkljkljkljkljklljkljghjghjghjghj", @"#TagOne", @"#TagTwo", @"#LabelTwo", @"#TagFourjusttoseeinfyoucanscroll", @"#LabelTwo", @"#hakunamatanahosannnapannaannna", @"#LabelTwo", nil];
-    
-#pragma label one
-    
-    _aslabelone.textColor = [UIColor blueColor];
-    _aslabelone.labelSpacing = 35;
-    _aslabelone.pauseInterval = 1.7;
-    _aslabelone.scrollSpeed = 30;
-    _aslabelone.textAlignment = NSTextAlignmentCenter;
-    _aslabelone.fadeLength = 12.f;
-    _aslabelone.scrollDirection = CBAutoScrollDirectionLeft;
-    _aslabelone.frame = self.bounds;
-    
-#pragma label two
-    
-    _aslabeltwo.textColor = [UIColor blueColor];
-    _aslabeltwo.labelSpacing = 35;
-    _aslabeltwo.pauseInterval = 1.7;
-    _aslabeltwo.scrollSpeed = 30;
-    _aslabeltwo.textAlignment = NSTextAlignmentCenter;
-    _aslabeltwo.fadeLength = 12.f;
-    _aslabeltwo.scrollDirection = CBAutoScrollDirectionLeft;
-    _aslabeltwo.frame = self.bounds;
-
+    self.backgroundColor = [UIColor clearColor];
 }
 
 - (id)initWithFrame:(CGRect)frame
@@ -82,182 +66,68 @@
     return self;
 }
 
-- (void)checkLabelIndexing {
-    
-    if ([_tagList count] % 2 == 0) {
-        
-        if (_indexLabelOne == [_tagList count] || _indexLabelOne == [_tagList count]-1 || _indexLabelOne == [_tagList count]-2) {
-            _indexLabelOne = -2;
-            if ([_aslabeltwo.text isEqualToString:[NSString stringWithFormat:@"%@", [_tagList lastObject]]]) {
-                _indexLabelTwo = -1;
-                _indexLabelOne = -2;
-            }
-        }
-        
-        if (_indexLabelTwo == [_tagList count]-2 || _indexLabelTwo == [_tagList count]-1) {
-            _indexLabelTwo = -1;
-            if ([_aslabelone.text isEqualToString:[NSString stringWithFormat:@"%@", [_tagList lastObject]]]) {
-                _indexLabelOne = -1;
-                _indexLabelTwo = -2;
-            }
-        }
-    }
-    
-    if ([_tagList count] % 2 == 1) {
-        
-        NSUInteger randomIndex = arc4random_uniform(3) + 1;
-        
-        _tagList = [_tagList arrayByAddingObject: _tagList[randomIndex]];
-        
-#pragma conditions for [_taglist count] beeing an odd number
-        /*
-        if (_indexLabelTwo == [_tagList count] || _indexLabelTwo == [_tagList count]-1 || _indexLabelTwo == [_tagList count]-2) {
-            _indexLabelTwo = -2;
-            if ([_aslabelone.text isEqualToString:[NSString stringWithFormat:@"%@", [_tagList lastObject]]]) {
-                _indexLabelOne = -2;
-                _indexLabelTwo = -1;
-            }
-        }
-        
-        if (_indexLabelOne == [_tagList count]-2 || _indexLabelOne == [_tagList count]-1) {
-            _indexLabelOne = -1;
-            if ([_aslabeltwo.text isEqualToString:[NSString stringWithFormat:@"%@", [_tagList lastObject]]]) {
-                _indexLabelTwo = -1;
-                _indexLabelOne = -2;
-            }
-        }
-         */
-#pragma end of conditions
-        
-#pragma new conditions for _taglist provided with extra random picked number
-        
-        if (_indexLabelOne == [_tagList count] || _indexLabelOne == [_tagList count]-1 || _indexLabelOne == [_tagList count]-2) {
-            _indexLabelOne = -2;
-            if ([_aslabeltwo.text isEqualToString:[NSString stringWithFormat:@"%@", [_tagList lastObject]]]) {
-                _indexLabelTwo = -1;
-                _indexLabelOne = -2;
-            }
-        }
-        
-        if (_indexLabelTwo == [_tagList count]-2 || _indexLabelTwo == [_tagList count]-1) {
-            _indexLabelTwo = -1;
-            if ([_aslabelone.text isEqualToString:[NSString stringWithFormat:@"%@", [_tagList lastObject]]]) {
-                _indexLabelOne = -1;
-                _indexLabelTwo = -2;
-            }
-        }
+- (void)setTag:(NSString *)tag inLabel:(CBAutoScrollLabel *)label {
+    label.text = [NSString stringWithFormat:@"#%@", tag];
+}
+
+- (void)setTagList:(NSArray *)tagList {
+    _tagList = tagList;
+    _tagIndex = 0;
+    if (tagList.count == 1) {
+        [self setTag:tagList[0] inLabel:[self currentLabel]];
+    } else if (tagList.count > 1) {
+        [self setLabelsTexts];
+        [self startAnimating];
     }
 }
 
-- (void)animateLabels {
-    
-    _aslabelone.text = _tagList[_indexLabelOne];
-    _aslabeltwo.text = _tagList[_indexLabelTwo];
+- (CBAutoScrollLabel*)currentLabel {
+    return _labels[_currentLabel];
+}
 
-    //Set alpha of second label to 0
-    _aslabeltwo.alpha = 0;
+- (CBAutoScrollLabel*)nextLabel {
+    return _labels[_currentLabel ^ 1];
+}
 
-    if (_aslabelone.scrolling == YES) {
-        [self performSelector:@selector(crossFade) withObject:nil afterDelay:_delay];
-    }else {
-        [self performSelector:@selector(crossFade) withObject:nil];
+- (void)setLabelsTexts {
+    [self setTag:_tagList[_tagIndex] inLabel:[self currentLabel]];
+    _tagIndex++;
+    if (_tagIndex == _tagList.count) {
+        _tagIndex = 0;
     }
+    [self setTag:_tagList[_tagIndex] inLabel:[self nextLabel]];
+}
+
+- (void)startAnimating {
+    [self stopTimer];
+    _timer = [NSTimer scheduledTimerWithTimeInterval:_delay target:self selector:@selector(timerFired) userInfo:nil repeats:NO];
+}
+
+- (void)stopTimer {
+    [_timer invalidate];
+    _timer = nil;
+}
+
+- (void)timerFired {
+    [self crossFade];
 }
 
 - (void)crossFade {
-    
-    if (!_aslabelone.text.length && !_aslabeltwo.text.length)
-        return;
-    
-    [self checkLabelIndexing];
-    
-    if (_aslabeltwo.scrolling == YES) {
-
-        
-        [UIView animateWithDuration:_duration animations:^{
-            [_aslabelone setAlpha:0];
-            [_aslabeltwo setAlpha:1];
-            [UIView commitAnimations];
-        } completion:^(BOOL finished) {
-            
-            _indexLabelOne += 2;
-            _aslabelone.text = _tagList[_indexLabelOne];
-            
-            if (_aslabelone.scrolling == YES) {
-                
-                [UIView animateWithDuration:_duration delay:_delay options:(UIViewAnimationOptions)UIViewAnimationCurveEaseOut animations:^{
-                    [_aslabelone setAlpha:1];
-                    [_aslabeltwo setAlpha:0];
-                    [UIView commitAnimations];
-                } completion:^(BOOL finished) {
-                    
-                    _indexLabelTwo += 2;
-                    _aslabeltwo.text = _tagList[_indexLabelTwo];
-                    [self performSelector:@selector(crossFade) withObject:nil afterDelay:_delay];
-                    
-                }];
-                
-            }else {
-                
-                [UIView animateWithDuration:_duration animations:^{
-                    [_aslabelone setAlpha:1];
-                    [_aslabeltwo setAlpha:0];
-                    [UIView commitAnimations];
-                } completion:^(BOOL finished) {
-                    
-                    _indexLabelTwo += 2;
-                    _aslabeltwo.text = _tagList[_indexLabelTwo];
-                    [self performSelector:@selector(crossFade) withObject:nil];
-                    
-                }];
-            }
-        }];
-        
-    }else {
-        
-        [UIView animateWithDuration:_duration animations:^{
-            [_aslabelone setAlpha:0];
-            [_aslabeltwo setAlpha:1];
-            [UIView commitAnimations];
-        } completion:^(BOOL finished) {
-        
-            _indexLabelOne += 2;
-            _aslabelone.text = _tagList[_indexLabelOne];
-            
-            if (_aslabelone.scrolling) {
-                
-                [UIView animateWithDuration:_duration animations:^{
-                    [_aslabelone setAlpha:1];
-                    [_aslabeltwo setAlpha:0];
-                    [UIView commitAnimations];
-                } completion:^(BOOL finished) {
-                    
-                    _indexLabelTwo += 2;
-                    _aslabeltwo.text = _tagList[_indexLabelTwo];
-                    [self performSelector:@selector(crossFade) withObject:nil afterDelay:_delay];
-                    
-                }];
-            }else {
-                
-                [UIView animateWithDuration:_duration animations:^{
-                    [_aslabelone setAlpha:1];
-                    [_aslabeltwo setAlpha:0];
-                    [UIView commitAnimations];
-                } completion:^(BOOL finished) {
-                    
-                    _indexLabelTwo += 2;
-                    _aslabeltwo.text = _tagList[_indexLabelTwo];
-                    [self performSelector:@selector(crossFade) withObject:nil];
-                    
-                }];
-            }
-        }];
-    }
+    [UIView animateWithDuration:_duration animations:^{
+        [self currentLabel].alpha = 0.0;
+        [self nextLabel].alpha = 1.0;
+    } completion:^(BOOL finished) {
+        if (finished) {
+            _currentLabel ^= 1;
+            [self setLabelsTexts];
+            [self startAnimating];
+        }
+    }];
 }
 
-- (void)updateText:(NSArray *)tagList {
-    
-    _tagList = tagList;
+- (void)stopAnimating {
+    [self stopTimer];
+    [self.layer removeAllAnimations];
 }
 
 @end

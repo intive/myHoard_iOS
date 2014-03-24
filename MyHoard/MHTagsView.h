@@ -11,17 +11,11 @@
 
 @interface MHTagsView : UIView
 
-@property (nonatomic, strong) CBAutoScrollLabel *aslabelone;
-@property (nonatomic, strong) CBAutoScrollLabel *aslabeltwo;
 @property (nonatomic) NSTimeInterval duration;
 @property (nonatomic) NSTimeInterval delay;
 @property (nonatomic, strong) NSArray *tagList;
-@property (nonatomic) NSUInteger indexLabelOne;
-@property (nonatomic) NSUInteger indexLabelTwo;
 
-- (void)animateLabels;
-- (void)crossFade;
-- (void)updateText:(NSArray *)tagList;
-- (void)checkLabelIndexing;
+- (void)startAnimating;
+- (void)stopAnimating;
 
 @end
