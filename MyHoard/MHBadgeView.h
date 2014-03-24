@@ -23,6 +23,4 @@
                   withBackgroundColor:(UIColor *)backgroundColor
                             withScale:(CGFloat)badgeScale;
 
-- (void)setBadgeValue:(NSNumber *)badgeValue;
-
 @end
