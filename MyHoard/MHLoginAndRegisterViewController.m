@@ -86,6 +86,16 @@
         
         _passwordTextField.delegate = self;
         _passwordTextField1.delegate = self;
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(keyboardDidShow:)
+                                                     name:UIKeyboardDidShowNotification
+                                                   object:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(keyboardDidHide:)
+                                                     name:UIKeyboardDidHideNotification
+                                                   object:nil];
     }
 
 }
@@ -106,6 +116,25 @@
     
     [textField resignFirstResponder];
     return NO;
+}
+
+- (void)slideFrame:(BOOL)yesNo {
+    
+    int movement = (yesNo ? -50 : 50);
+    
+    [UIView animateWithDuration:0.5 animations:^{
+        self.view.frame = CGRectOffset(self.view.frame, 0, movement);
+    }];
+}
+
+- (void)keyboardDidShow: (NSNotification *) notif{
+    
+    [self slideFrame: YES];
+}
+
+- (void)keyboardDidHide: (NSNotification *) notif{
+    
+    [self slideFrame: NO];
 }
 
 /*
