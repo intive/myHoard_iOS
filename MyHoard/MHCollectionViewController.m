@@ -7,6 +7,7 @@
 //
 
 #import "MHCollectionViewController.h"
+#import "MHItemViewController.h"
 
 typedef NS_ENUM(NSInteger, CollectionSortMode) {
     CollectionSortModeByName = 0,
@@ -54,8 +55,8 @@ typedef NS_ENUM(NSInteger, CollectionSortMode) {
     _objectChanges = [NSMutableArray array];
     _sectionChanges = [NSMutableArray array];
     animatingCell = nil;
+    
     self.collectionView.backgroundColor = [UIColor appBackgroundColor];
-
     self.sortMode = CollectionSortModeByDate;
 }
 
@@ -64,7 +65,8 @@ typedef NS_ENUM(NSInteger, CollectionSortMode) {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-    
+
+
 #pragma mark - UICollectionVIew
     
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
@@ -85,11 +87,27 @@ typedef NS_ENUM(NSInteger, CollectionSortMode) {
     MHCollectionCell *cell = (MHCollectionCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"MHCollectionCell" forIndexPath:indexPath];
         
     MHCollection *object = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    
     cell.collectionTitle.text = object.objName;
     return cell;
 }
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
     
+    MHCollection *object = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    [self performSegueWithIdentifier:@"ShowItemsSegue" sender:object];
+    
+}
+
+-(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    MHItemViewController * vc = [segue destinationViewController];
+    if ([segue.identifier isEqualToString:@"ShowItemsSegue"]) {
+        NSArray *indexPaths = [self.collectionView indexPathsForSelectedItems];
+        vc.collection = [self.fetchedResultsController objectAtIndexPath:indexPaths[0]];
+
+    }
+}
+
 #pragma mark - Fetched results controller
     
 - (NSFetchedResultsController *)fetchedResultsController

@@ -8,9 +8,17 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
+#import "MHItemCell.h"
+#import "MHBaseViewController.h"
+#import "MHCoreDataContext.h"
+#import "MHItem.h"
+#import "MHCollection.h"
 
-@interface MHItemViewController : UITableViewController <NSFetchedResultsControllerDelegate>
+@interface MHItemViewController : MHBaseViewController <UICollectionViewDataSource, UICollectionViewDelegate, NSFetchedResultsControllerDelegate>
 
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
+@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (nonatomic, strong) MHCollection *collection;
+@property (weak, nonatomic) IBOutlet UILabel *collectionName;
 
 @end

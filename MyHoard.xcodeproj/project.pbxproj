@@ -40,6 +40,7 @@
 		537CF83618AD8FBF008A7E04 /* MHDatabaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 537CF83518AD8FBF008A7E04 /* MHDatabaseManager.m */; };
 		537CF83818ADFEAB008A7E04 /* MHDatabaseManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 537CF83718ADFEAB008A7E04 /* MHDatabaseManagerTests.m */; };
 		537CF83B18AE0D5D008A7E04 /* MHCoreDataContextForTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 537CF83A18AE0D5D008A7E04 /* MHCoreDataContextForTests.m */; };
+		93245CA418E0931D008AFE37 /* MHItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 93245CA318E0931D008AFE37 /* MHItemCell.m */; };
 		9370CAEB18CFC1E400C77461 /* MHCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9370CAEA18CFC1E400C77461 /* MHCollectionCell.m */; };
 		9370CAF418CFC30A00C77461 /* MHCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9370CAF318CFC30A00C77461 /* MHCollectionViewController.m */; };
 		93C28E4218D1E83B0011E41E /* MHBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93C28E4118D1E83B0011E41E /* MHBaseViewController.m */; };
@@ -137,6 +138,8 @@
 		537CF83918AE0D5D008A7E04 /* MHCoreDataContextForTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHCoreDataContextForTests.h; sourceTree = "<group>"; };
 		537CF83A18AE0D5D008A7E04 /* MHCoreDataContextForTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHCoreDataContextForTests.m; sourceTree = "<group>"; };
 		6040C246B171497C91A4ABBE /* Pods-MyHoardTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyHoardTests.xcconfig"; path = "Pods/Pods-MyHoardTests.xcconfig"; sourceTree = "<group>"; };
+		93245CA218E0931D008AFE37 /* MHItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHItemCell.h; sourceTree = "<group>"; };
+		93245CA318E0931D008AFE37 /* MHItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHItemCell.m; sourceTree = "<group>"; };
 		9370CAE918CFC1E400C77461 /* MHCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHCollectionCell.h; sourceTree = "<group>"; };
 		9370CAEA18CFC1E400C77461 /* MHCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHCollectionCell.m; sourceTree = "<group>"; };
 		9370CAF218CFC30A00C77461 /* MHCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHCollectionViewController.h; sourceTree = "<group>"; };
@@ -298,6 +301,8 @@
 				23D321B0184BBFFA002FC13A /* AppDelegate.m */,
 				CE6C31BA18B1422100983736 /* MHItemViewController.h */,
 				CE6C31BB18B1422100983736 /* MHItemViewController.m */,
+				93245CA218E0931D008AFE37 /* MHItemCell.h */,
+				93245CA318E0931D008AFE37 /* MHItemCell.m */,
 				CE6C31BD18B1423400983736 /* MHItemDetailsViewController.h */,
 				CE6C31BE18B1423400983736 /* MHItemDetailsViewController.m */,
 				CE6C31B418B1167C00983736 /* CollectionDetailsViewController.h */,
@@ -586,6 +591,7 @@
 				CEE097B418BE82700060721A /* MHItem.m in Sources */,
 				9370CAEB18CFC1E400C77461 /* MHCollectionCell.m in Sources */,
 				23F27A5518D8E59F00877D30 /* MHDropDownMenuViewController.m in Sources */,
+				93245CA418E0931D008AFE37 /* MHItemCell.m in Sources */,
 				CE92CB5818C321EF005038D9 /* MHImagePickerViewController.m in Sources */,
 				CEA8F94518DE024600B75355 /* MHStartScreenViewController.m in Sources */,
 				1A0D0B6718C7C742004B99BA /* MHLocation.m in Sources */,
