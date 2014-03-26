@@ -24,7 +24,6 @@
 		23D321AD184BBFFA002FC13A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D321AC184BBFFA002FC13A /* main.m */; };
 		23D321B1184BBFFA002FC13A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D321B0184BBFFA002FC13A /* AppDelegate.m */; };
 		23D321B4184BBFFA002FC13A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 23D321B2184BBFFA002FC13A /* Main.storyboard */; };
-		23D321B9184BBFFA002FC13A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 23D321B8184BBFFA002FC13A /* Images.xcassets */; };
 		23D321C0184BBFFA002FC13A /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23D321BF184BBFFA002FC13A /* XCTest.framework */; };
 		23D321C1184BBFFA002FC13A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23D321A0184BBFFA002FC13A /* Foundation.framework */; };
 		23D321C2184BBFFA002FC13A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23D321A4184BBFFA002FC13A /* UIKit.framework */; };
@@ -47,6 +46,7 @@
 		93C7876D18C4EB3D0079359A /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93C7876C18C4EB3D0079359A /* ImageIO.framework */; };
 		93CCCDF618C726D100F4A084 /* testImage.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 93CCCDF518C726D100F4A084 /* testImage.JPG */; };
 		A4050E81A1BC4A589193A896 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F724743366084FAC90257055 /* libPods.a */; };
+		A76BDE4618E3810100214095 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A76BDE4518E3810100214095 /* Images.xcassets */; };
 		A7E4B51418C90BB40042EAC9 /* AlternativeDesign.json in Resources */ = {isa = PBXBuildFile; fileRef = A7E4B51318C90BB40042EAC9 /* AlternativeDesign.json */; };
 		B02743679DB841A98A3C2D60 /* libPods-MyHoardTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A54F99CDCE2468DACC4FBD3 /* libPods-MyHoardTests.a */; };
 		B8F16086EB65413C89F6F7BB /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F724743366084FAC90257055 /* libPods.a */; };
@@ -111,7 +111,6 @@
 		23D321AF184BBFFA002FC13A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		23D321B0184BBFFA002FC13A /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		23D321B3184BBFFA002FC13A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		23D321B8184BBFFA002FC13A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		23D321BE184BBFFA002FC13A /* MyHoardTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyHoardTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		23D321BF184BBFFA002FC13A /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		23D321C7184BBFFA002FC13A /* MyHoardTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MyHoardTests-Info.plist"; sourceTree = "<group>"; };
@@ -148,6 +147,7 @@
 		93C28E4118D1E83B0011E41E /* MHBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHBaseViewController.m; sourceTree = "<group>"; };
 		93C7876C18C4EB3D0079359A /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		93CCCDF518C726D100F4A084 /* testImage.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = testImage.JPG; path = MyHoardTests/testImage.JPG; sourceTree = SOURCE_ROOT; };
+		A76BDE4518E3810100214095 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		A7A348F218C881B600FA1B6C /* libPods-MyHoardTests-TSMessages.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-MyHoardTests-TSMessages.a"; path = "Pods/build/Debug-iphoneos/libPods-MyHoardTests-TSMessages.a"; sourceTree = "<group>"; };
 		A7A348F418C88F2900FA1B6C /* libPods-TSMessages.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-TSMessages.a"; path = "Pods/build/Debug-iphoneos/libPods-TSMessages.a"; sourceTree = "<group>"; };
 		A7E4B51318C90BB40042EAC9 /* AlternativeDesign.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = AlternativeDesign.json; sourceTree = "<group>"; };
@@ -327,7 +327,7 @@
 				93C28E4118D1E83B0011E41E /* MHBaseViewController.m */,
 				23FB2BCD18D23DDF009EFDE7 /* UIColor+customColors.h */,
 				23FB2BCE18D23DDF009EFDE7 /* UIColor+customColors.m */,
-				23D321B8184BBFFA002FC13A /* Images.xcassets */,
+				A76BDE4518E3810100214095 /* Images.xcassets */,
 				23D321A7184BBFFA002FC13A /* Supporting Files */,
 				CED4B03418C892A300A84155 /* Settings.bundle */,
 				235EB38C18DA03370032D769 /* MHDropDownMenu */,
@@ -495,10 +495,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				23D321B9184BBFFA002FC13A /* Images.xcassets in Resources */,
 				CE92CB5918C321EF005038D9 /* MHImagePickerViewController.xib in Resources */,
 				CED4B03518C892A300A84155 /* Settings.bundle in Resources */,
 				A7E4B51418C90BB40042EAC9 /* AlternativeDesign.json in Resources */,
+				A76BDE4618E3810100214095 /* Images.xcassets in Resources */,
 				23D321AB184BBFFA002FC13A /* InfoPlist.strings in Resources */,
 				23D321B4184BBFFA002FC13A /* Main.storyboard in Resources */,
 			);

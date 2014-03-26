@@ -15,6 +15,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
 @property (weak, nonatomic) IBOutlet UIButton *registerButton;
 @property (weak, nonatomic) IBOutlet UIButton *dontWantAnAccountButton;
-
+@property (weak, nonatomic) IBOutlet UIImageView *startScreenMHLogo;
 
 @end

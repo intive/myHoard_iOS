@@ -7,6 +7,7 @@
 //
 
 #import "MHStartScreenViewController.h"
+#import "UIColor+customColors.h"
 
 @interface MHStartScreenViewController ()
 
@@ -17,9 +18,32 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self setHideNavigationBar:YES];
     
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc]initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:nil];
     [[self navigationItem] setBackBarButtonItem:backButton];
+    
+    [self.loginButton setTitle:@"Login" forState:UIControlStateNormal];
+    [self.loginButton setBackgroundColor:[UIColor lightButtonColor]];
+    [self.loginButton setTitleColor:[UIColor lightButtonTitleColor] forState:UIControlStateNormal];
+    self.loginButton.layer.cornerRadius = 6.0;
+    self.loginButton.frame = CGRectMake(45, 264, 235, 39);
+    
+    [self.registerButton setBackgroundColor:[UIColor lightButtonColor]];
+    [self.registerButton setTitle:@"Register" forState:UIControlStateNormal];
+    [self.registerButton setTitleColor:[UIColor lightButtonTitleColor] forState:UIControlStateNormal];
+    self.registerButton.layer.cornerRadius = 6.0;
+    self.registerButton.frame = CGRectMake(45, 324, 235, 39);
+    
+    [self.dontWantAnAccountButton setTitle:@"I don\'t want an account" forState:UIControlStateNormal];
+    [self.dontWantAnAccountButton setBackgroundColor:[UIColor lightButtonColor]];
+    [self.dontWantAnAccountButton setTitleColor:[UIColor lightButtonTitleColor] forState:UIControlStateNormal];
+    self.dontWantAnAccountButton.layer.cornerRadius = 6.0;
+    self.dontWantAnAccountButton.frame = CGRectMake(45, 410, 235, 39);
+    
+    self.startScreenMHLogo.frame = CGRectMake(95, 130, 132, 41);
+    
+    
     
 }
 
@@ -48,5 +72,9 @@
     }
 }
 
+
+- (BOOL)prefersStatusBarHidden {
+    return YES;
+}
 
 @end

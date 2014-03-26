@@ -86,4 +86,10 @@
     return [UIColor colorWithHexString:@"#181818" alpha:1.0];
 }
 
++(UIColor*)lightButtonColor{
+    return [UIColor colorWithHexString:@"#ffc002" alpha:1.0];
+}
++(UIColor*)lightButtonTitleColor{
+    return [UIColor colorWithHexString:@"#000000" alpha:1.0];
+}
 @end

@@ -42,6 +42,13 @@
         self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logo.png"]];
     };
     
+    if ([self hideNavigationBar]) {
+        [[self navigationController] setNavigationBarHidden:YES animated:YES];
+    }
+    else{
+    [[self navigationController] setNavigationBarHidden:NO animated:YES];
+    };
+    
     self.menuButtonImage = [UIImage imageNamed:@"icon_menu.png"];
     self.menu.dataSource = self;
     self.menu.delegate = self;
@@ -73,6 +80,13 @@
         self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logo.png"]];
     };
     
+}
+
+-(void)setHideNavigationBar:(BOOL)hideNavigationBar{
+    _hideNavigationBar = hideNavigationBar;
+    if (hideNavigationBar) {
+        [[self navigationController] setNavigationBarHidden:YES animated:YES];
+    };
 }
 
 - (void)didReceiveMemoryWarning

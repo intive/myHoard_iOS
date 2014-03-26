@@ -30,5 +30,7 @@
 +(UIColor*)darkerYellow;
 +(UIColor*)lighterGray;
 +(UIColor*)darkerGray;
++(UIColor*)lightButtonColor;
++(UIColor*)lightButtonTitleColor;
 
 @end
