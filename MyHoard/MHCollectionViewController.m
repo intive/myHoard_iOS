@@ -52,6 +52,7 @@ typedef NS_ENUM(NSInteger, CollectionSortMode) {
     [self setEnableMHLogo:YES];
     // Do any additional setup after loading the view, typically from a nib.
 
+    self.title = @"";
     
     _objectChanges = [NSMutableArray array];
     _sectionChanges = [NSMutableArray array];
