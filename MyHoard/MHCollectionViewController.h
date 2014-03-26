@@ -12,6 +12,7 @@
 #import "MHCollection.h"
 #import "MHCoreDataContext.h"
 #import "MHBaseViewController.h"
+#import "MHBadgeView.h"
 
 @interface MHCollectionViewController : MHBaseViewController <UICollectionViewDataSource, UICollectionViewDelegate, NSFetchedResultsControllerDelegate>
 

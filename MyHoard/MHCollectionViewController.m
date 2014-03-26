@@ -16,6 +16,7 @@ typedef NS_ENUM(NSInteger, CollectionSortMode) {
 
 @interface MHCollectionViewController ()
 
+@property (nonatomic, strong) MHBadgeView *badge;
 @property (nonatomic, assign) CollectionSortMode sortMode;
 
 -(void)resetIdleTimer;
@@ -88,6 +89,21 @@ typedef NS_ENUM(NSInteger, CollectionSortMode) {
         
     MHCollection *object = [self.fetchedResultsController objectAtIndexPath:indexPath];
     cell.collectionTitle.text = object.objName;
+    
+    if ([object.objItemsNumber isEqualToNumber:@0]) {
+        
+        _badge.hidden = YES;
+        
+    }else {
+        
+        _badge = [MHBadgeView createBadgeWithValue:object.objItemsNumber withTextColor:[UIColor darkerGray] withBackgroundColor:[UIColor darkerYellow] withScale:1.0];
+        
+        _badge.frame = CGRectMake(102, 110, _badge.frame.size.width, _badge.frame.size.height);
+        
+    }
+    
+    [cell.contentView addSubview:_badge];
+    
     return cell;
 }
 
