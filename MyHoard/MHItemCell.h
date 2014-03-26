@@ -11,5 +11,7 @@
 @interface MHItemCell : UICollectionViewCell
 
 @property (weak, nonatomic) IBOutlet UILabel *itemTitle;
+@property (weak, nonatomic) IBOutlet UILabel *itemComment;
+
 
 @end

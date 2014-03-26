@@ -48,17 +48,17 @@ typedef NS_ENUM(NSInteger, CollectionSortMode) {
 {
     
     [super viewDidLoad];
-    [self setEnableMHLogo:YES];
+    self.disableMHHamburger = YES;
     // Do any additional setup after loading the view, typically from a nib.
     
     
     _objectChanges = [NSMutableArray array];
     _sectionChanges = [NSMutableArray array];
     animatingCell = nil;
-
     self.collectionView.backgroundColor = [UIColor appBackgroundColor];
     self.sortMode = CollectionSortModeByDate;
     self.collectionName.text = _collection.objName;
+    self.collectionName.textColor = [UIColor whiteColor];
     
 }
 
@@ -90,6 +90,7 @@ typedef NS_ENUM(NSInteger, CollectionSortMode) {
     MHItem *object = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
     cell.itemTitle.text = object.objName;
+    
     return cell;
 }
 
@@ -334,7 +335,7 @@ typedef NS_ENUM(NSInteger, CollectionSortMode) {
 - (NSString*)titleInDropDownMenu:(MHDropDownMenu *)menu atIndex:(NSInteger)index {
     switch (index) {
         case 0:
-            return @"Add collection";
+            return [NSString stringWithFormat:@"Add item to %@", _collection.objName];
             break;
         default:
             return @"unused menu item";

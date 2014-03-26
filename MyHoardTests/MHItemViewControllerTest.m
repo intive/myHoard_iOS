@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 BLStream. All rights reserved.
 //
 
+/*
 #import <XCTest/XCTest.h>
 #import "MHItemViewController.h"
 #import "MHItem.h"
@@ -212,3 +213,4 @@ SPEC_BEGIN(test)
     });
 
 SPEC_END
+*/
