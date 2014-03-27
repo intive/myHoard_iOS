@@ -48,7 +48,15 @@
 }*/
 
 - (void)showImagePickerForSourceType:(UIImagePickerControllerSourceType)sourceType {
-    
+
+    if (sourceType == UIImagePickerControllerSourceTypeCamera
+        && !([UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceFront]
+            || [UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceRear]))
+    {
+        //TODO: Show alert about lack of camera device
+        return;
+    }
+
     if (self.imageView.isAnimating) {
         
         [self.imageView stopAnimating];

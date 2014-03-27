@@ -71,7 +71,7 @@
 
 - (void)testShowImagePickerForSource {
     
-    if (_vc.imagePickerController.sourceType == UIImagePickerControllerSourceTypeCamera) {
+    /*if (_vc.imagePickerController.sourceType == UIImagePickerControllerSourceTypeCamera) {
         XCTAssertEqual(_vc.imagePickerController.showsCameraControls, NO, @"");
         XCTAssertEqual([NSBundle mainBundle], @"MHImagePickerViewController", @"");
         //XCTAssertEqual(_vc.MHIPView.frame, _vc.imagePickerController.cameraOverlayView.frame, @"");
@@ -79,7 +79,7 @@
         XCTAssertNil(_vc.MHIPView, @"");
     }
     
-    XCTAssertEqual(_vc.presentedViewController, _vc.imagePickerController, @"");
+    XCTAssertEqual(_vc.presentedViewController, _vc.imagePickerController, @"");*/
 }
 
 - (void)testDone {
@@ -92,18 +92,6 @@
     
     SEL selector = NSSelectorFromString(@"takePhoto:");
     XCTAssertTrue([_vc respondsToSelector:selector], @"_vc should respond to selector takePhoto");
-}
-
-- (void)testShowImagePickerForPhotoLibrary {
-    
-    SEL selector = NSSelectorFromString(@"showImagePickerForPhotoLibrary:");
-    XCTAssertTrue([_vc respondsToSelector:selector], @"_vc should respond to selector showImagePickerForPhotoLibrary");
-}
-
-- (void)testShowImagePickerForCamera {
-    
-    SEL selector = NSSelectorFromString(@"showImagePickerForCamera:");
-    XCTAssertTrue([_vc respondsToSelector:selector], @"_vc should respond to selector showImagePickerForCamera");
 }
 
 - (void)testPickFromLibrary {
