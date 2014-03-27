@@ -41,12 +41,14 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 216;
     self.pickerHidingView.backgroundColor = [UIColor darkerGray];
     self.nameBackgroundView.backgroundColor = [UIColor appBackgroundColor];
     self.tagsBackgroundView.backgroundColor = [UIColor appBackgroundColor];
-    self.pickerHidingView.backgroundColor = [UIColor appBackgroundColor];
     self.descriptionBackgroundView.backgroundColor = [UIColor appBackgroundColor];
     self.questionBackgroundView.backgroundColor = [UIColor appBackgroundColor];
-    self.nameTextField.textColor=[UIColor darkerYellow];
-    self.tagsTextField.textColor=[UIColor darkerYellow];
-    self.descriptionTextField.textColor=[UIColor darkerYellow];
+    self.nameTextField.textColor = [UIColor darkerYellow];
+    self.descriptionTextField.textColor = [UIColor darkerYellow];
+    self.tagsTextField.textColor = [UIColor darkerYellow];
+    _nameTextField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Name" attributes:@{NSForegroundColorAttributeName: [UIColor darkerYellow]}];
+    _tagsTextField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Tags" attributes:@{NSForegroundColorAttributeName: [UIColor darkerYellow]}];
+    _descriptionTextField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Description" attributes:@{NSForegroundColorAttributeName: [UIColor darkerYellow]}];
     self.typeLabel.textColor=[UIColor darkerYellow];
     self.typeTitleLAbel.textColor=[UIColor darkerYellow];
     [_pickerCancelColor setTitleColor:[UIColor darkerYellow] forState:UIControlStateNormal];
@@ -65,7 +67,6 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 216;
                                                                  action:@selector(cancel:)];
     self.navigationController.navigationBar.topItem.leftBarButtonItems = @[cancel];
     _items = [[NSArray alloc]initWithObjects:@"Public", @"Private", @"Offline", nil];
-    
 }
 
 - (void)didReceiveMemoryWarning
@@ -97,11 +98,11 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 216;
 
 - (IBAction)add:(id)sender {
     NSString *result = [self.nameTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    if ([self.nameTextField.text isEqualToString:@""] || [self.nameTextField.text isEqualToString:@"Name"]|| [self.descriptionTextField.text isEqualToString:@""] || [self.descriptionTextField.text isEqualToString:@"Description"]) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"error" message:@"Some field is not filled properly" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
+    if ([self.descriptionTextField.text isEqualToString:@""]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"error" message:@"Description must be filled" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
         [alert show];
     }else if([result length]<2){
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"error" message:@"Name is to short(spaces, tab's are not included in counting)" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"error" message:@"Name is to short(spaces, tabs are not included in counting)" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
         [alert show];
     }else if([self.nameTextField.text length]>64){
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"error" message:@"Name is to long(max64)" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
@@ -176,6 +177,15 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 216;
     [self.view setFrame:viewFrame];
     
     [UIView commitAnimations];
+    if(textField==_nameTextField){
+    _nameTextField.placeholder = nil;
+    }
+    if(textField==_tagsTextField){
+        _tagsTextField.placeholder = nil;
+    }
+    if(textField==_descriptionTextField){
+        _descriptionTextField.placeholder = nil;
+    }
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
@@ -222,5 +232,6 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 216;
     return attString;
     
 }
+
 
 @end
