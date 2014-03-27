@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		1A059F3518D200B700ECC6D0 /* MHAddItem2ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A059F2B18D200B700ECC6D0 /* MHAddItem2ViewController.m */; };
 		1A059F3618D200B700ECC6D0 /* MHBrowseCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A059F2C18D200B700ECC6D0 /* MHBrowseCollectionViewController.m */; };
-		1A059F3718D200B700ECC6D0 /* MHAddItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A059F3018D200B700ECC6D0 /* MHAddItemViewController.m */; };
 		1A059F3818D200B700ECC6D0 /* MHAddCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A059F3118D200B700ECC6D0 /* MHAddCollectionViewController.m */; };
 		1A0D0B6718C7C742004B99BA /* MHLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A0D0B6618C7C742004B99BA /* MHLocation.m */; };
 		1A0D0B6918C7DDA9004B99BA /* MHLocationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A0D0B6818C7DDA9004B99BA /* MHLocationTests.m */; };
@@ -55,11 +54,9 @@
 		CE529A8018D8688F00A020E9 /* MHUserSettingsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CE529A7F18D8688F00A020E9 /* MHUserSettingsTest.m */; };
 		CE6C31B618B1167C00983736 /* CollectionDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6C31B518B1167C00983736 /* CollectionDetailsViewController.m */; };
 		CE6C31BC18B1422100983736 /* MHItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6C31BB18B1422100983736 /* MHItemViewController.m */; };
-		CE6C31BF18B1423400983736 /* MHItemDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6C31BE18B1423400983736 /* MHItemDetailsViewController.m */; };
 		CE92CB5818C321EF005038D9 /* MHImagePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE92CB5618C321EF005038D9 /* MHImagePickerViewController.m */; };
 		CE92CB5918C321EF005038D9 /* MHImagePickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE92CB5718C321EF005038D9 /* MHImagePickerViewController.xib */; };
 		CE92CB5B18C38D4A005038D9 /* MHImagePickerViewControllerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CE92CB5A18C38D49005038D9 /* MHImagePickerViewControllerTest.m */; };
-		CE9ECD1C18B778E900038C18 /* MHItemDetailsViewControllerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9ECD1B18B778E800038C18 /* MHItemDetailsViewControllerTest.m */; };
 		CEA1083E18B82E6F00E70ED0 /* MHCollectionDetailsViewControllerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA1083D18B82E6F00E70ED0 /* MHCollectionDetailsViewControllerTest.m */; };
 		CEA8F94518DE024600B75355 /* MHStartScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA8F94418DE024600B75355 /* MHStartScreenViewController.m */; };
 		CEABF90E18BB838D00A6A2F3 /* MHItemViewControllerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CEABF90D18BB838D00A6A2F3 /* MHItemViewControllerTest.m */; };
@@ -86,9 +83,7 @@
 		1A059F2B18D200B700ECC6D0 /* MHAddItem2ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHAddItem2ViewController.m; sourceTree = "<group>"; };
 		1A059F2C18D200B700ECC6D0 /* MHBrowseCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHBrowseCollectionViewController.m; sourceTree = "<group>"; };
 		1A059F2D18D200B700ECC6D0 /* MHAddItem2ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHAddItem2ViewController.h; sourceTree = "<group>"; };
-		1A059F2E18D200B700ECC6D0 /* MHAddItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHAddItemViewController.h; sourceTree = "<group>"; };
 		1A059F2F18D200B700ECC6D0 /* MHBrowseCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHBrowseCollectionViewController.h; sourceTree = "<group>"; };
-		1A059F3018D200B700ECC6D0 /* MHAddItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHAddItemViewController.m; sourceTree = "<group>"; };
 		1A059F3118D200B700ECC6D0 /* MHAddCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHAddCollectionViewController.m; sourceTree = "<group>"; };
 		1A059F3218D200B700ECC6D0 /* MHAddCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHAddCollectionViewController.h; sourceTree = "<group>"; };
 		1A0D0B6518C7C742004B99BA /* MHLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHLocation.h; sourceTree = "<group>"; };
@@ -161,13 +156,10 @@
 		CE6C31B518B1167C00983736 /* CollectionDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionDetailsViewController.m; sourceTree = "<group>"; };
 		CE6C31BA18B1422100983736 /* MHItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHItemViewController.h; sourceTree = "<group>"; };
 		CE6C31BB18B1422100983736 /* MHItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHItemViewController.m; sourceTree = "<group>"; };
-		CE6C31BD18B1423400983736 /* MHItemDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHItemDetailsViewController.h; sourceTree = "<group>"; };
-		CE6C31BE18B1423400983736 /* MHItemDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHItemDetailsViewController.m; sourceTree = "<group>"; };
 		CE92CB5518C321EF005038D9 /* MHImagePickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHImagePickerViewController.h; sourceTree = "<group>"; };
 		CE92CB5618C321EF005038D9 /* MHImagePickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHImagePickerViewController.m; sourceTree = "<group>"; };
 		CE92CB5718C321EF005038D9 /* MHImagePickerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MHImagePickerViewController.xib; sourceTree = "<group>"; };
 		CE92CB5A18C38D49005038D9 /* MHImagePickerViewControllerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHImagePickerViewControllerTest.m; sourceTree = "<group>"; };
-		CE9ECD1B18B778E800038C18 /* MHItemDetailsViewControllerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHItemDetailsViewControllerTest.m; sourceTree = "<group>"; };
 		CEA1083D18B82E6F00E70ED0 /* MHCollectionDetailsViewControllerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHCollectionDetailsViewControllerTest.m; sourceTree = "<group>"; };
 		CEA8F94318DE024600B75355 /* MHStartScreenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHStartScreenViewController.h; sourceTree = "<group>"; };
 		CEA8F94418DE024600B75355 /* MHStartScreenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHStartScreenViewController.m; sourceTree = "<group>"; };
@@ -306,8 +298,6 @@
 				CE6C31BB18B1422100983736 /* MHItemViewController.m */,
 				93245CA218E0931D008AFE37 /* MHItemCell.h */,
 				93245CA318E0931D008AFE37 /* MHItemCell.m */,
-				CE6C31BD18B1423400983736 /* MHItemDetailsViewController.h */,
-				CE6C31BE18B1423400983736 /* MHItemDetailsViewController.m */,
 				CE6C31B418B1167C00983736 /* CollectionDetailsViewController.h */,
 				CE6C31B518B1167C00983736 /* CollectionDetailsViewController.m */,
 				CE92CB5518C321EF005038D9 /* MHImagePickerViewController.h */,
@@ -324,8 +314,6 @@
 				1A059F2C18D200B700ECC6D0 /* MHBrowseCollectionViewController.m */,
 				1A059F2D18D200B700ECC6D0 /* MHAddItem2ViewController.h */,
 				1A059F2B18D200B700ECC6D0 /* MHAddItem2ViewController.m */,
-				1A059F2E18D200B700ECC6D0 /* MHAddItemViewController.h */,
-				1A059F3018D200B700ECC6D0 /* MHAddItemViewController.m */,
 				1A059F3218D200B700ECC6D0 /* MHAddCollectionViewController.h */,
 				1A059F3118D200B700ECC6D0 /* MHAddCollectionViewController.m */,
 				93C28E4018D1E83B0011E41E /* MHBaseViewController.h */,
@@ -358,7 +346,6 @@
 				CE529A7F18D8688F00A020E9 /* MHUserSettingsTest.m */,
 				93CCCDF518C726D100F4A084 /* testImage.JPG */,
 				CE92CB5A18C38D49005038D9 /* MHImagePickerViewControllerTest.m */,
-				CE9ECD1B18B778E800038C18 /* MHItemDetailsViewControllerTest.m */,
 				CEABF90D18BB838D00A6A2F3 /* MHItemViewControllerTest.m */,
 				CEA1083D18B82E6F00E70ED0 /* MHCollectionDetailsViewControllerTest.m */,
 				23D321CB184BBFFA002FC13A /* MyHoardTests.m */,
@@ -602,14 +589,12 @@
 				1A0D0B6718C7C742004B99BA /* MHLocation.m in Sources */,
 				CEC22B1118DF6985002E7C76 /* MHBadgeView.m in Sources */,
 				235EB3C918DDF07E0032D769 /* MHLoginAndRegisterViewController.m in Sources */,
-				1A059F3718D200B700ECC6D0 /* MHAddItemViewController.m in Sources */,
 				CE6C31BC18B1422100983736 /* MHItemViewController.m in Sources */,
 				537CF82C18AD643D008A7E04 /* MyHoardModel.xcdatamodeld in Sources */,
 				23F64D2718DE682C003420E3 /* MHTagsView.m in Sources */,
 				CEE097B118BE82560060721A /* MHCollection.m in Sources */,
 				23D321AD184BBFFA002FC13A /* main.m in Sources */,
 				CE6C31B618B1167C00983736 /* CollectionDetailsViewController.m in Sources */,
-				CE6C31BF18B1423400983736 /* MHItemDetailsViewController.m in Sources */,
 				9370CAF418CFC30A00C77461 /* MHCollectionViewController.m in Sources */,
 				1A059F3818D200B700ECC6D0 /* MHAddCollectionViewController.m in Sources */,
 				1A059F3518D200B700ECC6D0 /* MHAddItem2ViewController.m in Sources */,
@@ -635,7 +620,6 @@
 				CE92CB5B18C38D4A005038D9 /* MHImagePickerViewControllerTest.m in Sources */,
 				23D321CC184BBFFA002FC13A /* MyHoardTests.m in Sources */,
 				537CF83B18AE0D5D008A7E04 /* MHCoreDataContextForTests.m in Sources */,
-				CE9ECD1C18B778E900038C18 /* MHItemDetailsViewControllerTest.m in Sources */,
 				CEABF90E18BB838D00A6A2F3 /* MHItemViewControllerTest.m in Sources */,
 				CE529A8018D8688F00A020E9 /* MHUserSettingsTest.m in Sources */,
 				1A0D0B6918C7DDA9004B99BA /* MHLocationTests.m in Sources */,
