@@ -16,10 +16,6 @@
     if (self) {
         self.backgroundColor = [UIColor collectionThumbnailOutlineColor];
         self.collectionTitle.textColor = [UIColor collectionNameFrontColor];
-        
-        [self.contentView addSubview:_kenBurnsView];
-        [self.kenBurnsView addSubview:_badgeView];
-        [self.contentView addSubview:_tagsView];
     }
     return self;
 }
