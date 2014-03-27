@@ -89,6 +89,9 @@ typedef NS_ENUM(NSInteger, CollectionSortMode) {
     MHCollectionCell *cell = (MHCollectionCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"MHCollectionCell" forIndexPath:indexPath];
         
     MHCollection *object = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    
+#pragma mark - cell setup
+    
     cell.collectionTitle.text = object.objName;
     
     if ([object.objItemsNumber isEqualToNumber:@0]) {
@@ -96,6 +99,9 @@ typedef NS_ENUM(NSInteger, CollectionSortMode) {
     }else {
         cell.badgeView.badgeValue = object.objItemsNumber;
     }
+    
+    cell.kenBurnsView.backgroundColor = [UIColor clearColor];
+    cell.tagsView.backgroundColor = [UIColor clearColor];
     
     return cell;
 }

@@ -337,8 +337,20 @@
                                                     <color key="textColor" red="1" green="0.75294117650000003" blue="0.0078431372550000003" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WQC-2c-ZRK" customClass="MHBadgeView">
-                                                    <rect key="frame" x="99" y="107" width="25" height="25"/>
+                                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2Te-kW-8dv" customClass="MHKenBurns">
+                                                    <rect key="frame" x="0.0" y="0.0" width="131" height="132"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <subviews>
+                                                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WQC-2c-ZRK" customClass="MHBadgeView">
+                                                            <rect key="frame" x="100" y="102" width="25" height="25"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                                        </view>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </view>
+                                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uvZ-c1-Qma" customClass="MHTagsView">
+                                                    <rect key="frame" x="1" y="155" width="130" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                                 </view>
@@ -349,6 +361,8 @@
                                         <connections>
                                             <outlet property="badgeView" destination="WQC-2c-ZRK" id="gPv-Sf-Qvu"/>
                                             <outlet property="collectionTitle" destination="pXz-yB-ZIr" id="SBT-Sr-cPY"/>
+                                            <outlet property="kenBurnsView" destination="2Te-kW-8dv" id="Q4C-wW-xgC"/>
+                                            <outlet property="tagsView" destination="uvZ-c1-Qma" id="gar-1e-vrf"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
