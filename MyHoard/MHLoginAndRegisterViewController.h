@@ -8,6 +8,7 @@
 
 #import "MHBaseViewController.h"
 #import "MHPasswordStrengthView.h"
+#import "MHRoundButton.h"
 
 typedef enum  {
 	MHRegisterFlow = 1,
@@ -22,5 +23,6 @@ typedef enum  {
 @property (weak, nonatomic) IBOutlet UILabel *passwordStrengthLabel1;
 @property (weak, nonatomic) IBOutlet MHPasswordStrengthView *passwordStrengthView;
 @property (assign, nonatomic) MHFlowType flowType;
+@property (weak, nonatomic) IBOutlet MHRoundButton *goButton;
 
 @end

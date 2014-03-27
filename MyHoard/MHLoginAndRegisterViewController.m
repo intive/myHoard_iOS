@@ -32,6 +32,8 @@
 {
     [super viewDidLoad];
     
+    _goButton.cornerRadius = _goButton.frame.size.width / 2.0;
+    
     if (_flowType == MHLoginFlow) {
         
         self.disableMHHamburger = YES;

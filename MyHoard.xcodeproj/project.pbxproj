@@ -32,6 +32,7 @@
 		23F27A5818D8E66D00877D30 /* MHDropDownMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 23F27A5718D8E66D00877D30 /* MHDropDownMenu.m */; };
 		23F27A5B18D9A6D100877D30 /* MHDropDownMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 23F27A5A18D9A6D100877D30 /* MHDropDownMenuItem.m */; };
 		23F64D2718DE682C003420E3 /* MHTagsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 23F64D2618DE682C003420E3 /* MHTagsView.m */; };
+		23F64D6518E4CBBE003420E3 /* MHRoundButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 23F64D6418E4CBBE003420E3 /* MHRoundButton.m */; };
 		23FB2BCF18D23DDF009EFDE7 /* UIColor+customColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 23FB2BCE18D23DDF009EFDE7 /* UIColor+customColors.m */; };
 		537CF82C18AD643D008A7E04 /* MyHoardModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 537CF82A18AD643D008A7E04 /* MyHoardModel.xcdatamodeld */; };
 		537CF83318AD7D6E008A7E04 /* MHCoreDataContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 537CF83218AD7D6E008A7E04 /* MHCoreDataContext.m */; };
@@ -120,6 +121,8 @@
 		23F27A5A18D9A6D100877D30 /* MHDropDownMenuItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHDropDownMenuItem.m; sourceTree = "<group>"; };
 		23F64D2518DE682C003420E3 /* MHTagsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHTagsView.h; sourceTree = "<group>"; };
 		23F64D2618DE682C003420E3 /* MHTagsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHTagsView.m; sourceTree = "<group>"; };
+		23F64D6318E4CBBE003420E3 /* MHRoundButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHRoundButton.h; sourceTree = "<group>"; };
+		23F64D6418E4CBBE003420E3 /* MHRoundButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHRoundButton.m; sourceTree = "<group>"; };
 		23FB2BCD18D23DDF009EFDE7 /* UIColor+customColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+customColors.h"; sourceTree = "<group>"; };
 		23FB2BCE18D23DDF009EFDE7 /* UIColor+customColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+customColors.m"; sourceTree = "<group>"; };
 		34776571ECDB45F8B34A8019 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
@@ -294,6 +297,8 @@
 				CEC22B1218DF699E002E7C76 /* MHBadgeView */,
 				CE529A7C18D8687B00A020E9 /* MHUserSettings.m */,
 				CE529A7B18D8687B00A020E9 /* MHUserSettings.h */,
+				23F64D6318E4CBBE003420E3 /* MHRoundButton.h */,
+				23F64D6418E4CBBE003420E3 /* MHRoundButton.m */,
 				23D321AF184BBFFA002FC13A /* AppDelegate.h */,
 				23D321B0184BBFFA002FC13A /* AppDelegate.m */,
 				CE6C31BA18B1422100983736 /* MHItemViewController.h */,
@@ -598,6 +603,7 @@
 				9370CAF418CFC30A00C77461 /* MHCollectionViewController.m in Sources */,
 				1A059F3818D200B700ECC6D0 /* MHAddCollectionViewController.m in Sources */,
 				1A059F3518D200B700ECC6D0 /* MHAddItem2ViewController.m in Sources */,
+				23F64D6518E4CBBE003420E3 /* MHRoundButton.m in Sources */,
 				230E6D3618BFF2FD00B9418E /* MHMediaHelper.m in Sources */,
 				93C28E4218D1E83B0011E41E /* MHBaseViewController.m in Sources */,
 				CEE097B718BE82940060721A /* MHMedia.m in Sources */,

@@ -8,13 +8,13 @@
 
 #import "MHBaseViewController.h"
 #import "MHLoginAndRegisterViewController.h"
+#import "MHRoundButton.h"
 
 @interface MHStartScreenViewController : MHBaseViewController
 
-
-@property (weak, nonatomic) IBOutlet UIButton *loginButton;
-@property (weak, nonatomic) IBOutlet UIButton *registerButton;
-@property (weak, nonatomic) IBOutlet UIButton *dontWantAnAccountButton;
+@property (weak, nonatomic) IBOutlet MHRoundButton *loginButton;
+@property (weak, nonatomic) IBOutlet MHRoundButton *registerButton;
+@property (weak, nonatomic) IBOutlet MHRoundButton *dontWantAnAccountButton;
 @property (weak, nonatomic) IBOutlet UIImageView *startScreenMHLogo;
 
 @end

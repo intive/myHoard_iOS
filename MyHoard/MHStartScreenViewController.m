@@ -23,21 +23,6 @@
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc]initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:nil];
     [[self navigationItem] setBackBarButtonItem:backButton];
     
-    [self.loginButton setTitle:@"Login" forState:UIControlStateNormal];
-    [self.loginButton setBackgroundColor:[UIColor lightButtonColor]];
-    [self.loginButton setTitleColor:[UIColor lightButtonTitleColor] forState:UIControlStateNormal];
-    self.loginButton.layer.cornerRadius = 6.0;
-
-    [self.registerButton setBackgroundColor:[UIColor lightButtonColor]];
-    [self.registerButton setTitle:@"Register" forState:UIControlStateNormal];
-    [self.registerButton setTitleColor:[UIColor lightButtonTitleColor] forState:UIControlStateNormal];
-    self.registerButton.layer.cornerRadius = 6.0;
-    
-    [self.dontWantAnAccountButton setTitle:@"I don\'t want an account" forState:UIControlStateNormal];
-    [self.dontWantAnAccountButton setBackgroundColor:[UIColor lightButtonColor]];
-    [self.dontWantAnAccountButton setTitleColor:[UIColor lightButtonTitleColor] forState:UIControlStateNormal];
-    self.dontWantAnAccountButton.layer.cornerRadius = 6.0;   
-    
 }
 
 - (void)didReceiveMemoryWarning
