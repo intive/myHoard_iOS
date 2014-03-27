@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CollectionDetailsViewController : UITableViewController <UITextFieldDelegate>
+@interface MHCollectionDetailsViewController : UITableViewController <UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *collectionNameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *collectionIdTextField;

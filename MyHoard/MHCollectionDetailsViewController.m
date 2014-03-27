@@ -6,14 +6,14 @@
 //  Copyright (c) 2014 BLStream. All rights reserved.
 //
 
-#import "CollectionDetailsViewController.h"
+#import "MHCollectionDetailsViewController.h"
 #import "MHDatabaseManager.h"
 
-@interface CollectionDetailsViewController ()
+@interface MHCollectionDetailsViewController ()
 
 @end
 
-@implementation CollectionDetailsViewController
+@implementation MHCollectionDetailsViewController
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
