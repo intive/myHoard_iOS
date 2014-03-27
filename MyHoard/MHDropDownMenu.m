@@ -32,6 +32,13 @@
     _backgroundView.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.7];
     [self addSubview:_backgroundView];
     _items = [NSMutableArray array];
+    
+    UITapGestureRecognizer* tap = [[UITapGestureRecognizer alloc] init];
+    [tap addTarget:self action:@selector(backgroundViewTapped:)];
+    tap.numberOfTapsRequired = 1;
+    [_backgroundView setUserInteractionEnabled:YES];
+    [_backgroundView addGestureRecognizer:tap];
+
 }
 
 - (id)init {
@@ -216,7 +223,7 @@
         if (animated) {
             [UIView animateWithDuration:MENU_HIDE_ANIMATION_DURATION
                              animations:^{
-                                 _backgroundView.alpha = 0.001;
+                                 _backgroundView.alpha = 0.105;
                              }
                              completion:^(BOOL finished) {
                                  _visible = YES;
@@ -233,6 +240,12 @@
 
 - (BOOL)isVisible {
     return _visible;
+}
+
+- (void)backgroundViewTapped:(UIGestureRecognizer*)sender {
+    if ([self isVisible] && sender.state == UIGestureRecognizerStateEnded) {
+        [self hideMenuAnimated:YES];
+    }
 }
 
 @end
