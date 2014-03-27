@@ -18,9 +18,4 @@
 @property (nonatomic, readwrite) CGFloat badgeCorner;
 @property (nonatomic, readwrite) CGFloat badgeScale;
 
-+ (MHBadgeView *)createBadgeWithValue:(NSNumber *)badgeValue
-                        withTextColor:(UIColor *)textColor
-                  withBackgroundColor:(UIColor *)backgroundColor
-                            withScale:(CGFloat)badgeScale;
-
 @end

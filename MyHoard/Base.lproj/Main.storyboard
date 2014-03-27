@@ -337,11 +337,17 @@
                                                     <color key="textColor" red="1" green="0.75294117650000003" blue="0.0078431372550000003" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WQC-2c-ZRK" customClass="MHBadgeView">
+                                                    <rect key="frame" x="99" y="107" width="25" height="25"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                                </view>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
+                                            <outlet property="badgeView" destination="WQC-2c-ZRK" id="gPv-Sf-Qvu"/>
                                             <outlet property="collectionTitle" destination="pXz-yB-ZIr" id="SBT-Sr-cPY"/>
                                         </connections>
                                     </collectionViewCell>
@@ -1087,8 +1093,8 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Ezi-9g-Ehw"/>
         <segue reference="Xtm-aX-Up0"/>
-        <segue reference="oCU-xe-CxG"/>
+        <segue reference="Ezi-9g-Ehw"/>
+        <segue reference="2Ry-OK-j0g"/>
     </inferredMetricsTieBreakers>
 </document>

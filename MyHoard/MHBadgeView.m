@@ -11,21 +11,31 @@
 
 @implementation MHBadgeView
 
-- (id)initWithValue:(NSNumber *)badgeValue withTextColor:(UIColor *)badgeTextColor withBackgroundColor:(UIColor *)badgeBackgroundColor withScale:(CGFloat)badgeScale {
-    
-    self = [super initWithFrame:CGRectMake(0, 0, 25, 25)];
+- (id)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
     if (self) {
-        
-        self.contentScaleFactor = [[UIScreen mainScreen]scale];
+        [self baseInit];
+    }
+    return self;
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    
+    if (self = [super initWithCoder:aDecoder]) {
+        [self baseInit];
+    }
+    return self;
+}
+
+- (void)baseInit {
+
         self.backgroundColor = [UIColor clearColor];
-        self.badgeValue = badgeValue;
+        self.badgeValue = _badgeValue;
         _badgeBackgroundColor = [UIColor darkerYellow];
         _badgeTextColor = [UIColor darkerGray];
         _badgeCorner = 0.40;
-        _badgeScale = badgeScale;
-    }
-    
-    return self;
+        _badgeScale = 1.0;
     
 }
 
@@ -46,11 +56,6 @@
     
     [self setNeedsDisplay];
     
-}
-
-+ (MHBadgeView *)createBadgeWithValue:(NSNumber *)badgeValue withTextColor:(UIColor *)textColor withBackgroundColor:(UIColor *)backgroundColor withScale:(CGFloat)badgeScale {
-    
-    return [[self alloc] initWithValue:badgeValue withTextColor:textColor withBackgroundColor:backgroundColor withScale:badgeScale];
 }
 
 -(void) drawRoundedRect:(CGRect)rect {

@@ -92,18 +92,10 @@ typedef NS_ENUM(NSInteger, CollectionSortMode) {
     cell.collectionTitle.text = object.objName;
     
     if ([object.objItemsNumber isEqualToNumber:@0]) {
-        
-        _badge.hidden = YES;
-        
+        cell.badgeView.hidden = YES;
     }else {
-        
-        _badge = [MHBadgeView createBadgeWithValue:object.objItemsNumber withTextColor:[UIColor darkerGray] withBackgroundColor:[UIColor darkerYellow] withScale:1.0];
-        
-        _badge.frame = CGRectMake(102, 110, _badge.frame.size.width, _badge.frame.size.height);
-        
+        cell.badgeView.badgeValue = object.objItemsNumber;
     }
-    
-    [cell.contentView addSubview:_badge];
     
     return cell;
 }

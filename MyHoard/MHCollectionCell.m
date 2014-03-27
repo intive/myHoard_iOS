@@ -16,6 +16,8 @@
     if (self) {
         self.backgroundColor = [UIColor collectionThumbnailOutlineColor];
         self.collectionTitle.textColor = [UIColor collectionNameFrontColor];
+        
+        [self addSubview:_badgeView];
     }
     return self;
 }
