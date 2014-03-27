@@ -28,9 +28,16 @@
         //if no camera, disable camera button
         self.navigationItem.rightBarButtonItem.enabled = NO;
     }
+    
+    [self.navigationController.navigationBar setBarTintColor:[UIColor cameraBottomBarBackgroundColor]];
+    [self.navigationController.navigationBar setTintColor:[UIColor cameraBottomBarBackgroundColor]];
+    
+    [self showImagePickerForSourceType:UIImagePickerControllerSourceTypeCamera];
+    
 }
 
-- (IBAction)showImagePickerForCamera:(id)sender {
+
+/*- (IBAction)showImagePickerForCamera:(id)sender {
     
     [self showImagePickerForSourceType:UIImagePickerControllerSourceTypeCamera];
 }
@@ -38,7 +45,7 @@
 - (IBAction)showImagePickerForPhotoLibrary:(id)sender {
     
     [self showImagePickerForSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
-}
+}*/
 
 - (void)showImagePickerForSourceType:(UIImagePickerControllerSourceType)sourceType {
     
@@ -107,6 +114,10 @@
     return ret;
 }
 
+- (IBAction)cancel:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (CLLocationCoordinate2D)locationForImage:(NSString *)fileName
 {
     CFURLRef url = CFURLCreateFromFileSystemRepresentation (kCFAllocatorDefault, (const UInt8 *)[fileName UTF8String], [fileName length], false);
@@ -153,10 +164,66 @@
         return CLLocationCoordinate2DMake(latitude, longtitude);
     }
 }
+- (IBAction)switchCamera:(id)sender{
+    self.camera = 0;
+    [self addVideoInput];
+    self.camera = 1;
+}
+
+- (void)addVideoInput {
+    NSArray *devices = [AVCaptureDevice devices];
+    AVCaptureDevice *frontCamera;
+    AVCaptureDevice *backCamera;
+    
+    for (AVCaptureDevice *device in devices) {
+        
+        NSLog(@"Device name: %@", [device localizedName]);
+        
+        if ([device hasMediaType:AVMediaTypeVideo]) {
+            
+            if ([device position] == AVCaptureDevicePositionBack && self.camera%2==0) {
+                backCamera = device;
+            }
+            else if ([device position] == AVCaptureDevicePositionFront && self.camera%2==1) {
+                frontCamera = device;
+            }
+        }
+    }
+    
+    NSError *error = nil;
+    AVCaptureDeviceInput *frontFacingCameraDeviceInput = [AVCaptureDeviceInput deviceInputWithDevice:frontCamera error:&error];
+    if (!error) {
+        if ([[self captureSession] canAddInput:frontFacingCameraDeviceInput])
+            [[self captureSession] addInput:frontFacingCameraDeviceInput];
+        else {
+            NSLog(@"Couldn't add front facing video input");
+        }
+    }
+    
+    NSError *error1 = nil;
+    AVCaptureDeviceInput *backFacingCameraDeviceInput = [AVCaptureDeviceInput deviceInputWithDevice:backCamera error:&error1];
+    if (!error1) {
+        if ([[self captureSession] canAddInput:backFacingCameraDeviceInput])
+            [[self captureSession] addInput:backFacingCameraDeviceInput];
+        else {
+            NSLog(@"Couldn't add front facing video input");
+        }
+    }
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    
+    if([segue.identifier isEqualToString:@"cameraSegue"])
+    {
+        MHSavePhotoViewController *destinationViewController;
+        destinationViewController.capturedImages = self.capturedImages;
+    }
+}
 
 
 
-#pragma Xib toolbar actions 
+
+#pragma Xib toolbar actions
 
 - (IBAction)done:(id)sender {
 
@@ -208,7 +275,5 @@
 {
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
-
-
 
 @end

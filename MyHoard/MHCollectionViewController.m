@@ -360,12 +360,16 @@ newIndexPath:(NSIndexPath *)newIndexPath
 #pragma mark MHDropDownMenu
 
 - (NSInteger)numberOfItemsInDropDownMenu:(MHDropDownMenu *)menu {
-    return 2;
+    return 3;
+
 }
 
 - (NSString*)titleInDropDownMenu:(MHDropDownMenu *)menu atIndex:(NSInteger)index {
     switch (index) {
         case 0:
+            return @"Element";
+            break;
+        case 1:
             return @"Add collection";
             break;
         default:
@@ -378,11 +382,35 @@ newIndexPath:(NSIndexPath *)newIndexPath
 }
 
 - (void)dropDownMenu:(MHDropDownMenu*)menu didSelectItemAtIndex:(NSUInteger)index {
-    if (index == 0) {
+    if (index == 0)
+    {
+        UIActionSheet *alert = [[UIActionSheet alloc]initWithTitle:nil
+                                                          delegate:self
+                                                 cancelButtonTitle:@"Cancel"
+                                            destructiveButtonTitle:nil
+                                                 otherButtonTitles:@"Create without photo", @"Take a photo", @"Choose from library", nil];
+        [alert showInView:self.view];
+    }
+
+    else if (index == 1) {
         [self performSegueWithIdentifier:@"AddCollectionSegue" sender:nil];
     } else {
         NSLog(@"Unknown menu item %lu selected:", (unsigned long)index);
     }
 }
+
+-(void)actionSheet:(UIActionSheet *)alert clickedButtonAtIndex:(NSInteger)buttonIndex {
+    switch (buttonIndex){
+        case 0:
+        [self performSegueWithIdentifier:@"AddItem2Segue" sender:nil];
+            break;
+        case 1:
+        [self performSegueWithIdentifier:@"ImagePickerSegue" sender:nil];
+            break;
+        case 2:
+            break;
+    }
+}
+
 
 @end

@@ -14,7 +14,7 @@
 #import "MHBaseViewController.h"
 #import "MHBadgeView.h"
 
-@interface MHCollectionViewController : MHBaseViewController <UICollectionViewDataSource, UICollectionViewDelegate, NSFetchedResultsControllerDelegate>
+@interface MHCollectionViewController : MHBaseViewController <UICollectionViewDataSource, UICollectionViewDelegate, NSFetchedResultsControllerDelegate, UIActionSheetDelegate>
 
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;

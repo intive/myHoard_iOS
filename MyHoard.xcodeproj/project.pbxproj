@@ -68,6 +68,7 @@
 		CEE097B118BE82560060721A /* MHCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE097B018BE82560060721A /* MHCollection.m */; };
 		CEE097B418BE82700060721A /* MHItem.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE097B318BE82700060721A /* MHItem.m */; };
 		CEE097B718BE82940060721A /* MHMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE097B618BE82940060721A /* MHMedia.m */; };
+		E72AA10A18E39B8900E2FDE4 /* MHSavePhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E72AA10918E39B8900E2FDE4 /* MHSavePhotoViewController.m */; };
 		E7A16B3018BE8F7E003BC466 /* MHMediaHelperTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E7A16B2F18BE8F7E003BC466 /* MHMediaHelperTests.m */; };
 /* End PBXBuildFile section */
 
@@ -180,6 +181,8 @@
 		CEE097B318BE82700060721A /* MHItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHItem.m; sourceTree = "<group>"; };
 		CEE097B518BE82940060721A /* MHMedia.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHMedia.h; sourceTree = "<group>"; };
 		CEE097B618BE82940060721A /* MHMedia.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHMedia.m; sourceTree = "<group>"; };
+		E72AA10818E39B8900E2FDE4 /* MHSavePhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHSavePhotoViewController.h; sourceTree = "<group>"; };
+		E72AA10918E39B8900E2FDE4 /* MHSavePhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHSavePhotoViewController.m; sourceTree = "<group>"; };
 		E7A16B2F18BE8F7E003BC466 /* MHMediaHelperTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHMediaHelperTests.m; sourceTree = "<group>"; };
 		F724743366084FAC90257055 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -313,6 +316,8 @@
 				1A0D0B6618C7C742004B99BA /* MHLocation.m */,
 				CE92CB5718C321EF005038D9 /* MHImagePickerViewController.xib */,
 				23D321B2184BBFFA002FC13A /* Main.storyboard */,
+				E72AA10818E39B8900E2FDE4 /* MHSavePhotoViewController.h */,
+				E72AA10918E39B8900E2FDE4 /* MHSavePhotoViewController.m */,
 				CEA8F94318DE024600B75355 /* MHStartScreenViewController.h */,
 				CEA8F94418DE024600B75355 /* MHStartScreenViewController.m */,
 				1A059F2F18D200B700ECC6D0 /* MHBrowseCollectionViewController.h */,
@@ -616,6 +621,7 @@
 				23F27A5B18D9A6D100877D30 /* MHDropDownMenuItem.m in Sources */,
 				CE28669618DB2A9D003AC446 /* MHKenBurns.m in Sources */,
 				537CF83318AD7D6E008A7E04 /* MHCoreDataContext.m in Sources */,
+				E72AA10A18E39B8900E2FDE4 /* MHSavePhotoViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

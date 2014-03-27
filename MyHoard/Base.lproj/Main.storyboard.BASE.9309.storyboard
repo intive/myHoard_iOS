@@ -363,8 +363,6 @@
                         <outlet property="collectionView" destination="EUn-m5-KAh" id="wSN-bN-kfm"/>
                         <segue destination="5Jx-7R-kxH" kind="modal" identifier="AddCollectionSegue" id="7Aw-hx-44V"/>
                         <segue destination="Pao-hk-0A0" kind="push" identifier="ShowItemsSegue" id="kvS-Cz-huN"/>
-                        <segue destination="IOv-e1-ra0" kind="modal" identifier="ImagePickerSegue" id="f1Y-Gw-JyE"/>
-                        <segue destination="smS-mw-uPB" kind="modal" identifier="AddItem2Segue" id="2Ry-OK-j0g"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NWp-Gh-aOk" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -384,104 +382,34 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EXW-gK-ssI">
-                                <rect key="frame" x="0.0" y="66" width="320" height="454"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="520"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tps-fH-9E6">
-                                <rect key="frame" x="137" y="528" width="46" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Take">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="takePhoto:" destination="IOv-e1-ra0" eventType="touchUpInside" id="0dp-My-rcc"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="C5i-w7-b05">
-                        <barButtonItem key="leftBarButtonItem" image="cancel" id="T6e-j0-dQL">
-                            <color key="tintColor" red="1" green="0.75294117650000003" blue="0.0078431372550000003" alpha="1" colorSpace="calibratedRGB"/>
+                        <barButtonItem key="leftBarButtonItem" title="Image Library" id="7KI-y2-9yN">
                             <connections>
-                                <action selector="cancel:" destination="IOv-e1-ra0" id="d1o-bd-lUo"/>
+                                <action selector="showImagePickerForPhotoLibrary:" destination="IOv-e1-ra0" id="WYZ-eZ-7dD"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" image="cameraIcons" id="bGv-ga-4rL">
-                            <color key="tintColor" red="1" green="0.75294117647058822" blue="0.0078431372549019607" alpha="1" colorSpace="calibratedRGB"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="camera" id="bGv-ga-4rL">
                             <connections>
-                                <action selector="switchCamera:" destination="IOv-e1-ra0" id="afa-i6-BEW"/>
+                                <action selector="showImagePickerForCamera:" destination="IOv-e1-ra0" id="7kD-hG-y4t"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
-                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="imageView" destination="EXW-gK-ssI" id="Pf9-Ce-oHI"/>
                         <outlet property="navigationItem" destination="C5i-w7-b05" id="gd5-jw-5lX"/>
-                        <segue destination="3lx-ic-0TJ" kind="push" identifier="cameraSegue" id="M2e-xh-u7B"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="86o-pr-trp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="323" y="786"/>
-        </scene>
-        <!--Save Photo View Controller-->
-        <scene sceneID="vv9-4Y-igU">
-            <objects>
-                <viewController storyboardIdentifier="MHSavePhotoViewController" id="3lx-ic-0TJ" customClass="MHSavePhotoViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="VNo-En-nYS"/>
-                        <viewControllerLayoutGuide type="bottom" id="P5C-SF-FpZ"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Jav-lb-1Lr">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vao-yH-HQo">
-                                <rect key="frame" x="0.0" y="62" width="320" height="506"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                            </imageView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="hHl-rA-Y2z">
-                        <barButtonItem key="leftBarButtonItem" style="plain" id="H86-AA-pBO">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Df4-JD-vC2">
-                                <rect key="frame" x="16" y="5" width="71" height="33"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Retake">
-                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="cancel:" destination="3lx-ic-0TJ" eventType="touchUpInside" id="N7T-Cb-OuW"/>
-                                </connections>
-                            </button>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" style="plain" id="Z06-hd-SSY">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="LLZ-jI-9cw">
-                                <rect key="frame" x="229" y="11" width="75" height="22"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="confirm">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="smS-mw-uPB" kind="push" identifier="addPhotoSegue" id="oCU-xe-CxG"/>
-                                </connections>
-                            </button>
-                        </barButtonItem>
-                    </navigationItem>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
-                    <nil key="simulatedBottomBarMetrics"/>
-                    <connections>
-                        <outlet property="imageView" destination="vao-yH-HQo" id="8Sy-Q2-rlw"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="f9s-Vf-Hbc" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="799" y="947"/>
+            <point key="canvasLocation" x="425" y="691"/>
         </scene>
         <!--Add Item View Controller-->
         <scene sceneID="T0D-g5-2fm">
@@ -1076,9 +1004,6 @@
     <resources>
         <image name="addImage.png" width="157" height="143"/>
         <image name="camera.png" width="166" height="143"/>
-        <image name="cameraIcons" width="27" height="20"/>
-        <image name="cancel" width="28" height="27"/>
-        <image name="confirm" width="20" height="14"/>
         <image name="myHOARD.png" width="406" height="154"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
@@ -1089,6 +1014,5 @@
     <inferredMetricsTieBreakers>
         <segue reference="Ezi-9g-Ehw"/>
         <segue reference="Xtm-aX-Up0"/>
-        <segue reference="oCU-xe-CxG"/>
     </inferredMetricsTieBreakers>
 </document>
