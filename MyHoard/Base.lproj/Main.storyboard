@@ -155,6 +155,10 @@
                                     <segue destination="bzQ-Af-eKQ" kind="push" id="Ezi-9g-Ehw"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="startLogo" translatesAutoresizingMaskIntoConstraints="NO" id="Hwi-sY-nt9">
+                                <rect key="frame" x="40" y="112" width="240" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -163,6 +167,7 @@
                         <outlet property="dontWantAnAccountButton" destination="qaV-fx-qe2" id="8Ts-fe-Srh"/>
                         <outlet property="loginButton" destination="ZWK-Ke-4o1" id="koB-jO-IxG"/>
                         <outlet property="registerButton" destination="eP1-eW-Z9O" id="jDk-cF-fEz"/>
+                        <outlet property="startScreenMHLogo" destination="Hwi-sY-nt9" id="xE8-Ft-CvM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gaU-ZZ-nr2" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -883,6 +888,7 @@
         <image name="cameraIcons" width="27" height="20"/>
         <image name="cancel" width="28" height="27"/>
         <image name="confirm" width="20" height="14"/>
+        <image name="startLogo" width="132" height="41"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
@@ -891,7 +897,7 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="Xtm-aX-Up0"/>
-        <segue reference="V6I-1K-e5x"/>
+        <segue reference="Ezi-9g-Ehw"/>
         <segue reference="oCU-xe-CxG"/>
     </inferredMetricsTieBreakers>
 </document>
