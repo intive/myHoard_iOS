@@ -13,7 +13,7 @@
 #define MENU_HIDE_ANIMATION_DURATION 0.8
 #define MENU_ITEM_ANIMATION_DURATION 0.5
 #define MENU_ITEM_ANIMATION_DELAY 0.08
-#define MENU_BORDER 2
+#define MENU_BORDER 1
 
 @interface MHDropDownMenu()
 {
@@ -114,6 +114,7 @@
             }
 
             [item setTitle:title forState:UIControlStateNormal];
+            [item setContentMode:UIViewContentModeScaleAspectFill];
             [item setImage:image forState:UIControlStateNormal];
             [item setBackgroundColor:backgroundColor forState:UIControlStateNormal];
             [item setBackgroundColor:[backgroundColor colorWithAlphaComponent:0.45] forState:UIControlStateHighlighted];
@@ -125,7 +126,6 @@
         }
         
         y += (MENU_BORDER + height);
-        
         [self addSubview:item];
         [_items addObject:item];
     }
@@ -180,7 +180,6 @@
 }
 
 - (void)showMenuInView:(UIView *)view atPosition:(CGFloat)y animated:(BOOL)animated {
-
     BOOL shouldShow = YES;
     if ([_delegate respondsToSelector:@selector(shouldShowDropDownMenu:)]) {
         shouldShow = [_delegate shouldShowDropDownMenu:self];
@@ -217,7 +216,7 @@
         if (animated) {
             [UIView animateWithDuration:MENU_HIDE_ANIMATION_DURATION
                              animations:^{
-                                 _backgroundView.alpha = 1.0;
+                                 _backgroundView.alpha = 0.001;
                              }
                              completion:^(BOOL finished) {
                                  _visible = YES;

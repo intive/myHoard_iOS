@@ -368,14 +368,31 @@ newIndexPath:(NSIndexPath *)newIndexPath
             return @"Element";
             break;
         case 1:
-            return @"Add collection";
+            return @"Collection";
             break;
         default:
             return @"unused menu item";
     }
 }
 
+- (UIImage *)imageInDropDownMenu:(MHDropDownMenu *)menu atIndex:(NSInteger)index{
+    switch (index) {
+        case 0:
+            return [UIImage imageNamed:@"elementImage.png"];
+            break;
+        case 1:
+            return [UIImage imageNamed:@"collectionImage.png"];
+            break;
+        default:
+            return nil;
+    }
+}
+
 - (UIColor*)backgroundColorInDropDownMenu:(MHDropDownMenu *)menu atIndex:(NSInteger)index {
+    return [UIColor blackColor];
+}
+
+- (UIColor *)textColorInDropDownMenu:(MHDropDownMenu *)menu atIndex:(NSInteger)index{
     return [UIColor navigationBarBackgroundColor];
 }
 
