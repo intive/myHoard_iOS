@@ -12,6 +12,7 @@
 @interface MHDropDownMenuViewController : UIViewController
 
 @property (nonatomic, strong) UIImage* menuButtonImage;
+@property (nonatomic, strong) UIImage* selectedMenuButtonImage;
 @property (nonatomic, assign) BOOL menuButtonVisible;
 
 @property (nonatomic, readonly) MHDropDownMenu* menu;

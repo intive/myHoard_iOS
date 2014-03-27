@@ -43,7 +43,11 @@
 - (void)dropDownMenuButtonClicked:(id)sender {
     if (_menu.isVisible) {
         [_menu hideMenuAnimated:YES];
+        _menuButton.image = _menuButtonImage;
     } else {
+        if (_selectedMenuButtonImage) {
+            _menuButton.image = _selectedMenuButtonImage;
+        }
         CGRect r = self.navigationController.navigationBar.frame;
         CGFloat y = r.size.height + r.origin.y;
         [_menu showMenuInView:self.view atPosition:y animated:YES];
