@@ -60,6 +60,14 @@
         
         _passwordTextField.delegate = self;
         
+        [self.view removeConstraints:[self.view constraints]];
+        
+        [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.view attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_emailTextField attribute:NSLayoutAttributeTop multiplier:1.0 constant:-107]];
+        
+        [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_emailTextField attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:_passwordTextField attribute:NSLayoutAttributeTop multiplier:1.0 constant:-12]];
+        
+        [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_passwordTextField attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:_goButton attribute:NSLayoutAttributeTop multiplier:1.0 constant:-40]];
+        
     }else if (_flowType == MHRegisterFlow) {
         
         self.disableMHHamburger = YES;
@@ -122,7 +130,7 @@
 
 - (void)slideFrame:(BOOL)yesNo {
     
-    int movement = (yesNo ? -50 : 50);
+    int movement = (yesNo ? -40 : 40);
     
     [UIView animateWithDuration:0.5 animations:^{
         self.view.frame = CGRectOffset(self.view.frame, 0, movement);
@@ -139,6 +147,43 @@
     [self slideFrame: NO];
 }
 
+- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
+    
+    if ([identifier isEqualToString:@"collectionSegue"]) {
+        if (_flowType == MHRegisterFlow) {
+            
+            if (![_passwordTextField.text isEqualToString:[NSString stringWithFormat:@"%@", _passwordTextField1.text]]) {
+        
+                UIAlertView *alert = [[UIAlertView alloc]
+                                         initWithTitle:@"Alert"
+                                         message:@"Passwords do not match"
+                                         delegate:nil
+                                         cancelButtonTitle:@"OK"
+                                         otherButtonTitles:nil];
+            
+                [alert show];
+            
+                return NO;
+            
+            }else if ([_passwordTextField1.text length] < 5) {
+            
+                UIAlertView *alert = [[UIAlertView alloc]
+                                  initWithTitle:@"Alert"
+                                  message:@"Password must be at least 5 characters long"
+                                  delegate:nil
+                                  cancelButtonTitle:@"OK"
+                                  otherButtonTitles:nil];
+            
+                [alert show];
+            
+                return NO;
+            }
+        }
+    }
+    
+    return YES;
+}
+
 /*
  #pragma mark - Navigation
  
@@ -147,7 +192,7 @@
  {
  // Get the new view controller using [segue destinationViewController].
  // Pass the selected object to the new view controller.
+     
  }
- */
-
+*/
 @end
