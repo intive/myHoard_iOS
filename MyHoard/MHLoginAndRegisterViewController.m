@@ -58,6 +58,7 @@
         
         _passwordTextField.secureTextEntry = YES;
         
+        _emailTextField.delegate = self;
         _passwordTextField.delegate = self;
         
         [self.view removeConstraints:[self.view constraints]];
@@ -94,6 +95,7 @@
         _passwordTextField.secureTextEntry = YES;
         _passwordTextField1.secureTextEntry = YES;
         
+        _emailTextField.delegate = self;
         _passwordTextField.delegate = self;
         _passwordTextField1.delegate = self;
         
@@ -125,7 +127,7 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     
     [textField resignFirstResponder];
-    return NO;
+    return YES;
 }
 
 - (void)slideFrame:(BOOL)yesNo {
@@ -184,6 +186,11 @@
     return YES;
 }
 
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    
+    [self.view endEditing:YES];
+}
+
 /*
  #pragma mark - Navigation
  
@@ -195,4 +202,5 @@
      
  }
 */
+
 @end
