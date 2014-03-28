@@ -154,6 +154,22 @@
     if ([identifier isEqualToString:@"collectionSegue"]) {
         if (_flowType == MHRegisterFlow) {
             
+            
+            if (![_passwordTextField.text length] && ![_passwordTextField1.text length] && ![_emailTextField.text length]) {
+                
+                UIAlertView *alert = [[UIAlertView alloc]
+                                      initWithTitle:@"Alert"
+                                      message:@"To register You must provide all of the specified information"
+                                      delegate:nil
+                                      cancelButtonTitle:@"OK"
+                                      otherButtonTitles:nil];
+                
+                [alert show];
+                
+                return NO;
+                
+            }
+            
             if (![_passwordTextField.text isEqualToString:[NSString stringWithFormat:@"%@", _passwordTextField1.text]]) {
         
                 UIAlertView *alert = [[UIAlertView alloc]
@@ -167,7 +183,9 @@
             
                 return NO;
             
-            }else if ([_passwordTextField1.text length] < 5) {
+            }
+            
+            if ([_passwordTextField1.text length] < 5) {
             
                 UIAlertView *alert = [[UIAlertView alloc]
                                   initWithTitle:@"Alert"
@@ -178,6 +196,90 @@
             
                 [alert show];
             
+                return NO;
+            }
+            
+            if ([_emailTextField.text length] > 0) {
+                
+                NSString *emailRegEx = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
+                NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegEx];
+                
+                if ([emailTest evaluateWithObject:_emailTextField.text] == NO) {
+                    
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Enter valid e-mail address" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                    [alert show];
+                    
+                    return NO;
+                }
+                
+            }else {
+                
+                UIAlertView *alert = [[UIAlertView alloc]
+                                      initWithTitle:@"Alert"
+                                      message:@"E-mail field is empty"
+                                      delegate:nil
+                                      cancelButtonTitle:@"OK"
+                                      otherButtonTitles:nil];
+                
+                [alert show];
+                
+                return NO;
+            }
+        }else if (_flowType == MHLoginFlow) {
+            
+            if (![_passwordTextField.text length] && ![_emailTextField.text length]) {
+                
+                UIAlertView *alert = [[UIAlertView alloc]
+                                      initWithTitle:@"Alert"
+                                      message:@"To log in You must provide all of the specified information"
+                                      delegate:nil
+                                      cancelButtonTitle:@"OK"
+                                      otherButtonTitles:nil];
+                
+                [alert show];
+                
+                return NO;
+                
+            }
+            
+            if ([_emailTextField.text length] > 0) {
+                
+                NSString *emailRegEx = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
+                NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegEx];
+                
+                if ([emailTest evaluateWithObject:_emailTextField.text] == NO) {
+                    
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Enter valid e-mail address" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                    [alert show];
+                    
+                    return NO;
+                }
+                
+            }else {
+                
+                UIAlertView *alert = [[UIAlertView alloc]
+                                      initWithTitle:@"Alert"
+                                      message:@"E-mail field is empty"
+                                      delegate:nil
+                                      cancelButtonTitle:@"OK"
+                                      otherButtonTitles:nil];
+                
+                [alert show];
+                
+                return NO;
+            }
+            
+            if ([_passwordTextField.text length] == 0) {
+                
+                UIAlertView *alert = [[UIAlertView alloc]
+                                      initWithTitle:@"Alert"
+                                      message:@"Password field is empty"
+                                      delegate:nil
+                                      cancelButtonTitle:@"OK"
+                                      otherButtonTitles:nil];
+                
+                [alert show];
+                
                 return NO;
             }
         }
