@@ -48,10 +48,10 @@
         }
         
         _emailTextField.backgroundColor = [UIColor lighterGray];
-        _emailTextField.textColor = [UIColor darkerYellow];
+        _emailTextField.textColor = [UIColor lightLoginAndRegistrationTextFieldTextColor];
         
         _passwordTextField.backgroundColor = [UIColor lighterGray];
-        _passwordTextField.textColor = [UIColor darkerYellow];
+        _passwordTextField.textColor = [UIColor lightLoginAndRegistrationTextFieldTextColor];
         
         _emailTextField.attributedPlaceholder = [[NSAttributedString alloc]initWithString:@"E-mail" attributes:@{NSForegroundColorAttributeName: [UIColor darkerYellow]}];
         _passwordTextField.attributedPlaceholder = [[NSAttributedString alloc]initWithString:@"Password" attributes:@{NSForegroundColorAttributeName: [UIColor darkerYellow]}];
@@ -80,13 +80,13 @@
         _passwordStrengthLabel.textColor = [UIColor navigationBarBackgroundColor];
         
         _emailTextField.backgroundColor = [UIColor lighterGray];
-        _emailTextField.textColor = [UIColor darkerYellow];
+        _emailTextField.textColor = [UIColor lightLoginAndRegistrationTextFieldTextColor];
         
         _passwordTextField.backgroundColor = [UIColor lighterGray];
-        _passwordTextField.textColor = [UIColor darkerYellow];
+        _passwordTextField.textColor = [UIColor lightLoginAndRegistrationTextFieldTextColor];
         
         _passwordTextField1.backgroundColor = [UIColor lighterGray];
-        _passwordTextField1.textColor = [UIColor darkerYellow];
+        _passwordTextField1.textColor = [UIColor lightLoginAndRegistrationTextFieldTextColor];
         
         _emailTextField.attributedPlaceholder = [[NSAttributedString alloc]initWithString:@"E-mail" attributes:@{NSForegroundColorAttributeName: [UIColor darkerYellow]}];
         _passwordTextField.attributedPlaceholder = [[NSAttributedString alloc]initWithString:@"Password" attributes:@{NSForegroundColorAttributeName: [UIColor darkerYellow]}];

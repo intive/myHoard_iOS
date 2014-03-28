@@ -32,5 +32,6 @@
 +(UIColor*)darkerGray;
 +(UIColor*)lightButtonColor;
 +(UIColor*)lightButtonTitleColor;
++(UIColor*)lightLoginAndRegistrationTextFieldTextColor;
 
 @end

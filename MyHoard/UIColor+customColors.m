@@ -92,4 +92,8 @@
 +(UIColor*)lightButtonTitleColor{
     return [UIColor colorWithHexString:@"#000000" alpha:1.0];
 }
+
++(UIColor*)lightLoginAndRegistrationTextFieldTextColor{
+    return [UIColor colorWithHexString:@"#ffc002" alpha:1.0];
+}
 @end
