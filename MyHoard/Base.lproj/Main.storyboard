@@ -221,7 +221,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" indicatorStyle="black" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="EUn-m5-KAh">
+                            <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" indicatorStyle="black" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="EUn-m5-KAh">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -280,6 +280,10 @@
                             </collectionView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="WQa-wY-2GW" firstAttribute="top" secondItem="EUn-m5-KAh" secondAttribute="bottom" id="TKH-YW-pOk"/>
+                            <constraint firstItem="EUn-m5-KAh" firstAttribute="top" secondItem="W8t-cx-bks" secondAttribute="top" id="ieK-9t-5Xo"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="r5l-fb-jnk"/>
                     <connections>
@@ -349,7 +353,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="86o-pr-trp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="219" y="786"/>
+            <point key="canvasLocation" x="315" y="626"/>
         </scene>
         <!--Save Photo View Controller-->
         <scene sceneID="vv9-4Y-igU">
@@ -405,7 +409,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="f9s-Vf-Hbc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="807" y="619"/>
+            <point key="canvasLocation" x="815" y="619"/>
         </scene>
         <!--Add Item2 View Controller - Add-->
         <scene sceneID="0Rd-vc-2ib">
@@ -921,7 +925,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="skW-aR-muS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-545" y="1397"/>
+            <point key="canvasLocation" x="-465" y="1605"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="GA7-zo-0z6">
@@ -940,7 +944,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wiC-uX-kdj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="207" y="1600"/>
+            <point key="canvasLocation" x="55" y="1240"/>
         </scene>
     </scenes>
     <resources>
@@ -957,6 +961,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="V6I-1K-e5x"/>
         <segue reference="Xtm-aX-Up0"/>
-        <segue reference="732-rT-yZE"/>
+        <segue reference="oCU-xe-CxG"/>
     </inferredMetricsTieBreakers>
 </document>
