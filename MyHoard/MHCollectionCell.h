@@ -13,8 +13,8 @@
 
 @interface MHCollectionCell : UICollectionViewCell
 
-@property (weak, nonatomic) IBOutlet UILabel *collectionTitle;
 
+@property (weak, nonatomic) IBOutlet CBAutoScrollLabel *collectionTitle;
 @property (weak, nonatomic) IBOutlet MHBadgeView *badgeView;
 @property (weak, nonatomic) IBOutlet MHKenBurns *kenBurnsView;
 @property (weak, nonatomic) IBOutlet MHTagsView *tagsView;

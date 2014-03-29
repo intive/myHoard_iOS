@@ -33,5 +33,6 @@
 +(UIColor*)lightButtonColor;
 +(UIColor*)lightButtonTitleColor;
 +(UIColor*)lightLoginAndRegistrationTextFieldTextColor;
++(UIColor*)badgeBackgroundColor;
 
 @end

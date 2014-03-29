@@ -32,7 +32,7 @@
 
         self.backgroundColor = [UIColor clearColor];
         self.badgeValue = _badgeValue;
-        _badgeBackgroundColor = [UIColor darkerYellow];
+        _badgeBackgroundColor = [UIColor badgeBackgroundColor];
         _badgeTextColor = [UIColor darkerGray];
         _badgeCorner = 0.40;
         _badgeScale = 1.0;
@@ -45,13 +45,12 @@
     
     NSString *badgeValueToString = [NSString stringWithFormat:@"%@", badgeValue];
     
-    CGSize badgeValueSize = [badgeValueToString sizeWithFont:[UIFont boldSystemFontOfSize:12]];
+    CGSize badgeValueSize = [badgeValueToString sizeWithFont:[UIFont boldSystemFontOfSize:10]];
     CGFloat offsetFactor = 10;
     
     if ([badgeValueToString length] >= 2) {
         
         self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, badgeValueSize.width + offsetFactor, self.frame.size.height);
-        
     }
     
     [self setNeedsDisplay];
@@ -60,7 +59,7 @@
 
 -(void) drawRoundedRect:(CGRect)rect {
     
-    self.layer.cornerRadius = 12;
+    self.layer.cornerRadius = 9.5;
     self.layer.backgroundColor = [_badgeBackgroundColor CGColor];
     self.layer.shadowRadius = 8;
     self.layer.shadowOffset = CGSizeMake(0, 5);
@@ -76,13 +75,19 @@
 	
 	if ([badgeValueToString length]>0) {
 		[_badgeTextColor set];
-		CGFloat sizeOfFont = 13.5 * _badgeScale;
+		CGFloat sizeOfFont = 10 * _badgeScale;
 		if ([badgeValueToString length]<2) {
 			sizeOfFont += sizeOfFont * 0.20;
 		}
+        
+        if ([badgeValueToString length] > 2) {
+            badgeValueToString = @"99+";
+        }
+        
 		UIFont *textFont = [UIFont boldSystemFontOfSize:sizeOfFont];
 		CGSize textSize = [badgeValueToString sizeWithFont:textFont];
 		[badgeValueToString drawAtPoint:CGPointMake((rect.size.width/2-textSize.width/2), (rect.size.height/2-textSize.height/2)) withFont:textFont];
+        
 	}
 	
 }

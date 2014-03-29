@@ -239,19 +239,12 @@
                                             <rect key="frame" x="0.0" y="0.0" width="131" height="176"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pXz-yB-ZIr">
-                                                    <rect key="frame" x="0.0" y="131" width="131" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                    <color key="textColor" red="1" green="0.75294117650000003" blue="0.0078431372550000003" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2Te-kW-8dv" customClass="MHKenBurns">
-                                                    <rect key="frame" x="0.0" y="0.0" width="131" height="132"/>
+                                                    <rect key="frame" x="5" y="5" width="120" height="125"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WQC-2c-ZRK" customClass="MHBadgeView">
-                                                            <rect key="frame" x="100" y="102" width="25" height="25"/>
+                                                            <rect key="frame" x="93" y="99" width="20" height="20"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                                         </view>
@@ -259,7 +252,12 @@
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </view>
                                                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uvZ-c1-Qma" customClass="MHTagsView">
-                                                    <rect key="frame" x="1" y="155" width="130" height="21"/>
+                                                    <rect key="frame" x="5" y="154" width="120" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                                </view>
+                                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6ma-JM-EML" customClass="CBAutoScrollLabel">
+                                                    <rect key="frame" x="5" y="132" width="120" height="22"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                                 </view>
@@ -269,7 +267,7 @@
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
                                             <outlet property="badgeView" destination="WQC-2c-ZRK" id="gPv-Sf-Qvu"/>
-                                            <outlet property="collectionTitle" destination="pXz-yB-ZIr" id="SBT-Sr-cPY"/>
+                                            <outlet property="collectionTitle" destination="6ma-JM-EML" id="YzI-ud-8Ar"/>
                                             <outlet property="kenBurnsView" destination="2Te-kW-8dv" id="Q4C-wW-xgC"/>
                                             <outlet property="tagsView" destination="uvZ-c1-Qma" id="gar-1e-vrf"/>
                                         </connections>

@@ -15,7 +15,6 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor collectionThumbnailOutlineColor];
-        self.collectionTitle.textColor = [UIColor collectionNameFrontColor];
     }
     return self;
 }

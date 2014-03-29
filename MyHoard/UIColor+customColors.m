@@ -96,4 +96,9 @@
 +(UIColor*)lightLoginAndRegistrationTextFieldTextColor{
     return [UIColor colorWithHexString:@"#ffc002" alpha:1.0];
 }
+
++(UIColor*)badgeBackgroundColor {
+    return [UIColor colorWithHexString:@"#ffc002" alpha:1.0];
+}
+
 @end

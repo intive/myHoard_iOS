@@ -92,6 +92,7 @@ typedef NS_ENUM(NSInteger, CollectionSortMode) {
     
 #pragma mark - cell setup
     
+    cell.collectionTitle.textColor = [UIColor collectionNameFrontColor];
     cell.collectionTitle.text = object.objName;
     
     if ([object.objItemsNumber isEqualToNumber:@0]) {
