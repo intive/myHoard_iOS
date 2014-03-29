@@ -288,6 +288,7 @@
                         <segue destination="Pao-hk-0A0" kind="push" identifier="ShowItemsSegue" id="kvS-Cz-huN"/>
                         <segue destination="IOv-e1-ra0" kind="modal" identifier="ImagePickerSegue" id="f1Y-Gw-JyE"/>
                         <segue destination="cF2-Sm-u7f" kind="modal" identifier="AddItem2Segue" id="3wb-xF-lsE"/>
+                        <segue destination="PSf-nV-YRY" kind="push" identifier="LibrarySegue" id="p1c-T0-N49"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NWp-Gh-aOk" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -893,6 +894,35 @@
             </objects>
             <point key="canvasLocation" x="1369" y="1221"/>
         </scene>
+        <!--Image Picker2 View Controller-->
+        <scene sceneID="SUa-bM-ctM">
+            <objects>
+                <viewController storyboardIdentifier="MHImagePicker2ViewController" id="PSf-nV-YRY" customClass="MHImagePicker2ViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="IhO-ph-xfi"/>
+                        <viewControllerLayoutGuide type="bottom" id="hsE-LH-k7n"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Uan-2P-hL5">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JZN-Bb-cQA">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="TD3-j1-UXj"/>
+                    <connections>
+                        <outlet property="imageView" destination="JZN-Bb-cQA" id="ssH-MX-gfX"/>
+                        <segue destination="smS-mw-uPB" kind="push" identifier="createItemSegue" id="732-rT-yZE"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="skW-aR-muS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-545" y="1397"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="GA7-zo-0z6">
             <objects>
@@ -927,6 +957,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="V6I-1K-e5x"/>
         <segue reference="Xtm-aX-Up0"/>
-        <segue reference="oCU-xe-CxG"/>
+        <segue reference="732-rT-yZE"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -68,6 +68,7 @@
 		CEE097B718BE82940060721A /* MHMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE097B618BE82940060721A /* MHMedia.m */; };
 		E72AA10A18E39B8900E2FDE4 /* MHSavePhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E72AA10918E39B8900E2FDE4 /* MHSavePhotoViewController.m */; };
 		E74EDDBA18E6F7F200488AD1 /* UIActionSheet+ButtonState.m in Sources */ = {isa = PBXBuildFile; fileRef = E74EDDB918E6F7F200488AD1 /* UIActionSheet+ButtonState.m */; };
+		E74EDDBD18E705E700488AD1 /* MHImagePicker2ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E74EDDBC18E705E700488AD1 /* MHImagePicker2ViewController.m */; };
 		E7A16B3018BE8F7E003BC466 /* MHMediaHelperTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E7A16B2F18BE8F7E003BC466 /* MHMediaHelperTests.m */; };
 /* End PBXBuildFile section */
 
@@ -181,6 +182,8 @@
 		E72AA10918E39B8900E2FDE4 /* MHSavePhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHSavePhotoViewController.m; sourceTree = "<group>"; };
 		E74EDDB818E6F7F200488AD1 /* UIActionSheet+ButtonState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIActionSheet+ButtonState.h"; sourceTree = "<group>"; };
 		E74EDDB918E6F7F200488AD1 /* UIActionSheet+ButtonState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIActionSheet+ButtonState.m"; sourceTree = "<group>"; };
+		E74EDDBB18E705E700488AD1 /* MHImagePicker2ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHImagePicker2ViewController.h; sourceTree = "<group>"; };
+		E74EDDBC18E705E700488AD1 /* MHImagePicker2ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHImagePicker2ViewController.m; sourceTree = "<group>"; };
 		E7A16B2F18BE8F7E003BC466 /* MHMediaHelperTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHMediaHelperTests.m; sourceTree = "<group>"; };
 		F724743366084FAC90257055 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -316,6 +319,8 @@
 				1A0D0B6618C7C742004B99BA /* MHLocation.m */,
 				CE92CB5718C321EF005038D9 /* MHImagePickerViewController.xib */,
 				23D321B2184BBFFA002FC13A /* Main.storyboard */,
+				E74EDDBB18E705E700488AD1 /* MHImagePicker2ViewController.h */,
+				E74EDDBC18E705E700488AD1 /* MHImagePicker2ViewController.m */,
 				E72AA10818E39B8900E2FDE4 /* MHSavePhotoViewController.h */,
 				E72AA10918E39B8900E2FDE4 /* MHSavePhotoViewController.m */,
 				CEA8F94318DE024600B75355 /* MHStartScreenViewController.h */,
@@ -588,6 +593,7 @@
 				1A059F3618D200B700ECC6D0 /* MHBrowseCollectionViewController.m in Sources */,
 				23F27A5818D8E66D00877D30 /* MHDropDownMenu.m in Sources */,
 				CE529A7E18D8687B00A020E9 /* MHUserSettings.m in Sources */,
+				E74EDDBD18E705E700488AD1 /* MHImagePicker2ViewController.m in Sources */,
 				23D321B1184BBFFA002FC13A /* AppDelegate.m in Sources */,
 				537CF83618AD8FBF008A7E04 /* MHDatabaseManager.m in Sources */,
 				CEE097B418BE82700060721A /* MHItem.m in Sources */,

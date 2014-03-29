@@ -431,6 +431,7 @@ newIndexPath:(NSIndexPath *)newIndexPath
         [self performSegueWithIdentifier:@"ImagePickerSegue" sender:nil];
             break;
         case 2:
+            [self performSegueWithIdentifier:@"LibrarySegue" sender:nil];
             break;
     }
 }
