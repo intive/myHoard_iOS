@@ -67,6 +67,7 @@
 		CEE097B418BE82700060721A /* MHItem.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE097B318BE82700060721A /* MHItem.m */; };
 		CEE097B718BE82940060721A /* MHMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE097B618BE82940060721A /* MHMedia.m */; };
 		E72AA10A18E39B8900E2FDE4 /* MHSavePhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E72AA10918E39B8900E2FDE4 /* MHSavePhotoViewController.m */; };
+		E74EDDBA18E6F7F200488AD1 /* UIActionSheet+ButtonState.m in Sources */ = {isa = PBXBuildFile; fileRef = E74EDDB918E6F7F200488AD1 /* UIActionSheet+ButtonState.m */; };
 		E7A16B3018BE8F7E003BC466 /* MHMediaHelperTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E7A16B2F18BE8F7E003BC466 /* MHMediaHelperTests.m */; };
 /* End PBXBuildFile section */
 
@@ -178,6 +179,8 @@
 		CEE097B618BE82940060721A /* MHMedia.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHMedia.m; sourceTree = "<group>"; };
 		E72AA10818E39B8900E2FDE4 /* MHSavePhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHSavePhotoViewController.h; sourceTree = "<group>"; };
 		E72AA10918E39B8900E2FDE4 /* MHSavePhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHSavePhotoViewController.m; sourceTree = "<group>"; };
+		E74EDDB818E6F7F200488AD1 /* UIActionSheet+ButtonState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIActionSheet+ButtonState.h"; sourceTree = "<group>"; };
+		E74EDDB918E6F7F200488AD1 /* UIActionSheet+ButtonState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIActionSheet+ButtonState.m"; sourceTree = "<group>"; };
 		E7A16B2F18BE8F7E003BC466 /* MHMediaHelperTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHMediaHelperTests.m; sourceTree = "<group>"; };
 		F724743366084FAC90257055 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -247,6 +250,8 @@
 				9370CAEA18CFC1E400C77461 /* MHCollectionCell.m */,
 				9370CAF218CFC30A00C77461 /* MHCollectionViewController.h */,
 				9370CAF318CFC30A00C77461 /* MHCollectionViewController.m */,
+				E74EDDB818E6F7F200488AD1 /* UIActionSheet+ButtonState.h */,
+				E74EDDB918E6F7F200488AD1 /* UIActionSheet+ButtonState.m */,
 			);
 			name = Collections;
 			sourceTree = "<group>";
@@ -589,6 +594,7 @@
 				9370CAEB18CFC1E400C77461 /* MHCollectionCell.m in Sources */,
 				23F27A5518D8E59F00877D30 /* MHDropDownMenuViewController.m in Sources */,
 				93245CA418E0931D008AFE37 /* MHItemCell.m in Sources */,
+				E74EDDBA18E6F7F200488AD1 /* UIActionSheet+ButtonState.m in Sources */,
 				CE92CB5818C321EF005038D9 /* MHImagePickerViewController.m in Sources */,
 				CEA8F94518DE024600B75355 /* MHStartScreenViewController.m in Sources */,
 				1A0D0B6718C7C742004B99BA /* MHLocation.m in Sources */,

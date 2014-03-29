@@ -13,6 +13,7 @@
 #import "MHCoreDataContext.h"
 #import "MHBaseViewController.h"
 #import "MHBadgeView.h"
+#import "UIActionSheet+ButtonState.h"
 
 @interface MHCollectionViewController : MHBaseViewController <UICollectionViewDataSource, UICollectionViewDelegate, NSFetchedResultsControllerDelegate, UIActionSheetDelegate>
 

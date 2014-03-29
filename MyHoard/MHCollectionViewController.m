@@ -406,14 +406,21 @@ newIndexPath:(NSIndexPath *)newIndexPath
                                             destructiveButtonTitle:nil
                                                  otherButtonTitles:@"Create without photo", @"Take a photo", @"Choose from library", nil];
         [alert showInView:self.view];
+        if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]){
+            [alert setButton:1 toState:NO];
+        }
     }
-
+    
     else if (index == 1) {
         [self performSegueWithIdentifier:@"AddCollectionSegue" sender:nil];
     } else {
         NSLog(@"Unknown menu item %lu selected:", (unsigned long)index);
     }
 }
+
+
+
+
 
 -(void)actionSheet:(UIActionSheet *)alert clickedButtonAtIndex:(NSInteger)buttonIndex {
     switch (buttonIndex){
