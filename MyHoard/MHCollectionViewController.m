@@ -121,6 +121,26 @@ typedef NS_ENUM(NSInteger, CollectionSortMode) {
     }
 }
 
+#pragma mark - picking random images for kenburns animation
+
+- (NSMutableArray *)animateWithRandomImages:(NSMutableArray *)imagesArray {
+    
+    NSMutableArray *randomImages = [[NSMutableArray alloc]init];
+    int randomCount = 5;
+    
+    if ([imagesArray count] >= randomCount) {
+        while (randomCount > 0) {
+            UIImage *randomImage = [imagesArray objectAtIndex:arc4random() % [imagesArray count]];
+            if (![randomImages containsObject:randomImage]) {
+                [randomImages addObject:randomImage];
+                randomCount--;
+            }
+        }
+    }
+    
+    return randomImages;
+}
+
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     
@@ -327,7 +347,16 @@ newIndexPath:(NSIndexPath *)newIndexPath
     
     [self cellConfiguration:cell withCoreDataObjectId:object.objId];
     
-    [cell.kenBurnsView beginAnimationWithImages:cell.kenBurnsView.images withDuration:10 shouldLoop:NO isLandscape:NO];
+    if ([cell.kenBurnsView.images count] >= 5) {
+    
+        NSMutableArray *randomImagesForKenBurns = [[NSMutableArray alloc]init];
+        [self animateWithRandomImages:cell.kenBurnsView.images];
+        [cell.kenBurnsView beginAnimationWithImages:randomImagesForKenBurns withDuration:10 shouldLoop:NO isLandscape:NO];
+        
+    }else {
+        
+        [cell.kenBurnsView beginAnimationWithImages:cell.kenBurnsView.images withDuration:10 shouldLoop:NO isLandscape:NO];
+    }
     
     animatingCell = cell;
     [self resetIdleTimer];
