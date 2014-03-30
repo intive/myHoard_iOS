@@ -104,14 +104,21 @@ typedef NS_ENUM(NSInteger, CollectionSortMode) {
     cell.kenBurnsView.backgroundColor = [UIColor darkerGray];
     cell.tagsView.backgroundColor = [UIColor clearColor];
     
-    NSArray *items = [MHDatabaseManager getAllItemsForCollectionWithObjId:object.objId];
+    [self cellConfiguration:cell withCoreDataObjectId:object.objId];
+    
+    return cell;
+}
+
+#pragma mark - cell configuration with images
+
+- (void)cellConfiguration:(MHCollectionCell *)cell withCoreDataObjectId:(NSString *)objectId {
+    
+    NSArray *items = [MHDatabaseManager getAllItemsForCollectionWithObjId:objectId];
     
     for (MHItem *item in items) {
         MHMedia *media = [MHDatabaseManager mediaWithObjId:item.objId];
-        [cell.kenBurnsView addImage:[media image]];
+        [cell.kenBurnsView addImage:[media thumbnail]];
     }
-    
-    return cell;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
@@ -306,7 +313,10 @@ newIndexPath:(NSIndexPath *)newIndexPath
     if (animatingCell != nil) {
         [animatingCell.kenBurnsView stopMHKenBurns];
     }
-    NSNumber *randomCell = [NSNumber numberWithUnsignedLong:(rand() % [self.collectionView numberOfSections])];
+    
+    NSArray *visibleCells = [self.collectionView indexPathsForVisibleItems];
+    NSNumber *randomCell = [NSNumber numberWithUnsignedLong:(rand() % (visibleCells.count - 1))];
+    
     NSIndexPath *cellPath = [NSIndexPath indexPathWithIndex:[randomCell unsignedIntegerValue]];
     
     MHCollectionCell *cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:@"MHCollectionCell" forIndexPath:cellPath];
@@ -315,12 +325,7 @@ newIndexPath:(NSIndexPath *)newIndexPath
     
     MHCollection *object = [self.fetchedResultsController objectAtIndexPath:cellPath];
     
-    NSArray *items = [MHDatabaseManager getAllItemsForCollectionWithObjId:object.objId];
-    
-    for (MHItem *item in items) {
-        MHMedia *media = [MHDatabaseManager mediaWithObjId:item.objId];
-        [cell.kenBurnsView addImage:[media image]];
-    }
+    [self cellConfiguration:cell withCoreDataObjectId:object.objId];
     
     [cell.kenBurnsView beginAnimationWithImages:cell.kenBurnsView.images withDuration:10 shouldLoop:NO isLandscape:NO];
     
