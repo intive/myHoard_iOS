@@ -8,7 +8,7 @@
 
 #import "MHImagePickerViewController.h"
 #import "MHMedia.h"
-#import "MHMediaHelper.h"
+#import "MHMedia+Images.h"
 #import "MHDatabaseManager.h"
 
 @interface MHImagePickerViewController ()

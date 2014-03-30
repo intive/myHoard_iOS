@@ -6,47 +6,40 @@
 //  Copyright (c) 2014 BLStream. All rights reserved.
 //
 
-#import "MHMediaHelper.h"
+#import "MHMedia+Images.h"
 
-@implementation MHMediaHelper
+@implementation MHMedia (Images)
 
--(UIImage*) thumbnail
-{
+- (UIImage*) thumbnail {
     NSURL *url = [NSURL fileURLWithPath:self.objLocalPath];
     ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
     __block UIImage *thumbnail = nil;
     [library assetForURL:url
-             resultBlock:^(ALAsset *asset)
-     {
+             resultBlock:^(ALAsset *asset) {
          CGImageRef ref = [asset aspectRatioThumbnail];
          thumbnail = [UIImage imageWithCGImage:ref];
-     }
+    }
      
-            failureBlock:^(NSError *error)
-     {
+            failureBlock:^(NSError *error) {
          NSLog(@"Unresolved error: %@, %@", error, [error userInfo]);
-     }
-     ];
-    return thumbnail;
+    }];
 
+    return thumbnail;
 }
 
--(UIImage*) image
-{
+- (UIImage*) image {
     NSURL *url = [NSURL fileURLWithPath:self.objLocalPath];
     ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
     __block UIImage *image = nil;
     [library assetForURL:url
-             resultBlock:^(ALAsset *asset)
-     {
+             resultBlock:^(ALAsset *asset) {
          image = [UIImage imageWithCGImage:[[asset defaultRepresentation] fullScreenImage]];
-     }
+    }
      
             failureBlock:^(NSError *error)
-     {
+    {
          NSLog(@"Unresolved error: %@, %@", error, [error userInfo]);
-     }
-     ];
+    }];
     
     return image;
 }

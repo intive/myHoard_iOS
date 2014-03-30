@@ -8,7 +8,7 @@
 
 #import <XCTest/XCTest.h>
 #import <OCMock/OCMock.h>
-#import "MHMediaHelper.h"
+#import "MHMedia+Images.h"
 
 @interface MHMediaHelperTests : XCTestCase
 

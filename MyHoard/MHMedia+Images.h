@@ -10,9 +10,9 @@
 #import <AVFoundation/AVFoundation.h>
 #import <AssetsLibrary/AssetsLibrary.h>
 
-@interface MHMediaHelper : MHMedia
+@interface MHMedia (Images)
 
--(UIImage*) thumbnail;
--(UIImage*) image;
+- (UIImage*) thumbnail;
+- (UIImage*) image;
 
 @end
