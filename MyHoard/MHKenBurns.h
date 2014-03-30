@@ -24,5 +24,6 @@
 - (void)animationTapperOn;
 - (void)reloadAfterDelay:(NSTimeInterval)delay;
 - (void)animateWithImageSelectorWrapper;
+- (void)stopMHKenBurns;
 
 @end

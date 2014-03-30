@@ -14,6 +14,8 @@
 #import "MHBaseViewController.h"
 #import "MHBadgeView.h"
 #import "UIActionSheet+ButtonState.h"
+#import "MHDatabaseManager.h"
+#import "MHMedia+Images.h"
 
 @interface MHCollectionViewController : MHBaseViewController <UICollectionViewDataSource, UICollectionViewDelegate, NSFetchedResultsControllerDelegate, UIActionSheetDelegate>
 

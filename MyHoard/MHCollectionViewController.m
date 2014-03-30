@@ -29,7 +29,7 @@ typedef NS_ENUM(NSInteger, CollectionSortMode) {
     NSMutableArray *_objectChanges;
     NSMutableArray *_sectionChanges;
     NSTimer *timeToChangeCollection;
-    UICollectionViewCell *animatingCell;
+    MHCollectionCell *animatingCell;
 }
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -101,8 +101,15 @@ typedef NS_ENUM(NSInteger, CollectionSortMode) {
         cell.badgeView.badgeValue = object.objItemsNumber;
     }
     
-    cell.kenBurnsView.backgroundColor = [UIColor clearColor];
+    cell.kenBurnsView.backgroundColor = [UIColor darkerGray];
     cell.tagsView.backgroundColor = [UIColor clearColor];
+    
+    NSArray *items = [MHDatabaseManager getAllItemsForCollectionWithObjId:object.objId];
+    
+    for (MHItem *item in items) {
+        MHMedia *media = [MHDatabaseManager mediaWithObjId:item.objId];
+        [cell.kenBurnsView addImage:[media image]];
+    }
     
     return cell;
 }
@@ -297,15 +304,26 @@ newIndexPath:(NSIndexPath *)newIndexPath
 -(void)idleTimerExceeded
 {
     if (animatingCell != nil) {
-        //[animatingCell.kenberns animeStop];
+        [animatingCell.kenBurnsView stopMHKenBurns];
     }
     NSNumber *randomCell = [NSNumber numberWithUnsignedLong:(rand() % [self.collectionView numberOfSections])];
     NSIndexPath *cellPath = [NSIndexPath indexPathWithIndex:[randomCell unsignedIntegerValue]];
     
-    UICollectionViewCell *cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:@"MHCollectionCell" forIndexPath:cellPath];
+    MHCollectionCell *cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:@"MHCollectionCell" forIndexPath:cellPath];
     [self.collectionView scrollToItemAtIndexPath:cellPath atScrollPosition:UICollectionViewScrollPositionTop animated:YES];
     //animating and showing cell, other things which needs to be implemented
-    //[cell.KenBerns anime];
+    
+    MHCollection *object = [self.fetchedResultsController objectAtIndexPath:cellPath];
+    
+    NSArray *items = [MHDatabaseManager getAllItemsForCollectionWithObjId:object.objId];
+    
+    for (MHItem *item in items) {
+        MHMedia *media = [MHDatabaseManager mediaWithObjId:item.objId];
+        [cell.kenBurnsView addImage:[media image]];
+    }
+    
+    [cell.kenBurnsView beginAnimationWithImages:cell.kenBurnsView.images withDuration:10 shouldLoop:NO isLandscape:NO];
+    
     animatingCell = cell;
     [self resetIdleTimer];
 }
