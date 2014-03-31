@@ -411,21 +411,21 @@ newIndexPath:(NSIndexPath *)newIndexPath
 #pragma mark MHDropDownMenu
 
 - (NSInteger)numberOfItemsInDropDownMenu:(MHDropDownMenu *)menu {
-    return 3;
+    return 2;
 
 }
 
 - (NSString*)titleInDropDownMenu:(MHDropDownMenu *)menu atIndex:(NSInteger)index {
+    NSString *ret = @"";
     switch (index) {
         case 0:
-            return @"Element";
+            ret = @"Element";
             break;
         case 1:
-            return @"Collection";
+            ret = @"Collection";
             break;
-        default:
-            return @"unused menu item";
     }
+    return ret;
 }
 
 - (UIImage *)imageInDropDownMenu:(MHDropDownMenu *)menu atIndex:(NSInteger)index{
