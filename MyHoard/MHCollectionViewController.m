@@ -441,14 +441,6 @@ newIndexPath:(NSIndexPath *)newIndexPath
     }
 }
 
-- (UIColor*)backgroundColorInDropDownMenu:(MHDropDownMenu *)menu atIndex:(NSInteger)index {
-    return [UIColor blackColor];
-}
-
-- (UIColor *)textColorInDropDownMenu:(MHDropDownMenu *)menu atIndex:(NSInteger)index{
-    return [UIColor navigationBarBackgroundColor];
-}
-
 - (void)dropDownMenu:(MHDropDownMenu*)menu didSelectItemAtIndex:(NSUInteger)index {
     if (index == 0)
     {

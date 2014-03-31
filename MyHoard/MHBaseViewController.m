@@ -101,5 +101,12 @@
     return 0;
 }
 
+- (UIColor*)backgroundColorInDropDownMenu:(MHDropDownMenu *)menu atIndex:(NSInteger)index {
+    return [UIColor blackColor];
+}
+
+- (UIColor *)textColorInDropDownMenu:(MHDropDownMenu *)menu atIndex:(NSInteger)index{
+    return [UIColor navigationBarBackgroundColor];
+}
 
 @end
