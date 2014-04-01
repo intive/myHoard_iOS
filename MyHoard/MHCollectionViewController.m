@@ -103,6 +103,7 @@ typedef NS_ENUM(NSInteger, CollectionSortMode) {
     
     cell.kenBurnsView.backgroundColor = [UIColor darkerGray];
     cell.tagsView.backgroundColor = [UIColor clearColor];
+    cell.tagsView.tagList = object.objTags;
     
     [self cellConfiguration:cell withCoreDataObjectId:object.objId];
     
