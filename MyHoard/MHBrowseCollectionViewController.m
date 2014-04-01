@@ -30,7 +30,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor colorWithRed:0.09375 green:0.09375 blue:0.09375 alpha:1.0];
+    self.view.backgroundColor = [UIColor darkerGray];
     self.collections = [NSMutableArray arrayWithArray:[MHDatabaseManager getAllCollections]];
 
     self.tableView.backgroundColor = [UIColor appBackgroundColor];
@@ -81,11 +81,16 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    self.lastSelectedCollection = [MHDatabaseManager getCollectionWithObjId:[_collections objectAtIndex:indexPath.row]];
-    self.collectionNameString = @"col";
-    NSLog(@"collectionname:%@",_collectionNameString);
-    [[self delegate]setCollectionName:self.collectionNameString];
+    MHCollection *collect = [_collections objectAtIndex:indexPath.row];
+    [[self delegate]setCollectionName:collect.objName];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+- (IBAction)cancelButton:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (IBAction)addButton:(id)sender {
+    [self performSegueWithIdentifier:@"addCollection" sender:self];
+}
 @end

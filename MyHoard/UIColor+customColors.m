@@ -78,6 +78,10 @@
     return [UIColor colorWithHexString:@"#a78219" alpha:1.0];
 }
 
++(UIColor*)lighterYellow{
+    return [UIColor colorWithHexString:@"#ffc002" alpha:1.0];
+}
+
 +(UIColor*)lighterGray{
     return [UIColor colorWithHexString:@"#2A2A2A" alpha:1.0];
 }

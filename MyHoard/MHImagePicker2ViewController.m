@@ -51,7 +51,6 @@
 - (void)finishAndUpdate {
     
     [self dismissViewControllerAnimated:YES completion:nil];
-    
     if ([self.capturedImages count] > 0) {
         if ([self.capturedImages count] == 1) {
             [self.imageView setImage:[self.capturedImages objectAtIndex:0]];

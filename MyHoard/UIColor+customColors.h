@@ -28,6 +28,7 @@
 +(UIColor*)photoNameFrontColor;
 +(UIColor*)noPhotoBackgroundColor;
 +(UIColor*)darkerYellow;
++(UIColor*)lighterYellow;
 +(UIColor*)lighterGray;
 +(UIColor*)darkerGray;
 +(UIColor*)lightButtonColor;
