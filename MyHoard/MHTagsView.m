@@ -67,7 +67,7 @@
 }
 
 - (void)setTag:(NSString *)tag inLabel:(CBAutoScrollLabel *)label {
-    label.text = [NSString stringWithFormat:@"#%@", tag];
+    label.text = [NSString stringWithFormat:@"%@", tag];
 }
 
 - (void)setTagList:(NSArray *)tagList {

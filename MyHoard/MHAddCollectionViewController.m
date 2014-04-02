@@ -115,7 +115,7 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 216;
         [MHDatabaseManager insertCollectionWithObjId:[NSString stringWithFormat:@"%u",arc4random()%10000]//in futere we will get it from server propably
                                              objName:self.nameTextField.text
                                       objDescription:self.descriptionTextField.text
-                                             objTags:[NSArray arrayWithObject:self.tagsTextField.text]
+                                             objTags:[self tagSlicer]
                                       objItemsNumber:nil
                                       objCreatedDate:[NSDate date]
                                      objModifiedDate:nil
@@ -233,5 +233,12 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 216;
     
 }
 
+- (NSArray *)tagSlicer {
+    
+    NSArray *tags = [[NSArray alloc]init];
+    tags = [_tagsTextField.text componentsSeparatedByString:@" "];
+    
+    return tags;
+}
 
 @end
