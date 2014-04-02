@@ -13,6 +13,7 @@
 #import "MHCoreDataContext.h"
 #import "MHItem.h"
 #import "MHCollection.h"
+#import "MHDatabaseManager.h"
 
 @interface MHItemViewController : MHBaseViewController <UICollectionViewDataSource, UICollectionViewDelegate, NSFetchedResultsControllerDelegate>
 

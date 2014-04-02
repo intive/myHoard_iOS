@@ -11,7 +11,8 @@
 
 typedef NS_ENUM(NSInteger, CollectionSortMode) {
     CollectionSortModeByName = 0,
-    CollectionSortModeByDate
+    CollectionSortModeByDate,
+    CollectionSortModeByCollectionId
 };
 
 @interface MHItemViewController ()
@@ -56,7 +57,7 @@ typedef NS_ENUM(NSInteger, CollectionSortMode) {
     _sectionChanges = [NSMutableArray array];
     animatingCell = nil;
     self.collectionView.backgroundColor = [UIColor appBackgroundColor];
-    self.sortMode = CollectionSortModeByDate;
+    self.sortMode = CollectionSortModeByCollectionId;
     self.collectionName.text = _collection.objName;
     self.collectionName.textColor = [UIColor whiteColor];
     
@@ -78,18 +79,21 @@ typedef NS_ENUM(NSInteger, CollectionSortMode) {
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     
-    id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController sections][section];
-    return [sectionInfo numberOfObjects];
+    NSInteger numberOfItemsInSection = [_collection.objItemsNumber integerValue];
+    return numberOfItemsInSection;
 }
 
 // The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
+
     MHItemCell *cell = (MHItemCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"MHItemCell" forIndexPath:indexPath];
     
     MHItem *object = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
-    cell.itemTitle.text = object.objName;
+    if ([_collection.objId isEqualToString:object.objCollectionId]) {
+        cell.itemTitle.text = object.objName;
+    }
     
     return cell;
 }
@@ -104,8 +108,10 @@ typedef NS_ENUM(NSInteger, CollectionSortMode) {
     
     if (_sortMode == CollectionSortModeByDate) {
         _fetchedResultsController = [self sortByDate];
-    } else {
+    } else if (_sortMode == CollectionSortModeByName) {
         _fetchedResultsController = [self sortByName];
+    }else {
+        _fetchedResultsController = [self sortByObjCollectionId];
     }
     _fetchedResultsController.delegate = self;
     
@@ -296,6 +302,17 @@ typedef NS_ENUM(NSInteger, CollectionSortMode) {
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"MHItem" inManagedObjectContext:[MHCoreDataContext getInstance].managedObjectContext];
     [fetchRequest setEntity:entity];
     NSSortDescriptor *sort = [[NSSortDescriptor alloc] initWithKey:@"objCreatedDate" ascending:YES];
+    [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
+    [fetchRequest setFetchBatchSize:20];
+    NSFetchedResultsController *frc = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:[MHCoreDataContext getInstance].managedObjectContext sectionNameKeyPath:nil cacheName:@"Root"];
+    return frc;
+}
+
+- (NSFetchedResultsController*) sortByObjCollectionId{
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc]init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"MHItem" inManagedObjectContext:[MHCoreDataContext getInstance].managedObjectContext];
+    [fetchRequest setEntity:entity];
+    NSSortDescriptor *sort = [[NSSortDescriptor alloc] initWithKey:@"objCollectionId" ascending:YES];
     [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
     [fetchRequest setFetchBatchSize:20];
     NSFetchedResultsController *frc = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:[MHCoreDataContext getInstance].managedObjectContext sectionNameKeyPath:nil cacheName:@"Root"];
