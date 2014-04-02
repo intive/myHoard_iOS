@@ -118,7 +118,9 @@ typedef NS_ENUM(NSInteger, CollectionSortMode) {
     
     for (MHItem *item in items) {
         MHMedia *media = [MHDatabaseManager mediaWithObjId:item.objId];
-        [cell.kenBurnsView addImage:[media thumbnail]];
+        if (media != nil) {
+            [cell.kenBurnsView addImage:[media thumbnail]];
+        }
     }
 }
 
