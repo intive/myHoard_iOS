@@ -3,6 +3,7 @@
     <dependencies>
         <deployment defaultVersion="1536" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--Register view controller-->
@@ -160,9 +161,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZWK-Ke-4o1" customClass="MHRoundButton">
-                                <rect key="frame" x="20" y="284" width="280" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZWK-Ke-4o1" customClass="MHRoundButton">
+                                <rect key="frame" x="45" y="264" width="235" height="39"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="ZWK-Ke-4o1" secondAttribute="height" multiplier="235:39" id="E8d-9y-hHt"/>
+                                </constraints>
                                 <state key="normal" title="Login">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -170,9 +174,12 @@
                                     <segue destination="Glg-jT-EFI" kind="push" identifier="LoginSegue" id="gWL-Gx-bwm"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eP1-eW-Z9O" customClass="MHRoundButton">
-                                <rect key="frame" x="20" y="322" width="280" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eP1-eW-Z9O" customClass="MHRoundButton">
+                                <rect key="frame" x="45" y="324" width="235" height="39"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="eP1-eW-Z9O" secondAttribute="height" multiplier="235:39" id="aCR-JL-udx"/>
+                                </constraints>
                                 <state key="normal" title="Register">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -180,9 +187,12 @@
                                     <segue destination="Glg-jT-EFI" kind="push" identifier="RegisterSegue" id="Xtm-aX-Up0"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qaV-fx-qe2" customClass="MHRoundButton">
-                                <rect key="frame" x="20" y="360" width="280" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qaV-fx-qe2" customClass="MHRoundButton">
+                                <rect key="frame" x="45" y="410" width="235" height="39"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="qaV-fx-qe2" secondAttribute="height" multiplier="235:39" id="6PI-3N-NUF"/>
+                                </constraints>
                                 <state key="normal" title="I don't want an account">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -190,12 +200,21 @@
                                     <segue destination="bzQ-Af-eKQ" kind="push" id="Ezi-9g-Ehw"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="startLogo" translatesAutoresizingMaskIntoConstraints="NO" id="Hwi-sY-nt9">
-                                <rect key="frame" x="40" y="112" width="240" height="128"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="startLogo" translatesAutoresizingMaskIntoConstraints="NO" id="Hwi-sY-nt9">
+                                <rect key="frame" x="95" y="135" width="132" height="41"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="Hwi-sY-nt9" secondAttribute="height" multiplier="132:41" id="sy8-zx-0Ni"/>
+                                </constraints>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="qaV-fx-qe2" firstAttribute="width" secondItem="eP1-eW-Z9O" secondAttribute="width" id="Dh9-wD-MM2"/>
+                            <constraint firstItem="qaV-fx-qe2" firstAttribute="width" secondItem="ZWK-Ke-4o1" secondAttribute="width" id="GxO-D3-Ddb"/>
+                            <constraint firstItem="qaV-fx-qe2" firstAttribute="height" secondItem="ZWK-Ke-4o1" secondAttribute="height" id="Hpx-EM-Yia"/>
+                            <constraint firstItem="qaV-fx-qe2" firstAttribute="height" secondItem="eP1-eW-Z9O" secondAttribute="height" id="k5T-7P-wCe"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="tug-GE-qNF"/>
                     <connections>
@@ -969,9 +988,9 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="uZQ-yX-J1c"/>
-        <segue reference="NTZ-JV-33S"/>
-        <segue reference="V6I-1K-e5x"/>
+        <segue reference="Ezi-9g-Ehw"/>
         <segue reference="Xtm-aX-Up0"/>
+        <segue reference="NTZ-JV-33S"/>
+        <segue reference="uZQ-yX-J1c"/>
     </inferredMetricsTieBreakers>
 </document>
