@@ -10,9 +10,9 @@
 #import "MHBrowseCollectionViewController.h"
 #import "MHDatabaseManager.h"
 static const CGFloat KEYBOARD_ANIMATION_DURATION = 0.3;
-static const CGFloat MINIMUM_SCROLL_FRACTION = 0.1;
+static const CGFloat MINIMUM_SCROLL_FRACTION = 0.01;
 static const CGFloat MAXIMUM_SCROLL_FRACTION = 0.8;
-static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 185;
+static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 200;
 
 @interface MHAddItem2ViewController ()
 @property (readwrite) CGFloat animatedDistance;
