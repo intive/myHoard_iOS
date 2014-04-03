@@ -67,7 +67,7 @@
 -(void)setDisableMHHamburger:(BOOL)disableMHHamburger{
     _disableMHHamburger = disableMHHamburger;
     if (!disableMHHamburger){
-        UIBarButtonItem *hamburger = [[UIBarButtonItem alloc] initWithTitle:@"\u2261" style:UIBarButtonItemStylePlain target:self action:nil];
+        UIBarButtonItem *hamburger = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"hamburger.png"] style:UIBarButtonItemStylePlain target:self action:nil];
         self.navigationItem.leftBarButtonItem = hamburger;
     } else {
         self.navigationItem.leftBarButtonItem = nil;

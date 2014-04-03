@@ -3,12 +3,12 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "XButton.png"
+      "filename" : "x.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "XButton@2x.png"
+      "filename" : "x@2x.png"
     }
   ],
   "info" : {
