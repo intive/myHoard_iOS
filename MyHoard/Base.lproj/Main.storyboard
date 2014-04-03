@@ -161,9 +161,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZWK-Ke-4o1" customClass="MHRoundButton">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZWK-Ke-4o1" customClass="MHRoundButton">
                                 <rect key="frame" x="45" y="264" width="235" height="39"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="39" id="yxI-Af-DfE"/>
+                                </constraints>
                                 <state key="normal" title="Login">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -171,9 +174,12 @@
                                     <segue destination="Glg-jT-EFI" kind="push" identifier="LoginSegue" id="gWL-Gx-bwm"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eP1-eW-Z9O" customClass="MHRoundButton">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eP1-eW-Z9O" customClass="MHRoundButton">
                                 <rect key="frame" x="45" y="324" width="235" height="39"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="235" id="3Jp-9D-Crx"/>
+                                </constraints>
                                 <state key="normal" title="Register">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -181,9 +187,12 @@
                                     <segue destination="Glg-jT-EFI" kind="push" identifier="RegisterSegue" id="Xtm-aX-Up0"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qaV-fx-qe2" customClass="MHRoundButton">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qaV-fx-qe2" customClass="MHRoundButton">
                                 <rect key="frame" x="45" y="410" width="235" height="39"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="235" id="D6U-kH-Yxa"/>
+                                </constraints>
                                 <state key="normal" title="I don't want an account">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -191,16 +200,28 @@
                                     <segue destination="bzQ-Af-eKQ" kind="push" id="Ezi-9g-Ehw"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="startLogo" translatesAutoresizingMaskIntoConstraints="NO" id="Hwi-sY-nt9">
-                                <rect key="frame" x="95" y="135" width="132" height="41"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="startLogo" translatesAutoresizingMaskIntoConstraints="NO" id="bHQ-YO-jTB">
-                                <rect key="frame" x="95" y="135" width="132" height="41"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="startLogo" translatesAutoresizingMaskIntoConstraints="NO" id="Hwi-sY-nt9">
+                                <rect key="frame" x="94" y="135" width="132" height="41"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="eP1-eW-Z9O" firstAttribute="leading" secondItem="KFJ-qy-RmU" secondAttribute="leading" constant="45" id="5Eu-4L-zkk"/>
+                            <constraint firstAttribute="trailing" secondItem="ZWK-Ke-4o1" secondAttribute="trailing" constant="40" id="7Ni-EI-9Lz"/>
+                            <constraint firstItem="eP1-eW-Z9O" firstAttribute="top" secondItem="ZWK-Ke-4o1" secondAttribute="bottom" constant="21" id="EKu-uR-7pY"/>
+                            <constraint firstAttribute="trailing" secondItem="eP1-eW-Z9O" secondAttribute="trailing" constant="40" id="JKh-oh-hup"/>
+                            <constraint firstItem="ZWK-Ke-4o1" firstAttribute="leading" secondItem="KFJ-qy-RmU" secondAttribute="leading" constant="45" id="LBu-pG-UgX"/>
+                            <constraint firstItem="qaV-fx-qe2" firstAttribute="top" secondItem="eP1-eW-Z9O" secondAttribute="bottom" constant="47" id="PLT-pj-rJx"/>
+                            <constraint firstItem="rl6-wd-Fvs" firstAttribute="top" secondItem="ZWK-Ke-4o1" secondAttribute="bottom" constant="265" id="TPn-0b-d7X"/>
+                            <constraint firstItem="qaV-fx-qe2" firstAttribute="leading" secondItem="KFJ-qy-RmU" secondAttribute="leading" constant="45" id="Vhw-mS-KwT"/>
+                            <constraint firstItem="Hwi-sY-nt9" firstAttribute="leading" secondItem="KFJ-qy-RmU" secondAttribute="leading" constant="94" id="W4p-Od-wOI"/>
+                            <constraint firstAttribute="trailing" secondItem="qaV-fx-qe2" secondAttribute="trailing" constant="40" id="aqe-Iq-W63"/>
+                            <constraint firstItem="rl6-wd-Fvs" firstAttribute="top" secondItem="qaV-fx-qe2" secondAttribute="bottom" constant="119" id="hvP-dx-uZ5"/>
+                            <constraint firstItem="Hwi-sY-nt9" firstAttribute="top" secondItem="bko-bX-Wuq" secondAttribute="bottom" constant="71" id="nQD-PN-qw7"/>
+                            <constraint firstItem="rl6-wd-Fvs" firstAttribute="top" secondItem="eP1-eW-Z9O" secondAttribute="bottom" constant="205" id="pMe-J2-dXK"/>
+                            <constraint firstAttribute="trailing" secondItem="Hwi-sY-nt9" secondAttribute="trailing" constant="94" id="vJq-x0-sXH"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="tug-GE-qNF"/>
                     <connections>
@@ -1031,9 +1052,9 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Xtm-aX-Up0"/>
         <segue reference="Ezi-9g-Ehw"/>
+        <segue reference="Xtm-aX-Up0"/>
+        <segue reference="7Aw-hx-44V"/>
         <segue reference="rUT-3V-c4T"/>
-        <segue reference="uZQ-yX-J1c"/>
     </inferredMetricsTieBreakers>
 </document>
