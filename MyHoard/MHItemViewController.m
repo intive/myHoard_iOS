@@ -346,7 +346,7 @@ typedef NS_ENUM(NSInteger, CollectionSortMode) {
 #pragma mark MHDropDownMenu
 
 - (NSInteger)numberOfItemsInDropDownMenu:(MHDropDownMenu *)menu {
-    return 2;
+    return 1;
 }
 
 - (NSString*)titleInDropDownMenu:(MHDropDownMenu *)menu atIndex:(NSInteger)index {
@@ -359,9 +359,7 @@ typedef NS_ENUM(NSInteger, CollectionSortMode) {
     }
 }
 
-- (UIColor*)backgroundColorInDropDownMenu:(MHDropDownMenu *)menu atIndex:(NSInteger)index {
-    return [UIColor navigationBarBackgroundColor];
-}
+
 
 - (void)dropDownMenu:(MHDropDownMenu*)menu didSelectItemAtIndex:(NSUInteger)index {
     if (index == 0) {

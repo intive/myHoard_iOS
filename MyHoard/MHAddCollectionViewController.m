@@ -8,13 +8,9 @@
 
 #import "MHAddCollectionViewController.h"
 #import "MHDatabaseManager.h"
-static const CGFloat KEYBOARD_ANIMATION_DURATION = 0.3;
-static const CGFloat MINIMUM_SCROLL_FRACTION = 0.2;
-static const CGFloat MAXIMUM_SCROLL_FRACTION = 0.8;
-static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 216;
 
 @interface MHAddCollectionViewController ()
-@property (readwrite) CGFloat animatedDistance;
+@property (readwrite) NSUInteger last;
 @end
 
 @implementation MHAddCollectionViewController
@@ -35,7 +31,6 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 216;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
                                    initWithTarget:self
                                    action:@selector(dismissKeyboard)];
-    
     [self.view addGestureRecognizer:tap];
     self.view.backgroundColor = [UIColor darkerGray];
     self.pickerHidingView.backgroundColor = [UIColor darkerGray];
@@ -67,6 +62,7 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 216;
                                                                  action:@selector(cancel:)];
     self.navigationController.navigationBar.topItem.leftBarButtonItems = @[cancel];
     _items = [[NSArray alloc]initWithObjects:@"Public", @"Private", @"Offline", nil];
+    _last=0;
 }
 
 - (void)didReceiveMemoryWarning
@@ -78,18 +74,29 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 216;
 - (IBAction)typeButton:(id)sender {
     [self dismissKeyboard];
     if (self.pickerHidingView.alpha==1.0) {
-        self.pickerHidingView.alpha=0.0;
+        [UIView animateWithDuration:1.0 animations:^{
+            self.pickerHidingView.alpha=0.0;
+        }];
     }else{
-        self.pickerHidingView.alpha=1.0;
+        [UIView animateWithDuration:1.0 animations:^{
+            self.pickerHidingView.alpha=1.0;
+        }];
     }
 }
 
 - (IBAction)pickerCancel:(id)sender {
-    self.pickerHidingView.alpha=1.0;
+    [UIView animateWithDuration:1.0 animations:^{
+        self.pickerHidingView.alpha=1.0;
+    }];
+    _typeLabel.text=[_items objectAtIndex:_last];
+    [self.pickerView selectRow:_last inComponent:0 animated:YES];
 }
 
 - (IBAction)pickerSave:(id)sender {
-    self.pickerHidingView.alpha=1.0;
+    [UIView animateWithDuration:1.0 animations:^{
+        self.pickerHidingView.alpha=1.0;
+    }];
+    _last=[_items indexOfObject: _typeLabel.text];
 }
 
 - (IBAction)cancel:(id)sender {
@@ -115,7 +122,7 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 216;
         [MHDatabaseManager insertCollectionWithObjId:[NSString stringWithFormat:@"%u",arc4random()%10000]//in futere we will get it from server propably
                                              objName:self.nameTextField.text
                                       objDescription:self.descriptionTextField.text
-                                             objTags:[self tagSlicer]
+                                             objTags:[NSArray arrayWithArray:[self.tagsTextField.text componentsSeparatedByString:@" "]]
                                       objItemsNumber:nil
                                       objCreatedDate:[NSDate date]
                                      objModifiedDate:nil
@@ -135,6 +142,9 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 216;
     }
     else if (textField == self.descriptionTextField) {
         [textField resignFirstResponder];
+        [UIView animateWithDuration:1.0 animations:^{
+            self.pickerHidingView.alpha=0.0;
+        }];
     }
     return YES;
 }
@@ -143,63 +153,6 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 216;
     [_nameTextField resignFirstResponder];
     [_tagsTextField resignFirstResponder];
     [_descriptionTextField resignFirstResponder];
-}
-
-- (void)textFieldDidBeginEditing:(UITextField *)textField
-{
-    CGRect textFieldRect =
-    [self.view.window convertRect:textField.bounds fromView:textField];
-    CGRect viewRect =
-    [self.view.window convertRect:self.view.bounds fromView:self.view];
-    CGFloat midline = textFieldRect.origin.y + 0.5 * textFieldRect.size.height;
-    CGFloat numerator =
-    midline - viewRect.origin.y
-    - MINIMUM_SCROLL_FRACTION * viewRect.size.height;
-    CGFloat denominator =
-    (MAXIMUM_SCROLL_FRACTION - MINIMUM_SCROLL_FRACTION)
-    * viewRect.size.height;
-    CGFloat heightFraction = numerator / denominator;if (heightFraction < 0.0)
-    {
-        heightFraction = 0.0;
-    }
-    else if (heightFraction > 1.0)
-    {
-        heightFraction = 1.0;
-    }
-    _animatedDistance = floor(PORTRAIT_KEYBOARD_HEIGHT * heightFraction);
-    CGRect viewFrame = self.view.frame;
-    viewFrame.origin.y -= _animatedDistance;
-    
-    [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationBeginsFromCurrentState:YES];
-    [UIView setAnimationDuration:KEYBOARD_ANIMATION_DURATION];
-    
-    [self.view setFrame:viewFrame];
-    
-    [UIView commitAnimations];
-    if(textField==_nameTextField){
-    _nameTextField.placeholder = nil;
-    }
-    if(textField==_tagsTextField){
-        _tagsTextField.placeholder = nil;
-    }
-    if(textField==_descriptionTextField){
-        _descriptionTextField.placeholder = nil;
-    }
-}
-
-- (void)textFieldDidEndEditing:(UITextField *)textField
-{
-    CGRect viewFrame = self.view.frame;
-    viewFrame.origin.y += _animatedDistance;
-    
-    [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationBeginsFromCurrentState:YES];
-    [UIView setAnimationDuration:KEYBOARD_ANIMATION_DURATION];
-    
-    [self.view setFrame:viewFrame];
-    
-    [UIView commitAnimations];
 }
 
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
@@ -233,12 +186,5 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 216;
     
 }
 
-- (NSArray *)tagSlicer {
-    
-    NSArray *tags = [[NSArray alloc]init];
-    tags = [_tagsTextField.text componentsSeparatedByString:@" "];
-    
-    return tags;
-}
 
 @end
