@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "MHAPI.h"
 
 @implementation AppDelegate
 
@@ -14,12 +15,14 @@
 {
     // Override point for customization after application launch.
     
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    MHAPI* api = [[MHAPI alloc] init];
+    [MHAPI setSharedAPIInstance:api];
     
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     if (![defaults objectForKey:@"server_preference"]) {
         [defaults setObject:@"Python" forKey:@"Python"];
     }
-    
     [defaults synchronize];
     
     return YES;

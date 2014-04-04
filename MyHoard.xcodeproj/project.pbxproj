@@ -16,6 +16,7 @@
 		230E6D3618BFF2FD00B9418E /* MHMedia+Images.m in Sources */ = {isa = PBXBuildFile; fileRef = 230E6D3518BFF2FD00B9418E /* MHMedia+Images.m */; };
 		235EB3C618DDAE3C0032D769 /* MHPasswordStrengthView.m in Sources */ = {isa = PBXBuildFile; fileRef = 235EB3C518DDAE3C0032D769 /* MHPasswordStrengthView.m */; };
 		235EB3C918DDF07E0032D769 /* MHLoginAndRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 235EB3C818DDF07E0032D769 /* MHLoginAndRegisterViewController.m */; };
+		23D02EFB18EEAA0300114941 /* MHAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D02EFA18EEAA0300114941 /* MHAPI.m */; };
 		23D321A1184BBFFA002FC13A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23D321A0184BBFFA002FC13A /* Foundation.framework */; };
 		23D321A3184BBFFA002FC13A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23D321A2184BBFFA002FC13A /* CoreGraphics.framework */; };
 		23D321A5184BBFFA002FC13A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23D321A4184BBFFA002FC13A /* UIKit.framework */; };
@@ -97,6 +98,8 @@
 		235EB3C518DDAE3C0032D769 /* MHPasswordStrengthView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHPasswordStrengthView.m; sourceTree = "<group>"; };
 		235EB3C718DDF07E0032D769 /* MHLoginAndRegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHLoginAndRegisterViewController.h; sourceTree = "<group>"; };
 		235EB3C818DDF07E0032D769 /* MHLoginAndRegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHLoginAndRegisterViewController.m; sourceTree = "<group>"; };
+		23D02EF918EEAA0300114941 /* MHAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHAPI.h; sourceTree = "<group>"; };
+		23D02EFA18EEAA0300114941 /* MHAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHAPI.m; sourceTree = "<group>"; };
 		23D3219D184BBFFA002FC13A /* MyHoard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyHoard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		23D321A0184BBFFA002FC13A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		23D321A2184BBFFA002FC13A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -252,6 +255,15 @@
 			name = Collections;
 			sourceTree = "<group>";
 		};
+		23D02EFC18EEAA0F00114941 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				23D02EF918EEAA0300114941 /* MHAPI.h */,
+				23D02EFA18EEAA0300114941 /* MHAPI.m */,
+			);
+			name = Networking;
+			sourceTree = "<group>";
+		};
 		23D32194184BBFF9002FC13A = {
 			isa = PBXGroup;
 			children = (
@@ -296,8 +308,9 @@
 				235EB3CB18DDF16F0032D769 /* Collections */,
 				235EB3CA18DDF1530032D769 /* LoginAndRegister */,
 				CEC22B1218DF699E002E7C76 /* MHBadgeView */,
-				CE529A7C18D8687B00A020E9 /* MHUserSettings.m */,
+				23D02EFC18EEAA0F00114941 /* Networking */,
 				CE529A7B18D8687B00A020E9 /* MHUserSettings.h */,
+				CE529A7C18D8687B00A020E9 /* MHUserSettings.m */,
 				23F64D6318E4CBBE003420E3 /* MHRoundButton.h */,
 				23F64D6418E4CBBE003420E3 /* MHRoundButton.m */,
 				23D321AF184BBFFA002FC13A /* AppDelegate.h */,
@@ -592,6 +605,7 @@
 				9370CAEB18CFC1E400C77461 /* MHCollectionCell.m in Sources */,
 				23F27A5518D8E59F00877D30 /* MHDropDownMenuViewController.m in Sources */,
 				93245CA418E0931D008AFE37 /* MHItemCell.m in Sources */,
+				23D02EFB18EEAA0300114941 /* MHAPI.m in Sources */,
 				E74EDDBA18E6F7F200488AD1 /* UIActionSheet+ButtonState.m in Sources */,
 				CE92CB5818C321EF005038D9 /* MHImagePickerViewController.m in Sources */,
 				CEA8F94518DE024600B75355 /* MHStartScreenViewController.m in Sources */,

@@ -9,9 +9,9 @@
 #import <Foundation/Foundation.h>
 
 typedef enum  {
-	MHServerTypeOne = 1,
-	MHServerTypeTwo,
-    MHServerTypeThree,
+	MHServerTypePython = 1,
+	MHServerTypeJava1,
+    MHServerTypeJava2,
 } MHServerType;
 
 @interface MHUserSettings : NSObject

@@ -38,11 +38,11 @@ NSString *const stringTypeServerThree = @"Java_two";
 
     
     if ([defaultsResult isEqualToString:stringTypeServerOne]) {
-        return MHServerTypeOne;
+        return MHServerTypePython;
     }else if ([defaultsResult isEqualToString:stringTypeServerTwo]) {
-        return MHServerTypeTwo;
+        return MHServerTypeJava1;
     }else {
-        return MHServerTypeThree;
+        return MHServerTypeJava2;
     }
 }
 

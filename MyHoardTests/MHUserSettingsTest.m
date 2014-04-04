@@ -43,9 +43,9 @@
     MHUserSettings *settings = [[MHUserSettings alloc]initWithUserDefaults:mockUserDefaults];
     id mockedSettings = [OCMockObject partialMockForObject:settings];
     
-    [[[mockedSettings expect]andReturnValue:OCMOCK_VALUE(MHServerTypeOne)]wrappigMethod];
+    [[[mockedSettings expect]andReturnValue:OCMOCK_VALUE(MHServerTypePython)]wrappigMethod];
     
-    XCTAssertEqual([mockedSettings wrappigMethod], MHServerTypeOne, @"");
+    XCTAssertEqual([mockedSettings wrappigMethod], MHServerTypePython, @"");
     
     [mockedSettings wrappigMethod];
     [mockedSettings verify];
