@@ -17,6 +17,7 @@
 		235EB3C618DDAE3C0032D769 /* MHPasswordStrengthView.m in Sources */ = {isa = PBXBuildFile; fileRef = 235EB3C518DDAE3C0032D769 /* MHPasswordStrengthView.m */; };
 		235EB3C918DDF07E0032D769 /* MHLoginAndRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 235EB3C818DDF07E0032D769 /* MHLoginAndRegisterViewController.m */; };
 		23D02EFB18EEAA0300114941 /* MHAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D02EFA18EEAA0300114941 /* MHAPI.m */; };
+		23D02F0318EF38C600114941 /* MHWaitDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D02F0218EF38C600114941 /* MHWaitDialog.m */; };
 		23D321A1184BBFFA002FC13A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23D321A0184BBFFA002FC13A /* Foundation.framework */; };
 		23D321A3184BBFFA002FC13A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23D321A2184BBFFA002FC13A /* CoreGraphics.framework */; };
 		23D321A5184BBFFA002FC13A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23D321A4184BBFFA002FC13A /* UIKit.framework */; };
@@ -100,6 +101,8 @@
 		235EB3C818DDF07E0032D769 /* MHLoginAndRegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHLoginAndRegisterViewController.m; sourceTree = "<group>"; };
 		23D02EF918EEAA0300114941 /* MHAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHAPI.h; sourceTree = "<group>"; };
 		23D02EFA18EEAA0300114941 /* MHAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHAPI.m; sourceTree = "<group>"; };
+		23D02F0118EF38C600114941 /* MHWaitDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHWaitDialog.h; sourceTree = "<group>"; };
+		23D02F0218EF38C600114941 /* MHWaitDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHWaitDialog.m; sourceTree = "<group>"; };
 		23D3219D184BBFFA002FC13A /* MyHoard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyHoard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		23D321A0184BBFFA002FC13A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		23D321A2184BBFFA002FC13A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -264,6 +267,17 @@
 			name = Networking;
 			sourceTree = "<group>";
 		};
+		23D02F0018EF386F00114941 /* CustomViews */ = {
+			isa = PBXGroup;
+			children = (
+				23F64D6318E4CBBE003420E3 /* MHRoundButton.h */,
+				23F64D6418E4CBBE003420E3 /* MHRoundButton.m */,
+				23D02F0118EF38C600114941 /* MHWaitDialog.h */,
+				23D02F0218EF38C600114941 /* MHWaitDialog.m */,
+			);
+			name = CustomViews;
+			sourceTree = "<group>";
+		};
 		23D32194184BBFF9002FC13A = {
 			isa = PBXGroup;
 			children = (
@@ -309,10 +323,9 @@
 				235EB3CA18DDF1530032D769 /* LoginAndRegister */,
 				CEC22B1218DF699E002E7C76 /* MHBadgeView */,
 				23D02EFC18EEAA0F00114941 /* Networking */,
+				23D02F0018EF386F00114941 /* CustomViews */,
 				CE529A7B18D8687B00A020E9 /* MHUserSettings.h */,
 				CE529A7C18D8687B00A020E9 /* MHUserSettings.m */,
-				23F64D6318E4CBBE003420E3 /* MHRoundButton.h */,
-				23F64D6418E4CBBE003420E3 /* MHRoundButton.m */,
 				23D321AF184BBFFA002FC13A /* AppDelegate.h */,
 				23D321B0184BBFFA002FC13A /* AppDelegate.m */,
 				CE6C31BA18B1422100983736 /* MHItemViewController.h */,
@@ -614,6 +627,7 @@
 				235EB3C918DDF07E0032D769 /* MHLoginAndRegisterViewController.m in Sources */,
 				CE6C31BC18B1422100983736 /* MHItemViewController.m in Sources */,
 				537CF82C18AD643D008A7E04 /* MyHoardModel.xcdatamodeld in Sources */,
+				23D02F0318EF38C600114941 /* MHWaitDialog.m in Sources */,
 				23F64D2718DE682C003420E3 /* MHTagsView.m in Sources */,
 				CEE097B118BE82560060721A /* MHCollection.m in Sources */,
 				23D321AD184BBFFA002FC13A /* main.m in Sources */,
