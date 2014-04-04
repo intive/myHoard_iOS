@@ -269,19 +269,13 @@
                                                     <rect key="frame" x="5" y="5" width="120" height="125"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <subviews>
-                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WQC-2c-ZRK" customClass="MHBadgeView">
-                                                            <rect key="frame" x="93" y="99" width="20" height="20"/>
+                                                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WQC-2c-ZRK" customClass="MHBadgeView">
+                                                            <rect key="frame" x="87" y="92" width="20" height="20"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                                         </view>
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <constraints>
-                                                        <constraint firstItem="WQC-2c-ZRK" firstAttribute="leading" secondItem="2Te-kW-8dv" secondAttribute="leading" constant="93" id="E8N-Mn-can"/>
-                                                        <constraint firstAttribute="bottom" secondItem="WQC-2c-ZRK" secondAttribute="bottom" constant="6" id="MMq-1G-1fF"/>
-                                                        <constraint firstAttribute="trailing" secondItem="WQC-2c-ZRK" secondAttribute="trailing" constant="7" id="MVF-YV-npu"/>
-                                                        <constraint firstItem="WQC-2c-ZRK" firstAttribute="top" secondItem="2Te-kW-8dv" secondAttribute="top" constant="99" id="fAX-bo-dRN"/>
-                                                    </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uvZ-c1-Qma" customClass="MHTagsView">
                                                     <rect key="frame" x="5" y="154" width="120" height="21"/>

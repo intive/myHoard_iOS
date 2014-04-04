@@ -9,6 +9,12 @@
 #import "MHBadgeView.h"
 #import "UIColor+customColors.h"
 
+@interface MHBadgeView ()
+
+@property (nonatomic, readonly) NSInteger maxBadgeValue;
+
+@end
+
 @implementation MHBadgeView
 
 - (id)initWithFrame:(CGRect)frame
@@ -36,35 +42,21 @@
         _badgeTextColor = [UIColor darkerGray];
         _badgeCorner = 0.40;
         _badgeScale = 1.0;
-    
+        _maxBadgeValue = 99;
 }
 
 - (void)setBadgeValue:(NSNumber *)badgeValue {
     
     _badgeValue = badgeValue;
-    
-    NSString *badgeValueToString = [NSString stringWithFormat:@"%@", badgeValue];
-    
-    CGSize badgeValueSize = [badgeValueToString sizeWithFont:[UIFont boldSystemFontOfSize:10]];
-    CGFloat offsetFactor = 10;
-    
-    if ([badgeValueToString length] >= 2) {
-        
-        self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, badgeValueSize.width + offsetFactor, self.frame.size.height);
-    }
-    
-    [self setNeedsDisplay];
-    
 }
 
 -(void) drawRoundedRect:(CGRect)rect {
     
-    self.layer.cornerRadius = 9.5;
+    self.layer.cornerRadius = 10.0;
     self.layer.backgroundColor = [_badgeBackgroundColor CGColor];
     self.layer.shadowRadius = 8;
     self.layer.shadowOffset = CGSizeMake(0, 5);
     self.layer.shadowOpacity = 0.5;
-    
 }
 
 - (void)drawRect:(CGRect)rect {
@@ -76,12 +68,9 @@
 	if ([badgeValueToString length]>0) {
 		[_badgeTextColor set];
 		CGFloat sizeOfFont = 10 * _badgeScale;
-		if ([badgeValueToString length]<2) {
-			sizeOfFont += sizeOfFont * 0.20;
-		}
         
-        if ([badgeValueToString length] > 2) {
-            badgeValueToString = @"99+";
+        if ([_badgeValue integerValue] > _maxBadgeValue) {
+            badgeValueToString = [NSString stringWithFormat:@"%ld+", (long)_maxBadgeValue];
         }
         
 		UIFont *textFont = [UIFont boldSystemFontOfSize:sizeOfFont];
@@ -90,6 +79,27 @@
         
 	}
 	
+}
+
+- (void)layoutSubviews {
+    
+    [super layoutSubviews];
+    
+    self.frame = self.bounds;
+    
+    NSString *badgeValueToString = [NSString stringWithFormat:@"%@", _badgeValue];
+    
+    CGSize badgeValueSize = [badgeValueToString sizeWithFont:[UIFont boldSystemFontOfSize:10]];
+    CGFloat offsetFactor = 10;
+    
+    if ([badgeValueToString length] > 2) {
+        
+        self.frame = CGRectMake(95 - ([badgeValueToString length] - 2)*5, 100, badgeValueSize.width + offsetFactor, self.frame.size.height);
+        
+    }else {
+        
+        self.frame = CGRectMake(95, 100, self.frame.size.width, self.frame.size.height);
+    }
 }
 
 @end
