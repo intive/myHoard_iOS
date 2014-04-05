@@ -7,7 +7,6 @@
 //
 
 #import "MHAddItem2ViewController.h"
-#import "MHBrowseCollectionViewController.h"
 #import "MHDatabaseManager.h"
 static const CGFloat KEYBOARD_ANIMATION_DURATION = 0.3;
 static const CGFloat MINIMUM_SCROLL_FRACTION = 0.01;
@@ -56,8 +55,8 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 200;
     _defaultLabel.textColor = [UIColor darkerYellow];
     _commentaryTextView.backgroundColor = [UIColor clearColor];
     _commentaryTextView.textColor = [UIColor lighterYellow];
-    if([self.capturedImages objectAtIndex:0]!=NULL){
-        [self.imageView setImage:[self.capturedImages objectAtIndex:0]];
+    if([self.capturedImagesURL objectAtIndex:0]!=NULL){
+        //[self.imageView setImage:[self.capturedImages objectAtIndex:0]];
     }
 }
 
@@ -151,7 +150,8 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 200;
     CGFloat denominator =
     (MAXIMUM_SCROLL_FRACTION - MINIMUM_SCROLL_FRACTION)
     * viewRect.size.height;
-    CGFloat heightFraction = numerator / denominator;if (heightFraction < 0.0)
+    CGFloat heightFraction = numerator / denominator;
+    if (heightFraction < 0.0)
     {
         heightFraction = 0.0;
     }
@@ -191,6 +191,9 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 200;
     if (_collectionNameString != NULL) {
         self.collectionNoneLabel.text=_collectionNameString;
     }
+    if (_locationNameString != NULL) {
+        self.localizationNoneLabel.text=_locationNameString;
+    }
 }
 
 
@@ -199,6 +202,13 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 200;
     MHBrowseCollectionViewController *VC = [self.storyboard instantiateViewControllerWithIdentifier:@"browse"];
     VC.delegate = self;
     [[self navigationController] pushViewController:VC animated:YES];
+}
+
+- (IBAction)localizationButton:(id)sender {
+    [self dismissKeyboard];
+    MHLocalizationViewController *VCL = [self.storyboard instantiateViewControllerWithIdentifier:@"local"];
+    VCL.delegate = self;
+    [[self navigationController] pushViewController:VCL animated:YES];
 }
 
 
@@ -235,6 +245,10 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 200;
 
 -(void)setCollectionName:(NSString *)collectionName{
     _collectionNameString = collectionName;
+}
+
+-(void)setLocationName:(NSString *)locationName{
+    _locationNameString = locationName;
 }
 
 - (void)textViewDidChange:(UITextView *)txtView

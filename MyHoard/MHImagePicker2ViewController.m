@@ -91,7 +91,7 @@
     if([segue.identifier isEqualToString:@"createItemSegue"])
     {
         MHAddItem2ViewController *destinationViewController;
-        destinationViewController.capturedImages = self.capturedImages;
+        destinationViewController.capturedImagesURL = self.capturedImages;
     }
 }
 

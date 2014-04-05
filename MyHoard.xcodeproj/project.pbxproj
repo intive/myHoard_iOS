@@ -12,6 +12,7 @@
 		1A059F3818D200B700ECC6D0 /* MHAddCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A059F3118D200B700ECC6D0 /* MHAddCollectionViewController.m */; };
 		1A0D0B6718C7C742004B99BA /* MHLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A0D0B6618C7C742004B99BA /* MHLocation.m */; };
 		1A0D0B6918C7DDA9004B99BA /* MHLocationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A0D0B6818C7DDA9004B99BA /* MHLocationTests.m */; };
+		1A29F6B418EF324C00BCFB11 /* MHLocalizationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A29F6B318EF324C00BCFB11 /* MHLocalizationViewController.m */; };
 		2302787418B4C0A900FCD528 /* GcovTestObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 2302787318B4C0A900FCD528 /* GcovTestObserver.m */; };
 		230E6D3618BFF2FD00B9418E /* MHMedia+Images.m in Sources */ = {isa = PBXBuildFile; fileRef = 230E6D3518BFF2FD00B9418E /* MHMedia+Images.m */; };
 		235EB3C618DDAE3C0032D769 /* MHPasswordStrengthView.m in Sources */ = {isa = PBXBuildFile; fileRef = 235EB3C518DDAE3C0032D769 /* MHPasswordStrengthView.m */; };
@@ -95,6 +96,9 @@
 		1A0D0B6518C7C742004B99BA /* MHLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHLocation.h; sourceTree = "<group>"; };
 		1A0D0B6618C7C742004B99BA /* MHLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHLocation.m; sourceTree = "<group>"; };
 		1A0D0B6818C7DDA9004B99BA /* MHLocationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHLocationTests.m; sourceTree = "<group>"; };
+		1A29F6B218EF324C00BCFB11 /* MHLocalizationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHLocalizationViewController.h; sourceTree = "<group>"; };
+		1A29F6B318EF324C00BCFB11 /* MHLocalizationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHLocalizationViewController.m; sourceTree = "<group>"; };
+		1ABD549C18F03C0700992A44 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		2302787318B4C0A900FCD528 /* GcovTestObserver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GcovTestObserver.m; sourceTree = "<group>"; };
 		230E6D3418BFF2FD00B9418E /* MHMedia+Images.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MHMedia+Images.h"; sourceTree = "<group>"; };
 		230E6D3518BFF2FD00B9418E /* MHMedia+Images.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MHMedia+Images.m"; sourceTree = "<group>"; };
@@ -311,6 +315,7 @@
 		23D3219F184BBFFA002FC13A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1ABD549C18F03C0700992A44 /* MapKit.framework */,
 				A7A348F418C88F2900FA1B6C /* libPods-TSMessages.a */,
 				A7A348F218C881B600FA1B6C /* libPods-MyHoardTests-TSMessages.a */,
 				93C7876C18C4EB3D0079359A /* ImageIO.framework */,
@@ -356,6 +361,8 @@
 				CEA8F94418DE024600B75355 /* MHStartScreenViewController.m */,
 				1A059F2F18D200B700ECC6D0 /* MHBrowseCollectionViewController.h */,
 				1A059F2C18D200B700ECC6D0 /* MHBrowseCollectionViewController.m */,
+				1A29F6B218EF324C00BCFB11 /* MHLocalizationViewController.h */,
+				1A29F6B318EF324C00BCFB11 /* MHLocalizationViewController.m */,
 				1A059F2D18D200B700ECC6D0 /* MHAddItem2ViewController.h */,
 				1A059F2B18D200B700ECC6D0 /* MHAddItem2ViewController.m */,
 				1A059F3218D200B700ECC6D0 /* MHAddCollectionViewController.h */,
@@ -665,6 +672,7 @@
 				93C28E4218D1E83B0011E41E /* MHBaseViewController.m in Sources */,
 				CEE097B718BE82940060721A /* MHMedia.m in Sources */,
 				235EB3C618DDAE3C0032D769 /* MHPasswordStrengthView.m in Sources */,
+				1A29F6B418EF324C00BCFB11 /* MHLocalizationViewController.m in Sources */,
 				23FB2BCF18D23DDF009EFDE7 /* UIColor+customColors.m in Sources */,
 				23F27A5B18D9A6D100877D30 /* MHDropDownMenuItem.m in Sources */,
 				CE28669618DB2A9D003AC446 /* MHKenBurns.m in Sources */,

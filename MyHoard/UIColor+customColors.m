@@ -105,4 +105,12 @@
     return [UIColor colorWithHexString:@"#ffc002" alpha:1.0];
 }
 
++(UIColor*)locationTableViewBackground{
+    return [UIColor colorWithHexString:@"313131" alpha:1.0];
+}
+
++(UIColor*)locationFieldBackground{
+    return [UIColor colorWithHexString:@"666666" alpha:1.0];
+}
+
 @end

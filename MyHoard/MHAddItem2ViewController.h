@@ -8,13 +8,15 @@
 
 #import <UIKit/UIKit.h>
 #import "MHBrowseCollectionViewController.h"
+#import "MHLocalizationViewController.h"
 
-@interface MHAddItem2ViewController : MHBaseViewController <UITextViewDelegate,passCollectionName>
+@interface MHAddItem2ViewController : MHBaseViewController <UITextViewDelegate,passCollectionName, passLocationName>
 
-@property (nonatomic) NSMutableArray *capturedImages;// need to be set by previous controllers
+@property (nonatomic) NSMutableArray *capturedImagesURL;// need to be set by previous controllers
 @property (nonatomic) NSArray *mediaIds;// need to be set by previous controllers
 
 @property (nonatomic,strong)NSString *collectionNameString;
+@property (nonatomic,strong)NSString *locationNameString;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (weak, nonatomic) IBOutlet UIView *titleBackground;
 @property (weak, nonatomic) IBOutlet UIView *collectionBackground;
@@ -28,6 +30,7 @@
 @property (weak, nonatomic) IBOutlet UITextView *commentaryTextView;
 @property (weak, nonatomic) IBOutlet UILabel *defaultLabel;
 - (IBAction)collectionButton:(id)sender;
+- (IBAction)localizationButton:(id)sender;
 - (IBAction)backButton:(id)sender;
 - (IBAction)doneButton:(id)sender;
 

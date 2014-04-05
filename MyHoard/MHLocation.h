@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
-typedef void (^MHLocationCompletionBlock)(CLLocation* object);
+typedef void (^MHLocationCompletionBlock)(NSArray* object);
 
 @interface  MHLocation : NSObject <CLLocationManagerDelegate> {
     CLLocationManager *locationManager;

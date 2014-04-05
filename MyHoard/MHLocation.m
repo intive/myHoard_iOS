@@ -77,22 +77,23 @@ static MHLocation *sharedInstance;
     {
         [geostring appendFormat:@", %@",postal];
     }
-    
-    [self->geocoder geocodeAddressString:geostring
-                       completionHandler:^(NSArray *coordinates, NSError
-                                           *error) {
-                           if (coordinates.count)
-                           {
-                               CLPlacemark *placemark = coordinates[0];
-                               completionBlock(placemark.location);
-                           }
-                           else
-                           {
-                               //error
-                               completionBlock(nil);
-                           }
-                       }];
-    
+    [[MHLocation sharedInstance]startGettingLocation];
+    CLLocation *geo=[[MHLocation sharedInstance]currentLocation];
+    [geocoder reverseGeocodeLocation:geo
+                   completionHandler:^(NSArray *placemarks, NSError *error) {
+                       if (error){
+                           NSLog(@"Geocode failed with error: %@", error);
+                           return;
+                       }
+                       CLPlacemark *placemark = [placemarks objectAtIndex:0];
+                       [self->geocoder geocodeAddressString:geostring
+                                                   inRegion:placemark.region
+                                          completionHandler:^(NSArray *coordinates, NSError
+                                                              *error) {
+                                              completionBlock(coordinates);
+                                          }];
+
+                   }];
 }
 
 @end
