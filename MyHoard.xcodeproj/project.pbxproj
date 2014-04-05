@@ -66,6 +66,9 @@
 		CEE097B118BE82560060721A /* MHCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE097B018BE82560060721A /* MHCollection.m */; };
 		CEE097B418BE82700060721A /* MHItem.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE097B318BE82700060721A /* MHItem.m */; };
 		CEE097B718BE82940060721A /* MHMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE097B618BE82940060721A /* MHMedia.m */; };
+		CEF82A0518F0383F00058BB8 /* MHAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEF82A0018F0383F00058BB8 /* MHAccountViewController.m */; };
+		CEF82A0618F0383F00058BB8 /* MHChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEF82A0218F0383F00058BB8 /* MHChangePasswordViewController.m */; };
+		CEF82A0718F0383F00058BB8 /* MHEditAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEF82A0418F0383F00058BB8 /* MHEditAccountViewController.m */; };
 		E72AA10A18E39B8900E2FDE4 /* MHSavePhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E72AA10918E39B8900E2FDE4 /* MHSavePhotoViewController.m */; };
 		E74EDDBA18E6F7F200488AD1 /* UIActionSheet+ButtonState.m in Sources */ = {isa = PBXBuildFile; fileRef = E74EDDB918E6F7F200488AD1 /* UIActionSheet+ButtonState.m */; };
 		E74EDDBD18E705E700488AD1 /* MHImagePicker2ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E74EDDBC18E705E700488AD1 /* MHImagePicker2ViewController.m */; };
@@ -179,6 +182,12 @@
 		CEE097B318BE82700060721A /* MHItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHItem.m; sourceTree = "<group>"; };
 		CEE097B518BE82940060721A /* MHMedia.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHMedia.h; sourceTree = "<group>"; };
 		CEE097B618BE82940060721A /* MHMedia.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHMedia.m; sourceTree = "<group>"; };
+		CEF829FF18F0383E00058BB8 /* MHAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHAccountViewController.h; sourceTree = "<group>"; };
+		CEF82A0018F0383F00058BB8 /* MHAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHAccountViewController.m; sourceTree = "<group>"; };
+		CEF82A0118F0383F00058BB8 /* MHChangePasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHChangePasswordViewController.h; sourceTree = "<group>"; };
+		CEF82A0218F0383F00058BB8 /* MHChangePasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHChangePasswordViewController.m; sourceTree = "<group>"; };
+		CEF82A0318F0383F00058BB8 /* MHEditAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHEditAccountViewController.h; sourceTree = "<group>"; };
+		CEF82A0418F0383F00058BB8 /* MHEditAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHEditAccountViewController.m; sourceTree = "<group>"; };
 		E72AA10818E39B8900E2FDE4 /* MHSavePhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHSavePhotoViewController.h; sourceTree = "<group>"; };
 		E72AA10918E39B8900E2FDE4 /* MHSavePhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHSavePhotoViewController.m; sourceTree = "<group>"; };
 		E74EDDB818E6F7F200488AD1 /* UIActionSheet+ButtonState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIActionSheet+ButtonState.h"; sourceTree = "<group>"; };
@@ -338,6 +347,7 @@
 				1A0D0B6618C7C742004B99BA /* MHLocation.m */,
 				CE92CB5718C321EF005038D9 /* MHImagePickerViewController.xib */,
 				23D321B2184BBFFA002FC13A /* Main.storyboard */,
+				CEF82A0818F0384700058BB8 /* Profile */,
 				E74EDDBB18E705E700488AD1 /* MHImagePicker2ViewController.h */,
 				E74EDDBC18E705E700488AD1 /* MHImagePicker2ViewController.m */,
 				E72AA10818E39B8900E2FDE4 /* MHSavePhotoViewController.h */,
@@ -437,6 +447,19 @@
 				CEC22B1018DF6985002E7C76 /* MHBadgeView.m */,
 			);
 			name = MHBadgeView;
+			sourceTree = "<group>";
+		};
+		CEF82A0818F0384700058BB8 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				CEF829FF18F0383E00058BB8 /* MHAccountViewController.h */,
+				CEF82A0018F0383F00058BB8 /* MHAccountViewController.m */,
+				CEF82A0118F0383F00058BB8 /* MHChangePasswordViewController.h */,
+				CEF82A0218F0383F00058BB8 /* MHChangePasswordViewController.m */,
+				CEF82A0318F0383F00058BB8 /* MHEditAccountViewController.h */,
+				CEF82A0418F0383F00058BB8 /* MHEditAccountViewController.m */,
+			);
+			name = Profile;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -617,6 +640,7 @@
 				CEE097B418BE82700060721A /* MHItem.m in Sources */,
 				9370CAEB18CFC1E400C77461 /* MHCollectionCell.m in Sources */,
 				23F27A5518D8E59F00877D30 /* MHDropDownMenuViewController.m in Sources */,
+				CEF82A0718F0383F00058BB8 /* MHEditAccountViewController.m in Sources */,
 				93245CA418E0931D008AFE37 /* MHItemCell.m in Sources */,
 				23D02EFB18EEAA0300114941 /* MHAPI.m in Sources */,
 				E74EDDBA18E6F7F200488AD1 /* UIActionSheet+ButtonState.m in Sources */,
@@ -624,6 +648,7 @@
 				CEA8F94518DE024600B75355 /* MHStartScreenViewController.m in Sources */,
 				1A0D0B6718C7C742004B99BA /* MHLocation.m in Sources */,
 				CEC22B1118DF6985002E7C76 /* MHBadgeView.m in Sources */,
+				CEF82A0618F0383F00058BB8 /* MHChangePasswordViewController.m in Sources */,
 				235EB3C918DDF07E0032D769 /* MHLoginAndRegisterViewController.m in Sources */,
 				CE6C31BC18B1422100983736 /* MHItemViewController.m in Sources */,
 				537CF82C18AD643D008A7E04 /* MyHoardModel.xcdatamodeld in Sources */,
@@ -634,6 +659,7 @@
 				9370CAF418CFC30A00C77461 /* MHCollectionViewController.m in Sources */,
 				1A059F3818D200B700ECC6D0 /* MHAddCollectionViewController.m in Sources */,
 				1A059F3518D200B700ECC6D0 /* MHAddItem2ViewController.m in Sources */,
+				CEF82A0518F0383F00058BB8 /* MHAccountViewController.m in Sources */,
 				23F64D6518E4CBBE003420E3 /* MHRoundButton.m in Sources */,
 				230E6D3618BFF2FD00B9418E /* MHMedia+Images.m in Sources */,
 				93C28E4218D1E83B0011E41E /* MHBaseViewController.m in Sources */,

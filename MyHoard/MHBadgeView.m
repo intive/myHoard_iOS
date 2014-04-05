@@ -40,7 +40,7 @@
         self.badgeValue = _badgeValue;
         _badgeBackgroundColor = [UIColor badgeBackgroundColor];
         _badgeTextColor = [UIColor darkerGray];
-        _badgeCorner = 0.40;
+        _badgeCorner = 10.0;
         _badgeScale = 1.0;
         _maxBadgeValue = 99;
 }
@@ -52,7 +52,7 @@
 
 -(void) drawRoundedRect:(CGRect)rect {
     
-    self.layer.cornerRadius = 10.0;
+    self.layer.cornerRadius = _badgeCorner;
     self.layer.backgroundColor = [_badgeBackgroundColor CGColor];
     self.layer.shadowRadius = 8;
     self.layer.shadowOffset = CGSizeMake(0, 5);
