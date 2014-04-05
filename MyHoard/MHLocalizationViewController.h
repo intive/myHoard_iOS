@@ -7,10 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreLocation/CoreLocation.h>
 
 @protocol passLocationName <NSObject>
 
 -(void)setLocationName:(NSString *)collectionName;
+-(void)setLocationCoordinate:(CLLocationCoordinate2D)coordinate;
 @end
 
 @interface MHLocalizationViewController : UIViewController<UITableViewDelegate, UITableViewDataSource>

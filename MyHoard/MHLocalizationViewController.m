@@ -109,6 +109,7 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     CLPlacemark *placemark = _localizations[indexPath.row];
     [[self delegate]setLocationName:placemark.description];
+    [[self delegate]setLocationCoordinate:placemark.location.coordinate];
     [self.navigationController setNavigationBarHidden:NO];
     [self.navigationController popViewControllerAnimated:YES];
 }

@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "MHBrowseCollectionViewController.h"
 #import "MHLocalizationViewController.h"
+#import <CoreLocation/CoreLocation.h>
 
 @interface MHAddItem2ViewController : MHBaseViewController <UITextViewDelegate,passCollectionName, passLocationName>
 
@@ -17,6 +18,7 @@
 
 @property (nonatomic,strong)NSString *collectionNameString;
 @property (nonatomic,strong)NSString *locationNameString;
+@property (nonatomic) CLLocationCoordinate2D locationCoordinatePassed;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (weak, nonatomic) IBOutlet UIView *titleBackground;
 @property (weak, nonatomic) IBOutlet UIView *collectionBackground;
