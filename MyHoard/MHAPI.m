@@ -79,7 +79,7 @@ static MHAPI *_sharedAPI = nil;
     NSError *error;
     
     AFJSONRequestSerializer *jsonRequest = [AFJSONRequestSerializer serializer];
-    NSMutableURLRequest *request = [jsonRequest requestWithMethod:@"GET" URLString:[self urlWithPath:@"users"] parameters:@{@"email": email, @"password": password} error:&error];
+    NSMutableURLRequest *request = [jsonRequest requestWithMethod:@"GET" URLString:[self urlWithPath:@"users/aa28b8fdb8aaea9854da1b73a48ee848"] parameters:@{@"email": email, @"password": password} error:&error];
     
     AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
                                                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {

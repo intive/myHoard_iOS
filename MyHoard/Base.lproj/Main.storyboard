@@ -3,6 +3,7 @@
     <dependencies>
         <deployment defaultVersion="1536" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--Register view controller-->
@@ -196,7 +197,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="CzS-vb-Akr" kind="modal" id="fpf-ee-tga"/>
+                                    <segue destination="bzQ-Af-eKQ" kind="push" id="Tjc-4h-2K3"/>
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="startLogo" translatesAutoresizingMaskIntoConstraints="NO" id="Hwi-sY-nt9">
@@ -337,7 +338,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NWp-Gh-aOk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-546" y="542"/>
+            <point key="canvasLocation" x="-736" y="498"/>
         </scene>
         <!--Image Picker View Controller-->
         <scene sceneID="UfZ-ea-9fL">
@@ -1540,7 +1541,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fq9-Bm-AIW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1019" y="801"/>
+            <point key="canvasLocation" x="-2171" y="2625"/>
         </scene>
     </scenes>
     <resources>
@@ -1555,8 +1556,9 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="7Aw-hx-44V"/>
+        <segue reference="Tjc-4h-2K3"/>
         <segue reference="Xtm-aX-Up0"/>
         <segue reference="rUT-3V-c4T"/>
-        <segue reference="uZQ-yX-J1c"/>
     </inferredMetricsTieBreakers>
 </document>
