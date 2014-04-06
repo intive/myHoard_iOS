@@ -76,15 +76,15 @@ static MHAPI *_sharedAPI = nil;
     return operation;
 }
 
-<<<<<<< HEAD
-- (AFHTTPRequestOperation *)readUser:(NSString *)email
-                        withPassword:(NSString *)password
-                     completionBlock:(MHAPICompletionBlock)completionBlock {
+- (AFHTTPRequestOperation *)readUserWithCompletionBlock:(MHAPICompletionBlock)completionBlock {
     
     NSError *error;
     
     AFJSONRequestSerializer *jsonRequest = [AFJSONRequestSerializer serializer];
-    NSMutableURLRequest *request = [jsonRequest requestWithMethod:@"GET" URLString:[self urlWithPath:@"users/aa28b8fdb8aaea9854da1b73a48ee848"] parameters:@{@"email": email, @"password": password} error:&error];
+    [jsonRequest setAuthorizationHeaderFieldWithToken:_accessToken];
+    
+    NSMutableURLRequest *request = [jsonRequest requestWithMethod:@"GET" URLString:[self urlWithPath:@"users"] parameters:nil error:&error];
+    
     
     AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
                                                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -93,7 +93,43 @@ static MHAPI *_sharedAPI = nil;
                                                                           completionBlock(nil, error);
                                                                       }];
     
-=======
+    operation.responseSerializer = [AFJSONResponseSerializer serializer];
+    operation.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", nil];
+    [self.operationQueue addOperation:operation];
+    
+    return operation;
+}
+
+- (AFHTTPRequestOperation *)accessToken:(NSString *)email
+                           withPassword:(NSString *)password
+                        completionBlock:(MHAPICompletionBlock)completionBlock {
+    NSError *error;
+    
+    AFJSONRequestSerializer* jsonRequest = [AFJSONRequestSerializer serializer];
+    NSMutableURLRequest *request = [jsonRequest requestWithMethod:@"POST"
+                                                        URLString:[self urlWithPath:@"oauth/token"]
+                                                       parameters:@{@"email": email,
+                                                                    @"password": password,
+                                                                    @"grant_type": password}
+                                                            error:&error];
+    
+    AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
+                                                                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                                                          completionBlock(responseObject, nil);
+                                                                          _accessToken = [responseObject valueForKeyPath:@"access_token"];
+                                                                          _refreshToken = [responseObject valueForKeyPath:@"refresh_token"];
+                                                                          
+                                                                      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                                                          completionBlock(nil, error);
+                                                                      }];
+    
+    operation.responseSerializer = [AFJSONResponseSerializer serializer];
+    operation.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", nil];
+    [self.operationQueue addOperation:operation];
+    
+    return operation;
+}
+
 - (AFHTTPRequestOperation *)createCollection:(MHCollection *)collection
                              completionBlock:(MHAPICompletionBlock)completionBlock
 {
@@ -141,7 +177,7 @@ static MHAPI *_sharedAPI = nil;
                                                                       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                                                           completionBlock(nil, error);
                                                                       }];
->>>>>>> MHItemViewController improved (still needs to display media and tags), MHAPI creating collection + item, media has to be improved, MHWaitDialog beta
+
     operation.responseSerializer = [AFJSONResponseSerializer serializer];
     operation.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", nil];
     [self.operationQueue addOperation:operation];
@@ -149,8 +185,7 @@ static MHAPI *_sharedAPI = nil;
     return operation;
 }
 
-<<<<<<< HEAD
-=======
+
 - (AFHTTPRequestOperation *)createMedia:(MHMedia *)media
                                          completionBlock:(MHAPICompletionBlock)completionBlock
 {
@@ -167,5 +202,5 @@ static MHAPI *_sharedAPI = nil;
     return nil;
 }
 
->>>>>>> MHItemViewController improved (still needs to display media and tags), MHAPI creating collection + item, media has to be improved, MHWaitDialog beta
+
 @end

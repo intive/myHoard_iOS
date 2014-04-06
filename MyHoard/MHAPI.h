@@ -14,6 +14,9 @@ typedef void (^MHAPICompletionBlock)(id object, NSError *error);
 
 @interface MHAPI : AFHTTPRequestOperationManager
 
+@property (nonatomic, strong) NSMutableString *accessToken;
+@property (nonatomic, strong) NSMutableString *refreshToken;
+
 + (instancetype)getInstance;
 
 + (void)setSharedAPIInstance:(MHAPI *)api;
@@ -24,7 +27,9 @@ typedef void (^MHAPICompletionBlock)(id object, NSError *error);
                           withPassword:(NSString *)password
                        completionBlock:(MHAPICompletionBlock)completionBlock;
 
-- (AFHTTPRequestOperation *)readUser:(NSString *)email
-                        withPassword:(NSString *)password
-                     completionBlock:(MHAPICompletionBlock)completionBlock;
+- (AFHTTPRequestOperation *)readUserWithCompletionBlock:(MHAPICompletionBlock)completionBlock;
+
+- (AFHTTPRequestOperation *)accessToken:(NSString *)email
+                           withPassword:(NSString *)password
+                        completionBlock:(MHAPICompletionBlock)completionBlock;
 @end

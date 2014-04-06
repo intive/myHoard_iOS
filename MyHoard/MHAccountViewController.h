@@ -11,6 +11,7 @@
 #import "MHBadgeView.h"
 #import "MHDatabaseManager.h"
 #import "MHCollection.h"
+#import "MHAPI.h"
 
 @interface MHAccountViewController : MHBaseViewController
 

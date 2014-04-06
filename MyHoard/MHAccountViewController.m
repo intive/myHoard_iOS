@@ -30,6 +30,8 @@
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc]initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:nil];
     [[self navigationItem] setBackBarButtonItem:backButton];
     
+    [self loginLabelTitle];
+    
     [self profilePictureViewShape];
     [self friendPictureViewShape];
     _loginLabel.textColor = [UIColor collectionNameFrontColor];
@@ -92,6 +94,17 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
+- (void)loginLabelTitle {
+    
+    MHAPI *api = [[MHAPI alloc]init];
+    [api readUserWithCompletionBlock:^(id object, NSError *error) {
+        _loginLabel.text = [object valueForKeyPath:@"username"];
+    }];
+}
+
+
 
 /*
 #pragma mark - Navigation
