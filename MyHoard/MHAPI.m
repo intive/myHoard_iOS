@@ -114,9 +114,9 @@ static MHAPI *_sharedAPI = nil;
     return operation;
 }
 
-- (AFHTTPRequestOperation *)accessToken:(NSString *)email
-                           withPassword:(NSString *)password
-                        completionBlock:(MHAPICompletionBlock)completionBlock {
+- (AFHTTPRequestOperation *)accessTokenForUser:(NSString *)email
+                                  withPassword:(NSString *)password
+                               completionBlock:(MHAPICompletionBlock)completionBlock {
     NSError *error;
     
     AFJSONRequestSerializer* jsonRequest = [AFJSONRequestSerializer serializer];
