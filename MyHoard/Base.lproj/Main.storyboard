@@ -1567,15 +1567,9 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-<<<<<<< HEAD
-        <segue reference="7Aw-hx-44V"/>
-        <segue reference="Tjc-4h-2K3"/>
+        <segue reference="AZv-hY-c59"/>
         <segue reference="Xtm-aX-Up0"/>
-=======
-        <segue reference="uZQ-yX-J1c"/>
->>>>>>> MHItemViewController improved (still needs to display media and tags), MHAPI creating collection + item, media has to be improved, MHWaitDialog beta
         <segue reference="rUT-3V-c4T"/>
-        <segue reference="V6I-1K-e5x"/>
-        <segue reference="Xtm-aX-Up0"/>
+        <segue reference="uZQ-yX-J1c"/>
     </inferredMetricsTieBreakers>
 </document>
