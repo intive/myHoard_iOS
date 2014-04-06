@@ -32,4 +32,6 @@ typedef void (^MHAPICompletionBlock)(id object, NSError *error);
 - (AFHTTPRequestOperation *)accessToken:(NSString *)email
                            withPassword:(NSString *)password
                         completionBlock:(MHAPICompletionBlock)completionBlock;
+- (void)logout:(MHAPICompletionBlock)completionBlock;
+
 @end

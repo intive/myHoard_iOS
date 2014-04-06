@@ -49,6 +49,12 @@ static MHAPI *_sharedAPI = nil;
     return [NSString stringWithFormat:@"%@/%@", [self serverUrl], path];
 }
 
+- (void)logout:(MHAPICompletionBlock)completionBlock {
+    _accessToken = nil;
+    _refreshToken = nil;
+    completionBlock(nil, nil);
+}
+
 - (AFHTTPRequestOperation *)createUser:(NSString *)email
                           withPassword:(NSString *)password
                        completionBlock:(MHAPICompletionBlock)completionBlock
