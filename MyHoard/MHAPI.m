@@ -15,6 +15,14 @@
 
 static MHAPI *_sharedAPI = nil;
 
+@interface MHAPI() {
+
+    NSString* _accessToken;
+    NSString* _refreshToken;
+}
+
+@end
+
 @implementation MHAPI
 
 + (instancetype)getInstance
