@@ -16,6 +16,7 @@
 @property (nonatomic) NSMutableArray *capturedImagesURL;// need to be set by previous controllers
 @property (nonatomic) NSArray *mediaIds;// need to be set by previous controllers
 
+@property (nonatomic,strong) MHLocalizationViewController *VCL;
 @property (nonatomic,strong)NSString *collectionNameString;
 @property (nonatomic,strong)NSString *locationNameString;
 @property (nonatomic) CLLocationCoordinate2D locationCoordinatePassed;

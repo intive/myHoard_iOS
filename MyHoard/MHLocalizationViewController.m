@@ -10,7 +10,6 @@
 #import "MHLocation.h"
 
 @interface MHLocalizationViewController ()
-
 @end
 
 @implementation MHLocalizationViewController
@@ -36,9 +35,14 @@
     _localizationText.textColor=[UIColor darkerYellow];
     [_tableView setSeparatorColor:[UIColor darkerYellow]];
     [_cancelButtonColor setTitleColor:[UIColor lighterYellow] forState:UIControlStateNormal];
-    [self.localizationText becomeFirstResponder];
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [self.navigationController setNavigationBarHidden:YES];
+    [super viewWillAppear:animated];
+    [self.localizationText becomeFirstResponder];
 }
 
 - (void)didReceiveMemoryWarning
@@ -66,6 +70,7 @@
     cell.textLabel.textColor = [UIColor whiteColor];
     cell.detailTextLabel.textColor = [UIColor whiteColor];
     cell.backgroundColor = [UIColor clearColor];
+    [cell setSelectionStyle:UITableViewCellSelectionStyleNone]; 
     NSMutableString *sub=[[NSMutableString  alloc]init];
     
     if (placemark.thoroughfare.length)
@@ -123,7 +128,6 @@
     if (textField == self.localizationText) {
         [[MHLocation sharedInstance]geolocateWithCity:textField.text withStreet:nil withPostalCode:nil completionBlock:^(NSArray *object) {
             _localizations=object;
-            NSLog(@"%d",[_localizations count]);
             [_tableView reloadData];
         }];
 

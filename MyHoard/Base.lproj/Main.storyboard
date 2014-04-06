@@ -670,7 +670,7 @@
         <!--Localization View Controller-->
         <scene sceneID="d5U-aT-yKZ">
             <objects>
-                <viewController storyboardIdentifier="local" id="3M4-Oc-VTX" customClass="MHLocalizationViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="location" id="3M4-Oc-VTX" customClass="MHLocalizationViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Wxb-f0-kB1"/>
                         <viewControllerLayoutGuide type="bottom" id="mev-hX-gTX"/>

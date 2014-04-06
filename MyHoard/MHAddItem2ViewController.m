@@ -206,9 +206,11 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 200;
 
 - (IBAction)localizationButton:(id)sender {
     [self dismissKeyboard];
-    MHLocalizationViewController *VCL = [self.storyboard instantiateViewControllerWithIdentifier:@"local"];
-    VCL.delegate = self;
-    [[self navigationController] pushViewController:VCL animated:YES];
+    if (_VCL==NULL) {
+    _VCL = [self.storyboard instantiateViewControllerWithIdentifier:@"location"];
+    _VCL.delegate = self;
+    }
+    [[self navigationController] pushViewController:_VCL animated:YES];
 }
 
 
