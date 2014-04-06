@@ -138,6 +138,12 @@
     return YES;
 }
 
+-(void)dismissKeyboard {
+    [_emailTextField resignFirstResponder];
+    [_passwordTextField resignFirstResponder];
+    [_passwordTextField1 resignFirstResponder];
+}
+
 - (void)slideFrame:(BOOL)yesNo {
     
     int movement = (yesNo ? -40 : 40);
@@ -313,6 +319,7 @@
 - (IBAction)goButtonPressed:(id)sender {
     if( [self dataFieldsValid]) {
         
+        [self dismissKeyboard];
         [_waitDialog show];
         
         if (_flowType == MHLoginFlow) {
