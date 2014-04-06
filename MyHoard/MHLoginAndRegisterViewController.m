@@ -8,12 +8,18 @@
 
 #import "MHLoginAndRegisterViewController.h"
 #import "MHPasswordStrengthView.h"
+#import "MHAPI.h"
+#import "MHWaitDialog.h"
 
-@interface MHLoginAndRegisterViewController () <UITextFieldDelegate>
+@interface MHLoginAndRegisterViewController () <UITextFieldDelegate> {
+    MHWaitDialog* _waitDialog;
+}
 
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField1;
 @property (weak, nonatomic) IBOutlet MHPasswordStrengthView *passwordStrength;
 @property (weak, nonatomic) IBOutlet UILabel *passwordStrengthLabel;
+
+- (IBAction)goButtonPressed:(id)sender;
 
 @end
 
@@ -32,6 +38,8 @@
 {
     [super viewDidLoad];
     
+    _waitDialog = [[MHWaitDialog alloc] init];
+
     _goButton.cornerRadius = _goButton.frame.size.width / 2.0;
     
     if (_flowType == MHLoginFlow) {
@@ -149,160 +157,176 @@
     [self slideFrame: NO];
 }
 
-- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     
-    if ([identifier isEqualToString:@"collectionSegue"]) {
-        if (_flowType == MHRegisterFlow) {
-            
-            
-            if (![_passwordTextField.text length] && ![_passwordTextField1.text length] && ![_emailTextField.text length]) {
-                
-                UIAlertView *alert = [[UIAlertView alloc]
-                                      initWithTitle:@"Alert"
-                                      message:@"To register You must provide all of the specified information"
-                                      delegate:nil
-                                      cancelButtonTitle:@"OK"
-                                      otherButtonTitles:nil];
-                
-                [alert show];
-                
-                return NO;
-                
-            }
-            
-            if (![_passwordTextField.text isEqualToString:[NSString stringWithFormat:@"%@", _passwordTextField1.text]]) {
+    [self.view endEditing:YES];
+}
+
+- (BOOL)dataFieldsValid {
+    if (_flowType == MHRegisterFlow) {
         
-                UIAlertView *alert = [[UIAlertView alloc]
-                                         initWithTitle:@"Alert"
-                                         message:@"Passwords do not match"
-                                         delegate:nil
-                                         cancelButtonTitle:@"OK"
-                                         otherButtonTitles:nil];
+        
+        if (![_passwordTextField.text length] && ![_passwordTextField1.text length] && ![_emailTextField.text length]) {
             
-                [alert show];
+            UIAlertView *alert = [[UIAlertView alloc]
+                                  initWithTitle:@"Alert"
+                                  message:@"To register You must provide all of the specified information"
+                                  delegate:nil
+                                  cancelButtonTitle:@"OK"
+                                  otherButtonTitles:nil];
             
-                return NO;
+            [alert show];
             
-            }
+            return NO;
             
-            if ([_passwordTextField1.text length] < 5) {
+        }
+        
+        if (![_passwordTextField.text isEqualToString:[NSString stringWithFormat:@"%@", _passwordTextField1.text]]) {
             
-                UIAlertView *alert = [[UIAlertView alloc]
+            UIAlertView *alert = [[UIAlertView alloc]
+                                  initWithTitle:@"Alert"
+                                  message:@"Passwords do not match"
+                                  delegate:nil
+                                  cancelButtonTitle:@"OK"
+                                  otherButtonTitles:nil];
+            
+            [alert show];
+            
+            return NO;
+            
+        }
+        
+        if ([_passwordTextField1.text length] < 5) {
+            
+            UIAlertView *alert = [[UIAlertView alloc]
                                   initWithTitle:@"Alert"
                                   message:@"Password must be at least 5 characters long"
                                   delegate:nil
                                   cancelButtonTitle:@"OK"
                                   otherButtonTitles:nil];
             
-                [alert show];
+            [alert show];
             
-                return NO;
-            }
+            return NO;
+        }
+        
+        if ([_emailTextField.text length] > 0) {
             
-            if ([_emailTextField.text length] > 0) {
-                
-                NSString *emailRegEx = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
-                NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegEx];
-                
-                if ([emailTest evaluateWithObject:_emailTextField.text] == NO) {
-                    
-                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Enter valid e-mail address" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                    [alert show];
-                    
-                    return NO;
-                }
-                
-            }else {
-                
-                UIAlertView *alert = [[UIAlertView alloc]
-                                      initWithTitle:@"Alert"
-                                      message:@"E-mail field is empty"
-                                      delegate:nil
-                                      cancelButtonTitle:@"OK"
-                                      otherButtonTitles:nil];
-                
-                [alert show];
-                
-                return NO;
-            }
-        }else if (_flowType == MHLoginFlow) {
+            NSString *emailRegEx = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
+            NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegEx];
             
-            if (![_passwordTextField.text length] && ![_emailTextField.text length]) {
+            if ([emailTest evaluateWithObject:_emailTextField.text] == NO) {
                 
-                UIAlertView *alert = [[UIAlertView alloc]
-                                      initWithTitle:@"Alert"
-                                      message:@"To log in You must provide all of the specified information"
-                                      delegate:nil
-                                      cancelButtonTitle:@"OK"
-                                      otherButtonTitles:nil];
-                
-                [alert show];
-                
-                return NO;
-                
-            }
-            
-            if ([_emailTextField.text length] > 0) {
-                
-                NSString *emailRegEx = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
-                NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegEx];
-                
-                if ([emailTest evaluateWithObject:_emailTextField.text] == NO) {
-                    
-                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Enter valid e-mail address" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                    [alert show];
-                    
-                    return NO;
-                }
-                
-            }else {
-                
-                UIAlertView *alert = [[UIAlertView alloc]
-                                      initWithTitle:@"Alert"
-                                      message:@"E-mail field is empty"
-                                      delegate:nil
-                                      cancelButtonTitle:@"OK"
-                                      otherButtonTitles:nil];
-                
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Enter valid e-mail address" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
                 [alert show];
                 
                 return NO;
             }
             
-            if ([_passwordTextField.text length] == 0) {
+        }else {
+            
+            UIAlertView *alert = [[UIAlertView alloc]
+                                  initWithTitle:@"Alert"
+                                  message:@"E-mail field is empty"
+                                  delegate:nil
+                                  cancelButtonTitle:@"OK"
+                                  otherButtonTitles:nil];
+            
+            [alert show];
+            
+            return NO;
+        }
+    }else if (_flowType == MHLoginFlow) {
+        
+        if (![_passwordTextField.text length] && ![_emailTextField.text length]) {
+            
+            UIAlertView *alert = [[UIAlertView alloc]
+                                  initWithTitle:@"Alert"
+                                  message:@"To log in You must provide all of the specified information"
+                                  delegate:nil
+                                  cancelButtonTitle:@"OK"
+                                  otherButtonTitles:nil];
+            
+            [alert show];
+            
+            return NO;
+            
+        }
+        
+        if ([_emailTextField.text length] > 0) {
+            
+            NSString *emailRegEx = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
+            NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegEx];
+            
+            if ([emailTest evaluateWithObject:_emailTextField.text] == NO) {
                 
-                UIAlertView *alert = [[UIAlertView alloc]
-                                      initWithTitle:@"Alert"
-                                      message:@"Password field is empty"
-                                      delegate:nil
-                                      cancelButtonTitle:@"OK"
-                                      otherButtonTitles:nil];
-                
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Enter valid e-mail address" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
                 [alert show];
                 
                 return NO;
             }
+            
+        }else {
+            
+            UIAlertView *alert = [[UIAlertView alloc]
+                                  initWithTitle:@"Alert"
+                                  message:@"E-mail field is empty"
+                                  delegate:nil
+                                  cancelButtonTitle:@"OK"
+                                  otherButtonTitles:nil];
+            
+            [alert show];
+            
+            return NO;
+        }
+        
+        if ([_passwordTextField.text length] == 0) {
+            
+            UIAlertView *alert = [[UIAlertView alloc]
+                                  initWithTitle:@"Alert"
+                                  message:@"Password field is empty"
+                                  delegate:nil
+                                  cancelButtonTitle:@"OK"
+                                  otherButtonTitles:nil];
+            
+            [alert show];
+            
+            return NO;
         }
     }
-    
     return YES;
 }
 
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    
-    [self.view endEditing:YES];
+- (void)login {
+    [[MHAPI getInstance] accessTokenForUser:_emailTextField.text
+                               withPassword:_passwordTextField.text
+                            completionBlock:^(id object, NSError *error) {
+                                [_waitDialog dismiss];
+                                if (error) {
+#warning - show error
+                                } else {
+                                    [self performSegueWithIdentifier:@"collectionSegue" sender:self];
+                                }
+                            }];
 }
 
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
- {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
-     
- }
-*/
-
+- (IBAction)goButtonPressed:(id)sender {
+    if( [self dataFieldsValid]) {
+        
+        [_waitDialog show];
+        
+        if (_flowType == MHLoginFlow) {
+            [self login];
+        } else { //register and then login
+            [[MHAPI getInstance] createUser:_emailTextField.text withPassword:_passwordTextField.text completionBlock:^(id object, NSError *error) {
+                if (error) {
+                    [_waitDialog dismiss];
+#warning show error!
+                } else {
+                    [self login];
+                }
+            }];
+        }
+    }
+}
 @end

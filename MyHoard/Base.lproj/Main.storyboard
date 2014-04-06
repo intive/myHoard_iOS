@@ -88,7 +88,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="bzQ-Af-eKQ" kind="push" identifier="collectionSegue" id="V6I-1K-e5x"/>
+                                    <action selector="goButtonPressed:" destination="Glg-jT-EFI" eventType="touchUpInside" id="6Yd-0t-qVM"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -119,6 +119,7 @@
                         <outlet property="passwordStrengthView" destination="6Ea-CQ-cYX" id="HgL-ER-R6A"/>
                         <outlet property="passwordTextField" destination="4ln-Wa-0fB" id="M1O-eQ-J4P"/>
                         <outlet property="passwordTextField1" destination="Hfo-0m-qgU" id="tEC-4e-3Vb"/>
+                        <segue destination="bzQ-Af-eKQ" kind="push" identifier="collectionSegue" id="AZv-hY-c59"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FQe-ic-Fjv" userLabel="First Responder" sceneMemberID="firstResponder"/>
