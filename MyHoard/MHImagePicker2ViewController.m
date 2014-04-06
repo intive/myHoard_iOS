@@ -28,6 +28,10 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.capturedImages = [[NSMutableArray alloc]init];
+    
+    self.mediaId = [[NSString alloc]init];
+    
+    UIBarButtonItem *saveButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"check.png"] style:UIBarButtonItemStylePlain target:self action:@selector(performSegue)];
 
     [self showImagePickerForSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
 }
@@ -54,6 +58,7 @@
     if ([self.capturedImages count] > 0) {
         if ([self.capturedImages count] == 1) {
             [self.imageView setImage:[self.capturedImages objectAtIndex:0]];
+            self.imageView.contentMode = UIViewContentModeScaleAspectFit;
         }
         
         [self.capturedImages removeAllObjects];
@@ -72,9 +77,14 @@
     
     NSString *imagePath = [imageUrl absoluteString];
     
-    NSString *mediaObjId = [imageUrl path];
+    //NSString *mediaObjId = [imageUrl path];
     
-    [MHDatabaseManager insertMediaWithObjId:mediaObjId objItem:nil objCreatedDate:[NSDate date] objOwner:nil objLocalPath:imagePath];
+    self.mediaId = imagePath;
+    
+    
+    [MHDatabaseManager insertMediaWithObjId:imagePath objItem:nil objCreatedDate:[NSDate date] objOwner:nil objLocalPath:imagePath];
+    
+
     
     [self finishAndUpdate];
 }
@@ -86,13 +96,10 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    
-    if([segue.identifier isEqualToString:@"createItemSegue"])
-    {
-        MHAddItem2ViewController *destinationViewController;
-        destinationViewController.capturedImagesURL = self.capturedImages;
-    }
+-(void) performSegue {
+    MHAddItem2ViewController *destinationViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"AddItem2"];
+    destinationViewController.mediaId = self.mediaId;
+    [self.navigationController pushViewController:destinationViewController animated:YES];
 }
 
 - (void)didReceiveMemoryWarning

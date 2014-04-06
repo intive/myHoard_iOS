@@ -55,8 +55,10 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 200;
     _defaultLabel.textColor = [UIColor darkerYellow];
     _commentaryTextView.backgroundColor = [UIColor clearColor];
     _commentaryTextView.textColor = [UIColor lighterYellow];
-    if([self.capturedImagesURL objectAtIndex:0]!=NULL){
-        //[self.imageView setImage:[self.capturedImages objectAtIndex:0]];
+    if (self.mediaId){
+        MHMedia *media = [MHDatabaseManager mediaWithObjId:self.mediaId];
+        UIImage *img = [media image];
+        [self.imageView setImage:img];
     }
 }
 

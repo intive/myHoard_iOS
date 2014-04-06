@@ -10,11 +10,15 @@
 #import "MHBrowseCollectionViewController.h"
 #import "MHLocalizationViewController.h"
 #import <CoreLocation/CoreLocation.h>
+#import "MHMedia.h"
+#import "MHDatabaseManager.h"
+#import "MHMedia+Images.h"
 
 @interface MHAddItem2ViewController : MHBaseViewController <UITextViewDelegate,passCollectionName, passLocationName>
 
 @property (nonatomic) NSMutableArray *capturedImagesURL;// need to be set by previous controllers
 @property (nonatomic) NSArray *mediaIds;// need to be set by previous controllers
+@property (nonatomic, readwrite) NSString *mediaId;
 
 @property (nonatomic,strong) MHLocalizationViewController *VCL;
 @property (nonatomic,strong)NSString *collectionNameString;
