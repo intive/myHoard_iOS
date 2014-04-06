@@ -8,6 +8,8 @@
 
 #import "MHCollectionViewController.h"
 #import "MHItemViewController.h"
+#import "UIImage+Gallery.h"
+#import "MHMedia.h"
 
 typedef NS_ENUM(NSInteger, CollectionSortMode) {
     CollectionSortModeByName = 0,
@@ -119,7 +121,9 @@ typedef NS_ENUM(NSInteger, CollectionSortMode) {
     for (MHItem *item in items) {
         MHMedia *media = [MHDatabaseManager mediaWithObjId:item.objId];
         if (media != nil) {
-            [cell.kenBurnsView addImage:[media thumbnail]];
+            [UIImage thumbnailForAssetPath:media.objLocalPath completion:^(UIImage *image) {
+                [cell.kenBurnsView addImage:image];
+            }];
         }
     }
 }

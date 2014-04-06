@@ -11,7 +11,6 @@
 #import "MHCollection.h"
 #import "MHItem.h"
 #import "MHMedia.h"
-#import "MHMedia+Images.h"
 
 static MHAPI *_sharedAPI = nil;
 
