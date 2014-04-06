@@ -749,7 +749,7 @@
             </objects>
             <point key="canvasLocation" x="1369" y="1953"/>
         </scene>
-        <!--Item View Controller-->
+        <!--Item View Controller - Collection Name-->
         <scene sceneID="tAz-Fy-q8e">
             <objects>
                 <viewController storyboardIdentifier="MHItemViewController" id="Pao-hk-0A0" customClass="MHItemViewController" sceneMemberID="viewController">
@@ -769,34 +769,39 @@
                                     <size key="itemSize" width="131" height="176"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="20" minY="80" maxX="20" maxY="20"/>
+                                    <inset key="sectionInset" minX="20" minY="150" maxX="20" maxY="20"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="MHItemCell" id="BPq-o3-7ej" customClass="MHItemCell">
-                                        <rect key="frame" x="20" y="144" width="131" height="176"/>
+                                        <rect key="frame" x="20" y="214" width="131" height="176"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="131" height="176"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Item Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ve7-kd-ty3">
-                                                    <rect key="frame" x="0.0" y="131" width="131" height="21"/>
+                                                    <rect key="frame" x="5" y="131" width="120" height="22"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Comments" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3kv-HQ-ajf">
-                                                    <rect key="frame" x="0.0" y="153" width="320" height="18"/>
+                                                    <rect key="frame" x="5" y="154" width="320" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wCy-lH-h5u">
+                                                    <rect key="frame" x="5" y="5" width="120" height="125"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <connections>
                                             <outlet property="itemComment" destination="3kv-HQ-ajf" id="8cf-ID-Z7n"/>
                                             <outlet property="itemTitle" destination="ve7-kd-ty3" id="BR6-DU-WME"/>
+                                            <outlet property="mediaView" destination="wCy-lH-h5u" id="gLR-iu-4tF"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -805,18 +810,25 @@
                                     <outlet property="delegate" destination="Pao-hk-0A0" id="fvv-ra-MNl"/>
                                 </connections>
                             </collectionView>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MTY-ZP-hlE">
-                                <rect key="frame" x="20" y="75" width="280" height="54"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MTY-ZP-hlE">
+                                <rect key="frame" x="0.0" y="70" width="320" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ENq-dZ-bk8" customClass="MHTagsView">
+                                <rect key="frame" x="0.0" y="110" width="320" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="bJD-IS-1l0"/>
+                    <navigationItem key="navigationItem" title="Collection Name" id="bJD-IS-1l0"/>
                     <connections>
-                        <outlet property="collectionName" destination="MTY-ZP-hlE" id="aR9-tK-U2V"/>
+                        <outlet property="collectionName" destination="bJD-IS-1l0" id="twV-qS-KhL"/>
+                        <outlet property="collectionTags" destination="5dp-fo-Hmy" id="4Ff-Ua-8me"/>
+                        <outlet property="collectionTitle" destination="MTY-ZP-hlE" id="yGb-L5-HNq"/>
                         <outlet property="collectionView" destination="5dp-fo-Hmy" id="Hgo-60-dL6"/>
                     </connections>
                 </viewController>
@@ -1555,9 +1567,15 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+<<<<<<< HEAD
         <segue reference="7Aw-hx-44V"/>
         <segue reference="Tjc-4h-2K3"/>
         <segue reference="Xtm-aX-Up0"/>
+=======
+        <segue reference="uZQ-yX-J1c"/>
+>>>>>>> MHItemViewController improved (still needs to display media and tags), MHAPI creating collection + item, media has to be improved, MHWaitDialog beta
         <segue reference="rUT-3V-c4T"/>
+        <segue reference="V6I-1K-e5x"/>
+        <segue reference="Xtm-aX-Up0"/>
     </inferredMetricsTieBreakers>
 </document>

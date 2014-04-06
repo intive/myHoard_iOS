@@ -12,6 +12,7 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *itemTitle;
 @property (weak, nonatomic) IBOutlet UILabel *itemComment;
+@property (weak, nonatomic) IBOutlet UIImageView *mediaView;
 
 
 @end

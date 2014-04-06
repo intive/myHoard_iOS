@@ -8,6 +8,10 @@
 
 #import "MHAPI.h"
 #import "MHUserSettings.h"
+#import "MHCollection.h"
+#import "MHItem.h"
+#import "MHMedia.h"
+#import "MHMedia+Images.h"
 
 static MHAPI *_sharedAPI = nil;
 
@@ -72,6 +76,7 @@ static MHAPI *_sharedAPI = nil;
     return operation;
 }
 
+<<<<<<< HEAD
 - (AFHTTPRequestOperation *)readUser:(NSString *)email
                         withPassword:(NSString *)password
                      completionBlock:(MHAPICompletionBlock)completionBlock {
@@ -88,6 +93,26 @@ static MHAPI *_sharedAPI = nil;
                                                                           completionBlock(nil, error);
                                                                       }];
     
+=======
+- (AFHTTPRequestOperation *)createCollection:(MHCollection *)collection
+                             completionBlock:(MHAPICompletionBlock)completionBlock
+{
+    NSError *error;
+    
+    AFJSONRequestSerializer *jsonSerializer = [AFJSONRequestSerializer serializer];
+    NSMutableURLRequest *request = [jsonSerializer requestWithMethod:@"PUT"
+                                                           URLString:[self urlWithPath:@"collections"]
+                                                          parameters:@{@"name": collection.objName,
+                                                                       @"description": collection.objDescription,
+                                                                       @"tags":collection.objTags}
+                                                               error:&error];
+    
+    AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
+                                                                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                                                          completionBlock(nil, error);
+                                                                      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                                                          completionBlock(nil, error);
+                                                                      }];
     operation.responseSerializer = [AFJSONResponseSerializer serializer];
     operation.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", nil];
     [self.operationQueue addOperation:operation];
@@ -95,4 +120,52 @@ static MHAPI *_sharedAPI = nil;
     return operation;
 }
 
+- (AFHTTPRequestOperation *)createItem:(MHItem *)item
+                       completionBlock:(MHAPICompletionBlock)completionBlock
+{
+    NSError *error;
+    
+    AFJSONRequestSerializer *jsonSerializer = [AFJSONRequestSerializer serializer];
+    NSMutableURLRequest *request = [jsonSerializer requestWithMethod:@"PUT"
+                                                           URLString:[self urlWithPath:@"items"]
+                                                          parameters:@{@"name": item.objName,
+                                                                       @"description": item.objDescription,
+                                                                       @"location":item.objLocation,
+                                                                       @"quantity":item.objQuantity,
+                                                                       @"media":item.objMediaIds}
+                                                               error:&error];
+    
+    AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
+                                                                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                                                          completionBlock(nil, error);
+                                                                      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                                                          completionBlock(nil, error);
+                                                                      }];
+>>>>>>> MHItemViewController improved (still needs to display media and tags), MHAPI creating collection + item, media has to be improved, MHWaitDialog beta
+    operation.responseSerializer = [AFJSONResponseSerializer serializer];
+    operation.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", nil];
+    [self.operationQueue addOperation:operation];
+    
+    return operation;
+}
+
+<<<<<<< HEAD
+=======
+- (AFHTTPRequestOperation *)createMedia:(MHMedia *)media
+                                         completionBlock:(MHAPICompletionBlock)completionBlock
+{
+    //Implementacja potrzebuje poprawy      
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSURL *url = [NSURL fileURLWithPath:media.objLocalPath];
+    [manager POST:@"http://78.133.154.18:8080/media" parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        [formData appendPartWithFileURL:url name:media.objId error:nil];
+    } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"Success: %@", responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+    }];
+    return nil;
+}
+
+>>>>>>> MHItemViewController improved (still needs to display media and tags), MHAPI creating collection + item, media has to be improved, MHWaitDialog beta
 @end

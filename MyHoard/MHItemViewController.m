@@ -58,9 +58,9 @@ typedef NS_ENUM(NSInteger, CollectionSortMode) {
     animatingCell = nil;
     self.collectionView.backgroundColor = [UIColor appBackgroundColor];
     self.sortMode = CollectionSortModeByCollectionId;
-    self.collectionName.text = _collection.objName;
-    self.collectionName.textColor = [UIColor whiteColor];
-    
+    self.collectionTitle.text = [NSString stringWithFormat:@"   %@", _collection.objDescription];
+    self.collectionTitle.textColor = [UIColor collectionNameFrontColor];
+    self.collectionName.title = _collection.objName;
 }
 
 - (void)didReceiveMemoryWarning
@@ -94,6 +94,9 @@ typedef NS_ENUM(NSInteger, CollectionSortMode) {
     if ([_collection.objId isEqualToString:object.objCollectionId]) {
         cell.itemTitle.text = object.objName;
     }
+    cell.itemComment.text = object.objDescription;
+    cell.mediaView.image= [UIImage imageWithData:[object.objMediaIds objectAtIndex:0]];
+    
     
     return cell;
 }
@@ -366,6 +369,8 @@ typedef NS_ENUM(NSInteger, CollectionSortMode) {
     } else {
         NSLog(@"Unknown menu item %lu selected:", (unsigned long)index);
     }
+    
 }
+
 
 @end
