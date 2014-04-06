@@ -36,13 +36,21 @@
 
 - (void)baseInit {
 
-        self.backgroundColor = [UIColor clearColor];
-        self.badgeValue = _badgeValue;
-        _badgeBackgroundColor = [UIColor badgeBackgroundColor];
-        _badgeTextColor = [UIColor darkerGray];
-        _badgeCorner = 10.0;
-        _badgeScale = 1.0;
-        _maxBadgeValue = 99;
+    self.backgroundColor = [UIColor clearColor];
+    self.badgeValue = _badgeValue;
+    _badgeBackgroundColor = [UIColor badgeBackgroundColor];
+    _badgeTextColor = [UIColor darkerGray];
+    _badgeCorner = 10.0;
+    _badgeScale = 1.0;
+    _badgePositionX = 95;
+    _badgePositionY = 100;
+    
+    _offsetFactor = 10;
+    
+#pragma mark - for independent positioning
+    
+    _badgeLayoutSubviewLengthLimit = 2;
+    _badgeLayoutSubviewLengthMultiplier = 5;
 }
 
 - (void)setBadgeValue:(NSNumber *)badgeValue {
@@ -90,15 +98,14 @@
     NSString *badgeValueToString = [NSString stringWithFormat:@"%@", _badgeValue];
     
     CGSize badgeValueSize = [badgeValueToString sizeWithFont:[UIFont boldSystemFontOfSize:10]];
-    CGFloat offsetFactor = 10;
     
-    if ([badgeValueToString length] > 2) {
+    if ([badgeValueToString length] > _badgeLayoutSubviewLengthLimit) {
         
-        self.frame = CGRectMake(95 - ([badgeValueToString length] - 2)*5, 100, badgeValueSize.width + offsetFactor, self.frame.size.height);
+        self.frame = CGRectMake(_badgePositionX - ([badgeValueToString length] - _badgeLayoutSubviewLengthLimit)*_badgeLayoutSubviewLengthMultiplier, _badgePositionY, badgeValueSize.width + _offsetFactor, self.frame.size.height);
         
     }else {
         
-        self.frame = CGRectMake(95, 100, self.frame.size.width, self.frame.size.height);
+        self.frame = CGRectMake(_badgePositionX, _badgePositionY, self.frame.size.width, self.frame.size.height);
     }
 }
 

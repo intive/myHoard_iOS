@@ -18,4 +18,13 @@
 @property (nonatomic, readwrite) CGFloat badgeCorner;
 @property (nonatomic, readwrite) CGFloat badgeScale;
 
+@property (nonatomic, readwrite) CGFloat badgePositionX;
+@property (nonatomic, readwrite) CGFloat badgePositionY;
+
+@property (nonatomic, readwrite) CGFloat offsetFactor;
+
+@property (nonatomic, readwrite) CGFloat badgeLayoutSubviewLengthLimit;
+@property (nonatomic, readwrite) CGFloat badgeLayoutSubviewLengthMultiplier;
+
+
 @end

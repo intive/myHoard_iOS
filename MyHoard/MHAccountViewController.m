@@ -30,7 +30,7 @@
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc]initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:nil];
     [[self navigationItem] setBackBarButtonItem:backButton];
     
-    [self loginLabelTitle];
+    //[self loginLabelTitle];
     
     [self profilePictureViewShape];
     [self friendPictureViewShape];
@@ -41,14 +41,7 @@
     _lineOne.backgroundColor = [UIColor lightGrayColor];
     _lineTwo.backgroundColor = [UIColor lightGrayColor];
     
-    
-    _numberOfCollections.badgeValue = @23;
-    _numberOfCollections.badgeCorner = 22.0;
-    [_numberOfCollections layoutIfNeeded];
-    
-    _numberOfPhotos.badgeValue = @23;
-    _numberOfPhotos.badgeCorner = 22.0;
-    [_numberOfPhotos layoutIfNeeded];
+    [self badgeLayoutPositioning];
 }
 
 - (void)profilePictureViewShape {
@@ -97,11 +90,33 @@
 
 
 - (void)loginLabelTitle {
+    //to be implemented soon
+}
+
+- (void)badgeLayoutPositioning {
     
-    MHAPI *api = [[MHAPI alloc]init];
-    [api readUserWithCompletionBlock:^(id object, NSError *error) {
-        _loginLabel.text = [object valueForKeyPath:@"username"];
-    }];
+    _numberOfCollections.badgeValue = @23;
+    _numberOfCollections.badgeCorner = 22.0;
+    [_numberOfCollections layoutIfNeeded];
+    
+    _numberOfPhotos.badgeValue = @233;
+    _numberOfPhotos.badgeCorner = 22.0;
+    [_numberOfPhotos layoutIfNeeded];
+    
+    if ([_numberOfCollections.badgeValue integerValue] > 99 || [_numberOfPhotos.badgeValue integerValue] > 99) {
+        
+        _numberOfCollections.badgePositionX = 20;
+        _numberOfCollections.badgePositionY = 346;
+        _numberOfCollections.badgeLayoutSubviewLengthLimit = 0;
+        _numberOfCollections.badgeLayoutSubviewLengthMultiplier = 1;
+        
+        _numberOfPhotos.badgePositionX = 257;
+        _numberOfPhotos.badgePositionY = 346;
+        _numberOfPhotos.badgeLayoutSubviewLengthLimit = 0;
+        _numberOfPhotos.badgeLayoutSubviewLengthMultiplier = 1;
+        _numberOfPhotos.offsetFactor = 27;
+        
+    }
 }
 
 
