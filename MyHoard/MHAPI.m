@@ -115,10 +115,9 @@ static MHAPI *_sharedAPI = nil;
     
     AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
                                                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                                                          completionBlock(responseObject, nil);
                                                                           _accessToken = [responseObject valueForKeyPath:@"access_token"];
                                                                           _refreshToken = [responseObject valueForKeyPath:@"refresh_token"];
-                                                                          
+                                                                          completionBlock(responseObject, nil);
                                                                       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                                                           completionBlock(nil, error);
                                                                       }];
@@ -136,7 +135,8 @@ static MHAPI *_sharedAPI = nil;
     NSError *error;
     
     AFJSONRequestSerializer *jsonSerializer = [AFJSONRequestSerializer serializer];
-    NSMutableURLRequest *request = [jsonSerializer requestWithMethod:@"PUT"
+    [jsonSerializer setAuthorizationHeaderFieldWithToken:_accessToken];
+    NSMutableURLRequest *request = [jsonSerializer requestWithMethod:@"POST"
                                                            URLString:[self urlWithPath:@"collections"]
                                                           parameters:@{@"name": collection.objName,
                                                                        @"description": collection.objDescription,
@@ -162,7 +162,8 @@ static MHAPI *_sharedAPI = nil;
     NSError *error;
     
     AFJSONRequestSerializer *jsonSerializer = [AFJSONRequestSerializer serializer];
-    NSMutableURLRequest *request = [jsonSerializer requestWithMethod:@"PUT"
+    [jsonSerializer setAuthorizationHeaderFieldWithToken:_accessToken];
+    NSMutableURLRequest *request = [jsonSerializer requestWithMethod:@"POST"
                                                            URLString:[self urlWithPath:@"items"]
                                                           parameters:@{@"name": item.objName,
                                                                        @"description": item.objDescription,

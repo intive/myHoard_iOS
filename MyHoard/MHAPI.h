@@ -14,8 +14,8 @@ typedef void (^MHAPICompletionBlock)(id object, NSError *error);
 
 @interface MHAPI : AFHTTPRequestOperationManager
 
-@property (nonatomic, strong) NSMutableString *accessToken;
-@property (nonatomic, strong) NSMutableString *refreshToken;
+@property (nonatomic, strong) NSString *accessToken;
+@property (nonatomic, strong) NSString *refreshToken;
 
 + (instancetype)getInstance;
 
