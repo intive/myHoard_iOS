@@ -8,6 +8,8 @@
 
 #import "MHAddItem2ViewController.h"
 #import "MHDatabaseManager.h"
+#import "UIImage+Gallery.h"
+
 static const CGFloat KEYBOARD_ANIMATION_DURATION = 0.3;
 static const CGFloat MINIMUM_SCROLL_FRACTION = 0.01;
 static const CGFloat MAXIMUM_SCROLL_FRACTION = 0.8;
@@ -56,9 +58,9 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 200;
     _commentaryTextView.backgroundColor = [UIColor clearColor];
     _commentaryTextView.textColor = [UIColor lighterYellow];
     if (self.mediaId){
-        MHMedia *media = [MHDatabaseManager mediaWithObjId:self.mediaId];
-        UIImage *img = [media image];
-        [self.imageView setImage:img];
+        [UIImage imageForAssetPath:self.mediaId completion:^(UIImage *image) {
+            self.imageView.image = image;
+        }];
     }
 }
 

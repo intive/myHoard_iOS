@@ -33,6 +33,8 @@
     
     UIBarButtonItem *saveButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"check.png"] style:UIBarButtonItemStylePlain target:self action:@selector(performSegue)];
 
+    self.navigationItem.rightBarButtonItem = saveButton;
+    
     [self showImagePickerForSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
 }
 
@@ -80,11 +82,6 @@
     //NSString *mediaObjId = [imageUrl path];
     
     self.mediaId = imagePath;
-    
-    
-    [MHDatabaseManager insertMediaWithObjId:imagePath objItem:nil objCreatedDate:[NSDate date] objOwner:nil objLocalPath:imagePath];
-    
-
     
     [self finishAndUpdate];
 }

@@ -12,7 +12,6 @@
 #import <CoreLocation/CoreLocation.h>
 #import "MHMedia.h"
 #import "MHDatabaseManager.h"
-#import "MHMedia+Images.h"
 
 @interface MHAddItem2ViewController : MHBaseViewController <UITextViewDelegate,passCollectionName, passLocationName>
 
