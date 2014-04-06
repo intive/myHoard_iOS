@@ -3,6 +3,7 @@
     <dependencies>
         <deployment defaultVersion="1536" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--Register view controller-->
@@ -201,10 +202,10 @@
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="startLogo" translatesAutoresizingMaskIntoConstraints="NO" id="Hwi-sY-nt9">
-                                <rect key="frame" x="95" y="135" width="132" height="41"/>
+                                <rect key="frame" x="95" y="95" width="125" height="125"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="Hwi-sY-nt9" secondAttribute="height" multiplier="132:41" id="sy8-zx-0Ni"/>
+                                    <constraint firstAttribute="width" secondItem="Hwi-sY-nt9" secondAttribute="height" multiplier="1:1" id="G9g-xD-J7o"/>
                                 </constraints>
                             </imageView>
                         </subviews>
@@ -1559,8 +1560,8 @@
     <resources>
         <image name="cameraIcons" width="22" height="22"/>
         <image name="cancel" width="22" height="22"/>
-        <image name="confirm" width="20" height="14"/>
-        <image name="startLogo" width="132" height="41"/>
+        <image name="confirm" width="22" height="22"/>
+        <image name="startLogo" width="125" height="125"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
@@ -1568,7 +1569,7 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="AZv-hY-c59"/>
+        <segue reference="Tjc-4h-2K3"/>
         <segue reference="Xtm-aX-Up0"/>
         <segue reference="rUT-3V-c4T"/>
         <segue reference="uZQ-yX-J1c"/>

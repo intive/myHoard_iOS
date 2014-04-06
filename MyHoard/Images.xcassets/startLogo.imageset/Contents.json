@@ -3,12 +3,12 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "startLogo.png"
+      "filename" : "myhoard_yellow.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "startLogo2x.png"
+      "filename" : "myhoard_yellow@2x.png"
     }
   ],
   "info" : {
