@@ -10,15 +10,28 @@
 
 @interface MHWaitDialog()
 
-@property UILabel *message;
-@property UIActivityIndicatorView *indicator;
+@property (nonatomic, strong) UIView* backgroundView;
+@property (nonatomic, strong) UILabel *message;
+@property (nonatomic, strong) UIActivityIndicatorView *indicator;
 
 @end
 
 @implementation MHWaitDialog
 
 - (void)commonInit {
-    [self setAlpha:0];
+    _backgroundView = [[UIView alloc] init];
+    _backgroundView.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.75];
+    [self addSubview:_backgroundView];
+
+    _message = [[UILabel alloc] initWithFrame:CGRectZero];
+    _message.textColor = [UIColor collectionNameFrontColor];
+    [self addSubview:_message];
+    
+    _indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+    [self addSubview:_indicator];
+
+    self.hidden = YES;
+    self.alpha = 0.0;
 }
 
 - (id)initWithFrame:(CGRect)frame
@@ -35,27 +48,41 @@
 }
 
 - (void)showWithText:(NSString *)text {
-    [self setAlpha:0.5];
-    self.hidden = false;
-    
-    _message = [[UILabel alloc] initWithFrame:CGRectMake(self.bounds.size.width / 4, (self.bounds.size.width / 4) + 50, 100, 50)];
-    _message.textColor = [UIColor collectionNameFrontColor];
+
     _message.text = text;
-    
-    _indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-    _indicator.center = CGPointMake(self.bounds.size.width / 2, self.bounds.size.height / 2);
     [_indicator startAnimating];
+
+    UIWindow* window = [[[UIApplication sharedApplication] delegate] window];
     
-    [self addSubview:_indicator];
-    [self addSubview:_message];
+    [window addSubview:self];
+    self.frame = window.bounds;
+    
+    self.hidden = NO;
+    [UIView animateWithDuration:0.25 animations:^(void) {
+        self.alpha = 1.0;
+    }];
 }
 
-- (void)dismiss {
-    [self setAlpha:0];
-    self.hidden = true;
-    [_message removeFromSuperview];
-    [_indicator removeFromSuperview];
-    
+- (void)dismiss
+{
+    [UIView animateWithDuration:0.25 animations:^(void) {
+        self.alpha = 0.0;
+    } completion:^(BOOL finished) {
+        if(finished) {
+            [self removeFromSuperview];
+        }
+    }];
+}
+
+- (void)layoutSubviews
+{
+    _backgroundView.frame = self.bounds;
+
+    _indicator.center = self.center;
+    _message.frame = CGRectMake(0, 0, self.bounds.size.width, 21);
+    [_message sizeToFit];
+    _message.center = CGPointMake(self.center.x, self.center.y + _indicator.frame.size.height + 8);
+
 }
 
 @end
