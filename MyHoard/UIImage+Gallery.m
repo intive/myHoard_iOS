@@ -14,11 +14,13 @@
 @implementation UIImage (Gallery)
 
 + (void)imageForAssetPath:(NSString *)path completion:(UIImageCompletionBlock)completion {
-    NSURL *url = [NSURL fileURLWithPath:path];
+    NSURL *url = [NSURL URLWithString:path];
     ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
     [library assetForURL:url
              resultBlock:^(ALAsset *asset) {
-                 UIImage* image = [UIImage imageWithCGImage:[[asset defaultRepresentation] fullScreenImage]];
+                 ALAssetRepresentation* r = [asset defaultRepresentation];
+                 CGImageRef img = [r fullScreenImage];
+                 UIImage* image = [UIImage imageWithCGImage:img];
                  completion(image);
              }
      
@@ -29,8 +31,9 @@
 }
 
 + (void)thumbnailForAssetPath:(NSString *)path completion:(UIImageCompletionBlock)completion {
-    NSURL *url = [NSURL fileURLWithPath:path];
+    NSURL *url = [NSURL URLWithString:path];
     ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+    
     [library assetForURL:url
              resultBlock:^(ALAsset *asset) {
                  CGImageRef ref = [asset aspectRatioThumbnail];
