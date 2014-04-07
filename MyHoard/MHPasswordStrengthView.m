@@ -39,10 +39,10 @@
     
     if ([password length] < 5) {
         return 0;
-    }else if ([password length] < 10) {
-        score += 20;
+    }else if ([password length] <= 10) {
+        score += 30;
     }else {
-        score += 40;
+        score += 50;
     }
     
     range = [password rangeOfCharacterFromSet:[NSCharacterSet illegalCharacterSet]];
@@ -59,8 +59,10 @@
     
     range = [password rangeOfCharacterFromSet:[NSCharacterSet symbolCharacterSet]];
     
-    if (range.length) {
-        return 0;
+    if (!range.length) {
+        score += 0;
+    }else {
+        score += 20;
     }
     
     range = [password rangeOfCharacterFromSet:[NSCharacterSet uppercaseLetterCharacterSet]];
@@ -68,7 +70,7 @@
     if (!range.length) {
         score += 0;
     }else {
-        score += 20;
+        score += 10;
     }
     
     range = [password rangeOfCharacterFromSet:[NSCharacterSet lowercaseLetterCharacterSet]];
@@ -76,7 +78,7 @@
     if (!range.length) {
         score += 0;
     }else {
-        score += 20;
+        score += 10;
     }
     
     range = [password rangeOfCharacterFromSet:[NSCharacterSet decimalDigitCharacterSet]];
@@ -84,7 +86,7 @@
     if (!range.length) {
         score += 0;
     }else {
-        score += 20;
+        score += 10;
     }
     
     
