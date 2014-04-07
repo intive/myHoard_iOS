@@ -8,6 +8,8 @@
 
 #import "MHAddItem2ViewController.h"
 #import "MHDatabaseManager.h"
+#import "UIImage+Gallery.h"
+
 static const CGFloat KEYBOARD_ANIMATION_DURATION = 0.3;
 static const CGFloat MINIMUM_SCROLL_FRACTION = 0.01;
 static const CGFloat MAXIMUM_SCROLL_FRACTION = 0.8;
@@ -55,8 +57,10 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 200;
     _defaultLabel.textColor = [UIColor darkerYellow];
     _commentaryTextView.backgroundColor = [UIColor clearColor];
     _commentaryTextView.textColor = [UIColor lighterYellow];
-    if([self.capturedImagesURL objectAtIndex:0]!=NULL){
-        //[self.imageView setImage:[self.capturedImages objectAtIndex:0]];
+    if (self.mediaId){
+        [UIImage imageForAssetPath:self.mediaId completion:^(UIImage *image) {
+            self.imageView.image = image;
+        }];
     }
 }
 
@@ -215,6 +219,10 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 200;
 
 
 - (IBAction)backButton:(id)sender {
+    if (self.mediaId){
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+    else
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 

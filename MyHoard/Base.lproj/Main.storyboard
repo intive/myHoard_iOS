@@ -3,6 +3,7 @@
     <dependencies>
         <deployment defaultVersion="1536" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--Register view controller-->
@@ -455,7 +456,7 @@
         <!--Add Item2 View Controller - Add-->
         <scene sceneID="0Rd-vc-2ib">
             <objects>
-                <viewController id="smS-mw-uPB" customClass="MHAddItem2ViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AddItem2" id="smS-mw-uPB" customClass="MHAddItem2ViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="cDg-1B-pwE"/>
                         <viewControllerLayoutGuide type="bottom" id="x8B-hj-uEF"/>

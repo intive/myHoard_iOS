@@ -15,5 +15,6 @@
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (nonatomic) UIImagePickerController *imagePickerController;
 @property (nonatomic) NSMutableArray *capturedImages;
+@property (nonatomic) NSString *mediaId;
 
 @end
