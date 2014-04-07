@@ -45,6 +45,7 @@
 		93245CA418E0931D008AFE37 /* MHItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 93245CA318E0931D008AFE37 /* MHItemCell.m */; };
 		9370CAEB18CFC1E400C77461 /* MHCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9370CAEA18CFC1E400C77461 /* MHCollectionCell.m */; };
 		9370CAF418CFC30A00C77461 /* MHCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9370CAF318CFC30A00C77461 /* MHCollectionViewController.m */; };
+		93BFC82F18F30A2B00F4777C /* MHItemViewHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 93BFC82E18F30A2B00F4777C /* MHItemViewHeader.m */; };
 		93C28E4218D1E83B0011E41E /* MHBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93C28E4118D1E83B0011E41E /* MHBaseViewController.m */; };
 		93C7876D18C4EB3D0079359A /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93C7876C18C4EB3D0079359A /* ImageIO.framework */; };
 		93CCCDF618C726D100F4A084 /* testImage.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 93CCCDF518C726D100F4A084 /* testImage.JPG */; };
@@ -155,6 +156,8 @@
 		9370CAEA18CFC1E400C77461 /* MHCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHCollectionCell.m; sourceTree = "<group>"; };
 		9370CAF218CFC30A00C77461 /* MHCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHCollectionViewController.h; sourceTree = "<group>"; };
 		9370CAF318CFC30A00C77461 /* MHCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHCollectionViewController.m; sourceTree = "<group>"; };
+		93BFC82D18F30A2B00F4777C /* MHItemViewHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHItemViewHeader.h; sourceTree = "<group>"; };
+		93BFC82E18F30A2B00F4777C /* MHItemViewHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHItemViewHeader.m; sourceTree = "<group>"; };
 		93C28E4018D1E83B0011E41E /* MHBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHBaseViewController.h; sourceTree = "<group>"; };
 		93C28E4118D1E83B0011E41E /* MHBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHBaseViewController.m; sourceTree = "<group>"; };
 		93C7876C18C4EB3D0079359A /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
@@ -344,6 +347,7 @@
 		23D321A6184BBFFA002FC13A /* MyHoard */ = {
 			isa = PBXGroup;
 			children = (
+				93BFC82C18F309F300F4777C /* Items */,
 				537CF82918AD6282008A7E04 /* Database */,
 				235EB3CB18DDF16F0032D769 /* Collections */,
 				235EB3CA18DDF1530032D769 /* LoginAndRegister */,
@@ -354,10 +358,6 @@
 				CE09D99418F2D8E8007E8885 /* UserSettings */,
 				23D321AF184BBFFA002FC13A /* AppDelegate.h */,
 				23D321B0184BBFFA002FC13A /* AppDelegate.m */,
-				CE6C31BA18B1422100983736 /* MHItemViewController.h */,
-				CE6C31BB18B1422100983736 /* MHItemViewController.m */,
-				93245CA218E0931D008AFE37 /* MHItemCell.h */,
-				93245CA318E0931D008AFE37 /* MHItemCell.m */,
 				CE92CB5518C321EF005038D9 /* MHImagePickerViewController.h */,
 				CE92CB5618C321EF005038D9 /* MHImagePickerViewController.m */,
 				1A0D0B6518C7C742004B99BA /* MHLocation.h */,
@@ -452,6 +452,19 @@
 				537CF83A18AE0D5D008A7E04 /* MHCoreDataContextForTests.m */,
 			);
 			name = Helpers;
+			sourceTree = "<group>";
+		};
+		93BFC82C18F309F300F4777C /* Items */ = {
+			isa = PBXGroup;
+			children = (
+				CE6C31BA18B1422100983736 /* MHItemViewController.h */,
+				CE6C31BB18B1422100983736 /* MHItemViewController.m */,
+				93245CA218E0931D008AFE37 /* MHItemCell.h */,
+				93245CA318E0931D008AFE37 /* MHItemCell.m */,
+				93BFC82D18F30A2B00F4777C /* MHItemViewHeader.h */,
+				93BFC82E18F30A2B00F4777C /* MHItemViewHeader.m */,
+			);
+			name = Items;
 			sourceTree = "<group>";
 		};
 		CE09D99418F2D8E8007E8885 /* UserSettings */ = {
@@ -689,6 +702,7 @@
 				CEF82A0518F0383F00058BB8 /* MHAccountViewController.m in Sources */,
 				23F64D6518E4CBBE003420E3 /* MHRoundButton.m in Sources */,
 				93C28E4218D1E83B0011E41E /* MHBaseViewController.m in Sources */,
+				93BFC82F18F30A2B00F4777C /* MHItemViewHeader.m in Sources */,
 				CEE097B718BE82940060721A /* MHMedia.m in Sources */,
 				235EB3C618DDAE3C0032D769 /* MHPasswordStrengthView.m in Sources */,
 				1A29F6B418EF324C00BCFB11 /* MHLocalizationViewController.m in Sources */,

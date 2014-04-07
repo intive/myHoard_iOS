@@ -14,15 +14,14 @@
 #import "MHItem.h"
 #import "MHCollection.h"
 #import "MHDatabaseManager.h"
-#import "MHTagsView.h"
+#import "MHMedia.h"
+#import "MHItemViewHeader.h"
 
 @interface MHItemViewController : MHBaseViewController <UICollectionViewDataSource, UICollectionViewDelegate, NSFetchedResultsControllerDelegate>
 
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (nonatomic, strong) MHCollection *collection;
-@property (weak, nonatomic) IBOutlet UILabel *collectionTitle;
-@property (weak, nonatomic) IBOutlet MHTagsView *collectionTags;
 @property (weak, nonatomic) IBOutlet UINavigationItem *collectionName;
 
 

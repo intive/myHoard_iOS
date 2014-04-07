@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 BLStream. All rights reserved.
 //
 #import "MHItemViewController.h"
-
+#import "UIImage+Gallery.h"
 
 
 typedef NS_ENUM(NSInteger, CollectionSortMode) {
@@ -52,14 +52,13 @@ typedef NS_ENUM(NSInteger, CollectionSortMode) {
     self.disableMHHamburger = YES;
     // Do any additional setup after loading the view, typically from a nib.
     
+    self.view.backgroundColor = [UIColor lighterGray];
     
     _objectChanges = [NSMutableArray array];
     _sectionChanges = [NSMutableArray array];
     animatingCell = nil;
-    self.collectionView.backgroundColor = [UIColor appBackgroundColor];
+    _collectionView.backgroundColor = [UIColor lighterGray];
     self.sortMode = CollectionSortModeByCollectionId;
-    self.collectionTitle.text = [NSString stringWithFormat:@"   %@", _collection.objDescription];
-    self.collectionTitle.textColor = [UIColor collectionNameFrontColor];
     self.collectionName.title = _collection.objName;
 }
 
@@ -93,12 +92,53 @@ typedef NS_ENUM(NSInteger, CollectionSortMode) {
     
     if ([_collection.objId isEqualToString:object.objCollectionId]) {
         cell.itemTitle.text = object.objName;
+        cell.itemTitle.textColor = [UIColor collectionNameFrontColor];
     }
+    cell.itemComment.textColor = [UIColor appBackgroundColor];
+    cell.backgroundColor = [UIColor blackColor];
     cell.itemComment.text = object.objDescription;
-    cell.mediaView.image= [UIImage imageWithData:[object.objMediaIds objectAtIndex:0]];
+    cell.mediaView.backgroundColor = [UIColor darkerGray];
     
+    [self cellConfiguration:cell withCoreDataObjectId:object.objId];
+
     
     return cell;
+}
+
+
+- (void)cellConfiguration:(MHItemCell *)cell withCoreDataObjectId:(NSString *)objectId
+{
+    MHMedia *media = [MHDatabaseManager mediaWithObjId:objectId];
+    if (media != nil) {
+        [UIImage thumbnailForAssetPath:media.objLocalPath completion:^(UIImage *image) {
+            cell.mediaView.image = image;
+        }];
+    }
+}
+
+#pragma mark - Collection header configure
+
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
+{
+    UICollectionReusableView *reusableview = nil;
+    
+    if (kind == UICollectionElementKindSectionHeader) {
+        MHItemViewHeader *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"MHItemViewHeader" forIndexPath:indexPath];
+        headerView.collectionTitle.text = [NSString stringWithFormat:@"%@", _collection.objDescription];
+        
+        for (NSString *tag in _collection.objTags) {
+            headerView.collectionTags.text = [NSString stringWithFormat:@"%@#%@ ", headerView.collectionTags.text, tag];
+        }
+        headerView.backgroundColor = [UIColor darkerGray];
+        headerView.collectionTitle.textColor = [UIColor collectionNameFrontColor];
+        headerView.collectionTags.textColor = [UIColor whiteColor
+                                               ];
+        
+        reusableview = headerView;
+    }
+    
+    
+    return reusableview;
 }
 
 #pragma mark - Fetched results controller
