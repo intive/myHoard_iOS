@@ -32,6 +32,8 @@
     [self profilePictureViewShape];
     _backgroundView.backgroundColor = [UIColor lighterGray];
     
+    [self setLabelTitle];
+    
     _loginLabel.textColor = [UIColor collectionNameFrontColor];
     _emailLabel.textColor = [UIColor collectionNameFrontColor];
     [_editPictureButton setTitleColor:[UIColor collectionNameFrontColor] forState:UIControlStateSelected];
@@ -62,6 +64,14 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)setLabelTitle {
+    
+    [[MHAPI getInstance]readUserWithCompletionBlock:^(MHUserProfile *object, NSError *error) {
+        _loginLabel.text = object.username;
+        _emailLabel.text = object.email;
+    }];
 }
 
 /*

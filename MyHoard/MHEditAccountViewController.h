@@ -8,6 +8,7 @@
 
 #import "MHBaseViewController.h"
 #import "UIActionSheet+ButtonState.h"
+#import "MHAPI.h"
 
 @interface MHEditAccountViewController : MHBaseViewController <UIActionSheetDelegate>
 
