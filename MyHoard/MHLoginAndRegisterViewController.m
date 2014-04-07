@@ -18,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField1;
 @property (weak, nonatomic) IBOutlet MHPasswordStrengthView *passwordStrength;
 @property (weak, nonatomic) IBOutlet UILabel *passwordStrengthLabel;
+@property (nonatomic, strong) NSString *errorMessage;
 
 - (IBAction)goButtonPressed:(id)sender;
 
@@ -310,6 +311,33 @@
                                 [_waitDialog dismiss];
                                 if (error) {
 #warning - show error
+                                    switch ([object statusCode]) {
+                                        case 401:
+                                            _errorMessage = @"Bad credentials";
+                                            break;
+                                        case 403:
+                                            _errorMessage = @"Forbidden";
+                                            break;
+                                        case 400:
+                                            _errorMessage = @"Validation error";
+                                            break;
+                                        case 404:
+                                            _errorMessage = @"Resource not found";
+                                            break;
+                                        case 500:
+                                            _errorMessage = @"Internal server error";
+                                            break;
+                                    }
+                                    
+                                    UIAlertView *alert = [[UIAlertView alloc]
+                                                          initWithTitle:@"Error"
+                                                          message:_errorMessage
+                                                          delegate:nil
+                                                          cancelButtonTitle:@"OK"
+                                                          otherButtonTitles:nil];
+                                    
+                                    [alert show];
+                                    
                                 } else {
                                     [self performSegueWithIdentifier:@"collectionSegue" sender:self];
                                 }
@@ -329,6 +357,33 @@
                 if (error) {
                     [_waitDialog dismiss];
 #warning show error!
+                    switch ([object statusCode]) {
+                        case 401:
+                            _errorMessage = @"Bad credentials";
+                            break;
+                        case 403:
+                            _errorMessage = @"Forbidden";
+                            break;
+                        case 400:
+                            _errorMessage = @"Validation error";
+                            break;
+                        case 404:
+                            _errorMessage = @"Resource not found";
+                            break;
+                        case 500:
+                            _errorMessage = @"Internal server error";
+                            break;
+                    }
+                    
+                    UIAlertView *alert = [[UIAlertView alloc]
+                                          initWithTitle:@"Error"
+                                          message:_errorMessage
+                                          delegate:nil
+                                          cancelButtonTitle:@"OK"
+                                          otherButtonTitles:nil];
+                    
+                    [alert show];
+                    
                 } else {
                     [self login];
                 }
