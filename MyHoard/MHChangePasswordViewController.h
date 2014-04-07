@@ -20,7 +20,6 @@
 @property (weak, nonatomic) IBOutlet UIView *labelBackgroundViewTwo;
 @property (weak, nonatomic) IBOutlet UIView *labelBackgroundViewThree;
 
-@property (weak, nonatomic) IBOutlet MHPasswordStrengthView *passwordStrengthView;
 @property (weak, nonatomic) IBOutlet UILabel *passwordStrengthLabel;
 
 @end

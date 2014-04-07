@@ -10,6 +10,8 @@
 
 @interface MHChangePasswordViewController ()
 
+@property (weak, nonatomic) IBOutlet MHPasswordStrengthView *passwordStrengthView;
+
 @end
 
 @implementation MHChangePasswordViewController
@@ -29,6 +31,10 @@
     
     self.disableMHHamburger = YES;
     
+    _passwordStrengthView.numberOfSections = 4;
+    _passwordStrengthView.startColor = [UIColor darkerYellow];
+    _passwordStrengthView.endColor = [UIColor redColor];
+    
     _passwordTextField.textColor = [UIColor collectionNameFrontColor];
     _confirmNewPasswordTextField.textColor = [UIColor collectionNameFrontColor];
     _changePasswordTextField.textColor = [UIColor collectionNameFrontColor];
@@ -37,7 +43,7 @@
     _labelBackgroundViewTwo.backgroundColor = [UIColor darkerGray];
     _labelBackgroundViewThree.backgroundColor = [UIColor darkerGray];
     
-    _passwordTextField.attributedPlaceholder = [[NSAttributedString alloc]initWithString:@"pojecia nie mam co tu ma byc" attributes:@{NSForegroundColorAttributeName: [UIColor darkerYellow]}];
+    _passwordTextField.attributedPlaceholder = [[NSAttributedString alloc]initWithString:@"mystery field" attributes:@{NSForegroundColorAttributeName: [UIColor darkerYellow]}];
     _confirmNewPasswordTextField.attributedPlaceholder = [[NSAttributedString alloc]initWithString:@"new password" attributes:@{NSForegroundColorAttributeName: [UIColor darkerYellow]}];
     _changePasswordTextField.attributedPlaceholder = [[NSAttributedString alloc]initWithString:@"confirm password" attributes:@{NSForegroundColorAttributeName: [UIColor darkerYellow]}];
     
@@ -65,9 +71,13 @@
     self.navigationItem.leftBarButtonItem = closeButton;
     UIBarButtonItem *saveButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"check.png"] style:UIBarButtonItemStylePlain target:self action:@selector(saveButton:)];
     self.navigationItem.rightBarButtonItem = saveButton;
+    
+}
 
-
-
+- (IBAction)textFieldDidChange:(UITextField *)textField {
+    if (textField == _changePasswordTextField) {
+        [_passwordStrengthView setPassword:textField.text];
+    }
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -79,12 +89,6 @@
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     
     [self.view endEditing:YES];
-}
-
-- (IBAction)textFieldDidChange:(UITextField *)textField {
-    if (textField == _passwordTextField) {
-        [_passwordStrengthView setPassword:textField.text];
-    }
 }
 
 - (void)slideFrame:(BOOL)yesNo {
@@ -121,14 +125,70 @@
 }
 
 /*
-#pragma mark - Navigation
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+ {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+-(void)dismissKeyboard {
+    
+    [_passwordTextField resignFirstResponder];
+    [_changePasswordTextField resignFirstResponder];
+    [_confirmNewPasswordTextField resignFirstResponder];
 }
-*/
+
+- (BOOL)dataFieldsValid {
+    
+    if (![_changePasswordTextField.text length] && ![_confirmNewPasswordTextField.text length]) {
+        
+        UIAlertView *alert = [[UIAlertView alloc]
+                              initWithTitle:@"Alert"
+                              message:@"To change password You must provide all of the specified information"
+                              delegate:nil
+                              cancelButtonTitle:@"OK"
+                              otherButtonTitles:nil];
+        
+        [alert show];
+        
+        return NO;
+        
+    }
+    
+    if (![_changePasswordTextField.text isEqualToString:[NSString stringWithFormat:@"%@", _confirmNewPasswordTextField.text]]) {
+        
+        UIAlertView *alert = [[UIAlertView alloc]
+                              initWithTitle:@"Alert"
+                              message:@"Passwords do not match"
+                              delegate:nil
+                              cancelButtonTitle:@"OK"
+                              otherButtonTitles:nil];
+        
+        [alert show];
+        
+        return NO;
+        
+    }
+    
+    if ([_changePasswordTextField.text length] < 5) {
+        
+        UIAlertView *alert = [[UIAlertView alloc]
+                              initWithTitle:@"Alert"
+                              message:@"Password must be at least 5 characters long"
+                              delegate:nil
+                              cancelButtonTitle:@"OK"
+                              otherButtonTitles:nil];
+        
+        [alert show];
+        
+        return NO;
+    }
+    
+    return YES;
+}
 
 @end

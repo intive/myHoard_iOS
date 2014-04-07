@@ -1471,6 +1471,10 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <action selector="textFieldDidChange:" destination="l5l-Lv-FSz" eventType="editingChanged" id="yki-v8-1UL"/>
+                                            <outlet property="delegate" destination="l5l-Lv-FSz" id="rsL-q8-Oxo"/>
+                                        </connections>
                                     </textField>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -1485,7 +1489,8 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                         <connections>
-                                            <action selector="textFieldDidChange:" destination="l5l-Lv-FSz" eventType="editingDidEnd" id="gr5-My-k66"/>
+                                            <action selector="textFieldDidChange:" destination="l5l-Lv-FSz" eventType="editingChanged" id="PoZ-OP-PIK"/>
+                                            <outlet property="delegate" destination="l5l-Lv-FSz" id="m58-Pf-7Eh"/>
                                         </connections>
                                     </textField>
                                 </subviews>
@@ -1500,6 +1505,10 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <action selector="textFieldDidChange:" destination="l5l-Lv-FSz" eventType="editingChanged" id="xio-nf-5TO"/>
+                                            <outlet property="delegate" destination="l5l-Lv-FSz" id="H5b-sp-XUG"/>
+                                        </connections>
                                     </textField>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
