@@ -40,4 +40,8 @@ typedef void (^MHAPICompletionBlock)(id object, NSError *error);
 
 - (AFHTTPRequestOperation *)deleteUserWithCompletionBlock:(MHAPICompletionBlock)completionBlock;
 
+- (AFHTTPRequestOperation *)refreshTokenForUser:(NSString *)email
+                                   withPassword:(NSString *)password
+                                completionBlock:(MHAPICompletionBlock)completionBlock;
+
 @end

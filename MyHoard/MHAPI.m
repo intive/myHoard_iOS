@@ -319,4 +319,37 @@ static MHAPI *_sharedAPI = nil;
     return operation;
 }
 
+#pragma mark - refresh token
+
+- (AFHTTPRequestOperation *)refreshTokenForUser:(NSString *)email
+                          withPassword:(NSString *)password
+                       completionBlock:(MHAPICompletionBlock)completionBlock {
+    NSError *error;
+    
+    AFJSONRequestSerializer* jsonRequest = [AFJSONRequestSerializer serializer];
+    [jsonRequest setAuthorizationHeaderFieldWithToken:_accessToken];
+    
+    NSMutableURLRequest *request = [jsonRequest requestWithMethod:@"POST"
+                                                        URLString:[self urlWithPath:@"oauth/token"]
+                                                       parameters:@{@"email": email,
+                                                                    @"password": password,
+                                                                    @"grant_type": _refreshToken,
+                                                                    @"refresh_toke": _refreshToken}
+                                                            error:&error];
+    
+    AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
+                                                                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                                                          completionBlock(responseObject, nil);
+                                                                      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                                                          [self localizedDescriptionForErrorCode:error];
+                                                                          completionBlock(nil, error);
+                                                                      }];
+    
+    operation.responseSerializer = [AFJSONResponseSerializer serializer];
+    operation.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", nil];
+    [self.operationQueue addOperation:operation];
+    
+    return operation;
+}
+
 @end
