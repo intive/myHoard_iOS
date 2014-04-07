@@ -253,7 +253,7 @@ static MHAPI *_sharedAPI = nil;
             break;
         case 500:
             [userInfo setValue:@"Internal server error" forKey:NSLocalizedDescriptionKey];
-            error = [[NSError alloc]initWithDomain:domain code:401 userInfo:userInfo];
+            error = [[NSError alloc]initWithDomain:domain code:500 userInfo:userInfo];
             break;
     }
 }
