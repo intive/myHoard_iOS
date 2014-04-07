@@ -79,6 +79,7 @@ static MHAPI *_sharedAPI = nil;
                                                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
                                                                           completionBlock(responseObject, nil);
                                                                       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                                                          [self localizedDescriptionForErrorCode:error];
                                                                           completionBlock(nil, error);
                                                                       }];
     
@@ -136,6 +137,7 @@ static MHAPI *_sharedAPI = nil;
                                                                           _refreshToken = [responseObject valueForKeyPath:@"refresh_token"];
                                                                           completionBlock(responseObject, nil);
                                                                       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                                                          [self localizedDescriptionForErrorCode:error];
                                                                           completionBlock(nil, error);
                                                                       }];
     
@@ -220,5 +222,33 @@ static MHAPI *_sharedAPI = nil;
     return nil;
 }
 
+- (void)localizedDescriptionForErrorCode:(NSError *)error {
+    
+    NSString *domain = @"com.blstream.MyHoard";
+    NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
+    
+    switch ([error code]) {
+        case 401:
+            [userInfo setValue:@"Bad credentials" forKey:NSLocalizedDescriptionKey];
+            error = [[NSError alloc]initWithDomain:domain code:401 userInfo:userInfo];
+            break;
+        case 403:
+            [userInfo setValue:@"Forbidden" forKey:NSLocalizedDescriptionKey];
+            error = [[NSError alloc]initWithDomain:domain code:403 userInfo:userInfo];
+            break;
+        case 400:
+            [userInfo setValue:@"Validation error" forKey:NSLocalizedDescriptionKey];
+            error = [[NSError alloc]initWithDomain:domain code:400 userInfo:userInfo];
+            break;
+        case 404:
+            [userInfo setValue:@"Resource not found" forKey:NSLocalizedDescriptionKey];
+            error = [[NSError alloc]initWithDomain:domain code:404 userInfo:userInfo];
+            break;
+        case 500:
+            [userInfo setValue:@"Internal server error" forKey:NSLocalizedDescriptionKey];
+            error = [[NSError alloc]initWithDomain:domain code:401 userInfo:userInfo];
+            break;
+    }
+}
 
 @end
