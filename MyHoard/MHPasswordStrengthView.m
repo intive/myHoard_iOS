@@ -47,47 +47,33 @@
     
     range = [password rangeOfCharacterFromSet:[NSCharacterSet illegalCharacterSet]];
     
-    if (range.length) {
+    if (range.length)
         return 0;
-    }
     
     range = [password rangeOfCharacterFromSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     
-    if (range.length) {
+    if (range.length)
         return 0;
-    }
     
     range = [password rangeOfCharacterFromSet:[NSCharacterSet symbolCharacterSet]];
     
-    if (!range.length) {
-        score += 0;
-    }else {
+    if (range.length)
         score += 20;
-    }
     
     range = [password rangeOfCharacterFromSet:[NSCharacterSet uppercaseLetterCharacterSet]];
     
-    if (!range.length) {
-        score += 0;
-    }else {
+    if (range.length)
         score += 10;
-    }
     
     range = [password rangeOfCharacterFromSet:[NSCharacterSet lowercaseLetterCharacterSet]];
     
-    if (!range.length) {
-        score += 0;
-    }else {
+    if (range.length)
         score += 10;
-    }
     
     range = [password rangeOfCharacterFromSet:[NSCharacterSet decimalDigitCharacterSet]];
     
-    if (!range.length) {
-        score += 0;
-    }else {
+    if (range.length)
         score += 10;
-    }
     
     
     if (score > maxScore) {
