@@ -79,6 +79,10 @@
     
     UIActionSheet *alert = [[UIActionSheet alloc]initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Delete photo", @"Take a photo", @"Choose from library", @"Import from facebook", nil];
     [alert showInView:self.view];
+    
+    if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]){
+        [alert setButton:1 toState:NO];
+    }
 }
 
 - (void)willPresentActionSheet:(UIActionSheet *)actionSheet {
@@ -96,6 +100,21 @@
             UIView *backgroundView = (UIView *)subview;
             backgroundView.backgroundColor = [UIColor blackColor];
         }
+    }
+}
+
+-(void)actionSheet:(UIActionSheet *)alert clickedButtonAtIndex:(NSInteger)buttonIndex {
+    switch (buttonIndex){
+        case 0:
+            break;
+        case 1:
+            [self performSegueWithIdentifier:@"ImagePickerSegue" sender:nil];
+            break;
+        case 2:
+            [self performSegueWithIdentifier:@"LibrarySegue" sender:nil];
+            break;
+        case 3:
+            break;
     }
 }
 @end

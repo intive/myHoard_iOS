@@ -195,7 +195,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="bzQ-Af-eKQ" kind="push" id="Tjc-4h-2K3"/>
+                                    <segue destination="bzQ-Af-eKQ" kind="push" id="EZn-WS-XnP"/>
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="startLogo" translatesAutoresizingMaskIntoConstraints="NO" id="Hwi-sY-nt9">
@@ -1433,6 +1433,8 @@
                         <outlet property="passwordLabel" destination="fay-cK-h51" id="OMw-gO-7Zd"/>
                         <outlet property="profilePicture" destination="8wy-Va-Qt1" id="Qcz-oN-bjD"/>
                         <outlet property="saveButton" destination="sgg-qu-slO" id="jNF-8d-u6x"/>
+                        <segue destination="PSf-nV-YRY" kind="push" identifier="LibrarySegue" id="cfN-Vj-3lS"/>
+                        <segue destination="IOv-e1-ra0" kind="push" identifier="ImagePickerSegue" id="jZp-GR-mKO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4ru-aE-y6A" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1555,7 +1557,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fq9-Bm-AIW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2171" y="2625"/>
+            <point key="canvasLocation" x="-2145" y="2639"/>
         </scene>
     </scenes>
     <resources>
@@ -1570,9 +1572,11 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Xtm-aX-Up0"/>
-        <segue reference="Tjc-4h-2K3"/>
-        <segue reference="oCU-xe-CxG"/>
         <segue reference="uZQ-yX-J1c"/>
+        <segue reference="oCU-xe-CxG"/>
+        <segue reference="jZp-GR-mKO"/>
+        <segue reference="cfN-Vj-3lS"/>
+        <segue reference="EZn-WS-XnP"/>
+        <segue reference="Xtm-aX-Up0"/>
     </inferredMetricsTieBreakers>
 </document>

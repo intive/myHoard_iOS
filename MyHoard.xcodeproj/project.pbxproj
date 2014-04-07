@@ -351,10 +351,7 @@
 				23D02EFC18EEAA0F00114941 /* Networking */,
 				23D02F0018EF386F00114941 /* CustomViews */,
 				23D02F0718F2023D00114941 /* Categories */,
-				CE09D99118F2CAE5007E8885 /* MHUserProfile.h */,
-				CE09D99218F2CAE5007E8885 /* MHUserProfile.m */,
-				CE529A7B18D8687B00A020E9 /* MHUserSettings.h */,
-				CE529A7C18D8687B00A020E9 /* MHUserSettings.m */,
+				CE09D99418F2D8E8007E8885 /* UserSettings */,
 				23D321AF184BBFFA002FC13A /* AppDelegate.h */,
 				23D321B0184BBFFA002FC13A /* AppDelegate.m */,
 				CE6C31BA18B1422100983736 /* MHItemViewController.h */,
@@ -455,6 +452,17 @@
 				537CF83A18AE0D5D008A7E04 /* MHCoreDataContextForTests.m */,
 			);
 			name = Helpers;
+			sourceTree = "<group>";
+		};
+		CE09D99418F2D8E8007E8885 /* UserSettings */ = {
+			isa = PBXGroup;
+			children = (
+				CE09D99118F2CAE5007E8885 /* MHUserProfile.h */,
+				CE09D99218F2CAE5007E8885 /* MHUserProfile.m */,
+				CE529A7B18D8687B00A020E9 /* MHUserSettings.h */,
+				CE529A7C18D8687B00A020E9 /* MHUserSettings.m */,
+			);
+			name = UserSettings;
 			sourceTree = "<group>";
 		};
 		CEC22B1218DF699E002E7C76 /* MHBadgeView */ = {
