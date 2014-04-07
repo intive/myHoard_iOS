@@ -95,11 +95,11 @@
 
 - (void)badgeLayoutPositioning {
     
-    _numberOfCollections.badgeValue = @23;
+    _numberOfCollections.badgeValue = [NSNumber numberWithInteger:[self collectionsNumber]];
     _numberOfCollections.badgeCorner = 22.0;
     [_numberOfCollections layoutIfNeeded];
     
-    _numberOfPhotos.badgeValue = @233;
+    _numberOfPhotos.badgeValue = [NSNumber numberWithInteger:[self photosNumber]];
     _numberOfPhotos.badgeCorner = 22.0;
     [_numberOfPhotos layoutIfNeeded];
     
@@ -109,6 +109,7 @@
         _numberOfCollections.badgePositionY = 346;
         _numberOfCollections.badgeLayoutSubviewLengthLimit = 0;
         _numberOfCollections.badgeLayoutSubviewLengthMultiplier = 1;
+        _numberOfCollections.offsetFactor = 27;
         
         _numberOfPhotos.badgePositionX = 257;
         _numberOfPhotos.badgePositionY = 346;
