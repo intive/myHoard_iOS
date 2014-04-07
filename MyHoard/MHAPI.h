@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 #import <AFNetworking.h>
+#import "MHUserProfile.h"
 
 typedef void (^MHAPICompletionBlock)(id object, NSError *error);
 

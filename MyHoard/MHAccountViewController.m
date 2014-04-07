@@ -30,7 +30,7 @@
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc]initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:nil];
     [[self navigationItem] setBackBarButtonItem:backButton];
     
-    //[self loginLabelTitle];
+    [self loginLabelTitle];
     
     [self profilePictureViewShape];
     [self friendPictureViewShape];
@@ -90,7 +90,10 @@
 
 
 - (void)loginLabelTitle {
-    //to be implemented soon
+    
+    [[MHAPI getInstance]readUserWithCompletionBlock:^(MHUserProfile *object, NSError *error) {
+        _loginLabel.text = object.username;
+    }];
 }
 
 - (void)badgeLayoutPositioning {
