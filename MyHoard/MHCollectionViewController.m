@@ -54,6 +54,9 @@ typedef NS_ENUM(NSInteger, CollectionSortMode) {
     [self setEnableMHLogo:YES];
     // Do any additional setup after loading the view, typically from a nib.
 
+    self.menuButtonImage = [UIImage imageNamed:@"plus"];
+    self.selectedMenuButtonImage = [UIImage imageNamed:@"cancel"];
+    
     self.title = @"";
     
     _objectChanges = [NSMutableArray array];
