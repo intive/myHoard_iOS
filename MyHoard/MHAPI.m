@@ -105,7 +105,7 @@ static MHAPI *_sharedAPI = nil;
                                                                           MHUserProfile *userProfile = [[MHUserProfile alloc]init];
                                                                           
                                                                           userProfile.username = [responseObject valueForKeyPath:@"username"];
-                                                                          userProfile.email = [responseObject valueForKeyPath:@"username"];
+                                                                          userProfile.email = [responseObject valueForKeyPath:@"email"];
                                                                           
                                                                           completionBlock(userProfile, nil);                                                                      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                                                           completionBlock(nil, error);
