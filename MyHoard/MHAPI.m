@@ -209,8 +209,10 @@ static MHAPI *_sharedAPI = nil;
 - (AFHTTPRequestOperation *)createMedia:(MHMedia *)media
                                          completionBlock:(MHAPICompletionBlock)completionBlock
 {
-    //Implementacja potrzebuje poprawy      
+    //Implementacja potrzebuje poprawy
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    [manager.requestSerializer setAuthorizationHeaderFieldWithToken:_accessToken];
+
     NSURL *url = [NSURL fileURLWithPath:media.objLocalPath];
     [manager POST:@"http://78.133.154.18:8080/media" parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         [formData appendPartWithFileURL:url name:media.objId error:nil];
@@ -219,7 +221,11 @@ static MHAPI *_sharedAPI = nil;
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
     }];
+    
+    [manager.responseSerializer setAcceptableContentTypes:[NSSet setWithObjects:@"application/json", nil]];
+    
     return nil;
+
 }
 
 - (void)localizedDescriptionForErrorCode:(NSError *)error {
