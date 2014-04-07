@@ -257,4 +257,66 @@ static MHAPI *_sharedAPI = nil;
     }
 }
 
+#pragma mark - update user
+
+- (AFHTTPRequestOperation *)updateUser:(NSString *)username
+                          withPassword:(NSString *)password
+                              andEmail:(NSString *)email
+                       completionBlock:(MHAPICompletionBlock)completionBlock {
+    NSError *error;
+    
+    AFJSONRequestSerializer* jsonRequest = [AFJSONRequestSerializer serializer];
+    [jsonRequest setAuthorizationHeaderFieldWithToken:_accessToken];
+    
+    NSMutableURLRequest *request = [jsonRequest requestWithMethod:@"PUT"
+                                                        URLString:[self urlWithPath:@"users"]
+                                                       parameters:@{@"username": username,
+                                                                    @"password": password,
+                                                                    @"email": email}
+                                                            error:&error];
+    
+    AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
+                                                                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                                                          completionBlock(responseObject, nil);
+                                                                      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                                                          [self localizedDescriptionForErrorCode:error];
+                                                                          completionBlock(nil, error);
+                                                                      }];
+    
+    operation.responseSerializer = [AFJSONResponseSerializer serializer];
+    operation.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", nil];
+    [self.operationQueue addOperation:operation];
+    
+    return operation;
+}
+
+#pragma mark - delete user
+
+- (AFHTTPRequestOperation *)deleteUserWithCompletionBlock:(MHAPICompletionBlock)completionBlock {
+    
+    NSError *error;
+    
+    AFJSONRequestSerializer* jsonRequest = [AFJSONRequestSerializer serializer];
+    [jsonRequest setAuthorizationHeaderFieldWithToken:_accessToken];
+    
+    NSMutableURLRequest *request = [jsonRequest requestWithMethod:@"DELETE"
+                                                        URLString:[self urlWithPath:@"users"]
+                                                       parameters:nil
+                                                            error:&error];
+    
+    AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
+                                                                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                                                          completionBlock(responseObject, nil);
+                                                                      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                                                          [self localizedDescriptionForErrorCode:error];
+                                                                          completionBlock(nil, error);
+                                                                      }];
+    
+    operation.responseSerializer = [AFJSONResponseSerializer serializer];
+    operation.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", nil];
+    [self.operationQueue addOperation:operation];
+    
+    return operation;
+}
+
 @end
