@@ -42,6 +42,7 @@
     _badgeTextColor = [UIColor darkerGray];
     _badgeCorner = 10.0;
     _badgeScale = 1.0;
+    _maxBadgeValue = 99;
     _badgePositionX = 95;
     _badgePositionY = 100;
     

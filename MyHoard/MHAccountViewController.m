@@ -98,13 +98,21 @@
 
 - (void)badgeLayoutPositioning {
     
-    _numberOfCollections.badgeValue = [NSNumber numberWithInteger:[self collectionsNumber]];
-    _numberOfCollections.badgeCorner = 22.0;
-    [_numberOfCollections layoutIfNeeded];
+    if (![self collectionsNumber]) {
+        _numberOfCollections.badgeValue = @0;
+    }else {
+        _numberOfCollections.badgeValue = [NSNumber numberWithInteger:[self collectionsNumber]];
+        _numberOfCollections.badgeCorner = 22.0;
+        [_numberOfCollections layoutIfNeeded];
+    }
     
-    _numberOfPhotos.badgeValue = [NSNumber numberWithInteger:[self photosNumber]];
-    _numberOfPhotos.badgeCorner = 22.0;
-    [_numberOfPhotos layoutIfNeeded];
+    if (![self photosNumber]) {
+        _numberOfPhotos.badgeValue = @0;
+    }else {
+        _numberOfPhotos.badgeValue = [NSNumber numberWithInteger:[self photosNumber]];
+        _numberOfPhotos.badgeCorner = 22.0;
+        [_numberOfPhotos layoutIfNeeded];
+    }
     
     if ([_numberOfCollections.badgeValue integerValue] > 99 || [_numberOfPhotos.badgeValue integerValue] > 99) {
         
