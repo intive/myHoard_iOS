@@ -52,31 +52,43 @@
     
     _badgeLayoutSubviewLengthLimit = 2;
     _badgeLayoutSubviewLengthMultiplier = 5;
-}
-
-- (void)setBadgeValue:(NSNumber *)badgeValue {
-    
-    _badgeValue = badgeValue;
-}
-
--(void) drawRoundedRect:(CGRect)rect {
     
     self.layer.cornerRadius = _badgeCorner;
     self.layer.backgroundColor = [_badgeBackgroundColor CGColor];
     self.layer.shadowRadius = 8;
     self.layer.shadowOffset = CGSizeMake(0, 5);
     self.layer.shadowOpacity = 0.5;
+
+}
+
+- (CGFloat)fontSize {
+    return 10 * _badgeScale;
+}
+
+- (CGSize)intrinsicContentSize {
+    NSString *badgeValueToString = [NSString stringWithFormat:@"%@", _badgeValue];
+    
+    CGSize badgeValueSize = [badgeValueToString sizeWithFont:[UIFont boldSystemFontOfSize:[self fontSize]]];
+    
+    if ([badgeValueToString length] > _badgeLayoutSubviewLengthLimit) {
+        return CGSizeMake( badgeValueSize.width + _offsetFactor, 20);
+    } else {
+        return CGSizeMake(20, 20);
+    }
+}
+
+- (void)setBadgeValue:(NSNumber *)badgeValue {
+    _badgeValue = badgeValue;
+    [self layoutSubviews];
 }
 
 - (void)drawRect:(CGRect)rect {
 	
-	[self drawRoundedRect:rect];
-    
     NSString *badgeValueToString = [NSString stringWithFormat:@"%@", _badgeValue];
 	
 	if ([badgeValueToString length]>0) {
 		[_badgeTextColor set];
-		CGFloat sizeOfFont = 10 * _badgeScale;
+		CGFloat sizeOfFont = [self fontSize];
         
         if ([_badgeValue integerValue] > _maxBadgeValue) {
             badgeValueToString = [NSString stringWithFormat:@"%ld+", (long)_maxBadgeValue];
@@ -91,23 +103,8 @@
 }
 
 - (void)layoutSubviews {
-    
-    [super layoutSubviews];
-    
-    self.frame = self.bounds;
-    
-    NSString *badgeValueToString = [NSString stringWithFormat:@"%@", _badgeValue];
-    
-    CGSize badgeValueSize = [badgeValueToString sizeWithFont:[UIFont boldSystemFontOfSize:10]];
-    
-    if ([badgeValueToString length] > _badgeLayoutSubviewLengthLimit) {
-        
-        self.frame = CGRectMake(_badgePositionX - ([badgeValueToString length] - _badgeLayoutSubviewLengthLimit)*_badgeLayoutSubviewLengthMultiplier, _badgePositionY, badgeValueSize.width + _offsetFactor, self.frame.size.height);
-        
-    }else {
-        
-        self.frame = CGRectMake(_badgePositionX, _badgePositionY, self.frame.size.width, self.frame.size.height);
-    }
+	[super layoutSubviews];
+	[self invalidateIntrinsicContentSize];
 }
 
 @end
