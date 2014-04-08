@@ -247,12 +247,30 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 200;
     }
     else{
 
-    NSString *coolId = [MHDatabaseManager getCollectionWithObjName:self.collectionNameString].objId;
+        NSString *coolId = [MHDatabaseManager getCollectionWithObjName:self.collectionNameString].objId;
         NSDictionary *locationDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
                                                                   [NSNumber numberWithFloat:_locationCoordinatePassed.latitude] , @"latitude",
                                                                   [NSNumber numberWithFloat:_locationCoordinatePassed.latitude], @"longitude", nil];
-    [MHDatabaseManager insertItemWithObjId:[NSString stringWithFormat:@"%u",arc4random()%10000] objName:self.titleTextField.text objDescription:self.commentaryTextView.text objTags:nil objLocation:locationDictionary objQuantity:[NSNumber numberWithUnsignedInteger:[self.mediaIds count]] objMediaIds:self.mediaIds objCreatedDate:[NSDate date] objModifiedDate:nil objCollectionId:coolId objOwner:nil];
+        MHItem* item = [MHDatabaseManager insertItemWithObjName:self.titleTextField.text
+                                                 objDescription:self.commentaryTextView.text
+                                                        objTags:nil
+                                                    objLocation:locationDictionary
+                                                    objQuantity:@1
+                                                    objMediaIds:nil
+                                                 objCreatedDate:[NSDate date]
+                                                objModifiedDate:nil
+                                                objCollectionId:coolId
+                                                       objOwner:nil];
+        
+        [MHDatabaseManager insertMediaWithObjItem:nil
+                                   objCreatedDate:[NSDate date]
+                                         objOwner:nil
+                                     objLocalPath:self.mediaId
+                                             item:item];
+
+#warning why addedCollection segue is called here?
         [self performSegueWithIdentifier:@"addedCollection" sender:self];
+
     }
 }
 

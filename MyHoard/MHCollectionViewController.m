@@ -132,9 +132,11 @@ typedef NS_ENUM(NSInteger, CollectionSortMode) {
     
     NSArray *items = [MHDatabaseManager getAllItemsForCollectionWithObjId:objectId];
     
+    [cell.kenBurnsView removeAllImages];
+    
+#warning - select 5 random images if more than 5!
     for (MHItem *item in items) {
-        MHMedia *media = [MHDatabaseManager mediaWithObjId:item.objId];
-        if (media != nil) {
+        for(MHMedia* media in item.media) {
             [UIImage thumbnailForAssetPath:media.objLocalPath completion:^(UIImage *image) {
                 [cell.kenBurnsView addImage:image];
             }];
@@ -358,7 +360,7 @@ newIndexPath:(NSIndexPath *)newIndexPath
 -(void)idleTimerExceeded
 {
     if (animatingCell != nil) {
-        [animatingCell.kenBurnsView stopMHKenBurns];
+        [animatingCell.kenBurnsView stopAnimation];
     }
     
     NSArray *visibleCells = [self.collectionView indexPathsForVisibleItems];
@@ -374,16 +376,7 @@ newIndexPath:(NSIndexPath *)newIndexPath
     
     [self cellConfiguration:cell withCoreDataObjectId:object.objId];
     
-    if ([cell.kenBurnsView.images count] >= 5) {
-    
-        NSMutableArray *randomImagesForKenBurns = [[NSMutableArray alloc]init];
-        [self animateWithRandomImages:cell.kenBurnsView.images];
-        [cell.kenBurnsView beginAnimationWithImages:randomImagesForKenBurns withDuration:10 shouldLoop:NO isLandscape:NO];
-        
-    }else {
-        
-        [cell.kenBurnsView beginAnimationWithImages:cell.kenBurnsView.images withDuration:10 shouldLoop:NO isLandscape:NO];
-    }
+    [cell.kenBurnsView startAnimation];
     
     animatingCell = cell;
     [self resetIdleTimer];

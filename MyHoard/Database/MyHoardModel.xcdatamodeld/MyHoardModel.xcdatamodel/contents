@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3401" systemVersion="12F45" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5063" systemVersion="13C64" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="MHCollection" representedClassName="MHCollection" syncable="YES">
         <attribute name="objCreatedDate" attributeType="Date" syncable="YES"/>
         <attribute name="objDescription" optional="YES" attributeType="String" syncable="YES"/>
@@ -24,7 +24,7 @@
         <attribute name="objQuantity" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="objTags" optional="YES" attributeType="Transformable" syncable="YES"/>
         <relationship name="collection" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="MHCollection" inverseName="items" inverseEntity="MHCollection" syncable="YES"/>
-        <relationship name="itemMedia" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MHMedia" inverseName="media" inverseEntity="MHMedia" syncable="YES"/>
+        <relationship name="media" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MHMedia" inverseName="item" inverseEntity="MHMedia" syncable="YES"/>
     </entity>
     <entity name="MHMedia" representedClassName="MHMedia" syncable="YES">
         <attribute name="objCreatedDate" optional="YES" attributeType="Date" syncable="YES"/>
@@ -32,7 +32,7 @@
         <attribute name="objItem" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="objLocalPath" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="objOwner" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="media" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="MHItem" inverseName="itemMedia" inverseEntity="MHItem" syncable="YES"/>
+        <relationship name="item" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="MHItem" inverseName="media" inverseEntity="MHItem" syncable="YES"/>
     </entity>
     <elements>
         <element name="MHCollection" positionX="-8415" positionY="-2115" width="128" height="178"/>

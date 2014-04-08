@@ -27,12 +27,7 @@
     _shouldLoop = YES;
     _isLandscape = YES;
     
-#pragma predefined image array for testing
-    
-    _images = [NSMutableArray arrayWithObjects:[UIImage imageNamed:@"camera.png"],
-                                                [UIImage imageNamed:@"logo.png"],
-                                                [UIImage imageNamed:@"camera.png"], nil];
-    
+    _images = [NSMutableArray array];
 }
 
 - (id)initWithFrame:(CGRect)frame
@@ -51,23 +46,20 @@
     return self;
 }
 
-- (void)beginAnimationWithImages:(NSMutableArray *)imagesArray withDuration:(NSTimeInterval)duration shouldLoop:(BOOL)loop isLandscape:(BOOL)isLandscape {
-    
-    
-    [_kenBurnsView animateWithImages:_images transitionDuration:_animationDuration loop:_shouldLoop isLandscape:_isLandscape];
-    [self animationTapperOff];
-    [self animationTapperOn];
-
+- (void)removeAllImages {
+    [_images removeAllObjects];
 }
 
 - (void)addImage:(UIImage *)image {
     
     [_images addObject:image];
+    [self stopAnimation];
+    [self startAnimation];
 }
 
 - (void)animationTapperOff {
     
-    UITapGestureRecognizer *tapper = [[UITapGestureRecognizer alloc]initWithTarget:_kenBurnsView action:@selector(stopMHKenBurns)];
+    UITapGestureRecognizer *tapper = [[UITapGestureRecognizer alloc]initWithTarget:_kenBurnsView action:@selector(stopAnimation)];
     tapper.numberOfTapsRequired = 1;
     [_kenBurnsView addGestureRecognizer:tapper];
     [_kenBurnsView setUserInteractionEnabled:YES];
@@ -76,28 +68,32 @@
 
 - (void)animationTapperOn {
     
-    UITapGestureRecognizer *tapper = [[UITapGestureRecognizer alloc]initWithTarget:_kenBurnsView action:@selector(animateWithImageSelectorWrapper)];
+    UITapGestureRecognizer *tapper = [[UITapGestureRecognizer alloc]initWithTarget:_kenBurnsView action:@selector(startAnimation)];
     tapper.numberOfTapsRequired = 2;
     [_kenBurnsView addGestureRecognizer:tapper];
     [_kenBurnsView setUserInteractionEnabled:YES];
     
 }
 
-- (void)stopMHKenBurns {
-    
-    [_kenBurnsView performSelector:@selector(stopKenBurns) withObject:nil];
+- (void)stopAnimation {
+    if (_images.count) {
+        [_kenBurnsView animateWithImages:@[_images[0]] transitionDuration:_animationDuration loop:NO isLandscape:NO];
+    }
 }
 
 - (void)reloadAfterDelay:(NSTimeInterval)delay {
-    
     _delay = delay;
     
-    [self performSelector:@selector(animateWithImageSelectorWrapper) withObject:nil afterDelay:_delay];
+    [self stopAnimation];
+    [self startAnimation];
 }
 
-- (void)animateWithImageSelectorWrapper {
+- (void)startAnimation {
     
-    [_kenBurnsView animateWithImages:_images transitionDuration:_animationDuration loop:_shouldLoop isLandscape:_isLandscape];
+    [_kenBurnsView animateWithImages:_images
+                  transitionDuration:_animationDuration
+                                loop:_shouldLoop
+                         isLandscape:_isLandscape];
 
 }
 

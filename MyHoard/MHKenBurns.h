@@ -18,12 +18,11 @@
 @property (nonatomic) BOOL isLandscape;
 @property (nonatomic) NSTimeInterval delay;
 
-- (void)beginAnimationWithImages:(NSMutableArray *)imagesArray withDuration:(NSTimeInterval)duration shouldLoop:(BOOL)loop isLandscape:(BOOL)isLandscape;
 - (void)addImage:(UIImage *)image;
 - (void)animationTapperOff;
 - (void)animationTapperOn;
-- (void)reloadAfterDelay:(NSTimeInterval)delay;
-- (void)animateWithImageSelectorWrapper;
-- (void)stopMHKenBurns;
+- (void)stopAnimation;
+- (void)startAnimation;
+- (void)removeAllImages;
 
 @end

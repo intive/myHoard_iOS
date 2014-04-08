@@ -2,7 +2,7 @@
 //  MHMedia.m
 //  MyHoard
 //
-//  Created by user on 2/26/14.
+//  Created by Sebastian Jędruszkiewicz on 08/04/14.
 //  Copyright (c) 2014 BLStream. All rights reserved.
 //
 
@@ -17,6 +17,6 @@
 @dynamic objItem;
 @dynamic objLocalPath;
 @dynamic objOwner;
-@dynamic media;
+@dynamic item;
 
 @end

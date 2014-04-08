@@ -16,7 +16,6 @@
 @interface MHAddItem2ViewController : MHBaseViewController <UITextViewDelegate,passCollectionName, passLocationName>
 
 @property (nonatomic) NSMutableArray *capturedImagesURL;// need to be set by previous controllers
-@property (nonatomic) NSArray *mediaIds;// need to be set by previous controllers
 @property (nonatomic, readwrite) NSString *mediaId;
 
 @property (nonatomic,strong) MHLocalizationViewController *VCL;

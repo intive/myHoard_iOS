@@ -2,7 +2,7 @@
 //  MHItem.m
 //  MyHoard
 //
-//  Created by user on 2/26/14.
+//  Created by Sebastian Jędruszkiewicz on 08/04/14.
 //  Copyright (c) 2014 BLStream. All rights reserved.
 //
 
@@ -25,6 +25,6 @@
 @dynamic objQuantity;
 @dynamic objTags;
 @dynamic collection;
-@dynamic itemMedia;
+@dynamic media;
 
 @end

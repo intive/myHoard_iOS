@@ -17,31 +17,24 @@
 @implementation MHDatabaseManager
 
 #pragma mark - Collection
-+ (void)insertCollectionWithObjId:(NSString*)objId
-                          objName:(NSString*)objName
-                   objDescription:(NSString*)objDescription
-                          objTags:(NSArray*)objTags
-                   objItemsNumber:(NSNumber*)objItemsNumber
-                   objCreatedDate:(NSDate*)objCreatedDate
-                  objModifiedDate:(NSDate*)objModifiedDate
-                         objOwner:(NSString*)objOwner
++ (void)insertCollectionWithObjName:(NSString*)objName
+                     objDescription:(NSString*)objDescription
+                            objTags:(NSArray*)objTags
+                     objItemsNumber:(NSNumber*)objItemsNumber
+                     objCreatedDate:(NSDate*)objCreatedDate
+                    objModifiedDate:(NSDate*)objModifiedDate
+                           objOwner:(NSString*)objOwner
 {
     // mandatory fields
-    if (!objId.length || !objName.length || !objCreatedDate)
+    if (!objName.length || !objCreatedDate)
     {
-        NSLog(@"One of mandatory fields is not set: objId:%@, objName:%@, objCreatedDate:%@", objId, objName, objCreatedDate);
+        NSLog(@"One of mandatory fields is not set: objName:%@, objCreatedDate:%@", objName, objCreatedDate);
         return;
     }
 
-    if ([MHDatabaseManager getCollectionWithObjId:objId]) {
-        NSLog(@"All collections must have a unique objId");
-        return;
-    }
-    
     MHCollection* collection = [NSEntityDescription insertNewObjectForEntityForName:@"MHCollection" inManagedObjectContext:[MHCoreDataContext getInstance].managedObjectContext];
     
     
-    collection.objId = objId;
     collection.objName = objName;
     collection.objCreatedDate = objCreatedDate;
 
@@ -144,40 +137,33 @@
 
 
 #pragma mark - Item
-+ (void)insertItemWithObjId:(NSString*)objId
-                    objName:(NSString*)objName
-             objDescription:(NSString*)objDescription
-                    objTags:(NSArray*)objTags
-                objLocation:(NSDictionary*)objLocation
-                objQuantity:(NSNumber*)objQuantity
-                objMediaIds:(NSArray*)objMediaIds
-             objCreatedDate:(NSDate*)objCreatedDate
-            objModifiedDate:(NSDate*)objModifiedDate
-            objCollectionId:(NSString*)objCollectionId
-                   objOwner:(NSString*)objOwner
++ (MHItem*)insertItemWithObjName:(NSString*)objName
+                  objDescription:(NSString*)objDescription
+                         objTags:(NSArray*)objTags
+                     objLocation:(NSDictionary*)objLocation
+                     objQuantity:(NSNumber*)objQuantity
+                     objMediaIds:(NSArray*)objMediaIds
+                  objCreatedDate:(NSDate*)objCreatedDate
+                 objModifiedDate:(NSDate*)objModifiedDate
+                 objCollectionId:(NSString*)objCollectionId
+                        objOwner:(NSString*)objOwner
 {
     
     //mandatory fields
-    if (!objId.length || !objName || !objCreatedDate || !objCollectionId.length) {
+    if (!objName || !objCreatedDate || !objCollectionId.length) {
         
-        NSLog(@"One of mandatory fields is not set: objId:%@, objName:%@, objCreatedDate:%@, objCollectionId:%@", objId, objName, objCreatedDate, objCollectionId);
-        return;
-    }
-    
-    if ([MHDatabaseManager itemWithObjId:objId]) {
-        NSLog(@"All items must have an unique objId");
-        return;
+        NSLog(@"One of mandatory fields is not set: objName:%@, objCreatedDate:%@, objCollectionId:%@", objName, objCreatedDate, objCollectionId);
+        return nil;
     }
     
     //check if collection does exist
     if (![MHDatabaseManager getCollectionWithObjId:objCollectionId]){
         NSLog(@"Collection with Id: %@ does not exist! To add item create collection with specified Id", objCollectionId);
-        return;
+        return nil;
     }
     
     MHItem *item = [NSEntityDescription insertNewObjectForEntityForName:@"MHItem" inManagedObjectContext:[MHCoreDataContext getInstance].managedObjectContext];
     
-    item.objId = objId;
     item.objName = objName;
     item.objCreatedDate = objCreatedDate;
     item.objCollectionId = objCollectionId;
@@ -220,6 +206,7 @@
     
     [[MHCoreDataContext getInstance] saveContext];
     
+    return item;
 }
 
 
@@ -329,29 +316,25 @@
 }
 
 #pragma mark - Media
-+ (void)insertMediaWithObjId:(NSString*)objId
-                     objItem:(NSString*)objItem
-              objCreatedDate:(NSDate*)objCreatedDate
-                    objOwner:(NSString*)objOwner
-                objLocalPath:(NSString*)objLocalPath
++ (void)insertMediaWithObjItem:(NSString*)objItem
+                objCreatedDate:(NSDate*)objCreatedDate
+                      objOwner:(NSString*)objOwner
+                  objLocalPath:(NSString*)objLocalPath
+                          item:(MHItem *)item
 {
     // mandatory fields
-    if (!objId.length || !objCreatedDate)
+    if (!objCreatedDate)
     {
-        NSLog(@"One of mandatory fields is not set: objId:%@, objCreatedDate:%@", objId, objCreatedDate);
-        return;
-    }
-    
-    if ([MHDatabaseManager mediaWithObjId:objId]) {
-        NSLog(@"All meida must have a unique objId");
+        NSLog(@"One of mandatory fields is not set: objCreatedDate:%@", objCreatedDate);
         return;
     }
     
     MHMedia* media = [NSEntityDescription insertNewObjectForEntityForName:@"MHMedia" inManagedObjectContext:[MHCoreDataContext getInstance].managedObjectContext];
         
-    media.objId = objId;
     media.objCreatedDate = objCreatedDate;
-        
+
+    media.item = item;
+    
     if (objItem.length)
         media.objItem = objItem;
     

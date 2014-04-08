@@ -121,15 +121,13 @@
         [alert show];
     }
     else{
-#warning create collection without objId, update objId once uploaded to the server.
-        [MHDatabaseManager insertCollectionWithObjId:[NSString stringWithFormat:@"%u",arc4random()%10000]
-                                             objName:self.nameTextField.text
-                                      objDescription:self.descriptionTextField.text
-                                             objTags:[NSArray arrayWithArray:[self.tagsTextField.text componentsSeparatedByString:@" "]]
-                                      objItemsNumber:nil
-                                      objCreatedDate:[NSDate date]
-                                     objModifiedDate:nil
-                                            objOwner:nil];
+        [MHDatabaseManager insertCollectionWithObjName:self.nameTextField.text
+                                        objDescription:self.descriptionTextField.text
+                                               objTags:[NSArray arrayWithArray:[self.tagsTextField.text componentsSeparatedByString:@" "]]
+                                        objItemsNumber:nil
+                                        objCreatedDate:[NSDate date]
+                                       objModifiedDate:nil
+                                              objOwner:nil];
         [self dismissViewControllerAnimated:YES completion:nil];
     }
 }

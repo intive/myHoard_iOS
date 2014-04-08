@@ -2,7 +2,7 @@
 //  MHMedia.h
 //  MyHoard
 //
-//  Created by user on 2/26/14.
+//  Created by Sebastian Jędruszkiewicz on 08/04/14.
 //  Copyright (c) 2014 BLStream. All rights reserved.
 //
 
@@ -18,6 +18,6 @@
 @property (nonatomic, retain) NSString * objItem;
 @property (nonatomic, retain) NSString * objLocalPath;
 @property (nonatomic, retain) NSString * objOwner;
-@property (nonatomic, retain) MHItem *media;
+@property (nonatomic, retain) MHItem *item;
 
 @end

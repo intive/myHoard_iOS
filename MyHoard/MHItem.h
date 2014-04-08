@@ -2,7 +2,7 @@
 //  MHItem.h
 //  MyHoard
 //
-//  Created by user on 2/26/14.
+//  Created by Sebastian Jędruszkiewicz on 08/04/14.
 //  Copyright (c) 2014 BLStream. All rights reserved.
 //
 
@@ -17,22 +17,22 @@
 @property (nonatomic, retain) NSDate * objCreatedDate;
 @property (nonatomic, retain) NSString * objDescription;
 @property (nonatomic, retain) NSString * objId;
-@property (nonatomic, retain) NSDictionary * objLocation;
-@property (nonatomic, retain) NSArray * objMediaIds;
+@property (nonatomic, retain) id objLocation;
+@property (nonatomic, retain) id objMediaIds;
 @property (nonatomic, retain) NSDate * objModifiedDate;
 @property (nonatomic, retain) NSString * objName;
 @property (nonatomic, retain) NSString * objOwner;
 @property (nonatomic, retain) NSNumber * objQuantity;
-@property (nonatomic, retain) NSArray * objTags;
+@property (nonatomic, retain) id objTags;
 @property (nonatomic, retain) MHCollection *collection;
-@property (nonatomic, retain) NSSet *itemMedia;
+@property (nonatomic, retain) NSSet *media;
 @end
 
 @interface MHItem (CoreDataGeneratedAccessors)
 
-- (void)addItemMediaObject:(MHMedia *)value;
-- (void)removeItemMediaObject:(MHMedia *)value;
-- (void)addItemMedia:(NSSet *)values;
-- (void)removeItemMedia:(NSSet *)values;
+- (void)addMediaObject:(MHMedia *)value;
+- (void)removeMediaObject:(MHMedia *)value;
+- (void)addMedia:(NSSet *)values;
+- (void)removeMedia:(NSSet *)values;
 
 @end
