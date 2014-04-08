@@ -272,7 +272,7 @@
     
     NSString *mediaObjId = [[imageUrl path]lastPathComponent];
     
-    [MHDatabaseManager insertMediaWithObjId:mediaObjId objItem:nil objCreatedDate:[NSDate date] objOwner:nil objLocalPath:imagePath];
+//    [MHDatabaseManager insertMediaWithObjId:mediaObjId objItem:nil objCreatedDate:[NSDate date] objOwner:nil objLocalPath:imagePath];
     
     [self finishAndUpdate];
 }
