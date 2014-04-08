@@ -99,15 +99,16 @@
     
     if (kind == UICollectionElementKindSectionHeader) {
         MHItemViewHeader *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"MHItemViewHeader" forIndexPath:indexPath];
-        headerView.collectionTitle.text = [NSString stringWithFormat:@"%@", _collection.objDescription];
+
+        headerView.backgroundColor = [UIColor darkerGray];
+        headerView.collectionTitle.textColor = [UIColor collectionNameFrontColor];
+        headerView.collectionTags.textColor = [UIColor whiteColor];
+
+        headerView.collectionTitle.text = _collection.objDescription.length ? _collection.objDescription : _collection.objName;
         
         for (NSString *tag in _collection.objTags) {
             headerView.collectionTags.text = [NSString stringWithFormat:@"%@#%@ ", headerView.collectionTags.text, tag];
         }
-        headerView.backgroundColor = [UIColor darkerGray];
-        headerView.collectionTitle.textColor = [UIColor collectionNameFrontColor];
-        headerView.collectionTags.textColor = [UIColor whiteColor
-                                               ];
         
         reusableview = headerView;
     }
