@@ -39,8 +39,12 @@
     [_editPictureButton setTitleColor:[UIColor collectionNameFrontColor] forState:UIControlStateSelected];
     [_editPictureButton setTitleColor:[UIColor collectionNameFrontColor] forState:UIControlStateNormal];
     
-    _passwordLabel.textColor = [UIColor lightGrayColor];
-    _passwordLabel.backgroundColor = [UIColor appBackgroundColor];
+    _passwordtextField.textColor = [UIColor lightGrayColor];
+    _passwordtextField.backgroundColor = [UIColor appBackgroundColor];
+    
+    _passwordtextField.attributedPlaceholder = [[NSAttributedString alloc]initWithString:@"Password" attributes:@{NSForegroundColorAttributeName: [UIColor darkerYellow]}];
+
+    
     _passwordBackgroundView.backgroundColor = [UIColor lighterGray];
     _saveButton.layer.cornerRadius = 17.0;
     [_changePasswordButton setTitleColor:[UIColor collectionNameFrontColor] forState:UIControlStateSelected];

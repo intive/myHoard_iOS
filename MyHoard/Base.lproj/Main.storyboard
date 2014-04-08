@@ -255,7 +255,7 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" reuseIdentifier="MHCollectionCell" id="Gkf-mP-uKb" customClass="MHCollectionCell">
-                                        <rect key="frame" x="20" y="20" width="131" height="176"/>
+                                        <rect key="frame" x="20" y="84" width="131" height="176"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="131" height="176"/>
@@ -800,7 +800,7 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="MHItemCell" id="BPq-o3-7ej" customClass="MHItemCell">
-                                        <rect key="frame" x="20" y="70" width="131" height="176"/>
+                                        <rect key="frame" x="20" y="134" width="131" height="176"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="131" height="176"/>
@@ -833,7 +833,7 @@
                                     </collectionViewCell>
                                 </cells>
                                 <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="MHItemViewHeader" id="IN1-pP-0hO" customClass="MHItemViewHeader">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+                                    <rect key="frame" x="0.0" y="64" width="320" height="50"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Collection Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KpK-ae-D8a">
@@ -1378,7 +1378,7 @@
                                             <constraint firstAttribute="width" constant="65" id="FgI-OG-Z7U"/>
                                         </constraints>
                                     </imageView>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qVN-UT-Fqo">
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qVN-UT-Fqo">
                                         <rect key="frame" x="29" y="65" width="46" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Edit">
@@ -1412,26 +1412,34 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fay-cK-h51">
-                                        <rect key="frame" x="20" y="102" width="200" height="39"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sgg-qu-slO" customClass="MHRoundButton">
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sgg-qu-slO" customClass="MHRoundButton">
                                         <rect key="frame" x="265" y="104" width="35" height="35"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Save">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                     </button>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GIe-yP-vJz">
+                                        <rect key="frame" x="20" y="100" width="200" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="39" id="YHg-6v-oWC"/>
+                                            <constraint firstAttribute="width" constant="200" id="nmT-tP-z6N"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstItem="GIe-yP-vJz" firstAttribute="top" secondItem="qVN-UT-Fqo" secondAttribute="bottom" constant="5" id="5Fh-7j-B7U"/>
                                     <constraint firstAttribute="width" constant="320" id="5Ri-ht-rIp"/>
                                     <constraint firstAttribute="height" constant="150" id="UF5-RM-pgm"/>
                                     <constraint firstItem="8wy-Va-Qt1" firstAttribute="leading" secondItem="mny-9G-buP" secondAttribute="leading" constant="20" id="WFc-xL-XY4"/>
+                                    <constraint firstItem="GIe-yP-vJz" firstAttribute="leading" secondItem="mny-9G-buP" secondAttribute="leading" constant="20" id="WlH-Uo-2pH"/>
                                     <constraint firstItem="8wy-Va-Qt1" firstAttribute="top" secondItem="mny-9G-buP" secondAttribute="top" constant="3" id="gDv-8h-0Iz"/>
+                                    <constraint firstAttribute="bottom" secondItem="GIe-yP-vJz" secondAttribute="bottom" constant="20" id="gh5-EP-sae"/>
+                                    <constraint firstItem="sgg-qu-slO" firstAttribute="leading" secondItem="GIe-yP-vJz" secondAttribute="trailing" constant="45" id="haJ-gN-UV8"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JZL-7p-adl">
@@ -1478,7 +1486,7 @@
                         <outlet property="lineTwo" destination="YBM-fd-EyI" id="adD-LM-R1z"/>
                         <outlet property="loginLabel" destination="syQ-us-j0d" id="Fy9-o0-zg3"/>
                         <outlet property="passwordBackgroundView" destination="JZL-7p-adl" id="ppb-Sh-ubd"/>
-                        <outlet property="passwordLabel" destination="fay-cK-h51" id="OMw-gO-7Zd"/>
+                        <outlet property="passwordtextField" destination="GIe-yP-vJz" id="KbN-NA-Wta"/>
                         <outlet property="profilePicture" destination="8wy-Va-Qt1" id="Qcz-oN-bjD"/>
                         <outlet property="saveButton" destination="sgg-qu-slO" id="jNF-8d-u6x"/>
                         <segue destination="PSf-nV-YRY" kind="push" identifier="LibrarySegue" id="cfN-Vj-3lS"/>
@@ -1633,12 +1641,12 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="uZQ-yX-J1c"/>
+        <segue reference="Xtm-aX-Up0"/>
         <segue reference="rUT-3V-c4T"/>
         <segue reference="zG5-wl-ju9"/>
-        <segue reference="p1c-T0-N49"/>
+        <segue reference="cfN-Vj-3lS"/>
+        <segue reference="jZp-GR-mKO"/>
         <segue reference="0Aw-4Z-vyl"/>
-        <segue reference="f1Y-Gw-JyE"/>
-        <segue reference="Xtm-aX-Up0"/>
+        <segue reference="uZQ-yX-J1c"/>
     </inferredMetricsTieBreakers>
 </document>
