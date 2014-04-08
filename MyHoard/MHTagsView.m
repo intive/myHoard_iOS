@@ -23,7 +23,7 @@
     a.labelSpacing = self.frame.size.width;
     a.pauseInterval = 2.0f;
     a.scrollSpeed = 30.0f;
-    a.textAlignment = NSTextAlignmentCenter;
+    a.textAlignment = NSTextAlignmentLeft;
     a.fadeLength = 10.0f;
     a.scrollDirection = CBAutoScrollDirectionLeft;
     a.font = [UIFont systemFontOfSize:12];
