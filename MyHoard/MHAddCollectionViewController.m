@@ -8,6 +8,7 @@
 
 #import "MHAddCollectionViewController.h"
 #import "MHDatabaseManager.h"
+#import "NSString+Tags.h"
 
 @interface MHAddCollectionViewController ()
 @property (readwrite) NSUInteger last;
@@ -120,7 +121,7 @@
     else{
         [MHDatabaseManager insertCollectionWithObjName:self.nameTextField.text
                                         objDescription:self.descriptionTextField.text
-                                               objTags:[NSArray arrayWithArray:[self.tagsTextField.text componentsSeparatedByString:@" "]]
+                                               objTags:[self.tagsTextField.text tags]
                                         objItemsNumber:nil
                                         objCreatedDate:[NSDate date]
                                        objModifiedDate:nil
