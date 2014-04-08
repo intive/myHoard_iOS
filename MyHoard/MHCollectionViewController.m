@@ -123,10 +123,10 @@ typedef NS_ENUM(NSInteger, CollectionSortMode) {
     
     cell.collectionTitle.text = collection.objName;
     
-    if ([collection.objItemsNumber isEqualToNumber:@0]) {
+    if (collection.items.count == 0) {
         cell.badgeView.hidden = YES;
     }else {
-        cell.badgeView.badgeValue = collection.objItemsNumber;
+        cell.badgeView.badgeValue = @(collection.items.count);
     }
     
     cell.tagsView.tagList = collection.objTags;
