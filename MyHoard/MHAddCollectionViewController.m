@@ -38,9 +38,9 @@
     self.tagsBackgroundView.backgroundColor = [UIColor appBackgroundColor];
     self.descriptionBackgroundView.backgroundColor = [UIColor appBackgroundColor];
     self.questionBackgroundView.backgroundColor = [UIColor appBackgroundColor];
-    self.nameTextField.textColor = [UIColor darkerYellow];
-    self.descriptionTextField.textColor = [UIColor darkerYellow];
-    self.tagsTextField.textColor = [UIColor darkerYellow];
+    self.nameTextField.textColor = [UIColor lighterYellow];
+    self.descriptionTextField.textColor = [UIColor lighterYellow];
+    self.tagsTextField.textColor = [UIColor lighterYellow];
     _nameTextField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Name" attributes:@{NSForegroundColorAttributeName: [UIColor darkerYellow]}];
     _tagsTextField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Tags" attributes:@{NSForegroundColorAttributeName: [UIColor darkerYellow]}];
     _descriptionTextField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Description" attributes:@{NSForegroundColorAttributeName: [UIColor darkerYellow]}];
@@ -95,6 +95,8 @@
 - (IBAction)pickerSave:(id)sender {
     [UIView animateWithDuration:1.0 animations:^{
         self.pickerHidingView.alpha=1.0;
+        self.typeLabel.textColor=[UIColor lighterYellow];
+        self.typeTitleLAbel.textColor=[UIColor lighterYellow];
     }];
     _last=[_items indexOfObject: _typeLabel.text];
 }

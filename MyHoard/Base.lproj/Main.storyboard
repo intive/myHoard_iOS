@@ -900,8 +900,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Oth-kj-cgB">
-                                <rect key="frame" x="0.0" y="75" width="320" height="30"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Oth-kj-cgB">
+                                <rect key="frame" x="0.0" y="31" width="320" height="30"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="IbX-7c-syB">
@@ -920,8 +920,8 @@
                                     <constraint firstAttribute="height" constant="30" id="LHE-2R-Yt3"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="M46-sn-KFe">
-                                <rect key="frame" x="0.0" y="112" width="320" height="30"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M46-sn-KFe">
+                                <rect key="frame" x="0.0" y="68" width="320" height="30"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Sbl-LU-1Gr">
@@ -940,8 +940,8 @@
                                     <constraint firstAttribute="height" constant="30" id="maT-Ji-JfR"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gz7-Cd-0ml">
-                                <rect key="frame" x="0.0" y="149" width="320" height="30"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gz7-Cd-0ml">
+                                <rect key="frame" x="0.0" y="105" width="320" height="30"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jDy-h9-467">
@@ -960,8 +960,8 @@
                                     <constraint firstAttribute="width" constant="320" id="nRu-lM-lI8"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5yg-zQ-QQg">
-                                <rect key="frame" x="0.0" y="186" width="320" height="30"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5yg-zQ-QQg">
+                                <rect key="frame" x="0.0" y="142" width="320" height="30"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Type" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zUO-7D-5Dp">
@@ -995,16 +995,16 @@
                                     <constraint firstAttribute="width" constant="320" id="wMW-be-MX6"/>
                                 </constraints>
                             </view>
-                            <pickerView contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tg4-Nt-08s">
-                                <rect key="frame" x="-80" y="305" width="481" height="162"/>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tg4-Nt-08s">
+                                <rect key="frame" x="-80" y="261" width="481" height="216"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <connections>
                                     <outlet property="dataSource" destination="x5u-US-1lE" id="Dhu-HF-42N"/>
                                     <outlet property="delegate" destination="x5u-US-1lE" id="mRH-tC-hrd"/>
                                 </connections>
                             </pickerView>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G65-b0-Wxh">
-                                <rect key="frame" x="20" y="305" width="53" height="34"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G65-b0-Wxh">
+                                <rect key="frame" x="20" y="261" width="53" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <state key="normal" title="cancel">
@@ -1014,8 +1014,8 @@
                                     <action selector="pickerCancel:" destination="x5u-US-1lE" eventType="touchUpInside" id="ODm-CT-wEl"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M8k-EQ-Cqg">
-                                <rect key="frame" x="262" y="305" width="38" height="34"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M8k-EQ-Cqg">
+                                <rect key="frame" x="262" y="261" width="38" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <state key="normal" title="save">
@@ -1025,8 +1025,8 @@
                                     <action selector="pickerSave:" destination="x5u-US-1lE" eventType="touchUpInside" id="WWM-JO-IwD"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oUb-LB-Uvx">
-                                <rect key="frame" x="0.0" y="236" width="320" height="335"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oUb-LB-Uvx">
+                                <rect key="frame" x="0.0" y="192" width="320" height="379"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
@@ -1634,11 +1634,11 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="uZQ-yX-J1c"/>
-        <segue reference="oCU-xe-CxG"/>
-        <segue reference="f1Y-Gw-JyE"/>
-        <segue reference="0Aw-4Z-vyl"/>
-        <segue reference="p1c-T0-N49"/>
+        <segue reference="rUT-3V-c4T"/>
         <segue reference="zG5-wl-ju9"/>
+        <segue reference="p1c-T0-N49"/>
+        <segue reference="0Aw-4Z-vyl"/>
+        <segue reference="f1Y-Gw-JyE"/>
         <segue reference="Xtm-aX-Up0"/>
     </inferredMetricsTieBreakers>
 </document>
