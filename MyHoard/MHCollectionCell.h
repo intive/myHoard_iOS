@@ -18,5 +18,6 @@
 @property (weak, nonatomic) IBOutlet MHBadgeView *badgeView;
 @property (weak, nonatomic) IBOutlet MHKenBurns *kenBurnsView;
 @property (weak, nonatomic) IBOutlet MHTagsView *tagsView;
+@property (weak, nonatomic) IBOutlet UIImageView *plusSignImageView;
 
 @end

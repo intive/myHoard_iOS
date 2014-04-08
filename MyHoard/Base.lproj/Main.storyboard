@@ -270,6 +270,10 @@
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                                         </view>
+                                                        <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="plus_y" translatesAutoresizingMaskIntoConstraints="NO" id="qQl-Up-IlT">
+                                                            <rect key="frame" x="30" y="31" width="60" height="63"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        </imageView>
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
@@ -311,6 +315,7 @@
                                             <outlet property="badgeView" destination="WQC-2c-ZRK" id="gPv-Sf-Qvu"/>
                                             <outlet property="collectionTitle" destination="6ma-JM-EML" id="YzI-ud-8Ar"/>
                                             <outlet property="kenBurnsView" destination="2Te-kW-8dv" id="Q4C-wW-xgC"/>
+                                            <outlet property="plusSignImageView" destination="qQl-Up-IlT" id="pVb-Sl-CdD"/>
                                             <outlet property="tagsView" destination="uvZ-c1-Qma" id="gar-1e-vrf"/>
                                         </connections>
                                     </collectionViewCell>
@@ -1619,6 +1624,7 @@
         <image name="cameraIcons" width="22" height="22"/>
         <image name="cancel" width="22" height="22"/>
         <image name="confirm" width="22" height="22"/>
+        <image name="plus_y" width="30" height="30"/>
         <image name="startLogo" width="125" height="125"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

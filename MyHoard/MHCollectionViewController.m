@@ -80,37 +80,48 @@ typedef NS_ENUM(NSInteger, CollectionSortMode) {
 {
     return [[self.fetchedResultsController sections] count];
 }
-    
+
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
-    {
-        
-    id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController sections][section];
-    return [sectionInfo numberOfObjects];
+{
+    NSInteger count = [self numberOfCollectionsInDatabaseForSection:section];
+    if (count == 0) { //add one dummy element with +
+        count = 1;
+    }
+    return count;
 }
     
     // The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     MHCollectionCell *cell = (MHCollectionCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"MHCollectionCell" forIndexPath:indexPath];
-        
-    MHCollection *object = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    
-#pragma mark - cell setup
     
     cell.collectionTitle.textColor = [UIColor collectionNameFrontColor];
-    cell.collectionTitle.text = object.objName;
-    
-    if ([object.objItemsNumber isEqualToNumber:@0]) {
-        cell.badgeView.hidden = YES;
-    }else {
-        cell.badgeView.badgeValue = object.objItemsNumber;
-    }
-    
     cell.kenBurnsView.backgroundColor = [UIColor darkerGray];
     cell.tagsView.backgroundColor = [UIColor clearColor];
-    cell.tagsView.tagList = object.objTags;
-    
-    [self cellConfiguration:cell withCoreDataObjectId:object.objId];
+
+    if ([self numberOfCollectionsInDatabaseForSection:indexPath.section] == 0) { //special case for + element
+        cell.collectionTitle.text = @"Name";
+        cell.badgeView.hidden = YES;
+        cell.tagsView.tagList = @[@"Tags"];
+        cell.plusSignImageView.hidden = NO;
+    } else {
+        MHCollection *object = [self.fetchedResultsController objectAtIndexPath:indexPath];
+        
+#pragma mark - cell setup
+        
+        cell.collectionTitle.text = object.objName;
+        
+        if ([object.objItemsNumber isEqualToNumber:@0]) {
+            cell.badgeView.hidden = YES;
+        }else {
+            cell.badgeView.badgeValue = object.objItemsNumber;
+        }
+        
+        cell.tagsView.tagList = object.objTags;
+        cell.plusSignImageView.hidden = YES;
+        
+        [self cellConfiguration:cell withCoreDataObjectId:object.objId];
+    }
     
     return cell;
 }
@@ -153,9 +164,15 @@ typedef NS_ENUM(NSInteger, CollectionSortMode) {
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    
-    MHCollection *object = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    [self performSegueWithIdentifier:@"ShowItemsSegue" sender:object];
+    NSInteger count = [self numberOfCollectionsInDatabaseForSection:indexPath.section];
+
+    if (count) {
+        MHCollection *object = [self.fetchedResultsController objectAtIndexPath:indexPath];
+        [self performSegueWithIdentifier:@"ShowItemsSegue" sender:object];
+    } else {
+        //special case for empty collection list - add new collection
+        [self performSegueWithIdentifier:@"AddCollectionSegue" sender:nil];
+    }
     
 }
 
@@ -392,6 +409,12 @@ newIndexPath:(NSIndexPath *)newIndexPath
     [fetchRequest setFetchBatchSize:20];
     NSFetchedResultsController *frc = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:[MHCoreDataContext getInstance].managedObjectContext sectionNameKeyPath:nil cacheName:@"Root"];
     return frc;
+}
+
+- (NSInteger)numberOfCollectionsInDatabaseForSection:(NSInteger)section {
+    id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController sections][section];
+    NSInteger count = [sectionInfo numberOfObjects];
+    return count;
 }
 
 - (void)setSortMode:(CollectionSortMode)sortMode {
