@@ -252,7 +252,7 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 200;
                                                                   [NSNumber numberWithFloat:_locationCoordinatePassed.latitude] , @"latitude",
                                                                   [NSNumber numberWithFloat:_locationCoordinatePassed.latitude], @"longitude", nil];
     [MHDatabaseManager insertItemWithObjId:[NSString stringWithFormat:@"%u",arc4random()%10000] objName:self.titleTextField.text objDescription:self.commentaryTextView.text objTags:nil objLocation:locationDictionary objQuantity:[NSNumber numberWithUnsignedInteger:[self.mediaIds count]] objMediaIds:self.mediaIds objCreatedDate:[NSDate date] objModifiedDate:nil objCollectionId:coolId objOwner:nil];
-        [self dismissViewControllerAnimated:YES completion:nil];
+        [self performSegueWithIdentifier:@"addedCollection" sender:self];
     }
 }
 

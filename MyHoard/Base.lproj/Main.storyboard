@@ -476,7 +476,7 @@
                                     <constraint firstAttribute="width" constant="320" id="pI6-rz-tjU"/>
                                 </constraints>
                             </imageView>
-                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SSg-LA-70Z">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SSg-LA-70Z">
                                 <rect key="frame" x="0.0" y="248" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
@@ -495,7 +495,7 @@
                                     <constraint firstAttribute="width" constant="320" id="isO-0R-P8R"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fPW-t8-bw3">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fPW-t8-bw3">
                                 <rect key="frame" x="0.0" y="308" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
@@ -543,7 +543,7 @@
                                     <constraint firstAttribute="width" constant="320" id="k6P-iT-VUV"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cvt-KS-f0P">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cvt-KS-f0P">
                                 <rect key="frame" x="0.0" y="360" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
@@ -591,7 +591,7 @@
                                     <constraint firstAttribute="width" constant="320" id="qaT-1m-obn"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lap-n7-pRm">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lap-n7-pRm">
                                 <rect key="frame" x="0.0" y="420" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
@@ -631,6 +631,7 @@
                             <constraint firstItem="cvt-KS-f0P" firstAttribute="top" secondItem="fPW-t8-bw3" secondAttribute="bottom" constant="8" id="ZIZ-VW-ADN"/>
                             <constraint firstItem="1N9-HF-VQ9" firstAttribute="top" secondItem="cDg-1B-pwE" secondAttribute="bottom" constant="1" id="bGu-62-B8K"/>
                             <constraint firstItem="fPW-t8-bw3" firstAttribute="top" secondItem="SSg-LA-70Z" secondAttribute="bottom" constant="16" id="cXh-Xx-3W9"/>
+                            <constraint firstItem="SSg-LA-70Z" firstAttribute="top" secondItem="cDg-1B-pwE" secondAttribute="bottom" constant="184" id="dg7-D2-n4N"/>
                             <constraint firstItem="Lap-n7-pRm" firstAttribute="height" secondItem="cvt-KS-f0P" secondAttribute="height" id="fLC-H1-Ghz"/>
                             <constraint firstItem="x8B-hj-uEF" firstAttribute="top" secondItem="Lap-n7-pRm" secondAttribute="bottom" constant="16" id="faM-pL-Gqz"/>
                             <constraint firstItem="1N9-HF-VQ9" firstAttribute="leading" secondItem="fPW-t8-bw3" secondAttribute="leading" id="iLF-k3-Gnm"/>
@@ -665,6 +666,7 @@
                         <outlet property="titleTextField" destination="g3N-DY-y5f" id="Cc9-ep-rPZ"/>
                         <segue destination="q6y-Bc-6aO" kind="push" identifier="segueToChooseCollection" id="9hV-ZM-Irt"/>
                         <segue destination="3M4-Oc-VTX" kind="push" identifier="segueToChooseLocation" id="eNm-dq-GWi"/>
+                        <segue destination="zQi-YY-HjT" kind="modal" identifier="addedCollection" id="YAY-eu-j3h"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Th-D0-Zqa" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1002,7 +1004,7 @@
                                     <action selector="pickerSave:" destination="x5u-US-1lE" eventType="touchUpInside" id="WWM-JO-IwD"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oUb-LB-Uvx">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oUb-LB-Uvx">
                                 <rect key="frame" x="0.0" y="236" width="320" height="335"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -1021,6 +1023,7 @@
                             <constraint firstItem="tg4-Nt-08s" firstAttribute="leading" secondItem="7cN-Ht-CyC" secondAttribute="leading" constant="-80" id="RsT-8T-xX9"/>
                             <constraint firstItem="M46-sn-KFe" firstAttribute="leading" secondItem="5yg-zQ-QQg" secondAttribute="leading" id="VIJ-cy-VWg"/>
                             <constraint firstItem="G65-b0-Wxh" firstAttribute="leading" secondItem="7cN-Ht-CyC" secondAttribute="leading" constant="20" id="Wdr-9e-pb5"/>
+                            <constraint firstAttribute="bottom" secondItem="oUb-LB-Uvx" secondAttribute="bottom" constant="-91" id="WyK-mL-oh8"/>
                             <constraint firstItem="tg4-Nt-08s" firstAttribute="top" secondItem="5yg-zQ-QQg" secondAttribute="bottom" constant="89" id="X1A-Jr-fRq"/>
                             <constraint firstItem="M46-sn-KFe" firstAttribute="top" secondItem="Oth-kj-cgB" secondAttribute="bottom" constant="7" id="aJf-zc-luV"/>
                             <constraint firstItem="tg4-Nt-08s" firstAttribute="centerX" secondItem="5yg-zQ-QQg" secondAttribute="centerX" id="d46-Gp-H3C"/>
@@ -1100,6 +1103,21 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="171-FX-cqf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1369" y="1221"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="2fB-2s-hxD">
+            <objects>
+                <navigationController definesPresentationContext="YES" id="zQi-YY-HjT" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="MQX-r1-aEa">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="bzQ-Af-eKQ" kind="relationship" relationship="rootViewController" id="0Aw-4Z-vyl"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eY4-7O-43o" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1333" y="733"/>
         </scene>
         <!--Image Picker2 View Controller-->
         <scene sceneID="SUa-bM-ctM">
@@ -1593,11 +1611,11 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Xtm-aX-Up0"/>
-        <segue reference="AZv-hY-c59"/>
-        <segue reference="f1Y-Gw-JyE"/>
-        <segue reference="7Aw-hx-44V"/>
-        <segue reference="p1c-T0-N49"/>
+        <segue reference="0Aw-4Z-vyl"/>
         <segue reference="oCU-xe-CxG"/>
+        <segue reference="f1Y-Gw-JyE"/>
+        <segue reference="p1c-T0-N49"/>
+        <segue reference="7Aw-hx-44V"/>
+        <segue reference="Xtm-aX-Up0"/>
     </inferredMetricsTieBreakers>
 </document>
