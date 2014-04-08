@@ -38,6 +38,7 @@
     [self.tableView setSeparatorColor:[UIColor collectionNameFrontColor]];
     [self.navigationController.navigationBar setBarTintColor:[UIColor navigationBarBackgroundColor]];
     [self.navigationController.navigationBar setTintColor:[UIColor blackColor]];
+    self.automaticallyAdjustsScrollViewInsets = NO;
 	// Do any additional setup after loading the view.
 }
 
