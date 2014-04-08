@@ -119,7 +119,8 @@
         [alert show];
     }
     else{
-        [MHDatabaseManager insertCollectionWithObjId:[NSString stringWithFormat:@"%u",arc4random()%10000]//in futere we will get it from server propably
+#warning create collection without objId, update objId once uploaded to the server.
+        [MHDatabaseManager insertCollectionWithObjId:[NSString stringWithFormat:@"%u",arc4random()%10000]
                                              objName:self.nameTextField.text
                                       objDescription:self.descriptionTextField.text
                                              objTags:[NSArray arrayWithArray:[self.tagsTextField.text componentsSeparatedByString:@" "]]
