@@ -241,9 +241,6 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 200;
     }else if(self.selectedCollection==nil){
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"error" message:@"Collection is not set properly" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
         [alert show];
-    }else if ([self.commentaryTextView.text isEqualToString:@""]) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"error" message:@"Commentary must be filled" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
-        [alert show];
     }
     else{
 
