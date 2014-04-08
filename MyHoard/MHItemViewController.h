@@ -17,9 +17,8 @@
 #import "MHMedia.h"
 #import "MHItemViewHeader.h"
 
-@interface MHItemViewController : MHBaseViewController <UICollectionViewDataSource, UICollectionViewDelegate, NSFetchedResultsControllerDelegate>
+@interface MHItemViewController : MHBaseViewController <UICollectionViewDataSource, UICollectionViewDelegate>
 
-@property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (nonatomic, strong) MHCollection *collection;
 @property (weak, nonatomic) IBOutlet UINavigationItem *collectionName;
