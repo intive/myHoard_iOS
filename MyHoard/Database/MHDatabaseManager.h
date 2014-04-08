@@ -47,6 +47,8 @@
 
 + (MHItem*)itemWithObjId:(NSString*)objId;
 
++ (MHItem*)itemWithObjName:(NSString*)objName;
+
 + (NSArray*)getAllItemsForCollectionWithObjId:(NSString*)collectionObjId;
 
 + (void)removeItemWithObjId:(NSString*)objId;

@@ -235,7 +235,7 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 200;
     }else if([self.titleTextField.text length]>64){
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"error" message:@"Title is to long(max64)" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
         [alert show];
-    }else if([MHDatabaseManager itemWithObjId: self.titleTextField.text]!=nil){
+    }else if([MHDatabaseManager itemWithObjName: self.titleTextField.text]!=nil){
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"error" message:@"Item of that title exists." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
         [alert show];
     }else if(self.collectionNameString==nil){
