@@ -13,22 +13,16 @@
 @interface MHDatabaseManager : NSObject
 
 #pragma mark - Collection
-+ (void)insertCollectionWithObjName:(NSString*)objName
-                     objDescription:(NSString*)objDescription
-                            objTags:(NSArray*)objTags
-                     objItemsNumber:(NSNumber*)objItemsNumber
-                     objCreatedDate:(NSDate*)objCreatedDate
-                    objModifiedDate:(NSDate*)objModifiedDate
-                           objOwner:(NSString*)objOwner;
++ (MHCollection*)insertCollectionWithObjName:(NSString*)objName
+                              objDescription:(NSString*)objDescription
+                                     objTags:(NSArray*)objTags
+                              objItemsNumber:(NSNumber*)objItemsNumber
+                              objCreatedDate:(NSDate*)objCreatedDate
+                             objModifiedDate:(NSDate*)objModifiedDate
+                                    objOwner:(NSString*)objOwner;
 
-+ (MHCollection*)getCollectionWithObjId:(NSString*)objId;
-
-+ (MHCollection*)getCollectionWithObjName:(NSString*)objName;
-
-+ (NSArray*)getAllCollections;
-
-+ (void)removeCollectionWithId:(NSString*)objId;
-
++ (MHCollection*)collectionWithObjName:(NSString*)objName;
++ (NSArray*)allCollections;
 
 #pragma mark - Item
 + (MHItem*)insertItemWithObjName:(NSString*)objName
@@ -40,28 +34,16 @@
                   objCreatedDate:(NSDate*)objCreatedDate
                  objModifiedDate:(NSDate*)objModifiedDate
                  objCollectionId:(NSString*)objCollectionId
-                        objOwner:(NSString*)objOwner;
-
-
-+ (MHItem*)itemWithObjId:(NSString*)objId;
+                        objOwner:(NSString*)objOwner
+                      collection:(MHCollection *)collection;
 
 + (MHItem*)itemWithObjName:(NSString*)objName;
 
-+ (NSArray*)getAllItemsForCollectionWithObjId:(NSString*)collectionObjId;
-
-+ (void)removeItemWithObjId:(NSString*)objId;
-
-+ (void)removeAllItemForCollectionWithObjId:(NSString*)collectionObjId;
-
 #pragma mark - Media
-+ (void)insertMediaWithObjItem:(NSString*)objItem
-                objCreatedDate:(NSDate*)objCreatedDate
-                      objOwner:(NSString*)objOwner
-                  objLocalPath:(NSString*)objLocalPath
-                          item:(MHItem *)item;
-
-+ (MHMedia*)mediaWithObjId:(NSString*)objId;
-
-+ (void)removeMediaWithObjId:(NSString*)objId;
++ (MHMedia*)insertMediaWithObjItem:(NSString*)objItem
+                    objCreatedDate:(NSDate*)objCreatedDate
+                          objOwner:(NSString*)objOwner
+                      objLocalPath:(NSString*)objLocalPath
+                              item:(MHItem *)item;
 
 @end

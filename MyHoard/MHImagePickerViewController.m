@@ -267,12 +267,8 @@
     [self.capturedImages addObject:image];
     
     NSURL *imageUrl = [info valueForKey:UIImagePickerControllerReferenceURL];
-
-    NSString *imagePath = [imageUrl absoluteString];
     
-    NSString *mediaObjId = [[imageUrl path]lastPathComponent];
-    
-//    [MHDatabaseManager insertMediaWithObjId:mediaObjId objItem:nil objCreatedDate:[NSDate date] objOwner:nil objLocalPath:imagePath];
+#warning - pass imageUrl to the add item view controller.
     
     [self finishAndUpdate];
 }

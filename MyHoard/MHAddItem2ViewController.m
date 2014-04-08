@@ -192,8 +192,8 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 200;
 }
 
 - ( void ) viewDidAppear:(BOOL)animated{
-    if (_collectionNameString != NULL) {
-        self.collectionNoneLabel.text=_collectionNameString;
+    if (_selectedCollection != NULL) {
+        self.collectionNoneLabel.text = _selectedCollection.objName;
     }
     if (_locationNameString != NULL) {
         self.localizationNoneLabel.text=_locationNameString;
@@ -238,7 +238,7 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 200;
     }else if([MHDatabaseManager itemWithObjName: self.titleTextField.text]!=nil){
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"error" message:@"Item of that title exists." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
         [alert show];
-    }else if(self.collectionNameString==nil){
+    }else if(self.selectedCollection==nil){
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"error" message:@"Collection is not set properly" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
         [alert show];
     }else if ([self.commentaryTextView.text isEqualToString:@""]) {
@@ -247,7 +247,6 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 200;
     }
     else{
 
-        NSString *coolId = [MHDatabaseManager getCollectionWithObjName:self.collectionNameString].objId;
         NSDictionary *locationDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
                                                                   [NSNumber numberWithFloat:_locationCoordinatePassed.latitude] , @"latitude",
                                                                   [NSNumber numberWithFloat:_locationCoordinatePassed.latitude], @"longitude", nil];
@@ -259,8 +258,9 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 200;
                                                     objMediaIds:nil
                                                  objCreatedDate:[NSDate date]
                                                 objModifiedDate:nil
-                                                objCollectionId:coolId
-                                                       objOwner:nil];
+                                                objCollectionId:nil
+                                                       objOwner:nil
+                                                     collection:self.selectedCollection];
         
         [MHDatabaseManager insertMediaWithObjItem:nil
                                    objCreatedDate:[NSDate date]
@@ -274,17 +274,20 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 200;
     }
 }
 
--(void)setCollectionName:(NSString *)collectionName{
-    _collectionNameString = collectionName;
+#pragma mark CollectionSelectorDelegate
+- (void)collectionSelected:(MHCollection *)collection {
+    _selectedCollection = collection;
 }
 
--(void)setLocationName:(NSString *)locationName{
-    _locationNameString = locationName;
+#pragma mark LocationSelectorDelegate
+- (void)selectedLocationName:(NSString *)name {
+    _locationNameString = name;
 }
 
--(void)setLocationCoordinate:(CLLocationCoordinate2D)locationCoordinate{
-    _locationCoordinatePassed = locationCoordinate;
+- (void)selectedLocationCoordinate:(CLLocationCoordinate2D)coordinate {
+    _locationCoordinatePassed = coordinate;
 }
+
 
 - (void)textViewDidChange:(UITextView *)txtView
 {

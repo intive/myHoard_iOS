@@ -165,16 +165,6 @@
     XCTAssertNotNil(imageUrl, @"");
     XCTAssertNotNil(imagePath, @"");
     
-    NSString *mediaObjId = [[imageUrl path]lastPathComponent];
-    
-    [MHDatabaseManager insertMediaWithObjItem:nil objCreatedDate:[NSDate date] objOwner:nil objLocalPath:imagePath item:nil];
-    MHMedia *fetchedMedia = [MHDatabaseManager mediaWithObjId:mediaObjId];
-    
-    XCTAssertNotNil(fetchedMedia, @"");
-    XCTAssertEqual(fetchedMedia.objId, mediaObjId, @"");
-    XCTAssertEqual(fetchedMedia.objLocalPath, imagePath, @"");
-    
-    [MHDatabaseManager removeMediaWithObjId:mediaObjId];
 }
 
 

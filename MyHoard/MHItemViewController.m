@@ -93,29 +93,27 @@ typedef NS_ENUM(NSInteger, CollectionSortMode) {
     
     MHItem *object = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
-    if ([_collection.objId isEqualToString:object.objCollectionId]) {
-        cell.itemTitle.text = object.objName;
-        cell.itemTitle.textColor = [UIColor collectionNameFrontColor];
-    }
+    cell.itemTitle.textColor = [UIColor collectionNameFrontColor];
     cell.itemComment.textColor = [UIColor appBackgroundColor];
     cell.backgroundColor = [UIColor blackColor];
-    cell.itemComment.text = object.objDescription;
     cell.mediaView.backgroundColor = [UIColor darkerGray];
     
-    [self cellConfiguration:cell withCoreDataObjectId:object.objId];
-
+    [self configureCell:cell withItem:object];
     
     return cell;
 }
 
 
-- (void)cellConfiguration:(MHItemCell *)cell withCoreDataObjectId:(NSString *)objectId
+- (void)configureCell:(MHItemCell *)cell withItem:(MHItem *)item
 {
-    MHMedia *media = [MHDatabaseManager mediaWithObjId:objectId];
-    if (media != nil) {
+    cell.itemComment.text = item.objDescription;
+    cell.itemTitle.text = item.objName;
+
+    for(MHMedia *media in item.media) {
         [UIImage thumbnailForAssetPath:media.objLocalPath completion:^(UIImage *image) {
             cell.mediaView.image = image;
         }];
+        break; //just read first item
     }
 }
 

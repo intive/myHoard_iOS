@@ -116,7 +116,7 @@
     }else if([self.nameTextField.text length]>64){
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"error" message:@"Name is to long(max64)" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
         [alert show];
-    }else if([MHDatabaseManager getCollectionWithObjName:self.nameTextField.text]!=nil){
+    }else if([MHDatabaseManager collectionWithObjName:self.nameTextField.text]!=nil){
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"error" message:@"Collection of that name exists." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
         [alert show];
     }

@@ -109,18 +109,9 @@ typedef NS_ENUM(NSInteger, CollectionSortMode) {
         
 #pragma mark - cell setup
         
-        cell.collectionTitle.text = object.objName;
-        
-        if ([object.objItemsNumber isEqualToNumber:@0]) {
-            cell.badgeView.hidden = YES;
-        }else {
-            cell.badgeView.badgeValue = object.objItemsNumber;
-        }
-        
-        cell.tagsView.tagList = object.objTags;
         cell.plusSignImageView.hidden = YES;
         
-        [self cellConfiguration:cell withCoreDataObjectId:object.objId];
+        [self configureCell:cell withCollection:object];
     }
     
     return cell;
@@ -128,14 +119,22 @@ typedef NS_ENUM(NSInteger, CollectionSortMode) {
 
 #pragma mark - cell configuration with images
 
-- (void)cellConfiguration:(MHCollectionCell *)cell withCoreDataObjectId:(NSString *)objectId {
+- (void)configureCell:(MHCollectionCell *)cell withCollection:(MHCollection *)collection {
     
-    NSArray *items = [MHDatabaseManager getAllItemsForCollectionWithObjId:objectId];
+    cell.collectionTitle.text = collection.objName;
     
+    if ([collection.objItemsNumber isEqualToNumber:@0]) {
+        cell.badgeView.hidden = YES;
+    }else {
+        cell.badgeView.badgeValue = collection.objItemsNumber;
+    }
+    
+    cell.tagsView.tagList = collection.objTags;
+
     [cell.kenBurnsView removeAllImages];
     
 #warning - select 5 random images if more than 5!
-    for (MHItem *item in items) {
+    for (MHItem *item in collection.items) {
         for(MHMedia* media in item.media) {
             [UIImage thumbnailForAssetPath:media.objLocalPath completion:^(UIImage *image) {
                 [cell.kenBurnsView addImage:image];
@@ -374,7 +373,7 @@ newIndexPath:(NSIndexPath *)newIndexPath
     
     MHCollection *object = [self.fetchedResultsController objectAtIndexPath:cellPath];
     
-    [self cellConfiguration:cell withCoreDataObjectId:object.objId];
+    [self configureCell:cell withCollection:object];
     
     [cell.kenBurnsView startAnimation];
     

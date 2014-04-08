@@ -9,16 +9,17 @@
 #import <UIKit/UIKit.h>
 #import "MHCollection.h"
 
-@protocol passCollectionName <NSObject>
+@protocol CollectionSelectorDelegate <NSObject>
 
--(void)setCollectionName:(NSString *)collectionName;
+- (void)collectionSelected:(MHCollection *)collection;
+
 @end
 
 @interface MHBrowseCollectionViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (weak)id <passCollectionName> delegate;
-@property (nonatomic, strong) NSMutableArray *collections;
-@property (nonatomic, strong) MHCollection* lastSelectedCollection;
+@property (weak) id <CollectionSelectorDelegate> delegate;
+
 - (IBAction)cancelButton:(id)sender;
 - (IBAction)addButton:(id)sender;
 

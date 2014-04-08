@@ -14,6 +14,8 @@
 
 @interface MHBrowseCollectionViewController ()
 
+@property (nonatomic, strong) NSArray *collections;
+
 @end
 
 @implementation MHBrowseCollectionViewController
@@ -31,7 +33,6 @@
 {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor darkerGray];
-    self.collections = [NSMutableArray arrayWithArray:[MHDatabaseManager getAllCollections]];
 
     self.tableView.backgroundColor = [UIColor appBackgroundColor];
     self.tableView.tintColor = [UIColor collectionNameFrontColor];
@@ -53,9 +54,8 @@
     [self update];
 }
 
-- (void) update{
-    [self.collections removeAllObjects];
-    self.collections = [NSMutableArray arrayWithArray:[MHDatabaseManager getAllCollections]];
+- (void) update {
+    self.collections = [MHDatabaseManager allCollections];
     [self.tableView reloadData];
 }
 
@@ -83,7 +83,7 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     MHCollection *collect = [_collections objectAtIndex:indexPath.row];
-    [[self delegate]setCollectionName:collect.objName];
+    [[self delegate] collectionSelected:collect];
     [self.navigationController popViewControllerAnimated:YES];
 }
 

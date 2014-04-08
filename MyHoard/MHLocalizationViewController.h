@@ -9,19 +9,22 @@
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
 
-@protocol passLocationName <NSObject>
+@protocol LocationSelectorDelegate <NSObject>
 
--(void)setLocationName:(NSString *)collectionName;
--(void)setLocationCoordinate:(CLLocationCoordinate2D)coordinate;
+- (void)selectedLocationName:(NSString *)name;
+- (void)selectedLocationCoordinate:(CLLocationCoordinate2D)coordinate;
+
 @end
 
 @interface MHLocalizationViewController : UIViewController<UITableViewDelegate, UITableViewDataSource>
-@property (weak)id <passLocationName> delegate;
+
+@property (weak) id <LocationSelectorDelegate> delegate;
 @property (nonatomic, strong) NSArray *localizations;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UITextField *localizationText;
 @property (weak, nonatomic) IBOutlet UIButton *cancelButtonColor;
 @property (weak, nonatomic) IBOutlet UIView *lineSeparatingTableView;
+
 - (IBAction)cancelButton:(id)sender;
 
 @end

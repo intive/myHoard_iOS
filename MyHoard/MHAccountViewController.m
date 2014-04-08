@@ -66,17 +66,18 @@
 
 - (NSInteger)collectionsNumber {
     
-    NSArray *array = [MHDatabaseManager getAllCollections];
+    NSArray *array = [MHDatabaseManager allCollections];
     return [array count];
 }
 
 - (NSInteger)photosNumber {
     
-    NSArray *array = [MHDatabaseManager getAllCollections];
+    NSArray *array = [MHDatabaseManager allCollections];
     NSInteger numberOfPhotos = 0;
     
     for (MHCollection *eachCollection in array) {
-        numberOfPhotos += [eachCollection.objItemsNumber integerValue];
+#warning we assume each item contains one photo, which might be no true!
+        numberOfPhotos += eachCollection.items.count;
     }
     
     return numberOfPhotos;
