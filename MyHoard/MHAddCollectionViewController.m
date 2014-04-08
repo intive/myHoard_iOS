@@ -107,10 +107,7 @@
 
 - (IBAction)add:(id)sender {
     NSString *result = [self.nameTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    if ([self.descriptionTextField.text isEqualToString:@""]) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"error" message:@"Description must be filled" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
-        [alert show];
-    }else if([result length]<2){
+    if([result length]<2){
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"error" message:@"Name is to short(spaces, tabs are not included in counting)" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
         [alert show];
     }else if([self.nameTextField.text length]>64){
