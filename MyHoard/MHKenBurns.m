@@ -51,10 +51,13 @@
 }
 
 - (void)addImage:(UIImage *)image {
-    
-    [_images addObject:image];
-    [self stopAnimation];
-    [self startAnimation];
+
+    if (image)
+    {
+        [_images addObject:image];
+        [self stopAnimation];
+        [self startAnimation];
+    }
 }
 
 - (void)animationTapperOff {
