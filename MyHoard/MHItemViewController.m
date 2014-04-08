@@ -52,6 +52,9 @@ typedef NS_ENUM(NSInteger, CollectionSortMode) {
     self.disableMHHamburger = YES;
     // Do any additional setup after loading the view, typically from a nib.
     
+    self.menuButtonImage = [UIImage imageNamed:@"plus"];
+    self.selectedMenuButtonImage = [UIImage imageNamed:@"cancel"];
+
     self.view.backgroundColor = [UIColor lighterGray];
     
     _objectChanges = [NSMutableArray array];

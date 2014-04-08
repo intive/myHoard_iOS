@@ -49,7 +49,6 @@
     [[self navigationController] setNavigationBarHidden:NO animated:YES];
     };
     
-    self.menuButtonImage = [UIImage imageNamed:@"icon_menu.png"];
     self.menu.dataSource = self;
     self.menu.delegate = self;
 }
