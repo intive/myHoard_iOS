@@ -219,10 +219,6 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 200;
 
 
 - (IBAction)backButton:(id)sender {
-    if (self.mediaId){
-        [self.navigationController popViewControllerAnimated:YES];
-    }
-    else
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 

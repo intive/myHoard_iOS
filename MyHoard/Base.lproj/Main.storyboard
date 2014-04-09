@@ -451,7 +451,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="cF2-Sm-u7f" kind="modal" identifier="addPhotoSegue" id="CiX-g9-RRH"/>
+                                    <segue destination="cF2-Sm-u7f" kind="modal" identifier="AddPhotoSegue" id="CiX-g9-RRH"/>
                                 </connections>
                             </button>
                         </barButtonItem>

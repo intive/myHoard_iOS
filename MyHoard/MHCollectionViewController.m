@@ -524,7 +524,9 @@ newIndexPath:(NSIndexPath *)newIndexPath
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     NSURL *imageUrl = [info valueForKey:UIImagePickerControllerReferenceURL];
-    [self performSegueWithIdentifier:@"AddItemSegue" sender:[imageUrl absoluteString]];
+    [self dismissViewControllerAnimated:YES completion:^{
+        [self performSegueWithIdentifier:@"AddItemSegue" sender:[imageUrl absoluteString]];
+    }];
 }
 
 
