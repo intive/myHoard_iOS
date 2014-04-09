@@ -51,13 +51,13 @@
     [_pickerSaveColor setTitleColor:[UIColor darkerYellow] forState:UIControlStateNormal];
     self.disableMHHamburger = YES;
     
-    UIBarButtonItem *save = [[UIBarButtonItem alloc] initWithTitle:@"Save"
+    UIBarButtonItem *save = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"check"]
                                                                   style:UIBarButtonItemStylePlain
                                                                  target:self
                                                                  action:@selector(add:)];
     self.navigationController.navigationBar.topItem.rightBarButtonItems = @[save];
 
-    UIBarButtonItem *cancel = [[UIBarButtonItem alloc] initWithTitle:@"Cancel"
+    UIBarButtonItem *cancel = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"cancel"]
                                                                   style:UIBarButtonItemStylePlain
                                                                  target:self
                                                                  action:@selector(cancel:)];

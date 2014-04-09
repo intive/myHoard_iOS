@@ -39,9 +39,9 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 200;
     
     [self.view addGestureRecognizer:tap];
     self.disableMHHamburger=YES;
-    UIBarButtonItem *closeButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"cancel.png"] style:UIBarButtonItemStylePlain target:self action:@selector(backButton:)];
+    UIBarButtonItem *closeButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"cancel"] style:UIBarButtonItemStylePlain target:self action:@selector(backButton:)];
     self.navigationItem.leftBarButtonItem = closeButton;
-    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"check.png"] style:UIBarButtonItemStylePlain target:self action:@selector(doneButton:)];
+    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"check"] style:UIBarButtonItemStylePlain target:self action:@selector(doneButton:)];
     self.navigationItem.rightBarButtonItem = doneButton;
     self.view.backgroundColor = [UIColor darkerGray];
     self.titleBackground.backgroundColor = [UIColor appBackgroundColor];
