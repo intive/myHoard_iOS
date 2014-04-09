@@ -11,6 +11,7 @@
 @interface MHChangePasswordViewController ()
 
 @property (weak, nonatomic) IBOutlet MHPasswordStrengthView *passwordStrengthView;
+@property (strong, nonatomic) MHUserProfile *profile;
 
 @end
 
@@ -113,10 +114,6 @@
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (IBAction)saveButton:(id)sender {
-    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
-}
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -188,6 +185,48 @@
     }
     
     return YES;
+}
+
+- (void)changeUsersPassword {
+    
+    [[MHAPI getInstance] readUserWithCompletionBlock:^(id object, NSError *error) {
+        if (error) {
+            UIAlertView *alert = [[UIAlertView alloc]
+                                  initWithTitle:@"Error"
+                                  message:error.localizedDescription
+                                  delegate:nil
+                                  cancelButtonTitle:@"OK"
+                                  otherButtonTitles:nil];
+            [alert show];
+        }else {
+            _profile.email = object[@"email"];
+            _profile.username = object[@"username"];
+        }
+    }];
+    
+    [[MHAPI getInstance] updateUser:_profile.username withPassword:_changePasswordTextField.text andEmail:_profile.email completionBlock:^(id object, NSError *error) {
+        if (error) {
+            UIAlertView *alert = [[UIAlertView alloc]
+                                  initWithTitle:@"Error"
+                                  message:error.localizedDescription
+                                  delegate:nil
+                                  cancelButtonTitle:@"OK"
+                                  otherButtonTitles:nil];
+            [alert show];
+        } else {
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }
+    }];
+}
+
+
+
+- (IBAction)saveButton:(id)sender {
+
+    if([self dataFieldsValid]) {
+        [self dismissKeyboard];
+        [self changeUsersPassword];
+    }
 }
 
 @end

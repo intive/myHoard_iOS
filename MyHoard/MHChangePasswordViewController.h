@@ -8,6 +8,8 @@
 
 #import "MHBaseViewController.h"
 #import "MHPasswordStrengthView.h"
+#import "MHAPI.h"
+#import "MHUserProfile.h"
 
 @interface MHChangePasswordViewController : MHBaseViewController <UITextFieldDelegate>
 
