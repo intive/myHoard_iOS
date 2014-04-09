@@ -12,7 +12,7 @@
 #import "UIImage+Gallery.h"
 #import <UIViewController+AMSlideMenu.h>
 
-@interface MHEditAccountViewController : MHBaseViewController <UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@interface MHEditAccountViewController : MHBaseViewController <UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *profilePicture;
 @property (weak, nonatomic) IBOutlet UILabel *loginLabel;

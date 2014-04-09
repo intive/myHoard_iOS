@@ -1392,6 +1392,9 @@
                                         <state key="normal" title="Save">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="saveIt:" destination="weE-zi-bqe" eventType="touchUpInside" id="zj4-vj-Vur"/>
+                                        </connections>
                                     </button>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GIe-yP-vJz">
                                         <rect key="frame" x="20" y="100" width="200" height="39"/>

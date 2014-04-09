@@ -43,8 +43,9 @@
     _passwordtextField.backgroundColor = [UIColor appBackgroundColor];
     
     _passwordtextField.attributedPlaceholder = [[NSAttributedString alloc]initWithString:@"Password" attributes:@{NSForegroundColorAttributeName: [UIColor darkerYellow]}];
-
     
+    _passwordtextField.delegate = self;
+
     _passwordBackgroundView.backgroundColor = [UIColor lighterGray];
     _saveButton.layer.cornerRadius = 17.0;
     [_changePasswordButton setTitleColor:[UIColor collectionNameFrontColor] forState:UIControlStateSelected];
@@ -146,12 +147,26 @@
 #pragma mark image picker delegate
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-    NSURL *imageUrl = [info valueForKey:UIImagePickerControllerReferenceURL];
+    UIImage *image = [info valueForKey:UIImagePickerControllerOriginalImage];
     [self dismissViewControllerAnimated:YES completion:^{
-        [UIImage imageForAssetPath:[imageUrl absoluteString] completion:^(UIImage *image) {
-            _profilePicture.image = image;
-        }];
+        _profilePicture.image = image;
     }];
+}
+
+- (IBAction)saveIt:(id)sender {
+    
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    
+    [textField resignFirstResponder];
+    return YES;
+}
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    
+    [self.view endEditing:YES];
 }
 
 @end
