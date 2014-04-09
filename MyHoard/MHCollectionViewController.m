@@ -68,7 +68,7 @@ typedef NS_ENUM(NSInteger, CollectionSortMode) {
     animatingCell = nil;
     
     self.collectionView.backgroundColor = [UIColor appBackgroundColor];
-    self.sortMode = CollectionSortModeByDate;
+    self.sortMode = CollectionSortModeByName;
 }
 
 - (void) viewDidAppear:(BOOL)animated{
