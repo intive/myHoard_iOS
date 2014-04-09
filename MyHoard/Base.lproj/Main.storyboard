@@ -1117,8 +1117,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="1" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="rsk-kW-i7O">
-                                <rect key="frame" x="0.0" y="108" width="320" height="306"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="1" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="rsk-kW-i7O">
+                                <rect key="frame" x="0.0" y="64" width="320" height="416"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
@@ -1128,9 +1128,15 @@
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="rsk-kW-i7O" firstAttribute="leading" secondItem="4VS-xb-yfy" secondAttribute="leading" id="R7K-sP-fUw"/>
+                            <constraint firstAttribute="trailing" secondItem="rsk-kW-i7O" secondAttribute="trailing" id="b9e-5N-ZIw"/>
+                            <constraint firstItem="rsk-kW-i7O" firstAttribute="top" secondItem="4VS-xb-yfy" secondAttribute="top" constant="64" id="gyU-E1-rg1"/>
+                            <constraint firstItem="qv3-mI-gg4" firstAttribute="top" secondItem="rsk-kW-i7O" secondAttribute="bottom" id="p8k-RL-66q"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Collection" id="g5S-Jt-huS">
-                        <barButtonItem key="leftBarButtonItem" title="&lt; Back" id="1gK-qY-bhX">
+                        <barButtonItem key="leftBarButtonItem" image="&lt;Button" id="1gK-qY-bhX">
                             <connections>
                                 <action selector="cancelButton:" destination="q6y-Bc-6aO" id="hwv-hX-pq6"/>
                             </connections>
@@ -1724,6 +1730,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="&lt;Button" width="19" height="35"/>
         <image name="cameraIcons" width="22" height="22"/>
         <image name="cancel" width="22" height="22"/>
         <image name="confirm" width="22" height="22"/>
