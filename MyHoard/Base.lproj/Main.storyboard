@@ -128,29 +128,6 @@
             </objects>
             <point key="canvasLocation" x="-857" y="-764"/>
         </scene>
-        <!--Navigation Controller - Collections-->
-        <scene sceneID="xij-Gg-mkV">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="OiG-dl-cgV" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Collections" id="sru-4m-spy"/>
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="4Ty-eN-BWB">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="Jed-a3-mhe">
-                        <rect key="frame" x="0.0" y="524" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </toolbar>
-                    <connections>
-                        <segue destination="S64-QW-Cel" kind="relationship" relationship="rootViewController" id="2s6-94-35y"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="PAI-9v-xLl" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-2080" y="94"/>
-        </scene>
         <!--Start View Controller-->
         <scene sceneID="ye6-hF-2XF">
             <objects>
@@ -444,7 +421,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="hHl-rA-Y2z">
-                        <barButtonItem key="leftBarButtonItem" style="plain" id="H86-AA-pBO">
+                        <barButtonItem key="leftBarButtonItem" id="H86-AA-pBO">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Df4-JD-vC2">
                                 <rect key="frame" x="16" y="5" width="71" height="33"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -457,7 +434,7 @@
                                 </connections>
                             </button>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" style="plain" id="Z06-hd-SSY">
+                        <barButtonItem key="rightBarButtonItem" id="Z06-hd-SSY">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="LLZ-jI-9cw">
                                 <rect key="frame" x="229" y="11" width="75" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -493,10 +470,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1N9-HF-VQ9">
-                                <rect key="frame" x="0.0" y="36" width="320" height="183"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1N9-HF-VQ9">
+                                <rect key="frame" x="0.0" y="64" width="320" height="183"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <constraints>
+                                    <constraint firstAttribute="height" constant="183" id="dDR-Yh-MuB"/>
                                     <constraint firstAttribute="width" constant="320" id="pI6-rz-tjU"/>
                                 </constraints>
                             </imageView>
@@ -674,8 +652,8 @@
                             <constraint firstItem="SSg-LA-70Z" firstAttribute="leading" secondItem="GnP-7Y-HYQ" secondAttribute="leading" id="fC9-TQ-VK8"/>
                             <constraint firstItem="1N9-HF-VQ9" firstAttribute="leading" secondItem="GnP-7Y-HYQ" secondAttribute="leading" id="g8y-hw-Z1W"/>
                             <constraint firstItem="cvt-KS-f0P" firstAttribute="top" secondItem="fPW-t8-bw3" secondAttribute="bottom" constant="8" id="hHD-3J-nJT"/>
-                            <constraint firstItem="1N9-HF-VQ9" firstAttribute="top" secondItem="cDg-1B-pwE" secondAttribute="bottom" constant="16" id="kdH-1E-nSM"/>
-                            <constraint firstItem="SSg-LA-70Z" firstAttribute="top" secondItem="1N9-HF-VQ9" secondAttribute="bottom" constant="29" id="oKT-fb-WFD"/>
+                            <constraint firstItem="1N9-HF-VQ9" firstAttribute="top" secondItem="cDg-1B-pwE" secondAttribute="bottom" id="kdH-1E-nSM"/>
+                            <constraint firstItem="SSg-LA-70Z" firstAttribute="top" secondItem="1N9-HF-VQ9" secondAttribute="bottom" constant="1" id="oKT-fb-WFD"/>
                             <constraint firstItem="cvt-KS-f0P" firstAttribute="leading" secondItem="GnP-7Y-HYQ" secondAttribute="leading" id="rhi-fw-BQG"/>
                             <constraint firstItem="fPW-t8-bw3" firstAttribute="top" secondItem="SSg-LA-70Z" secondAttribute="bottom" constant="16" id="xeG-gn-kG8"/>
                         </constraints>
@@ -1743,11 +1721,10 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="2s6-94-35y"/>
         <segue reference="Xtm-aX-Up0"/>
-        <segue reference="mK1-XE-GiW"/>
         <segue reference="jZp-GR-mKO"/>
         <segue reference="CiX-g9-RRH"/>
         <segue reference="uZQ-yX-J1c"/>
+        <segue reference="mK1-XE-GiW"/>
     </inferredMetricsTieBreakers>
 </document>
