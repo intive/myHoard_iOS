@@ -792,8 +792,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="5dp-fo-Hmy">
-                                <rect key="frame" x="0.0" y="8" width="320" height="480"/>
+                            <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="5dp-fo-Hmy">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="PQ0-Ld-8W5">
@@ -865,6 +865,12 @@
                             </collectionView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="FCy-eU-c0L" firstAttribute="top" secondItem="5dp-fo-Hmy" secondAttribute="bottom" id="I2V-IZ-Rel"/>
+                            <constraint firstAttribute="trailing" secondItem="5dp-fo-Hmy" secondAttribute="trailing" id="Vha-wz-Pxq"/>
+                            <constraint firstItem="5dp-fo-Hmy" firstAttribute="top" secondItem="tNg-hs-p7N" secondAttribute="top" id="bmE-BE-emZ"/>
+                            <constraint firstItem="5dp-fo-Hmy" firstAttribute="leading" secondItem="tNg-hs-p7N" secondAttribute="leading" id="ygu-jw-F1k"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Collection Name" id="bJD-IS-1l0"/>
                     <connections>
