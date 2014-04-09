@@ -44,6 +44,9 @@
             identifier = @"mainSegue";
             break;
         case 1:
+            identifier = @"collectionSegue";
+            break;
+        case 2:
             identifier = @"profileSegue";
             break;
         default:

@@ -232,6 +232,21 @@
             </objects>
             <point key="canvasLocation" x="-1437" y="174"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="fSQ-EQ-aCl">
+            <objects>
+                <navigationController definesPresentationContext="YES" id="Bqs-7e-dvc" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Ta5-GH-fO8">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="bzQ-Af-eKQ" kind="relationship" relationship="rootViewController" id="mK1-XE-GiW"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Jll-FH-lMk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1047" y="699"/>
+        </scene>
         <!--Collection View Controller-->
         <scene sceneID="n1Y-VN-b7i">
             <objects>
@@ -1673,7 +1688,7 @@
                         <color key="separatorColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <inset key="separatorInset" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <prototypes>
-                            <tableViewCell userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="slideMenuCell" textLabel="Fk9-k0-qmm" style="IBUITableViewCellStyleDefault" id="Kig-v0-Cjp">
+                            <tableViewCell userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="slideMenuCell" textLabel="Fk9-k0-qmm" style="IBUITableViewCellStyleDefault" id="Kig-v0-Cjp">
                                 <rect key="frame" x="0.0" y="64" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Kig-v0-Cjp" id="Qj7-am-NAO">
@@ -1700,11 +1715,12 @@
                     <connections>
                         <segue destination="iwF-FO-On1" kind="custom" identifier="mainSegue" customClass="AMSlideMenuContentSegue" id="bMC-PS-d1A"/>
                         <segue destination="CzS-vb-Akr" kind="custom" identifier="profileSegue" customClass="AMSlideMenuContentSegue" id="04K-wP-eEu"/>
+                        <segue destination="Bqs-7e-dvc" kind="custom" identifier="collectionSegue" customClass="AMSlideMenuContentSegue" id="RiI-So-VW8"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6gH-1B-gkm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2698" y="1555"/>
+            <point key="canvasLocation" x="-2474" y="1503"/>
         </scene>
     </scenes>
     <resources>
@@ -1720,11 +1736,11 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="2s6-94-35y"/>
+        <segue reference="Xtm-aX-Up0"/>
+        <segue reference="mK1-XE-GiW"/>
         <segue reference="jZp-GR-mKO"/>
         <segue reference="CiX-g9-RRH"/>
-        <segue reference="AZv-hY-c59"/>
-        <segue reference="Xtm-aX-Up0"/>
-        <segue reference="2s6-94-35y"/>
-        <segue reference="7Aw-hx-44V"/>
+        <segue reference="uZQ-yX-J1c"/>
     </inferredMetricsTieBreakers>
 </document>

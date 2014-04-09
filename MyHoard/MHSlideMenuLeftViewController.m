@@ -19,7 +19,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    _elements = @[@{ @"segue" : @"mainSegue",
+    _elements = @[@{ @"segue" : @"collectionSegue",
                      @"image" : @"collection_y",
                      @"title" : @"Collections",
                      },
@@ -27,7 +27,19 @@
                      @"image" : @"profile",
                      @"title" : @"Profile",
                      },
-                  @{ @"segue" : @"logoutSegue",
+                  @{ @"segue" : @"",
+                     @"image" : @"friends",
+                     @"title" : @"Friends",
+                     },
+                  @{ @"segue" : @"",
+                     @"image" : @"notifications",
+                     @"title" : @"Notifications",
+                     },
+                  @{ @"segue" : @"",
+                     @"image" : @"search",
+                     @"title" : @"Search",
+                     },
+                  @{ @"segue" : @"mainSegue",
                      @"image" : @"",
                      @"title" : @"Logout",
                      }];
@@ -44,18 +56,25 @@
 }
 
 - (UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"slideMenuCell"];
+    UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"slideMenuCell" forIndexPath:indexPath];
     
+    cell.userInteractionEnabled = YES;
+    cell.backgroundColor = [UIColor clearColor];
+
     cell.textLabel.text = [_elements[indexPath.row] objectForKey:@"title"];
     cell.textLabel.textColor = [UIColor lighterYellow];
-    cell.backgroundColor = [UIColor clearColor];
+    cell.textLabel.backgroundColor = [UIColor clearColor];
+    cell.textLabel.font = [UIFont systemFontOfSize:15];
+    
     cell.imageView.image = [UIImage imageNamed:[_elements[indexPath.row] objectForKey:@"image"]];
     
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     NSString *segueIdentifier = [_elements[indexPath.row] objectForKey:@"segue"];
+    NSLog(@"performSegue with identifier: %@", segueIdentifier);
     if (segueIdentifier.length) {
         [self performSegueWithIdentifier:segueIdentifier sender:self];
     }

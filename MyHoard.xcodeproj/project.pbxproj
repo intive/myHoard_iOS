@@ -242,6 +242,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		231A904F18F5C53500FE4596 /* SlideMenu */ = {
+			isa = PBXGroup;
+			children = (
+				CECB9CE218F544E800FF724E /* MHSliderMenuViewController.h */,
+				CECB9CE318F544E800FF724E /* MHSliderMenuViewController.m */,
+				231A904C18F5B6D500FE4596 /* MHSlideMenuLeftViewController.h */,
+				231A904D18F5B6D500FE4596 /* MHSlideMenuLeftViewController.m */,
+			);
+			name = SlideMenu;
+			sourceTree = "<group>";
+		};
 		235EB38C18DA03370032D769 /* MHDropDownMenu */ = {
 			isa = PBXGroup;
 			children = (
@@ -375,10 +386,7 @@
 				CE92CB5718C321EF005038D9 /* MHImagePickerViewController.xib */,
 				23D321B2184BBFFA002FC13A /* Main.storyboard */,
 				CEF82A0818F0384700058BB8 /* Profile */,
-				CECB9CE218F544E800FF724E /* MHSliderMenuViewController.h */,
-				CECB9CE318F544E800FF724E /* MHSliderMenuViewController.m */,
-				231A904C18F5B6D500FE4596 /* MHSlideMenuLeftViewController.h */,
-				231A904D18F5B6D500FE4596 /* MHSlideMenuLeftViewController.m */,
+				231A904F18F5C53500FE4596 /* SlideMenu */,
 				E72AA10818E39B8900E2FDE4 /* MHSavePhotoViewController.h */,
 				E72AA10918E39B8900E2FDE4 /* MHSavePhotoViewController.m */,
 				CEA8F94318DE024600B75355 /* MHStartScreenViewController.h */,
