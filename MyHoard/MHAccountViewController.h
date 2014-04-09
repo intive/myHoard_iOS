@@ -11,6 +11,7 @@
 #import "MHBadgeView.h"
 #import "MHDatabaseManager.h"
 #import "MHCollection.h"
+#import "MHItem.h"
 #import "MHAPI.h"
 #import <UIViewController+AMSlideMenu.h>
 

@@ -82,8 +82,9 @@
     NSInteger numberOfPhotos = 0;
     
     for (MHCollection *eachCollection in array) {
-#warning we assume each item contains one photo, which might be no true!
-        numberOfPhotos += eachCollection.items.count;
+        for (MHItem *item in eachCollection.items) {
+            numberOfPhotos += item.media.count;
+        }
     }
     
     return numberOfPhotos;
