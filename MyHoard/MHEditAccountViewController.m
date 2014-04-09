@@ -132,6 +132,7 @@
 -(void)actionSheet:(UIActionSheet *)alert clickedButtonAtIndex:(NSInteger)buttonIndex {
     switch (buttonIndex){
         case 0:
+            [self deletePhoto];
             break;
         case 1:
             [self performSegueWithIdentifier:@"ImagePickerSegue" sender:nil];
@@ -185,7 +186,7 @@
     [self.view endEditing:YES];
 }
 
-- (void)deletePhoto:(id)sender {
+- (void)deletePhoto {
     
     NSFileManager *mgr = [[NSFileManager alloc]init];
     
@@ -195,10 +196,10 @@
     
     if ([mgr fileExistsAtPath:imagePath]) {
         [mgr removeItemAtPath:imagePath error:&error];
-        if (!error) {
+        if (error) {
             UIAlertView *alert = [[UIAlertView alloc]
                                   initWithTitle:@"Error"
-                                  message:error.localizedDescription
+                                  message:@"Something went wrong"
                                   delegate:nil
                                   cancelButtonTitle:@"OK"
                                   otherButtonTitles:nil];
