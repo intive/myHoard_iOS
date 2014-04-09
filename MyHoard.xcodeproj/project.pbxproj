@@ -70,6 +70,7 @@
 		CEA8F94518DE024600B75355 /* MHStartScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA8F94418DE024600B75355 /* MHStartScreenViewController.m */; };
 		CEABF90E18BB838D00A6A2F3 /* MHItemViewControllerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CEABF90D18BB838D00A6A2F3 /* MHItemViewControllerTest.m */; };
 		CEC22B1118DF6985002E7C76 /* MHBadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC22B1018DF6985002E7C76 /* MHBadgeView.m */; };
+		CECB9CE418F544E800FF724E /* MHSliderMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CECB9CE318F544E800FF724E /* MHSliderMenuViewController.m */; };
 		CED4B03518C892A300A84155 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CED4B03418C892A300A84155 /* Settings.bundle */; };
 		CEF82A0518F0383F00058BB8 /* MHAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEF82A0018F0383F00058BB8 /* MHAccountViewController.m */; };
 		CEF82A0618F0383F00058BB8 /* MHChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEF82A0218F0383F00058BB8 /* MHChangePasswordViewController.m */; };
@@ -195,6 +196,8 @@
 		CEABF90D18BB838D00A6A2F3 /* MHItemViewControllerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHItemViewControllerTest.m; sourceTree = "<group>"; };
 		CEC22B0F18DF6985002E7C76 /* MHBadgeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHBadgeView.h; sourceTree = "<group>"; };
 		CEC22B1018DF6985002E7C76 /* MHBadgeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHBadgeView.m; sourceTree = "<group>"; };
+		CECB9CE218F544E800FF724E /* MHSliderMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHSliderMenuViewController.h; sourceTree = "<group>"; };
+		CECB9CE318F544E800FF724E /* MHSliderMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHSliderMenuViewController.m; sourceTree = "<group>"; };
 		CED4B03418C892A300A84155 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		CEF829FF18F0383E00058BB8 /* MHAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHAccountViewController.h; sourceTree = "<group>"; };
 		CEF82A0018F0383F00058BB8 /* MHAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHAccountViewController.m; sourceTree = "<group>"; };
@@ -374,6 +377,8 @@
 				CEF82A0818F0384700058BB8 /* Profile */,
 				E74EDDBB18E705E700488AD1 /* MHImagePicker2ViewController.h */,
 				E74EDDBC18E705E700488AD1 /* MHImagePicker2ViewController.m */,
+				CECB9CE218F544E800FF724E /* MHSliderMenuViewController.h */,
+				CECB9CE318F544E800FF724E /* MHSliderMenuViewController.m */,
 				E72AA10818E39B8900E2FDE4 /* MHSavePhotoViewController.h */,
 				E72AA10918E39B8900E2FDE4 /* MHSavePhotoViewController.m */,
 				CEA8F94318DE024600B75355 /* MHStartScreenViewController.h */,
@@ -684,6 +689,7 @@
 				E74EDDBD18E705E700488AD1 /* MHImagePicker2ViewController.m in Sources */,
 				23D321B1184BBFFA002FC13A /* AppDelegate.m in Sources */,
 				23DE906518F41ED200B15424 /* MHCollection.m in Sources */,
+				CECB9CE418F544E800FF724E /* MHSliderMenuViewController.m in Sources */,
 				537CF83618AD8FBF008A7E04 /* MHDatabaseManager.m in Sources */,
 				9370CAEB18CFC1E400C77461 /* MHCollectionCell.m in Sources */,
 				CE09D99318F2CAE5007E8885 /* MHUserProfile.m in Sources */,

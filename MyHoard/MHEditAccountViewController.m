@@ -26,9 +26,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+
     self.disableMHHamburger = YES;
-    
+    [self disableSlidePanGestureForLeftMenu];
     [self profilePictureViewShape];
     _backgroundView.backgroundColor = [UIColor lighterGray];
     

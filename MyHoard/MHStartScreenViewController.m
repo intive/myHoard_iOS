@@ -19,6 +19,7 @@
 {
     [super viewDidLoad];
     
+    [self disableSlidePanGestureForLeftMenu];
     
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc]initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:nil];
     [[self navigationItem] setBackBarButtonItem:backButton];

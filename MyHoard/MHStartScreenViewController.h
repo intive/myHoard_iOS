@@ -9,6 +9,7 @@
 #import "MHBaseViewController.h"
 #import "MHLoginAndRegisterViewController.h"
 #import "MHRoundButton.h"
+#import <UIViewController+AMSlideMenu.h>
 
 @interface MHStartScreenViewController : MHBaseViewController
 

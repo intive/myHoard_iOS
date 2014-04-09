@@ -30,6 +30,9 @@
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc]initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:nil];
     [[self navigationItem] setBackBarButtonItem:backButton];
     
+    self.disableMHHamburger = YES;
+    [self addLeftMenuButton];
+    
     [self loginLabelTitle];
     
     [self profilePictureViewShape];
