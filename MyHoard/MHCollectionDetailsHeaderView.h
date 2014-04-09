@@ -1,5 +1,5 @@
 //
-//  MHItemViewHeader.h
+//  MHCollectionDetailsHeaderView.h
 //  MyHoard
 //
 //  Created by Kacper Tłusty on 07.04.2014.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MHItemViewHeader : UICollectionReusableView
+@interface MHCollectionDetailsHeaderView : UICollectionReusableView
 @property (weak, nonatomic) IBOutlet UILabel *collectionTitle;
 @property (weak, nonatomic) IBOutlet UILabel *collectionTags;
 

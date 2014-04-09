@@ -1,22 +1,20 @@
 //
-//  MHItemCell.m
+//  MHCollectionDetailsHeaderView.m
 //  MyHoard
 //
-//  Created by Kacper Tłusty on 24.03.2014.
+//  Created by Kacper Tłusty on 07.04.2014.
 //  Copyright (c) 2014 BLStream. All rights reserved.
 //
 
-#import "MHItemCell.h"
+#import "MHCollectionDetailsHeaderView.h"
 
-@implementation MHItemCell
+@implementation MHCollectionDetailsHeaderView
 
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = [UIColor collectionThumbnailOutlineColor];
-        self.itemTitle.textColor = [UIColor collectionNameFrontColor];
-        self.itemComment.textColor = [UIColor tagFrontColor];
+        // Initialization code
     }
     return self;
 }

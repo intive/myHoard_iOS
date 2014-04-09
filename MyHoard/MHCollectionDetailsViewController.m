@@ -1,15 +1,15 @@
 //
-//  MHItemViewController.m
+//  MHCollectionDetailsViewController.m
 //  MyHoard
 //
 //  Created by user on 2/16/14.
 //  Copyright (c) 2014 BLStream. All rights reserved.
 //
-#import "MHItemViewController.h"
+#import "MHCollectionDetailsViewController.h"
 #import "UIImage+Gallery.h"
 
 
-@implementation MHItemViewController
+@implementation MHCollectionDetailsViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -63,7 +63,7 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
 
-    MHItemCell *cell = (MHItemCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"MHItemCell" forIndexPath:indexPath];
+    MHCollectionDetailsCell *cell = (MHCollectionDetailsCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"MHItemCell" forIndexPath:indexPath];
     
     MHItem* object = [_collection.items.allObjects objectAtIndex:indexPath.row];
     
@@ -78,7 +78,7 @@
 }
 
 
-- (void)configureCell:(MHItemCell *)cell withItem:(MHItem *)item
+- (void)configureCell:(MHCollectionDetailsCell *)cell withItem:(MHItem *)item
 {
     cell.itemComment.text = item.objDescription;
     cell.itemTitle.text = item.objName;
@@ -98,7 +98,7 @@
     UICollectionReusableView *reusableview = nil;
     
     if (kind == UICollectionElementKindSectionHeader) {
-        MHItemViewHeader *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"MHItemViewHeader" forIndexPath:indexPath];
+        MHCollectionDetailsHeaderView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"MHItemViewHeader" forIndexPath:indexPath];
 
         headerView.backgroundColor = [UIColor darkerGray];
         headerView.collectionTitle.textColor = [UIColor collectionNameFrontColor];

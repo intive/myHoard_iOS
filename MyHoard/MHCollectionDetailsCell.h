@@ -1,5 +1,5 @@
 //
-//  MHItemCell.h
+//  MHCollectionDetailsCell.h
 //  MyHoard
 //
 //  Created by Kacper Tłusty on 24.03.2014.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MHItemCell : UICollectionViewCell
+@interface MHCollectionDetailsCell : UICollectionViewCell
 
 @property (weak, nonatomic) IBOutlet UILabel *itemTitle;
 @property (weak, nonatomic) IBOutlet UILabel *itemComment;

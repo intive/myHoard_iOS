@@ -1,5 +1,5 @@
 //
-//  MHItemViewController.h
+//  MHCollectionDetailsViewController.h
 //  MyHoard
 //
 //  Created by user on 2/16/14.
@@ -8,16 +8,16 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
-#import "MHItemCell.h"
+#import "MHCollectionDetailsCell.h"
 #import "MHBaseViewController.h"
 #import "MHCoreDataContext.h"
 #import "MHItem.h"
 #import "MHCollection.h"
 #import "MHDatabaseManager.h"
 #import "MHMedia.h"
-#import "MHItemViewHeader.h"
+#import "MHCollectionDetailsHeaderView.h"
 
-@interface MHItemViewController : MHBaseViewController <UICollectionViewDataSource, UICollectionViewDelegate>
+@interface MHCollectionDetailsViewController : MHBaseViewController <UICollectionViewDataSource, UICollectionViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (nonatomic, strong) MHCollection *collection;

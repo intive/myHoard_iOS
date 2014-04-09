@@ -7,7 +7,7 @@
 //
 
 #import "MHCollectionViewController.h"
-#import "MHItemViewController.h"
+#import "MHCollectionDetailsViewController.h"
 #import "MHAddItemViewController.h"
 #import "UIImage+Gallery.h"
 #import "MHMedia.h"
@@ -214,7 +214,7 @@ typedef NS_ENUM(NSInteger, CollectionSortMode) {
 }
 
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    MHItemViewController * vc = [segue destinationViewController];
+    MHCollectionDetailsViewController * vc = [segue destinationViewController];
     if ([segue.identifier isEqualToString:@"ShowItemsSegue"]) {
         NSArray *indexPaths = [self.collectionView indexPathsForSelectedItems];
         vc.collection = [self.fetchedResultsController objectAtIndexPath:indexPaths[0]];

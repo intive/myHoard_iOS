@@ -780,10 +780,10 @@
             </objects>
             <point key="canvasLocation" x="1841" y="1121"/>
         </scene>
-        <!--Item View Controller - Collection Name-->
+        <!--Collection Details View Controller - Collection Name-->
         <scene sceneID="tAz-Fy-q8e">
             <objects>
-                <viewController storyboardIdentifier="MHItemViewController" id="Pao-hk-0A0" customClass="MHItemViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MHItemViewController" id="Pao-hk-0A0" customClass="MHCollectionDetailsViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jzV-oc-OFo"/>
                         <viewControllerLayoutGuide type="bottom" id="FCy-eU-c0L"/>
@@ -803,7 +803,7 @@
                                     <inset key="sectionInset" minX="20" minY="20" maxX="20" maxY="20"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="MHItemCell" id="BPq-o3-7ej" customClass="MHItemCell">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="MHItemCell" id="BPq-o3-7ej" customClass="MHCollectionDetailsCell">
                                         <rect key="frame" x="20" y="134" width="131" height="176"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -836,7 +836,7 @@
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
-                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="MHItemViewHeader" id="IN1-pP-0hO" customClass="MHItemViewHeader">
+                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="MHItemViewHeader" id="IN1-pP-0hO" customClass="MHCollectionDetailsHeaderView">
                                     <rect key="frame" x="0.0" y="64" width="320" height="50"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
