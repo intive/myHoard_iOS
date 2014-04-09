@@ -71,6 +71,10 @@ typedef NS_ENUM(NSInteger, CollectionSortMode) {
     self.sortMode = CollectionSortModeByDate;
 }
 
+- (void) viewDidAppear:(BOOL)animated{
+    self.menuButtonImage = [UIImage imageNamed:@"plus"];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
