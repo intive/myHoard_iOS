@@ -255,11 +255,13 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 200;
                                                        objOwner:nil
                                                      collection:self.selectedCollection];
         
-        [MHDatabaseManager insertMediaWithObjItem:nil
-                                   objCreatedDate:[NSDate date]
-                                         objOwner:nil
-                                     objLocalPath:self.mediaId
-                                             item:item];
+        if (self.mediaId) {
+            [MHDatabaseManager insertMediaWithObjItem:nil
+                                       objCreatedDate:[NSDate date]
+                                             objOwner:nil
+                                         objLocalPath:self.mediaId
+                                                 item:item];
+        }
 
         [self.navigationController dismissViewControllerAnimated:YES completion:nil];
     }
