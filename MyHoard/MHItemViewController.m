@@ -126,7 +126,7 @@
 - (NSString*)titleInDropDownMenu:(MHDropDownMenu *)menu atIndex:(NSInteger)index {
     switch (index) {
         case 0:
-            return [NSString stringWithFormat:@"Add item to %@", _collection.objName];
+            return [NSString stringWithFormat:@"Add item to '%@'", _collection.objName];
             break;
         default:
             return @"unused menu item";
@@ -135,6 +135,7 @@
 
 - (void)dropDownMenu:(MHDropDownMenu*)menu didSelectItemAtIndex:(NSUInteger)index {
     if (index == 0) {
+#warning - implement
     } else {
         NSLog(@"Unknown menu item %lu selected:", (unsigned long)index);
     }
