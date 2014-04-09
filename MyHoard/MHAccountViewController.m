@@ -57,7 +57,18 @@
     _profilePictureView.layer.borderWidth = 2.0;
     _profilePictureView.layer.masksToBounds = YES;
     _profilePictureView.layer.borderColor=[[UIColor badgeBackgroundColor] CGColor];
-    _profilePictureView.image = [UIImage imageNamed:@"profile.png"];
+    
+    NSString* imagePath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"/libraryProfilePhoto.png"];
+    
+    if (![imagePath length]) {
+        _profilePictureView.image = [UIImage imageNamed:@"profile.png"];
+    }else {
+        _profilePictureView.image = [UIImage imageWithContentsOfFile:imagePath];
+    }
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [self profilePictureView];
 }
 
 - (void)friendPictureViewShape {

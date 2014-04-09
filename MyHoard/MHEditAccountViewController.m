@@ -62,7 +62,18 @@
     _profilePicture.layer.borderWidth = 2.0;
     _profilePicture.layer.masksToBounds = YES;
     _profilePicture.layer.borderColor=[[UIColor collectionNameFrontColor] CGColor];
-    _profilePicture.image = [UIImage imageNamed:@"profile.png"];
+    
+    NSString* imagePath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"/libraryProfilePhoto.png"];
+    
+    if (![imagePath length]) {
+        _profilePicture.image = [UIImage imageNamed:@"profile"];
+    }else {
+        _profilePicture.image = [UIImage imageWithContentsOfFile:imagePath];
+    }
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [self profilePictureViewShape];
 }
 
 - (void)didReceiveMemoryWarning
@@ -148,6 +159,11 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     UIImage *image = [info valueForKey:UIImagePickerControllerOriginalImage];
+    
+    NSData* imageData = UIImageJPEGRepresentation(image, 1.0);
+    NSString* imagePath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"/libraryProfilePhoto.png"];
+    [imageData writeToFile:imagePath atomically:YES];
+    
     [self dismissViewControllerAnimated:YES completion:^{
         _profilePicture.image = image;
     }];

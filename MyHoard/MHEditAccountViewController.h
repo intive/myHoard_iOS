@@ -12,6 +12,8 @@
 #import "UIImage+Gallery.h"
 #import <UIViewController+AMSlideMenu.h>
 
+#import "MHAccountViewController.h"
+
 @interface MHEditAccountViewController : MHBaseViewController <UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *profilePicture;
