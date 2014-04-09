@@ -44,6 +44,9 @@
     _lineOne.backgroundColor = [UIColor lightGrayColor];
     _lineTwo.backgroundColor = [UIColor lightGrayColor];
     
+    _numberOfCollections.layer.cornerRadius = 22.0;
+    _numberOfPhotos.layer.cornerRadius = 22.0;
+
     [self badgeLayoutPositioning];
 }
 
@@ -106,7 +109,6 @@
         _numberOfCollections.badgeValue = @0;
     }else {
         _numberOfCollections.badgeValue = [NSNumber numberWithInteger:[self collectionsNumber]];
-        _numberOfCollections.badgeCorner = 22.0;
         [_numberOfCollections layoutIfNeeded];
     }
     
@@ -114,24 +116,7 @@
         _numberOfPhotos.badgeValue = @0;
     }else {
         _numberOfPhotos.badgeValue = [NSNumber numberWithInteger:[self photosNumber]];
-        _numberOfPhotos.badgeCorner = 22.0;
         [_numberOfPhotos layoutIfNeeded];
-    }
-    
-    if ([_numberOfCollections.badgeValue integerValue] > 99 || [_numberOfPhotos.badgeValue integerValue] > 99) {
-        
-        _numberOfCollections.badgePositionX = 20;
-        _numberOfCollections.badgePositionY = 346;
-        _numberOfCollections.badgeLayoutSubviewLengthLimit = 0;
-        _numberOfCollections.badgeLayoutSubviewLengthMultiplier = 1;
-        _numberOfCollections.offsetFactor = 27;
-        
-        _numberOfPhotos.badgePositionX = 257;
-        _numberOfPhotos.badgePositionY = 346;
-        _numberOfPhotos.badgeLayoutSubviewLengthLimit = 0;
-        _numberOfPhotos.badgeLayoutSubviewLengthMultiplier = 1;
-        _numberOfPhotos.offsetFactor = 27;
-        
     }
 }
 

@@ -1197,21 +1197,21 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="diV-4d-7kb">
-                                <rect key="frame" x="20" y="394" width="42" height="21"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Collections" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="diV-4d-7kb">
+                                <rect key="frame" x="20" y="394" width="92" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="42" id="M4j-gs-jwi"/>
+                                    <constraint firstAttribute="width" constant="92" id="M4j-gs-jwi"/>
                                     <constraint firstAttribute="height" constant="21" id="ccA-Bg-vFG"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wiY-xi-LMO">
-                                <rect key="frame" x="258" y="394" width="42" height="21"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Photos" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wiY-xi-LMO">
+                                <rect key="frame" x="243" y="394" width="57" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="42" id="hcS-4g-qb1"/>
+                                    <constraint firstAttribute="width" constant="57" id="hcS-4g-qb1"/>
                                     <constraint firstAttribute="height" constant="21" id="nF3-dy-Tda"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -1272,7 +1272,7 @@
                             <constraint firstItem="cxC-0u-ZgK" firstAttribute="top" secondItem="wiY-xi-LMO" secondAttribute="bottom" constant="65" id="LvY-eW-SVy"/>
                             <constraint firstItem="wiY-xi-LMO" firstAttribute="top" secondItem="MID-i4-AqL" secondAttribute="bottom" constant="5" id="MgY-bq-N2Y"/>
                             <constraint firstItem="BQi-xc-cvC" firstAttribute="leading" secondItem="fmp-Mu-lWC" secondAttribute="leading" constant="84" id="OPg-C0-kfl"/>
-                            <constraint firstItem="wiY-xi-LMO" firstAttribute="leading" secondItem="diV-4d-7kb" secondAttribute="trailing" constant="196" id="Svm-D1-hMB"/>
+                            <constraint firstItem="wiY-xi-LMO" firstAttribute="leading" secondItem="diV-4d-7kb" secondAttribute="trailing" constant="131" id="Svm-D1-hMB"/>
                             <constraint firstItem="MID-i4-AqL" firstAttribute="top" secondItem="7kj-U5-O5T" secondAttribute="bottom" constant="10" id="UOl-8N-XdK"/>
                             <constraint firstItem="7kj-U5-O5T" firstAttribute="top" secondItem="2v7-VK-aej" secondAttribute="bottom" constant="13" id="Zqk-Hi-Qkk"/>
                             <constraint firstItem="ClI-PH-gML" firstAttribute="leading" secondItem="fmp-Mu-lWC" secondAttribute="leading" constant="10" id="bJ4-pV-rpl"/>
