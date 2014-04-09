@@ -495,10 +495,10 @@ newIndexPath:(NSIndexPath *)newIndexPath
 - (UIImage *)imageInDropDownMenu:(MHDropDownMenu *)menu atIndex:(NSInteger)index{
     switch (index) {
         case 0:
-            return [UIImage imageNamed:@"elementImage.png"];
+            return [UIImage imageNamed:@"element_y"];
             break;
         case 1:
-            return [UIImage imageNamed:@"collectionImage.png"];
+            return [UIImage imageNamed:@"collection_y"];
             break;
         default:
             return nil;
