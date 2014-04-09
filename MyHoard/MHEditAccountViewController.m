@@ -63,17 +63,23 @@
     _profilePicture.layer.masksToBounds = YES;
     _profilePicture.layer.borderColor=[[UIColor collectionNameFrontColor] CGColor];
     
+    [self refreshImageData];
+}
+
+- (void)refreshImageData {
+    
     NSString* imagePath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"/libraryProfilePhoto.png"];
     
     if (![imagePath length]) {
-        _profilePicture.image = [UIImage imageNamed:@"profile"];
+        _profilePicture.image = [UIImage imageNamed:@"profile.png"];
     }else {
         _profilePicture.image = [UIImage imageWithContentsOfFile:imagePath];
     }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:YES];
+    
+    [self refreshImageData];
 }
 
 - (void)didReceiveMemoryWarning
@@ -199,7 +205,7 @@
         if (error) {
             UIAlertView *alert = [[UIAlertView alloc]
                                   initWithTitle:@"Error"
-                                  message:@"Something went wrong"
+                                  message:@"No such file exist"
                                   delegate:nil
                                   cancelButtonTitle:@"OK"
                                   otherButtonTitles:nil];
@@ -216,7 +222,7 @@
             
             [alert show];
             
-            [_profilePicture setNeedsDisplay];
+            [self refreshImageData];
         }
     }
     
