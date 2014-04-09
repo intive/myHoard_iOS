@@ -137,12 +137,44 @@ typedef NS_ENUM(NSInteger, CollectionSortMode) {
 
     [cell.kenBurnsView removeAllImages];
     
-#warning - select 5 random images if more than 5!
-    for (MHItem *item in collection.items) {
-        for(MHMedia* media in item.media) {
-            [UIImage thumbnailForAssetPath:media.objLocalPath completion:^(UIImage *image) {
-                [cell.kenBurnsView addImage:image];
-            }];
+    NSArray* items = collection.items.allObjects;
+    
+    __block int max = 5;
+    __block int current = 0;
+    __block MHCollectionCell* mhcell = cell;
+    if (items.count > 5) {
+        for (int i=0;i<5;i++) {
+            MHItem* item = items[arc4random() % [items count]];
+            if (item.media.count) {
+                for(MHMedia* media in item.media) {
+                    [UIImage thumbnailForAssetPath:media.objLocalPath completion:^(UIImage *image) {
+                        [mhcell.kenBurnsView addImage:image];
+                        current++;
+                        if (current == max) {
+//                            [mhcell.kenBurnsView startAnimation];
+                        }
+                    }];
+                }
+            } else {
+                current++;
+            }
+        }
+    } else {
+        max = collection.items.count;
+        for (MHItem *item in collection.items) {
+            if (item.media.count) {
+                for(MHMedia* media in item.media) {
+                    [UIImage thumbnailForAssetPath:media.objLocalPath completion:^(UIImage *image) {
+                        [mhcell.kenBurnsView addImage:image];
+                        current++;
+                        if (current == max) {
+//                            [mhcell.kenBurnsView startAnimation];
+                        }
+                    }];
+                }
+            } else {
+                current++;
+            }
         }
     }
 }

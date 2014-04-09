@@ -9,13 +9,20 @@
 #import "MHKenBurns.h"
 
 @implementation MHKenBurns
+{
+    UIImageView* _imageView;
+}
 
 - (void)baseInit {
     
     _kenBurnsView = [[JBKenBurnsView alloc]init];
     _kenBurnsView.frame = self.bounds;
-
     [self addSubview:_kenBurnsView];
+
+    _imageView = [[UIImageView alloc] initWithFrame:self.bounds];
+    _imageView.contentMode = UIViewContentModeScaleAspectFit;
+    [self addSubview:_imageView];
+    
 
     [self setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin];
     [self setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
@@ -48,15 +55,18 @@
 
 - (void)removeAllImages {
     [_images removeAllObjects];
+    [self stopAnimation];
 }
 
 - (void)addImage:(UIImage *)image {
 
-    if (image)
-    {
+    if (image) {
+        if (_images.count == 0) {
+            _imageView.image = image;
+            _imageView.hidden = NO;
+            _kenBurnsView.hidden = YES;
+        }
         [_images addObject:image];
-        [self stopAnimation];
-        [self startAnimation];
     }
 }
 
@@ -79,19 +89,18 @@
 }
 
 - (void)stopAnimation {
+    [_kenBurnsView.layer removeAllAnimations];
     if (_images.count) {
-        [_kenBurnsView animateWithImages:@[_images[0]] transitionDuration:_animationDuration loop:NO isLandscape:NO];
+        _imageView.hidden = NO;
+        _kenBurnsView.hidden = YES;
+        _imageView.image = _images[0];
     }
 }
 
-- (void)reloadAfterDelay:(NSTimeInterval)delay {
-    _delay = delay;
-    
-    [self stopAnimation];
-    [self startAnimation];
-}
-
 - (void)startAnimation {
+    
+    _imageView.hidden = YES;
+    _kenBurnsView.hidden = NO;
     
     [_kenBurnsView animateWithImages:_images
                   transitionDuration:_animationDuration
