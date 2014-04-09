@@ -8,10 +8,6 @@
 
 #import "MHSliderMenuViewController.h"
 
-@interface MHSliderMenuViewController ()
-
-@end
-
 @implementation MHSliderMenuViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -35,18 +31,9 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 #pragma SlideMenu
+
+//this must be kept in sync with left menu view controller
 
 - (NSString *)segueIdentifierForIndexPathInLeftMenu:(NSIndexPath *)indexPath {
     
@@ -66,11 +53,20 @@
     return identifier;
 }
 
+- (void) configureSlideLayer:(CALayer *)layer
+{
+    layer.shadowColor = [UIColor blackColor].CGColor;
+    layer.shadowOpacity = 1;
+    layer.shadowOffset = CGSizeMake(0, 0);
+    layer.masksToBounds = NO;
+    layer.shadowPath =[UIBezierPath bezierPathWithRect:layer.bounds].CGPath;
+}
+
 - (void)configureLeftMenuButton:(UIButton *)button {
     
     CGRect frame = button.frame;
-    frame.origin = (CGPoint){0,0};
-    frame.size = (CGSize){15,15};
+    frame.origin = CGPointMake(0, 0);
+    frame.size = CGSizeMake(15, 15);
     button.frame = frame;
     
     [button setImage:[UIImage imageNamed:@"hamburger.png"] forState:UIControlStateNormal];
