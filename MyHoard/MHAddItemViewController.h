@@ -1,5 +1,5 @@
 //
-//  MHAddItem2ViewController.h
+//  MHAddItemViewController.h
 //  
 //
 //  Created by Konrad Gnoinski on 11/03/14.
@@ -13,7 +13,7 @@
 #import "MHMedia.h"
 #import "MHDatabaseManager.h"
 
-@interface MHAddItem2ViewController : MHBaseViewController <UITextViewDelegate, CollectionSelectorDelegate, LocationSelectorDelegate>
+@interface MHAddItemViewController : MHBaseViewController <UITextViewDelegate, CollectionSelectorDelegate, LocationSelectorDelegate>
 
 @property (nonatomic) NSMutableArray *capturedImagesURL;// need to be set by previous controllers
 @property (nonatomic, readwrite) NSString *mediaId;

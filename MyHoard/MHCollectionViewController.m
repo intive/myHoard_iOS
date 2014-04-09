@@ -8,6 +8,7 @@
 
 #import "MHCollectionViewController.h"
 #import "MHItemViewController.h"
+#import "MHAddItemViewController.h"
 #import "UIImage+Gallery.h"
 #import "MHMedia.h"
 
@@ -185,7 +186,10 @@ typedef NS_ENUM(NSInteger, CollectionSortMode) {
     if ([segue.identifier isEqualToString:@"ShowItemsSegue"]) {
         NSArray *indexPaths = [self.collectionView indexPathsForSelectedItems];
         vc.collection = [self.fetchedResultsController objectAtIndexPath:indexPaths[0]];
-
+    } else if ([segue.identifier isEqualToString:@"AddItemSegue"]) {
+        UINavigationController* nc = segue.destinationViewController;
+        MHAddItemViewController *vc = (MHAddItemViewController *)nc.visibleViewController;
+        vc.mediaId = sender;
     }
 }
 
@@ -491,21 +495,36 @@ newIndexPath:(NSIndexPath *)newIndexPath
 }
 
 
+- (void)showImagePickerForSourceType:(UIImagePickerControllerSourceType)sourceType {
 
+    UIImagePickerController *imagePickerController = [[UIImagePickerController alloc]init];
+    imagePickerController.modalPresentationStyle = UIModalPresentationCurrentContext;
+    imagePickerController.sourceType = sourceType;
+    imagePickerController.delegate = self;
 
+    [self presentViewController:imagePickerController animated:YES completion:nil];
+}
 
 -(void)actionSheet:(UIActionSheet *)alert clickedButtonAtIndex:(NSInteger)buttonIndex {
     switch (buttonIndex){
         case 0:
-        [self performSegueWithIdentifier:@"AddItem2Segue" sender:nil];
+            [self performSegueWithIdentifier:@"AddItemSegue" sender:nil];
             break;
         case 1:
-        [self performSegueWithIdentifier:@"ImagePickerSegue" sender:nil];
+            [self performSegueWithIdentifier:@"ImagePickerSegue" sender:nil];
             break;
         case 2:
-            [self performSegueWithIdentifier:@"LibrarySegue" sender:nil];
+            [self showImagePickerForSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
             break;
     }
+}
+
+
+#pragma mark image picker delegate
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    NSURL *imageUrl = [info valueForKey:UIImagePickerControllerReferenceURL];
+    [self performSegueWithIdentifier:@"AddItemSegue" sender:[imageUrl absoluteString]];
 }
 
 

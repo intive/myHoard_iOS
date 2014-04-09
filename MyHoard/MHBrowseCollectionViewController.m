@@ -10,7 +10,7 @@
 #import "MHCoreDataContext.h"
 #import "MHCollection.h"
 #import "MHDatabaseManager.h"
-#import "MHAddItem2ViewController.h"
+#import "MHAddItemViewController.h"
 
 @interface MHBrowseCollectionViewController ()
 

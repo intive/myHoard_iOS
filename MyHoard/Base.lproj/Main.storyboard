@@ -126,7 +126,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FQe-ic-Fjv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-761" y="-774"/>
+            <point key="canvasLocation" x="-857" y="-764"/>
         </scene>
         <!--Navigation Controller - Collections-->
         <scene sceneID="xij-Gg-mkV">
@@ -230,7 +230,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gaU-ZZ-nr2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1461" y="102"/>
+            <point key="canvasLocation" x="-1437" y="174"/>
         </scene>
         <!--Collection View Controller-->
         <scene sceneID="n1Y-VN-b7i">
@@ -346,13 +346,12 @@
                         <segue destination="5Jx-7R-kxH" kind="modal" identifier="AddCollectionSegue" id="7Aw-hx-44V"/>
                         <segue destination="Pao-hk-0A0" kind="push" identifier="ShowItemsSegue" id="kvS-Cz-huN"/>
                         <segue destination="IOv-e1-ra0" kind="modal" identifier="ImagePickerSegue" id="f1Y-Gw-JyE"/>
-                        <segue destination="cF2-Sm-u7f" kind="modal" identifier="AddItem2Segue" id="3wb-xF-lsE"/>
-                        <segue destination="PSf-nV-YRY" kind="push" identifier="LibrarySegue" id="p1c-T0-N49"/>
+                        <segue destination="cF2-Sm-u7f" kind="modal" identifier="AddItemSegue" id="3wb-xF-lsE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NWp-Gh-aOk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-210" y="498"/>
+            <point key="canvasLocation" x="-338" y="174"/>
         </scene>
         <!--Image Picker View Controller-->
         <scene sceneID="UfZ-ea-9fL">
@@ -408,7 +407,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="86o-pr-trp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="841" y="626"/>
+            <point key="canvasLocation" x="-647" y="1624"/>
         </scene>
         <!--Save Photo View Controller-->
         <scene sceneID="vv9-4Y-igU">
@@ -452,7 +451,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="smS-mw-uPB" kind="push" identifier="addPhotoSegue" id="oCU-xe-CxG"/>
+                                    <segue destination="cF2-Sm-u7f" kind="modal" identifier="addPhotoSegue" id="CiX-g9-RRH"/>
                                 </connections>
                             </button>
                         </barButtonItem>
@@ -465,12 +464,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="f9s-Vf-Hbc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1341" y="619"/>
+            <point key="canvasLocation" x="-59" y="1624"/>
         </scene>
-        <!--Add Item2 View Controller - Add-->
+        <!--Add Item View Controller - Add-->
         <scene sceneID="0Rd-vc-2ib">
             <objects>
-                <viewController storyboardIdentifier="AddItem2" id="smS-mw-uPB" customClass="MHAddItem2ViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AddItem2" id="smS-mw-uPB" customClass="MHAddItemViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="cDg-1B-pwE"/>
                         <viewControllerLayoutGuide type="bottom" id="x8B-hj-uEF"/>
@@ -693,12 +692,11 @@
                         <outlet property="titleTextField" destination="g3N-DY-y5f" id="Cc9-ep-rPZ"/>
                         <segue destination="q6y-Bc-6aO" kind="push" identifier="segueToChooseCollection" id="9hV-ZM-Irt"/>
                         <segue destination="3M4-Oc-VTX" kind="push" identifier="segueToChooseLocation" id="eNm-dq-GWi"/>
-                        <segue destination="zQi-YY-HjT" kind="modal" identifier="addedCollection" id="YAY-eu-j3h"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Th-D0-Zqa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="853" y="1584"/>
+            <point key="canvasLocation" x="1069" y="592"/>
         </scene>
         <!--Localization View Controller-->
         <scene sceneID="d5U-aT-yKZ">
@@ -780,7 +778,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SU6-7f-Icb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1369" y="1953"/>
+            <point key="canvasLocation" x="1841" y="1121"/>
         </scene>
         <!--Item View Controller - Collection Name-->
         <scene sceneID="tAz-Fy-q8e">
@@ -876,7 +874,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M4V-vx-C5w" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-52" y="-892"/>
+            <point key="canvasLocation" x="348" y="-764"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="A3J-Rx-2NW">
@@ -892,7 +890,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1qb-1o-eEd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="134" y="-58"/>
+            <point key="canvasLocation" x="2454" y="-386"/>
         </scene>
         <!--Add Collection View Controller - New collection-->
         <scene sceneID="v7k-up-Cvy">
@@ -1084,7 +1082,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zF1-rP-rWD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="675" y="-50"/>
+            <point key="canvasLocation" x="2979" y="-434"/>
         </scene>
         <!--Browse Collection View Controller - Collection-->
         <scene sceneID="M3w-0A-F3R">
@@ -1129,51 +1127,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="171-FX-cqf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1895" y="1221"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="2fB-2s-hxD">
-            <objects>
-                <navigationController definesPresentationContext="YES" id="zQi-YY-HjT" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="MQX-r1-aEa">
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="bzQ-Af-eKQ" kind="relationship" relationship="rootViewController" id="0Aw-4Z-vyl"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="eY4-7O-43o" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-807" y="733"/>
-        </scene>
-        <!--Image Picker2 View Controller-->
-        <scene sceneID="SUa-bM-ctM">
-            <objects>
-                <viewController storyboardIdentifier="MHImagePicker2ViewController" id="PSf-nV-YRY" customClass="MHImagePicker2ViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="IhO-ph-xfi"/>
-                        <viewControllerLayoutGuide type="bottom" id="hsE-LH-k7n"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Uan-2P-hL5">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JZN-Bb-cQA">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                            </imageView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="TD3-j1-UXj"/>
-                    <connections>
-                        <outlet property="imageView" destination="JZN-Bb-cQA" id="ssH-MX-gfX"/>
-                        <segue destination="cF2-Sm-u7f" kind="push" identifier="createItemSegue" id="zG5-wl-ju9"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="skW-aR-muS" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-465" y="1605"/>
+            <point key="canvasLocation" x="1871" y="317"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="GA7-zo-0z6">
@@ -1192,7 +1146,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wiC-uX-kdj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="581" y="1240"/>
+            <point key="canvasLocation" x="501" y="600"/>
         </scene>
         <!--Account View Controller - Profile-->
         <scene sceneID="4ne-1l-vaM">
@@ -1507,7 +1461,6 @@
                         <outlet property="passwordtextField" destination="GIe-yP-vJz" id="KbN-NA-Wta"/>
                         <outlet property="profilePicture" destination="8wy-Va-Qt1" id="Qcz-oN-bjD"/>
                         <outlet property="saveButton" destination="sgg-qu-slO" id="jNF-8d-u6x"/>
-                        <segue destination="PSf-nV-YRY" kind="push" identifier="LibrarySegue" id="cfN-Vj-3lS"/>
                         <segue destination="IOv-e1-ra0" kind="push" identifier="ImagePickerSegue" id="jZp-GR-mKO"/>
                     </connections>
                 </viewController>
@@ -1766,13 +1719,11 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="jZp-GR-mKO"/>
-        <segue reference="cfN-Vj-3lS"/>
-        <segue reference="EZn-WS-XnP"/>
-        <segue reference="2s6-94-35y"/>
-        <segue reference="Xtm-aX-Up0"/>
-        <segue reference="7Aw-hx-44V"/>
         <segue reference="3wb-xF-lsE"/>
-        <segue reference="rUT-3V-c4T"/>
+        <segue reference="AZv-hY-c59"/>
+        <segue reference="Xtm-aX-Up0"/>
+        <segue reference="2s6-94-35y"/>
+        <segue reference="7Aw-hx-44V"/>
+        <segue reference="f1Y-Gw-JyE"/>
     </inferredMetricsTieBreakers>
 </document>

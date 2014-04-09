@@ -7,7 +7,7 @@
 //
 
 #import "MHBaseViewController.h"
-#import "MHAddItem2ViewController.h"
+#import "MHAddItemViewController.h"
 
 @interface MHSavePhotoViewController : MHBaseViewController
 

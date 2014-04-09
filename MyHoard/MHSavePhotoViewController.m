@@ -45,7 +45,7 @@
     
     if([segue.identifier isEqualToString:@"addPhotoSegue"])
     {
-        MHAddItem2ViewController *destinationViewController;
+        MHAddItemViewController *destinationViewController;
         destinationViewController.capturedImagesURL = self.capturedImages;
     }
 }

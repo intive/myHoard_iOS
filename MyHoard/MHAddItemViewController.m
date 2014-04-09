@@ -1,12 +1,12 @@
 //
-//  MHAddItem2ViewController.m
+//  MHAddItemViewController.m
 //  
 //
 //  Created by Konrad Gnoinski on 11/03/14.
 //
 //
 
-#import "MHAddItem2ViewController.h"
+#import "MHAddItemViewController.h"
 #import "MHDatabaseManager.h"
 #import "UIImage+Gallery.h"
 
@@ -15,11 +15,11 @@ static const CGFloat MINIMUM_SCROLL_FRACTION = 0.01;
 static const CGFloat MAXIMUM_SCROLL_FRACTION = 0.8;
 static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 200;
 
-@interface MHAddItem2ViewController ()
+@interface MHAddItemViewController ()
 @property (readwrite) CGFloat animatedDistance;
 @end
 
-@implementation MHAddItem2ViewController
+@implementation MHAddItemViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -265,9 +265,7 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 200;
                                      objLocalPath:self.mediaId
                                              item:item];
 
-#warning why addedCollection segue is called here?
-        [self performSegueWithIdentifier:@"addedCollection" sender:self];
-
+        [self.navigationController dismissViewControllerAnimated:YES completion:nil];
     }
 }
 
