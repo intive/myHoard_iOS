@@ -65,10 +65,13 @@
     }else {
         _profilePictureView.image = [UIImage imageWithContentsOfFile:imagePath];
     }
+    
+    [_profilePictureView layoutIfNeeded];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [self profilePictureView];
+    
 }
 
 - (void)friendPictureViewShape {

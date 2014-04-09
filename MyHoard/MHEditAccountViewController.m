@@ -185,4 +185,41 @@
     [self.view endEditing:YES];
 }
 
+- (void)deletePhoto:(id)sender {
+    
+    NSFileManager *mgr = [[NSFileManager alloc]init];
+    
+    NSString* imagePath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"/libraryProfilePhoto.png"];
+    
+    NSError *error = nil;
+    
+    if ([mgr fileExistsAtPath:imagePath]) {
+        [mgr removeItemAtPath:imagePath error:&error];
+        if (!error) {
+            UIAlertView *alert = [[UIAlertView alloc]
+                                  initWithTitle:@"Error"
+                                  message:error.localizedDescription
+                                  delegate:nil
+                                  cancelButtonTitle:@"OK"
+                                  otherButtonTitles:nil];
+            
+            [alert show];
+
+        }else {
+            UIAlertView *alert = [[UIAlertView alloc]
+                                  initWithTitle:@"Success"
+                                  message:@"Picture deleted"
+                                  delegate:nil
+                                  cancelButtonTitle:@"OK"
+                                  otherButtonTitles:nil];
+            
+            [alert show];
+
+        }
+    }
+    
+    
+    
+}
+
 @end
