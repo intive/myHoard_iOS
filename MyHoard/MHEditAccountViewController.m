@@ -72,8 +72,8 @@
     }
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    [self profilePictureViewShape];
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:YES];
 }
 
 - (void)didReceiveMemoryWarning
@@ -215,7 +215,8 @@
                                   otherButtonTitles:nil];
             
             [alert show];
-
+            
+            [_profilePicture setNeedsDisplay];
         }
     }
     
