@@ -9,9 +9,10 @@
 #import "MHBaseViewController.h"
 #import "UIActionSheet+ButtonState.h"
 #import "MHAPI.h"
+#import "UIImage+Gallery.h"
 #import <UIViewController+AMSlideMenu.h>
 
-@interface MHEditAccountViewController : MHBaseViewController <UIActionSheetDelegate>
+@interface MHEditAccountViewController : MHBaseViewController <UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *profilePicture;
 @property (weak, nonatomic) IBOutlet UILabel *loginLabel;

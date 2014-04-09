@@ -125,10 +125,33 @@
             [self performSegueWithIdentifier:@"ImagePickerSegue" sender:nil];
             break;
         case 2:
-            [self performSegueWithIdentifier:@"LibrarySegue" sender:nil];
+            [self showImagePickerForSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
             break;
         case 3:
             break;
     }
 }
+
+- (void)showImagePickerForSourceType:(UIImagePickerControllerSourceType)sourceType {
+    
+    UIImagePickerController *imagePickerController = [[UIImagePickerController alloc]init];
+    imagePickerController.modalPresentationStyle = UIModalPresentationCurrentContext;
+    imagePickerController.sourceType = sourceType;
+    imagePickerController.delegate = self;
+    
+    [self presentViewController:imagePickerController animated:YES completion:nil];
+}
+
+
+#pragma mark image picker delegate
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    NSURL *imageUrl = [info valueForKey:UIImagePickerControllerReferenceURL];
+    [self dismissViewControllerAnimated:YES completion:^{
+        [UIImage imageForAssetPath:[imageUrl absoluteString] completion:^(UIImage *image) {
+            _profilePicture.image = image;
+        }];
+    }];
+}
+
 @end
