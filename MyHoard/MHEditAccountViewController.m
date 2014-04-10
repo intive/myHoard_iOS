@@ -91,8 +91,20 @@
 - (void)setLabelTitle {
     
     [[MHAPI getInstance]readUserWithCompletionBlock:^(MHUserProfile *object, NSError *error) {
-        _loginLabel.text = object.username;
-        _emailLabel.text = object.email;
+        if (error) {
+            NSLog(@"%@", error);
+            UIAlertView *alert = [[UIAlertView alloc]
+                              initWithTitle:@"Error"
+                              message:error.localizedDescription
+                              delegate:nil
+                              cancelButtonTitle:@"OK"
+                              otherButtonTitles:nil];
+        
+            [alert show];
+        }else {
+            _loginLabel.text = object.username;
+            _emailLabel.text = object.email;
+        }
     }];
 }
 
