@@ -21,7 +21,7 @@
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     if (![defaults objectForKey:@"server_preference"]) {
-        [defaults setObject:@"Python" forKey:@"Python"];
+        [defaults setObject:@"Python" forKey:@"server_preference"];
     }
     [defaults synchronize];
     
