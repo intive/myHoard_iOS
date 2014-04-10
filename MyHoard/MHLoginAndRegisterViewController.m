@@ -310,7 +310,6 @@
                             completionBlock:^(id object, NSError *error) {
                                 [_waitDialog dismiss];
                                 if (error) {
-#warning - show error
                                     UIAlertView *alert = [[UIAlertView alloc]
                                                           initWithTitle:@"Error"
                                                           message:error.localizedDescription
@@ -338,7 +337,6 @@
             [[MHAPI getInstance] createUser:_emailTextField.text withPassword:_passwordTextField.text completionBlock:^(id object, NSError *error) {
                 if (error) {
                     [_waitDialog dismiss];
-#warning show error!
                     UIAlertView *alert = [[UIAlertView alloc]
                                           initWithTitle:@"Error"
                                           message:error.localizedDescription
@@ -347,7 +345,7 @@
                                           otherButtonTitles:nil];
                     
                     [alert show];
-                    
+                    NSLog(@"%@", error);
                 } else {
                     [self login];
                 }

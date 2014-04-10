@@ -204,19 +204,21 @@
         }
     }];
     
-    [[MHAPI getInstance] updateUser:_profile.username withPassword:_changePasswordTextField.text andEmail:_profile.email completionBlock:^(id object, NSError *error) {
-        if (error) {
-            UIAlertView *alert = [[UIAlertView alloc]
+    if ([_profile.email length] && [_profile.email length]) {
+        [[MHAPI getInstance] updateUser:_profile.username withPassword:_changePasswordTextField.text andEmail:_profile.email completionBlock:^(id object, NSError *error) {
+            if (error) {
+                UIAlertView *alert = [[UIAlertView alloc]
                                   initWithTitle:@"Error"
                                   message:error.localizedDescription
                                   delegate:nil
                                   cancelButtonTitle:@"OK"
                                   otherButtonTitles:nil];
-            [alert show];
-        } else {
-            [self dismissViewControllerAnimated:YES completion:nil];
-        }
-    }];
+                [alert show];
+            } else {
+                [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+            }
+        }];
+    }
 }
 
 
