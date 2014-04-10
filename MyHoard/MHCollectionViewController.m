@@ -19,7 +19,6 @@ typedef NS_ENUM(NSInteger, CollectionSortMode) {
 
 @interface MHCollectionViewController ()
 
-@property (nonatomic, strong) MHBadgeView *badge;
 @property (nonatomic, assign) CollectionSortMode sortMode;
 
 -(void)resetIdleTimer;
@@ -135,6 +134,7 @@ typedef NS_ENUM(NSInteger, CollectionSortMode) {
         cell.badgeView.hidden = YES;
     }else {
         cell.badgeView.badgeValue = @(collection.items.count);
+        cell.badgeView.hidden = NO;
     }
     
     cell.tagsView.tagList = collection.objTags;

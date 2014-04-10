@@ -79,7 +79,8 @@
 
 - (void)setBadgeValue:(NSNumber *)badgeValue {
     _badgeValue = badgeValue;
-    [self layoutSubviews];
+	[self invalidateIntrinsicContentSize];
+    [self setNeedsDisplay];
 }
 
 - (void)drawRect:(CGRect)rect {
