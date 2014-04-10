@@ -334,8 +334,8 @@ static MHAPI *_sharedAPI = nil;
                                                         URLString:[self urlWithPath:@"oauth/token"]
                                                        parameters:@{@"email": email,
                                                                     @"password": password,
-                                                                    @"grant_type": _refreshToken,
-                                                                    @"refresh_toke": _refreshToken}
+                                                                    @"grant_type": @"refresh_token",
+                                                                    @"refresh_token": _refreshToken}
                                                             error:&error];
     
     AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
