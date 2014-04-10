@@ -53,7 +53,7 @@ static MHAPI *_sharedAPI = nil;
 }
 
 - (NSString *)urlWithPath:(NSString *)path {
-    return [NSString stringWithFormat:@"%@/%@", [self serverUrl], path];
+    return [NSString stringWithFormat:@"%@/%@/", [self serverUrl], path];
 }
 
 - (void)logout:(MHAPICompletionBlock)completionBlock {
