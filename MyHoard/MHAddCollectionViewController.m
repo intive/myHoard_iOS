@@ -138,21 +138,19 @@
                         }else {
 
                             [[MHAPI getInstance]readUserCollectionsWithCompletionBlock:^(NSArray *responseArray, NSError *error) {
-                                for (MHCollection *eachCollection in responseArray) {
-                                    if (![MHDatabaseManager collectionWithObjName:eachCollection.objName]) {
-                                
-                                        [MHDatabaseManager insertCollectionWithObjName:eachCollection.objName
-                                                                objDescription:eachCollection.objDescription
-                                                                       objTags:eachCollection.objTags
-                                                                objItemsNumber:eachCollection.objItemsNumber
-                                                                objCreatedDate:eachCollection.objCreatedDate
-                                                               objModifiedDate:eachCollection.objModifiedDate
-                                                                      objOwner:eachCollection.objOwner];
-                                    }
+                                if (error) {
+                                    UIAlertView *alert = [[UIAlertView alloc]
+                                                          initWithTitle:@"Error"
+                                                          message:error.localizedDescription
+                                                          delegate:self
+                                                          cancelButtonTitle:@"Cancel"
+                                                          otherButtonTitles:nil];
+                                    [alert show];
+                                    NSLog(@"%@", error);
+                                }else {
+                                    [self dismissViewControllerAnimated:YES completion:nil];
                                 }
                             }];
-                            
-                            [self dismissViewControllerAnimated:YES completion:nil];
                         }
                     }];
                 }else {

@@ -300,8 +300,14 @@ static MHAPI *_sharedAPI = nil;
     
     AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
                                                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                                                          NSArray *responseArray = [[NSArray alloc]initWithArray:responseObject];
-                                                                          completionBlock(responseArray, error);
+                                                                          for (NSDictionary *responseDictionary in responseObject) {
+                                                                              
+                                                                              MHCollection *createdCollection = [MHDatabaseManager insertCollectionWithObjName:responseDictionary[@"name"] objDescription:responseDictionary[@"description"] objTags:responseDictionary[@"tags"] objItemsNumber:responseDictionary[@"items_number"] objCreatedDate:responseDictionary[@"created_date"] objModifiedDate:responseDictionary[@"modified_date"] objOwner:responseDictionary[@"owner"]];
+                                                                              
+                                                                              createdCollection.objId = responseDictionary[@"id"];
+                                                                          }
+                                                                          
+                                                                          completionBlock(responseObject, error);
                                                                       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                                                           completionBlock(nil, error);
                                                                       }];
@@ -327,9 +333,15 @@ static MHAPI *_sharedAPI = nil;
                                                                error:&error];
     
     AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
-                                                                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                                                          NSArray *responseArray = [[NSArray alloc]initWithArray:responseObject];
-                                                                          completionBlock(responseArray, error);
+                                                                      success:^(AFHTTPRequestOperation *operation, id responseObject) {                                                                          
+                                                                          for (NSDictionary *responseDictionary in responseObject) {
+                                                                              
+                                                                              MHCollection *createdCollection = [MHDatabaseManager insertCollectionWithObjName:responseDictionary[@"name"] objDescription:responseDictionary[@"description"] objTags:responseDictionary[@"tags"] objItemsNumber:responseDictionary[@"items_number"] objCreatedDate:responseDictionary[@"created_date"] objModifiedDate:responseDictionary[@"modified_date"] objOwner:responseDictionary[@"owner"]];
+                                                                              
+                                                                              createdCollection.objId = responseDictionary[@"id"];
+                                                                          }
+                                                                          
+                                                                          completionBlock(responseObject, error);
                                                                       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                                                           completionBlock(nil, error);
                                                                       }];
