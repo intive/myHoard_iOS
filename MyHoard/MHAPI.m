@@ -10,6 +10,7 @@
 #import "MHUserSettings.h"
 #import "MHItem.h"
 #import "MHMedia.h"
+#import "MHDatabaseManager.h"
 
 static MHAPI *_sharedAPI = nil;
 
@@ -269,16 +270,9 @@ static MHAPI *_sharedAPI = nil;
     AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
                                                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
                                                                           
-                                                                          MHCollection *createdCollection = [[MHCollection alloc]init];
-
+                                                                          MHCollection *createdCollection = [MHDatabaseManager insertCollectionWithObjName:responseObject[@"name"] objDescription:responseObject[@"description"] objTags:responseObject[@"tags"] objItemsNumber:responseObject[@"items_number"] objCreatedDate:responseObject[@"created_date"] objModifiedDate:responseObject[@"modified_date"] objOwner:responseObject[@"owner"]];
+                                                                          
                                                                           createdCollection.objId = responseObject[@"id"];
-                                                                          createdCollection.objName = responseObject[@"name"];
-                                                                          createdCollection.objDescription = responseObject[@"description"];
-                                                                          createdCollection.objTags = responseObject[@"tags"];
-                                                                          createdCollection.objItemsNumber = responseObject[@"items_number"];
-                                                                          createdCollection.objCreatedDate = responseObject[@"dreated_date"];
-                                                                          createdCollection.objModifiedDate = responseObject[@"modified_date"];
-                                                                          createdCollection.objOwner = responseObject[@"owner"];
                                                                           
                                                                           completionBlock(createdCollection, error);
                                                                       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

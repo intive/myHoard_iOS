@@ -136,15 +136,7 @@
                             [alert show];
                             NSLog(@"%@", error);
                         }else {
-                            /*
-                             [MHDatabaseManager insertCollectionWithObjName:createdCollection.objName
-                                                    objDescription:createdCollection.objDescription
-                                                           objTags:createdCollection.objTags
-                                                    objItemsNumber:createdCollection.objItemsNumber
-                                                    objCreatedDate:createdCollection.objCreatedDate
-                                                   objModifiedDate:createdCollection.objModifiedDate
-                                                          objOwner:createdCollection.objOwner];
-                             */
+
                             [[MHAPI getInstance]readUserCollectionsWithCompletionBlock:^(NSArray *responseArray, NSError *error) {
                                 for (MHCollection *eachCollection in responseArray) {
                                     if (![MHDatabaseManager collectionWithObjName:eachCollection.objName]) {
