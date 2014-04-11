@@ -15,7 +15,6 @@
 #import "MHBadgeView.h"
 #import "UIActionSheet+ButtonState.h"
 #import "MHDatabaseManager.h"
-#import <UIViewController+AMSlideMenu.h>
 
 @interface MHCollectionViewController : MHBaseViewController <UICollectionViewDataSource, UICollectionViewDelegate, NSFetchedResultsControllerDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 

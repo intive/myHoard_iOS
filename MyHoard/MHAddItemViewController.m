@@ -38,7 +38,7 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 200;
                                    action:@selector(dismissKeyboard)];
     
     [self.view addGestureRecognizer:tap];
-    self.disableMHHamburger=YES;
+
     UIBarButtonItem *closeButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"cancel"] style:UIBarButtonItemStylePlain target:self action:@selector(backButton:)];
     self.navigationItem.leftBarButtonItem = closeButton;
     UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"check"] style:UIBarButtonItemStylePlain target:self action:@selector(doneButton:)];

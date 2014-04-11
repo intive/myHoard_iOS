@@ -33,11 +33,6 @@
     [self.navigationController.navigationBar setTintColor:[UIColor blackColor]];
     self.view.backgroundColor = [UIColor appBackgroundColor];
     
-    if (![self disableMHHamburger]) {
-        UIBarButtonItem *hamburger = [[UIBarButtonItem alloc] initWithTitle:@"\u2261" style:UIBarButtonItemStylePlain target:self action:nil];
-        self.navigationItem.leftBarButtonItem = hamburger;
-    };
-    
     if ([self enableMHLogo]) {
         self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logo.png"]];
     };
@@ -60,16 +55,6 @@
         self.menuButtonVisible = YES;
     } else {
         self.menuButtonVisible = NO;
-    }
-}
-
--(void)setDisableMHHamburger:(BOOL)disableMHHamburger{
-    _disableMHHamburger = disableMHHamburger;
-    if (!disableMHHamburger){
-        UIBarButtonItem *hamburger = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"hamburger.png"] style:UIBarButtonItemStylePlain target:self action:nil];
-        self.navigationItem.leftBarButtonItem = hamburger;
-    } else {
-        self.navigationItem.leftBarButtonItem = nil;
     }
 }
 

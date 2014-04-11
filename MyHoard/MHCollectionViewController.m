@@ -56,10 +56,6 @@ typedef NS_ENUM(NSInteger, CollectionSortMode) {
     self.menuButtonImage = [UIImage imageNamed:@"plus"];
     self.selectedMenuButtonImage = [UIImage imageNamed:@"cancel"];
     
-    self.disableMHHamburger = YES;
-    [self addLeftMenuButton];
-    [self disableSlidePanGestureForLeftMenu];
-    
     self.title = @"";
     
     _objectChanges = [NSMutableArray array];

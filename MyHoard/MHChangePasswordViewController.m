@@ -30,7 +30,6 @@
 {
     [super viewDidLoad];
     
-    self.disableMHHamburger = YES;
     _passwordStrengthView.numberOfSections = 4;
     _passwordStrengthView.startColor = [UIColor darkerYellow];
     _passwordStrengthView.endColor = [UIColor redColor];

@@ -11,7 +11,6 @@
 
 @interface MHBaseViewController : MHDropDownMenuViewController
 
-@property (nonatomic, readwrite) BOOL disableMHHamburger;
 @property (nonatomic, readwrite) BOOL enableMHLogo;
 @property (nonatomic, readwrite) BOOL hideNavigationBar;
 

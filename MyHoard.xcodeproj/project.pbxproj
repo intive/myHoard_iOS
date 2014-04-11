@@ -14,9 +14,10 @@
 		1A0D0B6918C7DDA9004B99BA /* MHLocationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A0D0B6818C7DDA9004B99BA /* MHLocationTests.m */; };
 		1A29F6B418EF324C00BCFB11 /* MHLocalizationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A29F6B318EF324C00BCFB11 /* MHLocalizationViewController.m */; };
 		2302787418B4C0A900FCD528 /* GcovTestObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 2302787318B4C0A900FCD528 /* GcovTestObserver.m */; };
-		231A904E18F5B6D500FE4596 /* MHSlideMenuLeftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 231A904D18F5B6D500FE4596 /* MHSlideMenuLeftViewController.m */; };
 		235EB3C618DDAE3C0032D769 /* MHPasswordStrengthView.m in Sources */ = {isa = PBXBuildFile; fileRef = 235EB3C518DDAE3C0032D769 /* MHPasswordStrengthView.m */; };
 		235EB3C918DDF07E0032D769 /* MHLoginAndRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 235EB3C818DDF07E0032D769 /* MHLoginAndRegisterViewController.m */; };
+		23B0A70B18F861AF00FA806C /* MHSliderMenuHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 23B0A70A18F861AF00FA806C /* MHSliderMenuHeader.m */; };
+		23B0A70E18F862D900FA806C /* MHSliderMenuTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 23B0A70D18F862D900FA806C /* MHSliderMenuTableCell.m */; };
 		23D02EFB18EEAA0300114941 /* MHAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D02EFA18EEAA0300114941 /* MHAPI.m */; };
 		23D02F0318EF38C600114941 /* MHWaitDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D02F0218EF38C600114941 /* MHWaitDialog.m */; };
 		23D02F0A18F2026000114941 /* UIImage+Gallery.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D02F0918F2026000114941 /* UIImage+Gallery.m */; };
@@ -104,12 +105,14 @@
 		1A29F6B318EF324C00BCFB11 /* MHLocalizationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHLocalizationViewController.m; sourceTree = "<group>"; };
 		1ABD549C18F03C0700992A44 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		2302787318B4C0A900FCD528 /* GcovTestObserver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GcovTestObserver.m; sourceTree = "<group>"; };
-		231A904C18F5B6D500FE4596 /* MHSlideMenuLeftViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHSlideMenuLeftViewController.h; sourceTree = "<group>"; };
-		231A904D18F5B6D500FE4596 /* MHSlideMenuLeftViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHSlideMenuLeftViewController.m; sourceTree = "<group>"; };
 		235EB3C418DDAE3C0032D769 /* MHPasswordStrengthView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHPasswordStrengthView.h; sourceTree = "<group>"; };
 		235EB3C518DDAE3C0032D769 /* MHPasswordStrengthView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHPasswordStrengthView.m; sourceTree = "<group>"; };
 		235EB3C718DDF07E0032D769 /* MHLoginAndRegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHLoginAndRegisterViewController.h; sourceTree = "<group>"; };
 		235EB3C818DDF07E0032D769 /* MHLoginAndRegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHLoginAndRegisterViewController.m; sourceTree = "<group>"; };
+		23B0A70918F861AF00FA806C /* MHSliderMenuHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHSliderMenuHeader.h; sourceTree = "<group>"; };
+		23B0A70A18F861AF00FA806C /* MHSliderMenuHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHSliderMenuHeader.m; sourceTree = "<group>"; };
+		23B0A70C18F862D900FA806C /* MHSliderMenuTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHSliderMenuTableCell.h; sourceTree = "<group>"; };
+		23B0A70D18F862D900FA806C /* MHSliderMenuTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHSliderMenuTableCell.m; sourceTree = "<group>"; };
 		23D02EF918EEAA0300114941 /* MHAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHAPI.h; sourceTree = "<group>"; };
 		23D02EFA18EEAA0300114941 /* MHAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHAPI.m; sourceTree = "<group>"; };
 		23D02F0118EF38C600114941 /* MHWaitDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHWaitDialog.h; sourceTree = "<group>"; };
@@ -247,8 +250,10 @@
 			children = (
 				CECB9CE218F544E800FF724E /* MHSliderMenuViewController.h */,
 				CECB9CE318F544E800FF724E /* MHSliderMenuViewController.m */,
-				231A904C18F5B6D500FE4596 /* MHSlideMenuLeftViewController.h */,
-				231A904D18F5B6D500FE4596 /* MHSlideMenuLeftViewController.m */,
+				23B0A70C18F862D900FA806C /* MHSliderMenuTableCell.h */,
+				23B0A70D18F862D900FA806C /* MHSliderMenuTableCell.m */,
+				23B0A70918F861AF00FA806C /* MHSliderMenuHeader.h */,
+				23B0A70A18F861AF00FA806C /* MHSliderMenuHeader.m */,
 			);
 			name = SlideMenu;
 			sourceTree = "<group>";
@@ -691,6 +696,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1A059F3618D200B700ECC6D0 /* MHBrowseCollectionViewController.m in Sources */,
+				23B0A70B18F861AF00FA806C /* MHSliderMenuHeader.m in Sources */,
 				23F27A5818D8E66D00877D30 /* MHDropDownMenu.m in Sources */,
 				CE529A7E18D8687B00A020E9 /* MHUserSettings.m in Sources */,
 				23DE906218F41ED200B15424 /* MHItem.m in Sources */,
@@ -713,7 +719,6 @@
 				CEC22B1118DF6985002E7C76 /* MHBadgeView.m in Sources */,
 				CEF82A0618F0383F00058BB8 /* MHChangePasswordViewController.m in Sources */,
 				235EB3C918DDF07E0032D769 /* MHLoginAndRegisterViewController.m in Sources */,
-				231A904E18F5B6D500FE4596 /* MHSlideMenuLeftViewController.m in Sources */,
 				CE6C31BC18B1422100983736 /* MHCollectionDetailsViewController.m in Sources */,
 				537CF82C18AD643D008A7E04 /* MyHoardModel.xcdatamodeld in Sources */,
 				23D02F0318EF38C600114941 /* MHWaitDialog.m in Sources */,
@@ -722,6 +727,7 @@
 				9370CAF418CFC30A00C77461 /* MHCollectionViewController.m in Sources */,
 				53062B5418F48F8E006FC69C /* NSString+Tags.m in Sources */,
 				1A059F3818D200B700ECC6D0 /* MHAddCollectionViewController.m in Sources */,
+				23B0A70E18F862D900FA806C /* MHSliderMenuTableCell.m in Sources */,
 				1A059F3518D200B700ECC6D0 /* MHAddItemViewController.m in Sources */,
 				CEF82A0518F0383F00058BB8 /* MHAccountViewController.m in Sources */,
 				23F64D6518E4CBBE003420E3 /* MHRoundButton.m in Sources */,

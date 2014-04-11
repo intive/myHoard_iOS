@@ -10,7 +10,6 @@
 #import "UIActionSheet+ButtonState.h"
 #import "MHAPI.h"
 #import "UIImage+Gallery.h"
-#import <UIViewController+AMSlideMenu.h>
 
 #import "MHAccountViewController.h"
 

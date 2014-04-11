@@ -29,7 +29,6 @@
 {
     
     [super viewDidLoad];
-    self.disableMHHamburger = YES;
     // Do any additional setup after loading the view, typically from a nib.
     
     self.menuButtonImage = [UIImage imageNamed:@"plus"];

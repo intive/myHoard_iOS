@@ -4,7 +4,7 @@ pod 'AFNetworking'
 pod 'TSMessages', '~> 0.9.2'
 pod 'AutoScrollLabel', '~> 0.2'
 pod 'JBKenBurnsView', '~> 0.3'
-pod 'AMSlideMenu'
+pod 'AMSlideOutController'
 
 target :MyHoardTests, :exclusive => true do
     pod 'Kiwi/XCTest'

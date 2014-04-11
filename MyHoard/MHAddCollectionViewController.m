@@ -50,7 +50,6 @@
     self.typeTitleLAbel.textColor=[UIColor darkerYellow];
     [_pickerCancelColor setTitleColor:[UIColor darkerYellow] forState:UIControlStateNormal];
     [_pickerSaveColor setTitleColor:[UIColor darkerYellow] forState:UIControlStateNormal];
-    self.disableMHHamburger = YES;
     
     UIBarButtonItem *save = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"check"]
                                                                   style:UIBarButtonItemStylePlain

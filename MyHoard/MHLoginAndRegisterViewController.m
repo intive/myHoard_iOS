@@ -45,7 +45,6 @@
     
     if (_flowType == MHLoginFlow) {
         
-        self.disableMHHamburger = YES;
         self.navigationItem.title = @"Login";
         
         if (!_passwordStrength.hidden && !_passwordStrengthLabel1.hidden && !_passwordTextField1.hidden) {
@@ -80,7 +79,6 @@
         
     }else if (_flowType == MHRegisterFlow) {
         
-        self.disableMHHamburger = YES;
         self.navigationItem.title = @"Register";
         
         _passwordStrength.numberOfSections = 4;

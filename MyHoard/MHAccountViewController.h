@@ -13,7 +13,6 @@
 #import "MHCollection.h"
 #import "MHItem.h"
 #import "MHAPI.h"
-#import <UIViewController+AMSlideMenu.h>
 
 @interface MHAccountViewController : MHBaseViewController
 

@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 BLStream. All rights reserved.
 //
 
-#import "AMSlideMenuMainViewController.h"
+#import <AMSlideOutController/AMSlideOutNavigationController.h>
 
-@interface MHSliderMenuViewController : AMSlideMenuMainViewController
+@interface MHSliderMenuViewController : AMSlideOutNavigationController
 
 @end

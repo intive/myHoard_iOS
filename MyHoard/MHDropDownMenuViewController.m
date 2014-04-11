@@ -48,9 +48,7 @@
         if (_selectedMenuButtonImage) {
             _menuButton.image = _selectedMenuButtonImage;
         }
-        CGRect r = self.navigationController.navigationBar.frame;
-        CGFloat y = r.size.height + r.origin.y;
-        [_menu showMenuInView:self.view atPosition:y animated:YES];
+        [_menu showMenuInView:self.view atPosition:0 animated:YES];
     }
 }
 
