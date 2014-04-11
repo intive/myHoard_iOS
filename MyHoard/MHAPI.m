@@ -380,6 +380,36 @@ static MHAPI *_sharedAPI = nil;
     return operation;
 }
 
+#pragma delete collection
+
+- (AFHTTPRequestOperation *)deleteCollectionWithId:(NSString *)collectionId
+                                   completionBlock:(MHAPICompletionBlock)completionBlock {
+    
+    NSError *error;
+    
+    AFJSONRequestSerializer* jsonRequest = [AFJSONRequestSerializer serializer];
+    [jsonRequest setAuthorizationHeaderFieldWithToken:_accessToken];
+    
+    NSMutableURLRequest *request = [jsonRequest requestWithMethod:@"DELETE"
+                                                        URLString:[NSString stringWithFormat:@"%@%@",[self urlWithPath:@"collections"],collectionId]
+                                                       parameters:nil
+                                                            error:&error];
+    
+    AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
+                                                                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                                                          completionBlock(responseObject, nil);
+                                                                      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                                                          [self localizedDescriptionForErrorCode:error];
+                                                                          completionBlock(nil, error);
+                                                                      }];
+    
+    operation.responseSerializer = [AFJSONResponseSerializer serializer];
+    operation.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", nil];
+    [self.operationQueue addOperation:operation];
+    
+    return operation;
+}
+
 - (AFHTTPRequestOperation *)createItem:(MHItem *)item
                        completionBlock:(MHAPICompletionBlock)completionBlock
 {
