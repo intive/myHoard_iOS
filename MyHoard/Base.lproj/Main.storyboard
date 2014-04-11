@@ -1102,11 +1102,6 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Collection" id="g5S-Jt-huS">
-                        <barButtonItem key="leftBarButtonItem" image="&lt;Button" id="1gK-qY-bhX">
-                            <connections>
-                                <action selector="cancelButton:" destination="q6y-Bc-6aO" id="hwv-hX-pq6"/>
-                            </connections>
-                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="New" id="Xoj-BG-Cjf">
                             <connections>
                                 <action selector="addButton:" destination="q6y-Bc-6aO" id="nqP-zY-7Q3"/>
@@ -1696,7 +1691,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="&lt;Button" width="19" height="35"/>
         <image name="cameraIcons" width="22" height="22"/>
         <image name="cancel" width="22" height="22"/>
         <image name="confirm" width="22" height="22"/>
