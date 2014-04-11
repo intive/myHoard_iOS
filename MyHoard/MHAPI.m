@@ -440,6 +440,7 @@ static MHAPI *_sharedAPI = nil;
     return operation;
 }
 
+#pragma Media/create media
 
 - (AFHTTPRequestOperation *)createMedia:(MHMedia *)media
                         completionBlock:(MHAPICompletionBlock)completionBlock
@@ -462,6 +463,91 @@ static MHAPI *_sharedAPI = nil;
     
     return nil;
 
+}
+
+#pragma read media
+
+- (AFHTTPRequestOperation *)readMediaWithId:(NSString *)mediaId
+                            completionBlock:(MHAPICompletionBlock)completionBlock {
+    
+    NSError *error;
+    
+    AFJSONRequestSerializer *jsonSerializer = [AFJSONRequestSerializer serializer];
+    [jsonSerializer setAuthorizationHeaderFieldWithToken:_accessToken];
+    NSMutableURLRequest *request = [jsonSerializer requestWithMethod:@"GET"
+                                                           URLString:[NSString stringWithFormat:@"%@%@/",[self urlWithPath:@"media"],mediaId]
+                                                          parameters:nil
+                                                               error:&error];
+    
+    AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
+                                                                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                                                          NSArray *responseArray = [[NSArray alloc]initWithArray:responseObject];
+                                                                          completionBlock(responseArray, error);
+                                                                      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                                                          completionBlock(nil, error);
+                                                                      }];
+    operation.responseSerializer = [AFJSONResponseSerializer serializer];
+    operation.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", nil];
+    [self.operationQueue addOperation:operation];
+    
+    return operation;
+}
+
+#pragma delete media
+
+- (AFHTTPRequestOperation *)deleteMediaWithId:(NSString *)mediaId
+                              completionBlock:(MHAPICompletionBlock)completionBlock {
+    
+    NSError *error;
+    
+    AFJSONRequestSerializer *jsonSerializer = [AFJSONRequestSerializer serializer];
+    [jsonSerializer setAuthorizationHeaderFieldWithToken:_accessToken];
+    NSMutableURLRequest *request = [jsonSerializer requestWithMethod:@"DELETE"
+                                                           URLString:[NSString stringWithFormat:@"%@%@/",[self urlWithPath:@"media"],mediaId]
+                                                          parameters:nil
+                                                               error:&error];
+    
+    AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
+                                                                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                                                          NSArray *responseArray = [[NSArray alloc]initWithArray:responseObject];
+                                                                          completionBlock(responseArray, error);
+                                                                      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                                                          completionBlock(nil, error);
+                                                                      }];
+    operation.responseSerializer = [AFJSONResponseSerializer serializer];
+    operation.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", nil];
+    [self.operationQueue addOperation:operation];
+    
+    return operation;
+}
+
+#pragma read thumbnail
+
+- (AFHTTPRequestOperation *)readThumbnail:(NSString *)size
+                          formMediaWithId:(NSString *)mediaId
+                          completionBlock:(MHAPICompletionBlock)completionBlock {
+    
+    NSError *error;
+    
+    AFJSONRequestSerializer *jsonSerializer = [AFJSONRequestSerializer serializer];
+    [jsonSerializer setAuthorizationHeaderFieldWithToken:_accessToken];
+    NSMutableURLRequest *request = [jsonSerializer requestWithMethod:@"GET"
+                                                           URLString:[NSString stringWithFormat:@"%@%@/?size=%@",[self urlWithPath:@"media"],mediaId,size]
+                                                          parameters:nil
+                                                               error:&error];
+    
+    AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
+                                                                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                                                          NSArray *responseArray = [[NSArray alloc]initWithArray:responseObject];
+                                                                          completionBlock(responseArray, error);
+                                                                      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                                                          completionBlock(nil, error);
+                                                                      }];
+    operation.responseSerializer = [AFJSONResponseSerializer serializer];
+    operation.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", nil];
+    [self.operationQueue addOperation:operation];
+    
+    return operation;
 }
 
 - (void)localizedDescriptionForErrorCode:(NSError *)error {
