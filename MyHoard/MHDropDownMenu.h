@@ -80,6 +80,8 @@
 
 @end
 
+typedef void(^MenuDismissedBlock)(void);
+
 @interface MHDropDownMenu : UIView
 
 - (void)showMenuInView:(UIView *)view atPosition:(CGFloat)y animated:(BOOL)animated;
@@ -88,6 +90,7 @@
 @property (nonatomic, weak) id<MHDropDownMenuDataSource> dataSource;
 @property (nonatomic, weak) id<MHDropDownMenuDelegate> delegate;
 @property (nonatomic, readonly, getter = isVisible) BOOL visible;
+@property (nonatomic, copy) MenuDismissedBlock menuDismissedBlock;
 
 @end
 

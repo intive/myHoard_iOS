@@ -172,17 +172,23 @@
                                  _backgroundView.alpha = 0.0;
             }
                              completion:^(BOOL finished) {
-                                 [self removeFromSuperview];
-                                 _visible = NO;
+                                 [self menuHidden];
             }];
         } else {
             for (MHDropDownMenuItem* item in _items) {
                 item.frame = item.hiddenFrame;
             }
             
-            [self removeFromSuperview];
-            _visible = NO;
+            [self menuHidden];
         }
+    }
+}
+
+- (void)menuHidden {
+    [self removeFromSuperview];
+    _visible = NO;
+    if (_menuDismissedBlock) {
+        _menuDismissedBlock();
     }
 }
 
@@ -243,9 +249,7 @@
 }
 
 - (void)backgroundViewTapped:(UIGestureRecognizer*)sender {
-    if ([self isVisible] && sender.state == UIGestureRecognizerStateEnded) {
-        [self hideMenuAnimated:YES];
-    }
+    [self hideMenuAnimated:YES];
 }
 
 @end

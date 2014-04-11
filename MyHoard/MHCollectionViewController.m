@@ -66,11 +66,6 @@ typedef NS_ENUM(NSInteger, CollectionSortMode) {
     self.sortMode = CollectionSortModeByName;
 }
 
-- (void) viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    self.menuButtonImage = [UIImage imageNamed:@"plus"];
-}
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

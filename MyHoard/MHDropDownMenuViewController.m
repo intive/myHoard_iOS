@@ -20,6 +20,11 @@
 
 - (void)commonInit {
     _menu = [[MHDropDownMenu alloc] init];
+    
+    __block MHDropDownMenuViewController* pself = self;
+    _menu.menuDismissedBlock = ^{
+        pself->_menuButton.image = pself->_menuButtonImage;
+    };
     _menuButton = [[UIBarButtonItem alloc] initWithImage:_menuButtonImage style:UIBarButtonItemStylePlain target:self action:@selector(dropDownMenuButtonClicked:)];
 }
 
