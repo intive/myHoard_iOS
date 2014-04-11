@@ -291,7 +291,7 @@ static MHAPI *_sharedAPI = nil;
     return operation;
 }
 
-#pragma read users collections
+#pragma read all of user collections
 
 - (AFHTTPRequestOperation *)readUserCollectionsWithCompletionBlock:(MHAPICompletionBlock)completionBlock {
     
@@ -301,6 +301,34 @@ static MHAPI *_sharedAPI = nil;
     [jsonSerializer setAuthorizationHeaderFieldWithToken:_accessToken];
     NSMutableURLRequest *request = [jsonSerializer requestWithMethod:@"GET"
                                                            URLString:[self urlWithPath:@"collections"]
+                                                          parameters:nil
+                                                               error:&error];
+    
+    AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
+                                                                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                                                          NSArray *responseArray = [[NSArray alloc]initWithArray:responseObject];
+                                                                          completionBlock(responseArray, error);
+                                                                      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                                                          completionBlock(nil, error);
+                                                                      }];
+    operation.responseSerializer = [AFJSONResponseSerializer serializer];
+    operation.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", nil];
+    [self.operationQueue addOperation:operation];
+    
+    return operation;
+}
+
+#pragma read specified user collection
+
+- (AFHTTPRequestOperation *)readUserCollectionWithId:(NSString *)collectionId
+                                     completionBlock:(MHAPICompletionBlock)completionBlock {
+    
+    NSError *error;
+    
+    AFJSONRequestSerializer *jsonSerializer = [AFJSONRequestSerializer serializer];
+    [jsonSerializer setAuthorizationHeaderFieldWithToken:_accessToken];
+    NSMutableURLRequest *request = [jsonSerializer requestWithMethod:@"GET"
+                                                           URLString:[NSString stringWithFormat:@"%@%@",[self urlWithPath:@"collections"],collectionId]
                                                           parameters:nil
                                                                error:&error];
     
