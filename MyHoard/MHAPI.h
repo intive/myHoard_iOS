@@ -52,4 +52,10 @@ typedef void (^MHAPICompletionBlock)(id object, NSError *error);
 
 - (AFHTTPRequestOperation *)readUserCollectionsWithCompletionBlock:(MHAPICompletionBlock)completionBlock;
 
+- (AFHTTPRequestOperation *)updateCollectionWithId:(NSString *)collectionId
+                                          withName:(NSString *)newName
+                                   withDescription:(NSString *)newDescription
+                                          withTags:(NSArray *)newTags
+                                   completionBlock:(MHAPICompletionBlock)completionBlock;
+
 @end
