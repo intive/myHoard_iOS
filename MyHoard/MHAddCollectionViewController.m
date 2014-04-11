@@ -9,6 +9,7 @@
 #import "MHAddCollectionViewController.h"
 #import "MHDatabaseManager.h"
 #import "NSString+Tags.h"
+#import "MHAPI.h"
 
 @interface MHAddCollectionViewController ()
 @property (readwrite) NSUInteger last;
@@ -119,14 +120,54 @@
         [alert show];
     }
     else{
-        [MHDatabaseManager insertCollectionWithObjName:self.nameTextField.text
-                                        objDescription:self.descriptionTextField.text
-                                               objTags:[self.tagsTextField.text tags]
-                                        objItemsNumber:nil
-                                        objCreatedDate:[NSDate date]
-                                       objModifiedDate:nil
-                                              objOwner:nil];
-        [self dismissViewControllerAnimated:YES completion:nil];
+        if ([_typeLabel.text isEqualToString:@"Public"]) {
+        
+            [[MHAPI getInstance]createCollection:_nameTextField.text withDescription:_descriptionTextField.text withTags:[_tagsTextField.text tags] completionBlock:^(MHCollection *createdCollection, NSError *error) {
+                if (error) {
+                    UIAlertView *alert = [[UIAlertView alloc]
+                                      initWithTitle:@"Error"
+                                      message:error.localizedDescription
+                                      delegate:self
+                                      cancelButtonTitle:@"Cancel"
+                                      otherButtonTitles:nil];
+                    [alert show];
+                    NSLog(@"%@", error);
+                }else {
+                    /*
+                    [MHDatabaseManager insertCollectionWithObjName:createdCollection.objName
+                                                    objDescription:createdCollection.objDescription
+                                                           objTags:createdCollection.objTags
+                                                    objItemsNumber:createdCollection.objItemsNumber
+                                                    objCreatedDate:createdCollection.objCreatedDate
+                                                   objModifiedDate:createdCollection.objModifiedDate
+                                                          objOwner:createdCollection.objOwner];
+                    */
+                    [[MHAPI getInstance]readUserCollectionsWithCompletionBlock:^(NSArray *responseArray, NSError *error) {
+                        for (MHCollection *eachCollection in responseArray) {
+                            if (![MHDatabaseManager collectionWithObjName:eachCollection.objName]) {
+                                
+                                [MHDatabaseManager insertCollectionWithObjName:eachCollection.objName
+                                                                objDescription:eachCollection.objDescription
+                                                                       objTags:eachCollection.objTags
+                                                                objItemsNumber:eachCollection.objItemsNumber
+                                                                objCreatedDate:eachCollection.objCreatedDate
+                                                               objModifiedDate:eachCollection.objModifiedDate
+                                                                      objOwner:eachCollection.objOwner];
+                            }
+                        }
+                    }];
+                }
+            }];
+        }else {
+            
+             [MHDatabaseManager insertCollectionWithObjName:self.nameTextField.text
+             objDescription:self.descriptionTextField.text
+             objTags:[self.tagsTextField.text tags]
+             objItemsNumber:nil
+             objCreatedDate:[NSDate date]
+             objModifiedDate:nil
+             objOwner:nil]; 
+        }
     }
 }
 

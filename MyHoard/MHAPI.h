@@ -10,6 +10,7 @@
 
 #import <AFNetworking.h>
 #import "MHUserProfile.h"
+#import "MHCollection.h"
 
 typedef void (^MHAPICompletionBlock)(id object, NSError *error);
 
@@ -43,5 +44,12 @@ typedef void (^MHAPICompletionBlock)(id object, NSError *error);
 - (AFHTTPRequestOperation *)refreshTokenForUser:(NSString *)email
                                    withPassword:(NSString *)password
                                 completionBlock:(MHAPICompletionBlock)completionBlock;
+
+- (AFHTTPRequestOperation *)createCollection:(NSString *)name
+                             withDescription:(NSString *)desc
+                                    withTags:(NSArray *)tags
+                             completionBlock:(MHAPICompletionBlock)completionBlock;
+
+- (AFHTTPRequestOperation *)readUserCollectionsWithCompletionBlock:(MHAPICompletionBlock)completionBlock;
 
 @end

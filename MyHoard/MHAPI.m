@@ -8,7 +8,6 @@
 
 #import "MHAPI.h"
 #import "MHUserSettings.h"
-#import "MHCollection.h"
 #import "MHItem.h"
 #import "MHMedia.h"
 
@@ -56,6 +55,8 @@ static MHAPI *_sharedAPI = nil;
     return [NSString stringWithFormat:@"%@/%@/", [self serverUrl], path];
 }
 
+#pragma User + Authorization & Authentication
+
 - (void)logout:(MHAPICompletionBlock)completionBlock {
     _accessToken = nil;
     _refreshToken = nil;
@@ -90,6 +91,8 @@ static MHAPI *_sharedAPI = nil;
     return operation;
 }
 
+#pragma read existing user
+
 - (AFHTTPRequestOperation *)readUserWithCompletionBlock:(MHAPICompletionBlock)completionBlock {
     
     NSError *error;
@@ -117,6 +120,103 @@ static MHAPI *_sharedAPI = nil;
     
     return operation;
 }
+
+#pragma mark - update user
+
+- (AFHTTPRequestOperation *)updateUser:(NSString *)username
+                          withPassword:(NSString *)password
+                              andEmail:(NSString *)email
+                       completionBlock:(MHAPICompletionBlock)completionBlock {
+    NSError *error;
+    
+    AFJSONRequestSerializer* jsonRequest = [AFJSONRequestSerializer serializer];
+    [jsonRequest setAuthorizationHeaderFieldWithToken:_accessToken];
+    
+    NSMutableURLRequest *request = [jsonRequest requestWithMethod:@"PUT"
+                                                        URLString:[self urlWithPath:@"users"]
+                                                       parameters:@{@"username": username,
+                                                                    @"password": password,
+                                                                    @"email": email}
+                                                            error:&error];
+    
+    AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
+                                                                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                                                          completionBlock(responseObject, nil);
+                                                                      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                                                          [self localizedDescriptionForErrorCode:error];
+                                                                          completionBlock(nil, error);
+                                                                      }];
+    
+    operation.responseSerializer = [AFJSONResponseSerializer serializer];
+    operation.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", nil];
+    [self.operationQueue addOperation:operation];
+    
+    return operation;
+}
+
+#pragma mark - delete user
+
+- (AFHTTPRequestOperation *)deleteUserWithCompletionBlock:(MHAPICompletionBlock)completionBlock {
+    
+    NSError *error;
+    
+    AFJSONRequestSerializer* jsonRequest = [AFJSONRequestSerializer serializer];
+    [jsonRequest setAuthorizationHeaderFieldWithToken:_accessToken];
+    
+    NSMutableURLRequest *request = [jsonRequest requestWithMethod:@"DELETE"
+                                                        URLString:[self urlWithPath:@"users"]
+                                                       parameters:nil
+                                                            error:&error];
+    
+    AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
+                                                                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                                                          completionBlock(responseObject, nil);
+                                                                      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                                                          [self localizedDescriptionForErrorCode:error];
+                                                                          completionBlock(nil, error);
+                                                                      }];
+    
+    operation.responseSerializer = [AFJSONResponseSerializer serializer];
+    operation.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", nil];
+    [self.operationQueue addOperation:operation];
+    
+    return operation;
+}
+
+#pragma mark - refresh token
+
+- (AFHTTPRequestOperation *)refreshTokenForUser:(NSString *)email
+                                   withPassword:(NSString *)password
+                                completionBlock:(MHAPICompletionBlock)completionBlock {
+    NSError *error;
+    
+    AFJSONRequestSerializer* jsonRequest = [AFJSONRequestSerializer serializer];
+    [jsonRequest setAuthorizationHeaderFieldWithToken:_accessToken];
+    
+    NSMutableURLRequest *request = [jsonRequest requestWithMethod:@"POST"
+                                                        URLString:[self urlWithPath:@"oauth/token"]
+                                                       parameters:@{@"email": email,
+                                                                    @"password": password,
+                                                                    @"grant_type": @"refresh_token",
+                                                                    @"refresh_token": _refreshToken}
+                                                            error:&error];
+    
+    AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
+                                                                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                                                          completionBlock(responseObject, nil);
+                                                                      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                                                          [self localizedDescriptionForErrorCode:error];
+                                                                          completionBlock(nil, error);
+                                                                      }];
+    
+    operation.responseSerializer = [AFJSONResponseSerializer serializer];
+    operation.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", nil];
+    [self.operationQueue addOperation:operation];
+    
+    return operation;
+}
+
+#pragma get token/login
 
 - (AFHTTPRequestOperation *)accessTokenForUser:(NSString *)email
                                   withPassword:(NSString *)password
@@ -148,7 +248,11 @@ static MHAPI *_sharedAPI = nil;
     return operation;
 }
 
-- (AFHTTPRequestOperation *)createCollection:(MHCollection *)collection
+#pragma Collections/create collection
+
+- (AFHTTPRequestOperation *)createCollection:(NSString *)name
+                             withDescription:(NSString *)desc
+                                    withTags:(NSArray *)tags
                              completionBlock:(MHAPICompletionBlock)completionBlock
 {
     NSError *error;
@@ -157,14 +261,53 @@ static MHAPI *_sharedAPI = nil;
     [jsonSerializer setAuthorizationHeaderFieldWithToken:_accessToken];
     NSMutableURLRequest *request = [jsonSerializer requestWithMethod:@"POST"
                                                            URLString:[self urlWithPath:@"collections"]
-                                                          parameters:@{@"name": collection.objName,
-                                                                       @"description": collection.objDescription,
-                                                                       @"tags":collection.objTags}
+                                                          parameters:@{@"name": name,
+                                                                       @"description": desc,
+                                                                       @"tags":tags}
                                                                error:&error];
     
     AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
                                                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                                                          
+                                                                          MHCollection *createdCollection = [[MHCollection alloc]init];
+
+                                                                          createdCollection.objId = responseObject[@"id"];
+                                                                          createdCollection.objName = responseObject[@"name"];
+                                                                          createdCollection.objDescription = responseObject[@"description"];
+                                                                          createdCollection.objTags = responseObject[@"tags"];
+                                                                          createdCollection.objItemsNumber = responseObject[@"items_number"];
+                                                                          createdCollection.objCreatedDate = responseObject[@"dreated_date"];
+                                                                          createdCollection.objModifiedDate = responseObject[@"modified_date"];
+                                                                          createdCollection.objOwner = responseObject[@"owner"];
+                                                                          
+                                                                          completionBlock(createdCollection, error);
+                                                                      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                                                           completionBlock(nil, error);
+                                                                      }];
+    operation.responseSerializer = [AFJSONResponseSerializer serializer];
+    operation.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", nil];
+    [self.operationQueue addOperation:operation];
+    
+    return operation;
+}
+
+#pragma read users collections
+
+- (AFHTTPRequestOperation *)readUserCollectionsWithCompletionBlock:(MHAPICompletionBlock)completionBlock {
+    
+    NSError *error;
+    
+    AFJSONRequestSerializer *jsonSerializer = [AFJSONRequestSerializer serializer];
+    [jsonSerializer setAuthorizationHeaderFieldWithToken:_accessToken];
+    NSMutableURLRequest *request = [jsonSerializer requestWithMethod:@"GET"
+                                                           URLString:[self urlWithPath:@"collections"]
+                                                          parameters:nil
+                                                               error:&error];
+    
+    AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
+                                                                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                                                          NSArray *responseArray = [[NSArray alloc]initWithArray:responseObject];
+                                                                          completionBlock(responseArray, error);
                                                                       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                                                           completionBlock(nil, error);
                                                                       }];
@@ -258,99 +401,6 @@ static MHAPI *_sharedAPI = nil;
     }
 }
 
-#pragma mark - update user
 
-- (AFHTTPRequestOperation *)updateUser:(NSString *)username
-                          withPassword:(NSString *)password
-                              andEmail:(NSString *)email
-                       completionBlock:(MHAPICompletionBlock)completionBlock {
-    NSError *error;
-    
-    AFJSONRequestSerializer* jsonRequest = [AFJSONRequestSerializer serializer];
-    [jsonRequest setAuthorizationHeaderFieldWithToken:_accessToken];
-    
-    NSMutableURLRequest *request = [jsonRequest requestWithMethod:@"PUT"
-                                                        URLString:[self urlWithPath:@"users"]
-                                                       parameters:@{@"username": username,
-                                                                    @"password": password,
-                                                                    @"email": email}
-                                                            error:&error];
-    
-    AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
-                                                                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                                                          completionBlock(responseObject, nil);
-                                                                      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                                                          [self localizedDescriptionForErrorCode:error];
-                                                                          completionBlock(nil, error);
-                                                                      }];
-    
-    operation.responseSerializer = [AFJSONResponseSerializer serializer];
-    operation.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", nil];
-    [self.operationQueue addOperation:operation];
-    
-    return operation;
-}
-
-#pragma mark - delete user
-
-- (AFHTTPRequestOperation *)deleteUserWithCompletionBlock:(MHAPICompletionBlock)completionBlock {
-    
-    NSError *error;
-    
-    AFJSONRequestSerializer* jsonRequest = [AFJSONRequestSerializer serializer];
-    [jsonRequest setAuthorizationHeaderFieldWithToken:_accessToken];
-    
-    NSMutableURLRequest *request = [jsonRequest requestWithMethod:@"DELETE"
-                                                        URLString:[self urlWithPath:@"users"]
-                                                       parameters:nil
-                                                            error:&error];
-    
-    AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
-                                                                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                                                          completionBlock(responseObject, nil);
-                                                                      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                                                          [self localizedDescriptionForErrorCode:error];
-                                                                          completionBlock(nil, error);
-                                                                      }];
-    
-    operation.responseSerializer = [AFJSONResponseSerializer serializer];
-    operation.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", nil];
-    [self.operationQueue addOperation:operation];
-    
-    return operation;
-}
-
-#pragma mark - refresh token
-
-- (AFHTTPRequestOperation *)refreshTokenForUser:(NSString *)email
-                          withPassword:(NSString *)password
-                       completionBlock:(MHAPICompletionBlock)completionBlock {
-    NSError *error;
-    
-    AFJSONRequestSerializer* jsonRequest = [AFJSONRequestSerializer serializer];
-    [jsonRequest setAuthorizationHeaderFieldWithToken:_accessToken];
-    
-    NSMutableURLRequest *request = [jsonRequest requestWithMethod:@"POST"
-                                                        URLString:[self urlWithPath:@"oauth/token"]
-                                                       parameters:@{@"email": email,
-                                                                    @"password": password,
-                                                                    @"grant_type": @"refresh_token",
-                                                                    @"refresh_token": _refreshToken}
-                                                            error:&error];
-    
-    AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
-                                                                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                                                          completionBlock(responseObject, nil);
-                                                                      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                                                          [self localizedDescriptionForErrorCode:error];
-                                                                          completionBlock(nil, error);
-                                                                      }];
-    
-    operation.responseSerializer = [AFJSONResponseSerializer serializer];
-    operation.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", nil];
-    [self.operationQueue addOperation:operation];
-    
-    return operation;
-}
 
 @end

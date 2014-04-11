@@ -118,7 +118,7 @@
 
 
 - (void)loginLabelTitle {
-    
+
     [[MHAPI getInstance]readUserWithCompletionBlock:^(MHUserProfile *object, NSError *error) {
         if (!error) {
             _loginLabel.text = object.email;
