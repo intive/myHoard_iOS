@@ -70,7 +70,8 @@ typedef NS_ENUM(NSInteger, CollectionSortMode) {
     self.sortMode = CollectionSortModeByName;
 }
 
-- (void) viewDidAppear:(BOOL)animated{
+- (void) viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
     self.menuButtonImage = [UIImage imageNamed:@"plus"];
 }
 
