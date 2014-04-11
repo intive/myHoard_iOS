@@ -215,8 +215,8 @@ typedef NS_ENUM(NSInteger, CollectionSortMode) {
 }
 
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    MHCollectionDetailsViewController * vc = [segue destinationViewController];
     if ([segue.identifier isEqualToString:@"ShowItemsSegue"]) {
+        MHCollectionDetailsViewController * vc = [segue destinationViewController];
         NSArray *indexPaths = [self.collectionView indexPathsForSelectedItems];
         vc.collection = [self.fetchedResultsController objectAtIndexPath:indexPaths[0]];
     } else if ([segue.identifier isEqualToString:@"AddItemSegue"]) {
