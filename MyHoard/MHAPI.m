@@ -410,36 +410,6 @@ static MHAPI *_sharedAPI = nil;
     return operation;
 }
 
-- (AFHTTPRequestOperation *)createItem:(MHItem *)item
-                       completionBlock:(MHAPICompletionBlock)completionBlock
-{
-    NSError *error;
-    
-    AFJSONRequestSerializer *jsonSerializer = [AFJSONRequestSerializer serializer];
-    [jsonSerializer setAuthorizationHeaderFieldWithToken:_accessToken];
-    NSMutableURLRequest *request = [jsonSerializer requestWithMethod:@"POST"
-                                                           URLString:[self urlWithPath:@"items"]
-                                                          parameters:@{@"name": item.objName,
-                                                                       @"description": item.objDescription,
-                                                                       @"location":item.objLocation,
-                                                                       @"quantity":item.objQuantity,
-                                                                       @"media":item.objMediaIds}
-                                                               error:&error];
-    
-    AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
-                                                                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                                                          completionBlock(nil, error);
-                                                                      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                                                          completionBlock(nil, error);
-                                                                      }];
-
-    operation.responseSerializer = [AFJSONResponseSerializer serializer];
-    operation.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", nil];
-    [self.operationQueue addOperation:operation];
-    
-    return operation;
-}
-
 #pragma Media/create media
 
 - (AFHTTPRequestOperation *)createMedia:(MHMedia *)media
@@ -543,6 +513,96 @@ static MHAPI *_sharedAPI = nil;
                                                                       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                                                           completionBlock(nil, error);
                                                                       }];
+    operation.responseSerializer = [AFJSONResponseSerializer serializer];
+    operation.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", nil];
+    [self.operationQueue addOperation:operation];
+    
+    return operation;
+}
+
+#pragma Item/create item
+
+- (AFHTTPRequestOperation *)createItem:(MHItem *)item
+                       completionBlock:(MHAPICompletionBlock)completionBlock
+{
+    NSError *error;
+    
+    AFJSONRequestSerializer *jsonSerializer = [AFJSONRequestSerializer serializer];
+    [jsonSerializer setAuthorizationHeaderFieldWithToken:_accessToken];
+    NSMutableURLRequest *request = [jsonSerializer requestWithMethod:@"POST"
+                                                           URLString:[self urlWithPath:@"items"]
+                                                          parameters:@{@"name": item.objName,
+                                                                       @"description": item.objDescription,
+                                                                       @"location":item.objLocation,
+                                                                       @"quantity":item.objQuantity,
+                                                                       @"media":item.objMediaIds}
+                                                               error:&error];
+    
+    AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
+                                                                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                                                          completionBlock(nil, error);
+                                                                      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                                                          completionBlock(nil, error);
+                                                                      }];
+    
+    operation.responseSerializer = [AFJSONResponseSerializer serializer];
+    operation.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", nil];
+    [self.operationQueue addOperation:operation];
+    
+    return operation;
+}
+
+#pragma read item
+
+- (AFHTTPRequestOperation *)readItemWithId:(NSString *)itemId
+                                     completionBlock:(MHAPICompletionBlock)completionBlock {
+    
+    NSError *error;
+    
+    AFJSONRequestSerializer *jsonSerializer = [AFJSONRequestSerializer serializer];
+    [jsonSerializer setAuthorizationHeaderFieldWithToken:_accessToken];
+    NSMutableURLRequest *request = [jsonSerializer requestWithMethod:@"GET"
+                                                           URLString:[NSString stringWithFormat:@"%@%@",[self urlWithPath:@"items"],itemId]
+                                                          parameters:nil
+                                                               error:&error];
+    
+    AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
+                                                                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                                                          NSArray *responseArray = [[NSArray alloc]initWithArray:responseObject];
+                                                                          completionBlock(responseArray, error);
+                                                                      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                                                          completionBlock(nil, error);
+                                                                      }];
+    operation.responseSerializer = [AFJSONResponseSerializer serializer];
+    operation.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", nil];
+    [self.operationQueue addOperation:operation];
+    
+    return operation;
+}
+
+#pragma delete item
+
+- (AFHTTPRequestOperation *)deleteItemWithId:(NSString *)itemId
+                                   completionBlock:(MHAPICompletionBlock)completionBlock {
+    
+    NSError *error;
+    
+    AFJSONRequestSerializer* jsonRequest = [AFJSONRequestSerializer serializer];
+    [jsonRequest setAuthorizationHeaderFieldWithToken:_accessToken];
+    
+    NSMutableURLRequest *request = [jsonRequest requestWithMethod:@"DELETE"
+                                                        URLString:[NSString stringWithFormat:@"%@%@",[self urlWithPath:@"items"],itemId]
+                                                       parameters:nil
+                                                            error:&error];
+    
+    AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
+                                                                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                                                          completionBlock(responseObject, nil);
+                                                                      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                                                          [self localizedDescriptionForErrorCode:error];
+                                                                          completionBlock(nil, error);
+                                                                      }];
+    
     operation.responseSerializer = [AFJSONResponseSerializer serializer];
     operation.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", nil];
     [self.operationQueue addOperation:operation];
