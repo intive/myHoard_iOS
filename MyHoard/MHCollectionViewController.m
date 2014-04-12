@@ -17,6 +17,8 @@ typedef NS_ENUM(NSInteger, CollectionSortMode) {
     CollectionSortModeByDate
 };
 
+#define HEADER_HEIGHT 44
+
 @interface MHCollectionViewController ()
 
 @property (nonatomic, assign) CollectionSortMode sortMode;
@@ -32,7 +34,12 @@ typedef NS_ENUM(NSInteger, CollectionSortMode) {
     NSMutableArray *_sectionChanges;
     NSTimer *timeToChangeCollection;
     MHCollectionCell *animatingCell;
+
+    UIView* _headerView;
+    BOOL _isDragging;
+    BOOL _isVisible;
 }
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -64,6 +71,27 @@ typedef NS_ENUM(NSInteger, CollectionSortMode) {
     
     self.collectionView.backgroundColor = [UIColor appBackgroundColor];
     self.sortMode = CollectionSortModeByName;
+    
+    _headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0 - HEADER_HEIGHT, self.view.frame.size.width, HEADER_HEIGHT)];
+    _headerView.backgroundColor = [UIColor blackColor];
+    
+    NSArray *itemArray = [NSArray arrayWithObjects: @"Date", @"Name", nil];
+    UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:itemArray];
+    segmentedControl.frame = CGRectMake(8, 8, _headerView.frame.size.width - 16, _headerView.frame.size.height - 16);
+    segmentedControl.segmentedControlStyle = UISegmentedControlStylePlain;
+    segmentedControl.selectedSegmentIndex = 1;
+    segmentedControl.layer.borderColor = [UIColor lighterYellow].CGColor;
+    segmentedControl.layer.borderWidth = 1.0;
+    segmentedControl.layer.cornerRadius = 6.0;
+    segmentedControl.tintColor = [UIColor lighterYellow];
+    
+    [segmentedControl addTarget:self
+                         action:@selector(segmentedControlValueChanged:)
+               forControlEvents:UIControlEventValueChanged];
+    
+    [_headerView addSubview:segmentedControl];
+    [self.collectionView addSubview:_headerView];
+    self.collectionView.alwaysBounceVertical = YES;
 }
 
 - (void)didReceiveMemoryWarning
@@ -557,5 +585,45 @@ newIndexPath:(NSIndexPath *)newIndexPath
     }];
 }
 
+#pragma mark scroll view
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    if (_isVisible) return;
+    _isDragging = YES;
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (_isVisible) {
+        // Update the content inset, good for section headers
+        if (scrollView.contentOffset.y > 0)
+            self.collectionView.contentInset = UIEdgeInsetsZero;
+        else if (scrollView.contentOffset.y >= -HEADER_HEIGHT)
+            self.collectionView.contentInset = UIEdgeInsetsMake(-scrollView.contentOffset.y, 0, 0, 0);
+    } else if (_isDragging && scrollView.contentOffset.y < 0) {
+    }
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    if (_isVisible) return;
+    _isDragging = NO;
+    if (scrollView.contentOffset.y <= -HEADER_HEIGHT) {
+        _isVisible = YES;
+        [UIView animateWithDuration:0.3 animations:^{
+            self.collectionView.contentInset = UIEdgeInsetsMake(HEADER_HEIGHT, 0, 0, 0);
+        }];
+    }
+}
+
+#pragma mark segmented control
+
+- (void)segmentedControlValueChanged:(UISegmentedControl *)sender {
+    NSInteger index = [sender selectedSegmentIndex];
+    if (index == 0) {
+        self.sortMode = CollectionSortModeByDate;
+    } else {
+        self.sortMode = CollectionSortModeByName;
+    }
+    [self.collectionView reloadData];
+}
 
 @end
