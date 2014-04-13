@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5053" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="iwF-FO-On1">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="iwF-FO-On1">
     <dependencies>
         <deployment defaultVersion="1536" identifier="iOS"/>
         <development version="5000" identifier="xcode"/>
@@ -910,11 +910,41 @@
                     <connections>
                         <outlet property="collectionName" destination="bJD-IS-1l0" id="twV-qS-KhL"/>
                         <outlet property="collectionView" destination="5dp-fo-Hmy" id="Hgo-60-dL6"/>
+                        <segue destination="fW1-8f-0eN" kind="push" identifier="ShowItemDetails" id="1lU-XD-Edz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M4V-vx-C5w" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="348" y="-764"/>
+        </scene>
+        <!--Item Details View Controller - Title-->
+        <scene sceneID="ZYI-XA-VUS">
+            <objects>
+                <viewController id="fW1-8f-0eN" customClass="MHItemDetailsViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y9M-HN-gwx"/>
+                        <viewControllerLayoutGuide type="bottom" id="xM2-7e-X78"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="RgE-aF-vbG">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4cj-ad-f3B">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="390"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Title" id="pSm-AF-Jtc" userLabel="Navigation Item"/>
+                    <connections>
+                        <outlet property="frontImage" destination="4cj-ad-f3B" id="alf-7X-AoO"/>
+                        <outlet property="itemTitle" destination="pSm-AF-Jtc" id="zLZ-WT-hIh"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3Z2-NE-j1x" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="839" y="-758"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="A3J-Rx-2NW">
@@ -1682,9 +1712,17 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+<<<<<<< HEAD
         <segue reference="jZp-GR-mKO"/>
         <segue reference="7Aw-hx-44V"/>
         <segue reference="3wb-xF-lsE"/>
         <segue reference="AJS-nz-tvm"/>
+=======
+        <segue reference="3wb-xF-lsE"/>
+        <segue reference="7Aw-hx-44V"/>
+        <segue reference="f1Y-Gw-JyE"/>
+        <segue reference="Xtm-aX-Up0"/>
+        <segue reference="adL-u6-2Xg"/>
+>>>>>>> DragUpView
     </inferredMetricsTieBreakers>
 </document>

@@ -7,6 +7,7 @@
 //
 #import "MHCollectionDetailsViewController.h"
 #import "UIImage+Gallery.h"
+#import "MHItemDetailsViewController.h"
 
 
 @implementation MHCollectionDetailsViewController
@@ -90,6 +91,24 @@
     }
 }
 
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSInteger count = [self collectionView:_collectionView numberOfItemsInSection:[self numberOfSectionsInCollectionView:_collectionView]];
+    
+    if (count) {
+        MHItem  *object = [_collection.items.allObjects  objectAtIndex:indexPath.row];
+        [self performSegueWithIdentifier:@"ShowItemDetails" sender:object];
+    }
+    
+}
+
+-(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"ShowItemDetails"]) {
+        MHItemDetailsViewController * vc = [segue destinationViewController];
+        vc.item = sender;
+    }
+}
+
 #pragma mark - Collection header configure
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
@@ -134,7 +153,7 @@
 
 - (void)dropDownMenu:(MHDropDownMenu*)menu didSelectItemAtIndex:(NSUInteger)index {
     if (index == 0) {
-#warning - implement
+        
     } else {
         NSLog(@"Unknown menu item %lu selected:", (unsigned long)index);
     }
