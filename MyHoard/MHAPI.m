@@ -251,9 +251,7 @@ static MHAPI *_sharedAPI = nil;
 
 #pragma Collections/create collection
 
-- (AFHTTPRequestOperation *)createCollection:(NSString *)name
-                             withDescription:(NSString *)desc
-                                    withTags:(NSArray *)tags
+- (AFHTTPRequestOperation *)createCollection:(MHCollection *)collection
                              completionBlock:(MHAPICompletionBlock)completionBlock
 {
     NSError *error;
@@ -262,9 +260,9 @@ static MHAPI *_sharedAPI = nil;
     [jsonSerializer setAuthorizationHeaderFieldWithToken:_accessToken];
     NSMutableURLRequest *request = [jsonSerializer requestWithMethod:@"POST"
                                                            URLString:[self urlWithPath:@"collections"]
-                                                          parameters:@{@"name": name,
-                                                                       @"description": desc,
-                                                                       @"tags":tags}
+                                                          parameters:@{@"name": collection.objName,
+                                                                       @"description": collection.objDescription,
+                                                                       @"tags":collection.objTags}
                                                                error:&error];
     
     AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
@@ -320,7 +318,7 @@ static MHAPI *_sharedAPI = nil;
 
 #pragma read specified user collection
 
-- (AFHTTPRequestOperation *)readUserCollectionWithId:(NSString *)collectionId
+- (AFHTTPRequestOperation *)readUserCollection:(MHCollection *)collection
                                      completionBlock:(MHAPICompletionBlock)completionBlock {
     
     NSError *error;
@@ -328,7 +326,7 @@ static MHAPI *_sharedAPI = nil;
     AFJSONRequestSerializer *jsonSerializer = [AFJSONRequestSerializer serializer];
     [jsonSerializer setAuthorizationHeaderFieldWithToken:_accessToken];
     NSMutableURLRequest *request = [jsonSerializer requestWithMethod:@"GET"
-                                                           URLString:[NSString stringWithFormat:@"%@%@",[self urlWithPath:@"collections"],collectionId]
+                                                           URLString:[NSString stringWithFormat:@"%@%@",[self urlWithPath:@"collections"],collection.objId]
                                                           parameters:nil
                                                                error:&error];
     
@@ -354,10 +352,7 @@ static MHAPI *_sharedAPI = nil;
 
 #pragma update collection
 
-- (AFHTTPRequestOperation *)updateCollectionWithId:(NSString *)collectionId
-                                      withName:(NSString *)newName
-                                   withDescription:(NSString *)newDescription
-                                          withTags:(NSArray *)newTags
+- (AFHTTPRequestOperation *)updateCollection:(MHCollection *)collection
                        completionBlock:(MHAPICompletionBlock)completionBlock {
     NSError *error;
     
@@ -365,10 +360,10 @@ static MHAPI *_sharedAPI = nil;
     [jsonRequest setAuthorizationHeaderFieldWithToken:_accessToken];
     
     NSMutableURLRequest *request = [jsonRequest requestWithMethod:@"PUT"
-                                                        URLString:[NSString stringWithFormat:@"%@%@",[self urlWithPath:@"collections"],collectionId]
-                                                       parameters:@{@"name": newName,
-                                                                    @"description": newDescription,
-                                                                    @"tags":newTags}
+                                                        URLString:[NSString stringWithFormat:@"%@%@",[self urlWithPath:@"collections"],collection.objId]
+                                                       parameters:@{@"name": collection.objName,
+                                                                    @"description": collection.objDescription,
+                                                                    @"tags":collection.objTags}
                                                             error:&error];
     
     AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
@@ -388,7 +383,7 @@ static MHAPI *_sharedAPI = nil;
 
 #pragma delete collection
 
-- (AFHTTPRequestOperation *)deleteCollectionWithId:(NSString *)collectionId
+- (AFHTTPRequestOperation *)deleteCollection:(MHCollection *)collection
                                    completionBlock:(MHAPICompletionBlock)completionBlock {
     
     NSError *error;
@@ -397,7 +392,7 @@ static MHAPI *_sharedAPI = nil;
     [jsonRequest setAuthorizationHeaderFieldWithToken:_accessToken];
     
     NSMutableURLRequest *request = [jsonRequest requestWithMethod:@"DELETE"
-                                                        URLString:[NSString stringWithFormat:@"%@%@",[self urlWithPath:@"collections"],collectionId]
+                                                        URLString:[NSString stringWithFormat:@"%@%@",[self urlWithPath:@"collections"],collection.objId]
                                                        parameters:nil
                                                             error:&error];
     
@@ -609,7 +604,7 @@ static MHAPI *_sharedAPI = nil;
 
 #pragma read item
 
-- (AFHTTPRequestOperation *)readItemWithId:(NSString *)itemId
+- (AFHTTPRequestOperation *)readItem:(MHItem *)item
                                      completionBlock:(MHAPICompletionBlock)completionBlock {
     
     NSError *error;
@@ -617,7 +612,7 @@ static MHAPI *_sharedAPI = nil;
     AFJSONRequestSerializer *jsonSerializer = [AFJSONRequestSerializer serializer];
     [jsonSerializer setAuthorizationHeaderFieldWithToken:_accessToken];
     NSMutableURLRequest *request = [jsonSerializer requestWithMethod:@"GET"
-                                                           URLString:[NSString stringWithFormat:@"%@%@",[self urlWithPath:@"items"],itemId]
+                                                           URLString:[NSString stringWithFormat:@"%@%@",[self urlWithPath:@"items"],item.objId]
                                                           parameters:nil
                                                                error:&error];
     
