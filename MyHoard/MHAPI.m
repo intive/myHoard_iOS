@@ -12,6 +12,13 @@
 #import "MHMedia.h"
 #import "MHDatabaseManager.h"
 
+typedef enum  {
+	MHThumbnailx160 = 1,
+	MHThumbnailx300,
+    MHThumbnailx340,
+    MHThumbnailx500,
+} MHThumbnailSize;
+
 static MHAPI *_sharedAPI = nil;
 
 @interface MHAPI() {
@@ -499,16 +506,34 @@ static MHAPI *_sharedAPI = nil;
 
 #pragma read thumbnail
 
-- (AFHTTPRequestOperation *)readThumbnail:(NSString *)size
+- (AFHTTPRequestOperation *)readThumbnail:(MHThumbnailSize)size
                           formMediaWithId:(NSString *)mediaId
                           completionBlock:(MHAPICompletionBlock)completionBlock {
+    
+    NSString *thumbnailSize = @"";
+    
+    switch (size) {
+        case MHThumbnailx160:
+            thumbnailSize = @"160";
+            break;
+        case MHThumbnailx300:
+            thumbnailSize = @"300";
+            break;
+        case MHThumbnailx340:
+            thumbnailSize = @"340";
+            break;
+        case MHThumbnailx500:
+            thumbnailSize = @"500";
+            break;
+    }
+    
     
     NSError *error;
     
     AFJSONRequestSerializer *jsonSerializer = [AFJSONRequestSerializer serializer];
     [jsonSerializer setAuthorizationHeaderFieldWithToken:_accessToken];
     NSMutableURLRequest *request = [jsonSerializer requestWithMethod:@"GET"
-                                                           URLString:[NSString stringWithFormat:@"%@%@/?size=%@",[self urlWithPath:@"media"],mediaId,size]
+                                                           URLString:[NSString stringWithFormat:@"%@%@/?size=%@",[self urlWithPath:@"media"],mediaId,thumbnailSize]
                                                           parameters:nil
                                                                error:&error];
     
