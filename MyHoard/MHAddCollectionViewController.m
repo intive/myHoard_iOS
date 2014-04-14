@@ -119,7 +119,7 @@
                                                                   objModifiedDate:nil
                                                                          objOwner:nil];
 #warning - create collection on server if user is logged n - add method to check that in MHAPI
-        if (1) { //check if user is logged in!
+        if (0) { //check if user is logged in!
             if (![_typeLabel.text isEqualToString:@"Offline"]) {
                 __block MHWaitDialog* wait = [[MHWaitDialog alloc] init];
                 [wait show];
