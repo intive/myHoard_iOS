@@ -427,7 +427,7 @@ static MHAPI *_sharedAPI = nil;
     [manager.requestSerializer setAuthorizationHeaderFieldWithToken:_accessToken];
 
     NSURL *url = [NSURL fileURLWithPath:media.objLocalPath];
-    [manager POST:@"http://78.133.154.18:8080/media" parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+    [manager POST:[self urlWithPath:@"media"] parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         [formData appendPartWithFileURL:url name:media.objId error:nil];
     } success:^(AFHTTPRequestOperation *operation, id responseObject) {
         completionBlock(nil, error);
@@ -443,7 +443,7 @@ static MHAPI *_sharedAPI = nil;
 
 #pragma read media
 
-- (AFHTTPRequestOperation *)readMediaWithId:(NSString *)mediaId
+- (AFHTTPRequestOperation *)readMedia:(MHMedia *)media
                             completionBlock:(MHAPICompletionBlock)completionBlock {
     
     NSError *error;
@@ -451,7 +451,7 @@ static MHAPI *_sharedAPI = nil;
     AFJSONRequestSerializer *jsonSerializer = [AFJSONRequestSerializer serializer];
     [jsonSerializer setAuthorizationHeaderFieldWithToken:_accessToken];
     NSMutableURLRequest *request = [jsonSerializer requestWithMethod:@"GET"
-                                                           URLString:[NSString stringWithFormat:@"%@%@/",[self urlWithPath:@"media"],mediaId]
+                                                           URLString:[NSString stringWithFormat:@"%@%@/",[self urlWithPath:@"media"],media.objId]
                                                           parameters:nil
                                                                error:&error];
     
@@ -471,51 +471,39 @@ static MHAPI *_sharedAPI = nil;
 
 #pragma update media
 
-- (AFHTTPRequestOperation *)updateMediaWithId:(NSString *)mediaId
+- (AFHTTPRequestOperation *)updateMedia:(MHMedia *)media
                               completionBlock:(MHAPICompletionBlock)completionBlock {
     NSError *error;
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager.requestSerializer setAuthorizationHeaderFieldWithToken:_accessToken];
-    
-    NSArray *allCollections = [MHDatabaseManager allCollections];
-    
-    for (MHCollection *eachCollection in allCollections) {
-        for (MHItem *eachItem in eachCollection.items) {
-            for (MHMedia *eachMedia in eachItem.media) {
-                if ([eachMedia.objId isEqualToString:mediaId]) {
-                    
-                    NSURL *url = [NSURL fileURLWithPath:mediaId];
-                    
-                    [manager POST:[NSString stringWithFormat:@"%@%@/",[self urlWithPath:@"media"],mediaId] parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-                        [formData appendPartWithFileURL:url name:mediaId error:nil];
-                    } success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                        completionBlock(nil, error);
-                    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                        completionBlock(nil, error);
-                    }];
-                    
-                    /********PUT**************
-                    [manager PUT:[NSString stringWithFormat:@"%@%@/",[self urlWithPath:@"media"],mediaId] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                        
-                    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                        
-                    }];
-                    **************************/
-                    
-                    [manager.responseSerializer setAcceptableContentTypes:[NSSet setWithObjects:@"application/json", nil]];
 
-                }
-            }
-        }
-    }
+    NSURL *url = [NSURL fileURLWithPath:media.objId];
+    
+    [manager POST:[NSString stringWithFormat:@"%@%@/",[self urlWithPath:@"media"],media.objId] parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        [formData appendPartWithFileURL:url name:media.objId error:nil];
+    } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        completionBlock(nil, error);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        completionBlock(nil, error);
+    }];
+    
+    /********PUT**************
+    [manager PUT:[NSString stringWithFormat:@"%@%@/",[self urlWithPath:@"media"],mediaId] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+    }];
+    **************************/
+    
+    [manager.responseSerializer setAcceptableContentTypes:[NSSet setWithObjects:@"application/json", nil]];
     
     return nil;
 }
 
 #pragma delete media
 
-- (AFHTTPRequestOperation *)deleteMediaWithId:(NSString *)mediaId
+- (AFHTTPRequestOperation *)deleteMedia:(MHMedia *)media
                               completionBlock:(MHAPICompletionBlock)completionBlock {
     
     NSError *error;
@@ -523,7 +511,7 @@ static MHAPI *_sharedAPI = nil;
     AFJSONRequestSerializer *jsonSerializer = [AFJSONRequestSerializer serializer];
     [jsonSerializer setAuthorizationHeaderFieldWithToken:_accessToken];
     NSMutableURLRequest *request = [jsonSerializer requestWithMethod:@"DELETE"
-                                                           URLString:[NSString stringWithFormat:@"%@%@/",[self urlWithPath:@"media"],mediaId]
+                                                           URLString:[NSString stringWithFormat:@"%@%@/",[self urlWithPath:@"media"],media.objId]
                                                           parameters:nil
                                                                error:&error];
     
@@ -543,7 +531,7 @@ static MHAPI *_sharedAPI = nil;
 #pragma read thumbnail
 
 - (AFHTTPRequestOperation *)readThumbnail:(MHThumbnailSize)size
-                          formMediaWithId:(NSString *)mediaId
+                          forMedia:(MHMedia *)media
                           completionBlock:(MHAPICompletionBlock)completionBlock {
     
     NSString *thumbnailSize = @"";
@@ -569,7 +557,7 @@ static MHAPI *_sharedAPI = nil;
     AFJSONRequestSerializer *jsonSerializer = [AFJSONRequestSerializer serializer];
     [jsonSerializer setAuthorizationHeaderFieldWithToken:_accessToken];
     NSMutableURLRequest *request = [jsonSerializer requestWithMethod:@"GET"
-                                                           URLString:[NSString stringWithFormat:@"%@%@/?size=%@",[self urlWithPath:@"media"],mediaId,thumbnailSize]
+                                                           URLString:[NSString stringWithFormat:@"%@%@/?size=%@",[self urlWithPath:@"media"],media.objId,thumbnailSize]
                                                           parameters:nil
                                                                error:&error];
     
