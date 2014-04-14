@@ -469,6 +469,41 @@ static MHAPI *_sharedAPI = nil;
     return operation;
 }
 
+#pragma update media
+
+- (AFHTTPRequestOperation *)updateMediaWithId:(NSString *)mediaId
+                              completionBlock:(MHAPICompletionBlock)completionBlock {
+    NSError *error;
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    [manager.requestSerializer setAuthorizationHeaderFieldWithToken:_accessToken];
+    
+    NSArray *allCollections = [MHDatabaseManager allCollections];
+    NSURL *url;
+    
+    for (MHCollection *eachCollection in allCollections) {
+        for (MHItem *eachItem in eachCollection.items) {
+            for (MHMedia *eachMedia in eachItem.media) {
+                if ([eachMedia.objId isEqualToString:mediaId]) {
+                    url = [NSURL fileURLWithPath:mediaId];
+                }
+            }
+        }
+    }
+    
+    [manager POST:@"http://78.133.154.18:8080/media" parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        [formData appendPartWithFileURL:url name:mediaId error:nil];
+    } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        completionBlock(nil, error);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        completionBlock(nil, error);
+    }];
+    
+    [manager.responseSerializer setAcceptableContentTypes:[NSSet setWithObjects:@"application/json", nil]];
+    
+    return nil;
+}
+
 #pragma delete media
 
 - (AFHTTPRequestOperation *)deleteMediaWithId:(NSString *)mediaId
