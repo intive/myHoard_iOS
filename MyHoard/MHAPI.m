@@ -635,8 +635,11 @@ static MHAPI *_sharedAPI = nil;
     
     AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
                                                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                                                          NSArray *responseArray = [[NSArray alloc]initWithArray:responseObject];
-                                                                          completionBlock(responseArray, error);
+                                                                          for (NSDictionary *responseDictionary in responseObject) {
+                                                                              
+                                                                            [MHDatabaseManager insertItemWithObjName:responseDictionary[@"name"] objDescription:responseDictionary[@"description"] objTags:nil objLocation:responseDictionary[@"location"] objQuantity:nil objMediaIds:responseDictionary[@"media"] objCreatedDate:responseDictionary[@"created_date"] objModifiedDate:responseDictionary[@"modified_date"] objCollectionId:responseDictionary[@"collection"] objOwner:responseDictionary[@"owner"] collection:responseDictionary[@"collection"]];
+                                                                          }
+                                                                          completionBlock(responseObject, error);
                                                                       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                                                           completionBlock(nil, error);
                                                                       }];
