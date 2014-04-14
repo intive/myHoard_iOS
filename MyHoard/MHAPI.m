@@ -464,8 +464,7 @@ static MHAPI *_sharedAPI = nil;
     
     AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
                                                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                                                          NSArray *responseArray = [[NSArray alloc]initWithArray:responseObject];
-                                                                          completionBlock(responseArray, error);
+                                                                          UIImage *responseImage = [UIImage imageWithData:responseObject];                                                                          completionBlock(responseImage, error);
                                                                       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                                                           completionBlock(nil, error);
                                                                       }];
@@ -492,8 +491,7 @@ static MHAPI *_sharedAPI = nil;
     
     AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
                                                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                                                          NSArray *responseArray = [[NSArray alloc]initWithArray:responseObject];
-                                                                          completionBlock(responseArray, error);
+                                                                          completionBlock(responseObject, error);
                                                                       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                                                           completionBlock(nil, error);
                                                                       }];
@@ -539,8 +537,8 @@ static MHAPI *_sharedAPI = nil;
     
     AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
                                                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                                                          NSArray *responseArray = [[NSArray alloc]initWithArray:responseObject];
-                                                                          completionBlock(responseArray, error);
+                                                                          //NSData *responseData = [NSData dataWithBytes:(__bridge const void *)(responseObject) length:[responseObject length]];
+                                                                          UIImage *responseImage = [UIImage imageWithData:responseObject];                                                                          completionBlock(responseImage, error);
                                                                       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                                                           completionBlock(nil, error);
                                                                       }];
