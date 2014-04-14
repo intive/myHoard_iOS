@@ -604,13 +604,22 @@ newIndexPath:(NSIndexPath *)newIndexPath
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
-    if (_isVisible) return;
     _isDragging = NO;
-    if (scrollView.contentOffset.y <= -HEADER_HEIGHT) {
-        _isVisible = YES;
-        [UIView animateWithDuration:0.3 animations:^{
-            self.collectionView.contentInset = UIEdgeInsetsMake(HEADER_HEIGHT, 0, 0, 0);
-        }];
+
+    if (_isVisible) {
+        if (scrollView.contentOffset.y < 0) {
+            _isVisible = NO;
+            [UIView animateWithDuration:0.3 animations:^{
+                self.collectionView.contentInset = UIEdgeInsetsZero;
+            }];
+        }
+    } else {
+        if (scrollView.contentOffset.y <= -HEADER_HEIGHT) {
+            _isVisible = YES;
+            [UIView animateWithDuration:0.3 animations:^{
+                self.collectionView.contentInset = UIEdgeInsetsMake(HEADER_HEIGHT, 0, 0, 0);
+            }];
+        }
     }
 }
 
