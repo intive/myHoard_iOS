@@ -639,7 +639,7 @@ static MHAPI *_sharedAPI = nil;
                                                                               
                                                                             [MHDatabaseManager insertItemWithObjName:responseDictionary[@"name"] objDescription:responseDictionary[@"description"] objTags:nil objLocation:responseDictionary[@"location"] objQuantity:nil objMediaIds:responseDictionary[@"media"] objCreatedDate:responseDictionary[@"created_date"] objModifiedDate:responseDictionary[@"modified_date"] objCollectionId:responseDictionary[@"collection"] objOwner:responseDictionary[@"owner"] collection:responseDictionary[@"collection"]];
                                                                           }
-                                                                          completionBlock(responseObject, error);
+                                                                          completionBlock(nil, error);
                                                                       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                                                           completionBlock(nil, error);
                                                                       }];
@@ -652,13 +652,7 @@ static MHAPI *_sharedAPI = nil;
 
 #pragma update item
 
-- (AFHTTPRequestOperation *)updateItemWithId:(NSString *)itemId
-                                    withName:(NSString *)name
-                             withDescription:(NSString *)description
-                                withLocation:(NSDictionary *)location
-                                withQuantity:(NSNumber *)quantity
-                                   withMedia:(NSArray *)media
-                            withCollectionId:(NSString *)collectionId
+- (AFHTTPRequestOperation *)updateItem:(MHItem *)item
                        completionBlock:(MHAPICompletionBlock)completionBlock
 {
     NSError *error;
@@ -666,13 +660,13 @@ static MHAPI *_sharedAPI = nil;
     AFJSONRequestSerializer *jsonSerializer = [AFJSONRequestSerializer serializer];
     [jsonSerializer setAuthorizationHeaderFieldWithToken:_accessToken];
     NSMutableURLRequest *request = [jsonSerializer requestWithMethod:@"PUT"
-                                                           URLString:[NSString stringWithFormat:@"%@%@",[self urlWithPath:@"items"],itemId]
-                                                          parameters:@{@"name": name,
-                                                                       @"description": description,
-                                                                       @"location":location,
-                                                                       @"quantity":quantity,
-                                                                       @"media":media,
-                                                                       @"collection":collectionId}
+                                                           URLString:[NSString stringWithFormat:@"%@%@",[self urlWithPath:@"items"],item.objId]
+                                                          parameters:@{@"name": item.objName,
+                                                                       @"description": item.objDescription,
+                                                                       @"location":item.objLocation,
+                                                                       @"quantity":item.objQuantity,
+                                                                       @"media":item.media,
+                                                                       @"collection":item.objCollectionId}
                                                                error:&error];
     
     AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
@@ -691,7 +685,7 @@ static MHAPI *_sharedAPI = nil;
 
 #pragma delete item
 
-- (AFHTTPRequestOperation *)deleteItemWithId:(NSString *)itemId
+- (AFHTTPRequestOperation *)deleteItemWithId:(MHItem *)item
                                    completionBlock:(MHAPICompletionBlock)completionBlock {
     
     NSError *error;
@@ -700,7 +694,7 @@ static MHAPI *_sharedAPI = nil;
     [jsonRequest setAuthorizationHeaderFieldWithToken:_accessToken];
     
     NSMutableURLRequest *request = [jsonRequest requestWithMethod:@"DELETE"
-                                                        URLString:[NSString stringWithFormat:@"%@%@",[self urlWithPath:@"items"],itemId]
+                                                        URLString:[NSString stringWithFormat:@"%@%@",[self urlWithPath:@"items"],item.objId]
                                                        parameters:nil
                                                             error:&error];
     
