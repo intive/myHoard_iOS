@@ -35,7 +35,7 @@ describe(@"MHDatabaseManager Tests", ^{
     
     
     it(@"Add collections to DB test", ^{
-        [MHDatabaseManager insertCollectionWithObjName:@"name" objDescription:@"1" objTags:@[@"1", @"2"] objItemsNumber:nil objCreatedDate:[NSDate date] objModifiedDate:nil objOwner:nil];
+        [MHDatabaseManager insertCollectionWithObjName:@"name" objDescription:@"1" objTags:@[@"1", @"2"] objCreatedDate:[NSDate date] objModifiedDate:nil objOwner:nil];
 
         NSManagedObjectContext* context = cdcTest.managedObjectContext;
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
@@ -63,12 +63,11 @@ describe(@"MHDatabaseManager Tests", ^{
         MHCollection* collection = [MHDatabaseManager insertCollectionWithObjName:@"name"
                                                                    objDescription:@"1"
                                                                           objTags:@[@"1", @"2"]
-                                                                   objItemsNumber:nil
                                                                    objCreatedDate:[NSDate date]
                                                                   objModifiedDate:nil
                                                                          objOwner:nil];
 
-        [MHDatabaseManager insertItemWithObjName:@"name" objDescription:@"1" objTags:@[@"1", @"2"] objLocation:nil objQuantity:nil objMediaIds:nil objCreatedDate:[NSDate date] objModifiedDate:nil objCollectionId:@"1" objOwner:nil collection:collection];
+        [MHDatabaseManager insertItemWithObjName:@"name" objDescription:@"1" objTags:@[@"1", @"2"] objLocation:nil objCreatedDate:[NSDate date] objModifiedDate:nil  objOwner:nil collection:collection];
         
         NSManagedObjectContext* context = cdcTest.managedObjectContext;
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
@@ -93,10 +92,10 @@ describe(@"MHDatabaseManager Tests", ^{
     
     it(@"Take item from DB test", ^{
         
-        MHCollection* collection = [MHDatabaseManager insertCollectionWithObjName:@"name" objDescription:@"1" objTags:@[@"1", @"2"] objItemsNumber:nil objCreatedDate:[NSDate date] objModifiedDate:nil objOwner:nil];
+        MHCollection* collection = [MHDatabaseManager insertCollectionWithObjName:@"name" objDescription:@"1" objTags:@[@"1", @"2"] objCreatedDate:[NSDate date] objModifiedDate:nil objOwner:nil];
         
         NSDate *itemCreatedDate = [NSDate date];
-        MHItem* item = [MHDatabaseManager insertItemWithObjName:@"name" objDescription:@"1" objTags:@[@"1", @"2"] objLocation:nil objQuantity:nil objMediaIds:nil objCreatedDate:itemCreatedDate objModifiedDate:nil objCollectionId:@"1" objOwner:nil collection:collection];
+        MHItem* item = [MHDatabaseManager insertItemWithObjName:@"name" objDescription:@"1" objTags:@[@"1", @"2"] objLocation:nil objCreatedDate:itemCreatedDate objModifiedDate:nil objOwner:nil collection:collection];
         
         [[item.objName should] equal:@"name"];
         NSArray* tags = item.objTags;
@@ -108,8 +107,8 @@ describe(@"MHDatabaseManager Tests", ^{
     
     it(@"Get all collections", ^{
        
-        [MHDatabaseManager insertCollectionWithObjName:@"name" objDescription:@"1" objTags:@[@"1", @"2"] objItemsNumber:nil objCreatedDate:[NSDate date] objModifiedDate:nil objOwner:nil];
-        [MHDatabaseManager insertCollectionWithObjName:@"name2" objDescription:@"2" objTags:@[@"2", @"1"] objItemsNumber:nil objCreatedDate:[NSDate date] objModifiedDate:nil objOwner:nil];
+        [MHDatabaseManager insertCollectionWithObjName:@"name" objDescription:@"1" objTags:@[@"1", @"2"] objCreatedDate:[NSDate date] objModifiedDate:nil objOwner:nil];
+        [MHDatabaseManager insertCollectionWithObjName:@"name2" objDescription:@"2" objTags:@[@"2", @"1"] objCreatedDate:[NSDate date] objModifiedDate:nil objOwner:nil];
         
         NSArray *result = [MHDatabaseManager allCollections];
         
@@ -119,7 +118,7 @@ describe(@"MHDatabaseManager Tests", ^{
     });
     
     it(@"Add media to DB test", ^{
-        [MHDatabaseManager insertMediaWithObjItem:@"ciekaweCoTUSieBedzieWpisywac" objCreatedDate:[NSDate date] objOwner:@"ja" objLocalPath:@"sciezka" item:nil];
+        [MHDatabaseManager insertMediaWithCreatedDate:[NSDate date] objOwner:@"ja" objLocalPath:@"sciezka" item:nil];
         
         NSManagedObjectContext* context = cdcTest.managedObjectContext;
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
@@ -135,7 +134,6 @@ describe(@"MHDatabaseManager Tests", ^{
         
         MHMedia* me = [fetchedObjects objectAtIndex:0];
         
-        [[me.objItem should] equal:@"ciekaweCoTUSieBedzieWpisywac"];
         [[me.objCreatedDate should] beKindOfClass:[NSDate class]];
         [[me.objOwner should] equal:@"ja"];
         [[me.objLocalPath should] equal:@"sciezka"];
@@ -143,11 +141,11 @@ describe(@"MHDatabaseManager Tests", ^{
     });
     
     it(@"Id of media should be unique", ^{
-        [MHDatabaseManager insertMediaWithObjItem:@"ciekaweCoTUSieBedzieWpisywac" objCreatedDate:[NSDate date] objOwner:@"ja" objLocalPath:@"sciezka" item:nil];
-        [MHDatabaseManager insertMediaWithObjItem:@"ciekawe" objCreatedDate:[NSDate date] objOwner:@"ja" objLocalPath:@"sciezka2" item:nil];
+        [MHDatabaseManager insertMediaWithCreatedDate:[NSDate date] objOwner:@"ja" objLocalPath:@"sciezka" item:nil];
+        [MHDatabaseManager insertMediaWithCreatedDate:[NSDate date] objOwner:@"ja" objLocalPath:@"sciezka2" item:nil];
         
         // the same as first one, should not be added to db
-        [MHDatabaseManager insertMediaWithObjItem:@"tuZmienie" objCreatedDate:[NSDate date] objOwner:@"ja" objLocalPath:@"sciezka" item:nil];
+        [MHDatabaseManager insertMediaWithCreatedDate:[NSDate date] objOwner:@"ja" objLocalPath:@"sciezka" item:nil];
         
         NSManagedObjectContext* context = cdcTest.managedObjectContext;
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
@@ -165,13 +163,13 @@ describe(@"MHDatabaseManager Tests", ^{
 
     it(@"Add item to a specified collection", ^{
        
-        MHCollection* collection = [MHDatabaseManager insertCollectionWithObjName:@"name" objDescription:@"1" objTags:@[@"1", @"2"] objItemsNumber:nil objCreatedDate:[NSDate date] objModifiedDate:nil objOwner:nil];
+        MHCollection* collection = [MHDatabaseManager insertCollectionWithObjName:@"name" objDescription:@"1" objTags:@[@"1", @"2"] objCreatedDate:[NSDate date] objModifiedDate:nil objOwner:nil];
         
-        [MHDatabaseManager insertItemWithObjName:@"name" objDescription:@"1" objTags:@[@"1", @"2"] objLocation:nil objQuantity:nil objMediaIds:nil objCreatedDate:[NSDate date] objModifiedDate:nil objCollectionId:@"testId" objOwner:nil collection:collection];
-        [MHDatabaseManager insertItemWithObjName:@"name2" objDescription:@"2" objTags:@[@"1", @"2"] objLocation:nil objQuantity:nil objMediaIds:nil objCreatedDate:[NSDate date] objModifiedDate:nil objCollectionId:@"testId" objOwner:nil collection:collection];
-        [MHDatabaseManager insertItemWithObjName:@"Michael Jordan" objDescription:@"1" objTags:@[@"1", @"2"] objLocation:nil objQuantity:nil objMediaIds:nil objCreatedDate:[NSDate date] objModifiedDate:nil objCollectionId:@"testId" objOwner:nil collection:collection];
+        [MHDatabaseManager insertItemWithObjName:@"name" objDescription:@"1" objTags:@[@"1", @"2"] objLocation:nil objCreatedDate:[NSDate date] objModifiedDate:nil objOwner:nil collection:collection];
+        [MHDatabaseManager insertItemWithObjName:@"name2" objDescription:@"2" objTags:@[@"1", @"2"] objLocation:nil objCreatedDate:[NSDate date] objModifiedDate:nil objOwner:nil collection:collection];
+        [MHDatabaseManager insertItemWithObjName:@"Michael Jordan" objDescription:@"1" objTags:@[@"1", @"2"] objLocation:nil  objCreatedDate:[NSDate date] objModifiedDate:nil objOwner:nil collection:collection];
         
-        [MHDatabaseManager insertItemWithObjName:@"LeBron James" objDescription:@"2" objTags:@[@"1", @"2"] objLocation:nil objQuantity:nil objMediaIds:nil objCreatedDate:[NSDate date] objModifiedDate:nil objCollectionId:@"" objOwner:nil collection:collection];
+        [MHDatabaseManager insertItemWithObjName:@"LeBron James" objDescription:@"2" objTags:@[@"1", @"2"] objLocation:nil objCreatedDate:[NSDate date] objModifiedDate:nil objOwner:nil collection:collection];
         
         [[theValue(collection.items.count)should]equal:theValue(4)];
         
