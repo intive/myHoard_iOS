@@ -5,6 +5,12 @@
 //  Created by Sebastian Jędruszkiewicz on 27/02/14.
 //  Copyright (c) 2014 BLStream. All rights reserved.
 //
+typedef enum  {
+	MHThumbnailx160 = 1,
+	MHThumbnailx300,
+    MHThumbnailx340,
+    MHThumbnailx500,
+} MHThumbnailSize;
 
 #import <Foundation/Foundation.h>
 

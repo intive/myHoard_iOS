@@ -12,13 +12,6 @@
 #import "MHMedia.h"
 #import "MHDatabaseManager.h"
 
-typedef enum  {
-	MHThumbnailx160 = 1,
-	MHThumbnailx300,
-    MHThumbnailx340,
-    MHThumbnailx500,
-} MHThumbnailSize;
-
 static MHAPI *_sharedAPI = nil;
 
 @interface MHAPI() {
@@ -464,7 +457,8 @@ static MHAPI *_sharedAPI = nil;
     
     AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
                                                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                                                          UIImage *responseImage = [UIImage imageWithData:responseObject];                                                                          completionBlock(responseImage, error);
+                                                                          UIImage *responseImage = [UIImage imageWithData:responseObject];
+                                                                          completionBlock(responseImage, error);
                                                                       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                                                           completionBlock(nil, error);
                                                                       }];
@@ -537,8 +531,8 @@ static MHAPI *_sharedAPI = nil;
     
     AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
                                                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                                                          //NSData *responseData = [NSData dataWithBytes:(__bridge const void *)(responseObject) length:[responseObject length]];
-                                                                          UIImage *responseImage = [UIImage imageWithData:responseObject];                                                                          completionBlock(responseImage, error);
+                                                                          UIImage *responseImage = [UIImage imageWithData:responseObject];
+                                                                          completionBlock(responseImage, error);
                                                                       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                                                           completionBlock(nil, error);
                                                                       }];
