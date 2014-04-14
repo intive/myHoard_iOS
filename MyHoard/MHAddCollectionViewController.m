@@ -110,7 +110,7 @@
         [alert show];
     }
     else{
-        
+        /*
         [[MHAPI getInstance]readUserWithCompletionBlock:^(MHUserProfile *user, NSError *error) {
             if (![user.email length] == 0) {//if user is logged in
                 if ([_typeLabel.text isEqualToString:@"Public"]) {
@@ -169,6 +169,7 @@
                 [self dismissViewControllerAnimated:YES completion:nil];
             }
         }];
+         */
     }
 }
 
