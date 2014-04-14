@@ -6,6 +6,21 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="IAl-f6-KBZ">
+            <objects>
+                <navigationController definesPresentationContext="YES" id="nIz-9W-bE7" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="ciJ-HT-r2c">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="Glg-jT-EFI" kind="relationship" relationship="rootViewController" id="Thk-qx-lgb"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Qk6-It-dk9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-3339" y="219"/>
+        </scene>
         <!--Register view controller-->
         <scene sceneID="d7H-3z-N0H">
             <objects>
@@ -110,7 +125,13 @@
                             <constraint firstItem="VQa-Jj-hVx" firstAttribute="top" secondItem="sWc-8U-92y" secondAttribute="bottom" constant="15" id="vdU-FJ-UTC"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="8A9-NV-LnV"/>
+                    <navigationItem key="navigationItem" id="8A9-NV-LnV">
+                        <barButtonItem key="leftBarButtonItem" image="x" id="Rwg-fw-dIb">
+                            <connections>
+                                <action selector="cancelButtonPressed:" destination="Glg-jT-EFI" id="6Ij-1A-uy3"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="confirmPasswordTextField" destination="Hfo-0m-qgU" id="Jnv-Sy-lSi"/>
                         <outlet property="emailTextField" destination="zzs-ql-wjz" id="Gme-RU-0Lz"/>
@@ -121,12 +142,11 @@
                         <outlet property="passwordStrengthView" destination="6Ea-CQ-cYX" id="HgL-ER-R6A"/>
                         <outlet property="passwordTextField" destination="4ln-Wa-0fB" id="M1O-eQ-J4P"/>
                         <outlet property="passwordTextField1" destination="Hfo-0m-qgU" id="tEC-4e-3Vb"/>
-                        <segue destination="mum-r4-SfW" kind="push" identifier="collectionSegue" id="adL-u6-2Xg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FQe-ic-Fjv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3033" y="284"/>
+            <point key="canvasLocation" x="-2873" y="219"/>
         </scene>
         <!--Start View Controller-->
         <scene sceneID="ye6-hF-2XF">
@@ -150,7 +170,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="Glg-jT-EFI" kind="push" identifier="LoginSegue" id="gWL-Gx-bwm"/>
+                                    <segue destination="nIz-9W-bE7" kind="modal" identifier="LoginSegue" id="seE-lg-iqz"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eP1-eW-Z9O" customClass="MHRoundButton">
@@ -163,7 +183,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="Glg-jT-EFI" kind="push" identifier="RegisterSegue" id="Xtm-aX-Up0"/>
+                                    <segue destination="nIz-9W-bE7" kind="modal" identifier="RegisterSegue" id="AJS-nz-tvm"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qaV-fx-qe2" customClass="MHRoundButton">
@@ -173,7 +193,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="mum-r4-SfW" kind="push" id="I2G-49-9BV"/>
+                                    <segue destination="mum-r4-SfW" kind="push" identifier="collectionSegue" id="I2G-49-9BV"/>
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="startLogo" translatesAutoresizingMaskIntoConstraints="NO" id="Hwi-sY-nt9">
@@ -1626,7 +1646,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gkx-Vm-4ln" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-4608" y="979"/>
+            <point key="canvasLocation" x="-4608" y="995"/>
         </scene>
         <!--Slider Menu View Controller-->
         <scene sceneID="ihB-V7-mU3">
@@ -1645,7 +1665,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="F1i-5D-Fnh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2706" y="1624"/>
+            <point key="canvasLocation" x="-2366" y="995"/>
         </scene>
     </scenes>
     <resources>
@@ -1654,6 +1674,7 @@
         <image name="confirm" width="22" height="22"/>
         <image name="plus_y" width="30" height="30"/>
         <image name="startLogo" width="125" height="125"/>
+        <image name="x" width="22" height="22"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
@@ -1661,10 +1682,9 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Xtm-aX-Up0"/>
-        <segue reference="I2G-49-9BV"/>
         <segue reference="jZp-GR-mKO"/>
-        <segue reference="3wb-xF-lsE"/>
         <segue reference="7Aw-hx-44V"/>
+        <segue reference="3wb-xF-lsE"/>
+        <segue reference="AJS-nz-tvm"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -36,16 +36,23 @@
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    
-    MHLoginAndRegisterViewController * loginAndRegisterViewController = segue.destinationViewController;
+    LoginCompletionBlock block = ^{
+        [self performSegueWithIdentifier:@"collectionSegue" sender:nil];
+    };
     
     if ([segue.identifier isEqualToString:@"LoginSegue"]) {
         
+        UINavigationController* nc = segue.destinationViewController;
+        MHLoginAndRegisterViewController * loginAndRegisterViewController = (MHLoginAndRegisterViewController *)nc.visibleViewController;
         loginAndRegisterViewController.flowType = MHLoginFlow;
+        loginAndRegisterViewController.loginCompletionBlock = block;
         
     }else if ([segue.identifier isEqualToString:@"RegisterSegue"]) {
         
+        UINavigationController* nc = segue.destinationViewController;
+        MHLoginAndRegisterViewController * loginAndRegisterViewController = (MHLoginAndRegisterViewController *)nc.visibleViewController;
         loginAndRegisterViewController.flowType = MHRegisterFlow;
+        loginAndRegisterViewController.loginCompletionBlock = block;
     }
 }
 

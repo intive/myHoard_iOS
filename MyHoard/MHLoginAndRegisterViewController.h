@@ -15,6 +15,8 @@ typedef enum  {
 	MHLoginFlow,
 } MHFlowType;
 
+typedef void(^LoginCompletionBlock)();
+
 @interface MHLoginAndRegisterViewController : MHBaseViewController
 
 @property (weak, nonatomic) IBOutlet UITextField *emailTextField;
@@ -24,5 +26,7 @@ typedef enum  {
 @property (weak, nonatomic) IBOutlet MHPasswordStrengthView *passwordStrengthView;
 @property (assign, nonatomic) MHFlowType flowType;
 @property (weak, nonatomic) IBOutlet MHRoundButton *goButton;
+
+@property (nonatomic, copy) LoginCompletionBlock loginCompletionBlock;
 
 @end

@@ -21,6 +21,7 @@
 @property (nonatomic, strong) NSString *errorMessage;
 
 - (IBAction)goButtonPressed:(id)sender;
+- (IBAction)cancelButtonPressed:(id)sender;
 
 @end
 
@@ -41,6 +42,8 @@
     
     _waitDialog = [[MHWaitDialog alloc] init];
 
+    self.navigationController.navigationBarHidden = NO;
+    
     _goButton.cornerRadius = _goButton.frame.size.width / 2.0;
     
     if (_flowType == MHLoginFlow) {
@@ -318,7 +321,11 @@
                                     [alert show];
                                     
                                 } else {
-                                    [self performSegueWithIdentifier:@"collectionSegue" sender:self];
+                                    [self dismissViewControllerAnimated:YES completion:^{
+                                        if (_loginCompletionBlock) {
+                                            _loginCompletionBlock();
+                                        }
+                                    }];
                                 }
                             }];
 }
@@ -350,5 +357,9 @@
             }];
         }
     }
+}
+
+- (IBAction)cancelButtonPressed:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 @end
