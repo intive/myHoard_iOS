@@ -240,27 +240,21 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 200;
     }
     else{
 
-        NSDictionary *locationDictionary = [NSDictionary dictionaryWithObjectsAndKeys:
-                                                                  [NSNumber numberWithFloat:_locationCoordinatePassed.latitude] , @"latitude",
-                                                                  [NSNumber numberWithFloat:_locationCoordinatePassed.latitude], @"longitude", nil];
+        CLLocation* loc = [[CLLocation alloc] initWithLatitude:_locationCoordinatePassed.latitude longitude:_locationCoordinatePassed.longitude];
         MHItem* item = [MHDatabaseManager insertItemWithObjName:self.titleTextField.text
                                                  objDescription:self.commentaryTextView.text
                                                         objTags:nil
-                                                    objLocation:locationDictionary
-                                                    objQuantity:@1
-                                                    objMediaIds:nil
+                                                    objLocation:loc
                                                  objCreatedDate:[NSDate date]
                                                 objModifiedDate:nil
-                                                objCollectionId:nil
                                                        objOwner:nil
                                                      collection:self.selectedCollection];
         
         if (self.mediaId) {
-            [MHDatabaseManager insertMediaWithObjItem:nil
-                                       objCreatedDate:[NSDate date]
-                                             objOwner:nil
-                                         objLocalPath:self.mediaId
-                                                 item:item];
+            [MHDatabaseManager insertMediaWithCreatedDate:[NSDate date]
+                                                objOwner:nil
+                                            objLocalPath:self.mediaId
+                                                    item:item];
         }
 
         [self.navigationController dismissViewControllerAnimated:YES completion:nil];

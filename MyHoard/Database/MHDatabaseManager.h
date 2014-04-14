@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class MHCollection, MHItem, MHMedia;
+@class MHCollection, MHItem, MHMedia, CLLocation;
 
 @interface MHDatabaseManager : NSObject
 
@@ -16,7 +16,6 @@
 + (MHCollection*)insertCollectionWithObjName:(NSString*)objName
                               objDescription:(NSString*)objDescription
                                      objTags:(NSArray*)objTags
-                              objItemsNumber:(NSNumber*)objItemsNumber
                               objCreatedDate:(NSDate*)objCreatedDate
                              objModifiedDate:(NSDate*)objModifiedDate
                                     objOwner:(NSString*)objOwner;
@@ -28,22 +27,18 @@
 + (MHItem*)insertItemWithObjName:(NSString*)objName
                   objDescription:(NSString*)objDescription
                          objTags:(NSArray*)objTags
-                     objLocation:(NSDictionary*)objLocation
-                     objQuantity:(NSNumber*)objQuantity
-                     objMediaIds:(NSArray*)objMediaIds
+                     objLocation:(CLLocation*)objLocation
                   objCreatedDate:(NSDate*)objCreatedDate
                  objModifiedDate:(NSDate*)objModifiedDate
-                 objCollectionId:(NSString*)objCollectionId
                         objOwner:(NSString*)objOwner
                       collection:(MHCollection *)collection;
 
 + (MHItem*)itemWithObjName:(NSString*)objName;
 
 #pragma mark - Media
-+ (MHMedia*)insertMediaWithObjItem:(NSString*)objItem
-                    objCreatedDate:(NSDate*)objCreatedDate
-                          objOwner:(NSString*)objOwner
-                      objLocalPath:(NSString*)objLocalPath
-                              item:(MHItem *)item;
++ (MHMedia*)insertMediaWithCreatedDate:(NSDate*)objCreatedDate
+                              objOwner:(NSString*)objOwner
+                          objLocalPath:(NSString*)objLocalPath
+                                  item:(MHItem *)item;
 
 @end

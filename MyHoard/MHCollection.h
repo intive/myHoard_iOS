@@ -2,7 +2,7 @@
 //  MHCollection.h
 //  MyHoard
 //
-//  Created by Sebastian Jędruszkiewicz on 08/04/14.
+//  Created by Sebastian Jędruszkiewicz on 14/04/14.
 //  Copyright (c) 2014 BLStream. All rights reserved.
 //
 
@@ -16,7 +16,6 @@
 @property (nonatomic, retain) NSDate * objCreatedDate;
 @property (nonatomic, retain) NSString * objDescription;
 @property (nonatomic, retain) NSString * objId;
-@property (nonatomic, retain) NSNumber * objItemsNumber;
 @property (nonatomic, retain) NSDate * objModifiedDate;
 @property (nonatomic, retain) NSString * objName;
 @property (nonatomic, retain) NSString * objOwner;

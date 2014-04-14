@@ -10,6 +10,7 @@
 #import "MHDatabaseManager.h"
 #import "NSString+Tags.h"
 #import "MHAPI.h"
+#import "MHWaitDialog.h"
 
 @interface MHAddCollectionViewController ()
 @property (readwrite) NSUInteger last;
@@ -110,66 +111,39 @@
         [alert show];
     }
     else{
-        /*
-        [[MHAPI getInstance]readUserWithCompletionBlock:^(MHUserProfile *user, NSError *error) {
-            if (![user.email length] == 0) {//if user is logged in
-                if ([_typeLabel.text isEqualToString:@"Public"]) {
         
-                    [[MHAPI getInstance]createCollection:_nameTextField.text withDescription:_descriptionTextField.text withTags:[_tagsTextField.text tags] completionBlock:^(MHCollection *createdCollection, NSError *error) {
-                        if (error) {
-                            UIAlertView *alert = [[UIAlertView alloc]
-                                      initWithTitle:@"Error"
-                                      message:error.localizedDescription
-                                      delegate:self
-                                      cancelButtonTitle:@"Cancel"
-                                      otherButtonTitles:nil];
-                            [alert show];
-                            NSLog(@"%@", error);
-                        }else {
-
-                            [[MHAPI getInstance]readUserCollectionsWithCompletionBlock:^(NSArray *responseArray, NSError *error) {
-                                if (error) {
-                                    UIAlertView *alert = [[UIAlertView alloc]
-                                                          initWithTitle:@"Error"
-                                                          message:error.localizedDescription
-                                                          delegate:self
-                                                          cancelButtonTitle:@"Cancel"
-                                                          otherButtonTitles:nil];
-                                    [alert show];
-                                    NSLog(@"%@", error);
-                                }else {
-                                    [self dismissViewControllerAnimated:YES completion:nil];
-                                }
-                            }];
-                        }
-                    }];
-                }else {
-            
-                    [MHDatabaseManager insertCollectionWithObjName:self.nameTextField.text
-                                                    objDescription:self.descriptionTextField.text
-                                                           objTags:[self.tagsTextField.text tags]
-                                                    objItemsNumber:nil
-                                                    objCreatedDate:[NSDate date]
-                                                   objModifiedDate:nil
-                                                          objOwner:nil];
-                    
+        MHCollection* collection = [MHDatabaseManager insertCollectionWithObjName:self.nameTextField.text
+                                                                   objDescription:self.descriptionTextField.text
+                                                                          objTags:[self.tagsTextField.text tags]
+                                                                   objCreatedDate:[NSDate date]
+                                                                  objModifiedDate:nil
+                                                                         objOwner:nil];
+#warning - create collection on server if user is logged n - add method to check that in MHAPI
+        if (1) { //check if user is logged in!
+            if (![_typeLabel.text isEqualToString:@"Offline"]) {
+                __block MHWaitDialog* wait = [[MHWaitDialog alloc] init];
+                [wait show];
+                [[MHAPI getInstance] createCollection:collection completionBlock:^(id object, NSError *error) {
+                    [wait dismiss];
+                    if (error) {
+                        UIAlertView *alert = [[UIAlertView alloc]
+                                              initWithTitle:@"Error"
+                                              message:error.localizedDescription
+                                              delegate:self
+                                              cancelButtonTitle:@"Ok"
+                                              otherButtonTitles:nil];
+                        [alert show];
+                        NSLog(@"%@", error);
+                    }
                     [self dismissViewControllerAnimated:YES completion:nil];
-                }
-                
-            }else {
-                
-                [MHDatabaseManager insertCollectionWithObjName:self.nameTextField.text
-                                                objDescription:self.descriptionTextField.text
-                                                       objTags:[self.tagsTextField.text tags]
-                                                objItemsNumber:nil
-                                                objCreatedDate:[NSDate date]
-                                               objModifiedDate:nil
-                                                      objOwner:nil];
-                
+                }];
+            } else {
                 [self dismissViewControllerAnimated:YES completion:nil];
+
             }
-        }];
-         */
+        } else {
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }
     }
 }
 

@@ -20,7 +20,6 @@
 + (MHCollection*)insertCollectionWithObjName:(NSString*)objName
                               objDescription:(NSString*)objDescription
                                      objTags:(NSArray*)objTags
-                              objItemsNumber:(NSNumber*)objItemsNumber
                               objCreatedDate:(NSDate*)objCreatedDate
                              objModifiedDate:(NSDate*)objModifiedDate
                                     objOwner:(NSString*)objOwner
@@ -43,9 +42,6 @@
 
     if (objTags.count)
         collection.objTags = objTags;
-
-    if (objItemsNumber)
-        collection.objItemsNumber = @0;
 
     if (objModifiedDate)
         collection.objModifiedDate = objModifiedDate;
@@ -100,12 +96,9 @@
 + (MHItem*)insertItemWithObjName:(NSString*)objName
                   objDescription:(NSString*)objDescription
                          objTags:(NSArray*)objTags
-                     objLocation:(NSDictionary*)objLocation
-                     objQuantity:(NSNumber*)objQuantity
-                     objMediaIds:(NSArray*)objMediaIds
+                     objLocation:(CLLocation*)objLocation
                   objCreatedDate:(NSDate*)objCreatedDate
                  objModifiedDate:(NSDate*)objModifiedDate
-                 objCollectionId:(NSString*)objCollectionId
                         objOwner:(NSString*)objOwner
                       collection:(MHCollection *)collection
 {
@@ -113,7 +106,7 @@
     //mandatory fields
     if (!objName || !objCreatedDate) {
         
-        NSLog(@"One of mandatory fields is not set: objName:%@, objCreatedDate:%@, objCollectionId:%@", objName, objCreatedDate, objCollectionId);
+        NSLog(@"One of mandatory fields is not set: objName:%@, objCreatedDate:%@", objName, objCreatedDate);
         return nil;
     }
     
@@ -129,18 +122,6 @@
     
     if (objTags.count) {
         item.objTags = objTags;
-    }
-    
-    if (objLocation.count) {
-        item.objLocation = objLocation;
-    }
-    
-    if (objQuantity) {
-        item.objQuantity = objQuantity;
-    }
-    
-    if (objMediaIds.count) {
-        item.objMediaIds = objMediaIds;
     }
     
     if (objModifiedDate) {
@@ -174,11 +155,10 @@
 }
 
 #pragma mark - Media
-+ (MHMedia*)insertMediaWithObjItem:(NSString*)objItem
-                    objCreatedDate:(NSDate*)objCreatedDate
-                          objOwner:(NSString*)objOwner
-                      objLocalPath:(NSString*)objLocalPath
-                              item:(MHItem *)item
++ (MHMedia*)insertMediaWithCreatedDate:(NSDate*)objCreatedDate
+                              objOwner:(NSString*)objOwner
+                          objLocalPath:(NSString*)objLocalPath
+                                  item:(MHItem *)item
 {
     // mandatory fields
     if (!objCreatedDate)
@@ -192,9 +172,6 @@
     media.objCreatedDate = objCreatedDate;
 
     media.item = item;
-    
-    if (objItem.length)
-        media.objItem = objItem;
     
     if (objLocalPath.length)
         media.objLocalPath = objLocalPath;

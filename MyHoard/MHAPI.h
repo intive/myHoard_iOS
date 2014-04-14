@@ -50,4 +50,7 @@ typedef void (^MHAPICompletionBlock)(id object, NSError *error);
 - (AFHTTPRequestOperation *)refreshTokenForUser:(NSString *)email
                                    withPassword:(NSString *)password
                                 completionBlock:(MHAPICompletionBlock)completionBlock;
+
+- (AFHTTPRequestOperation *)createCollection:(MHCollection *)collection
+                             completionBlock:(MHAPICompletionBlock)completionBlock;
 @end

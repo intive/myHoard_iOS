@@ -6,11 +6,15 @@
 //  Copyright (c) 2014 BLStream. All rights reserved.
 //
 
+#import <CoreLocation/CLLocation.h>
+
 #import "MHAPI.h"
 #import "MHUserSettings.h"
 #import "MHItem.h"
 #import "MHMedia.h"
 #import "MHDatabaseManager.h"
+#import "MHCoreDataContext.h"
+#import "NSString+RFC3339.h"
 
 static MHAPI *_sharedAPI = nil;
 
@@ -79,7 +83,7 @@ static MHAPI *_sharedAPI = nil;
     
     AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
                                                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                                                          completionBlock(responseObject, nil);
+                                                                          completionBlock(nil, nil);
                                                                       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                                                           [self localizedDescriptionForErrorCode:error];
                                                                           completionBlock(nil, error);
@@ -99,7 +103,7 @@ static MHAPI *_sharedAPI = nil;
     NSError *error;
     
     AFJSONRequestSerializer *jsonRequest = [AFJSONRequestSerializer serializer];
-    [jsonRequest setAuthorizationHeaderFieldWithToken:_accessToken];
+    [jsonRequest setValue:_accessToken forHTTPHeaderField:@"Authorization"];
     
     NSMutableURLRequest *request = [jsonRequest requestWithMethod:@"GET" URLString:[self urlWithPath:@"users"] parameters:nil error:&error];
     
@@ -131,7 +135,7 @@ static MHAPI *_sharedAPI = nil;
     NSError *error;
     
     AFJSONRequestSerializer* jsonRequest = [AFJSONRequestSerializer serializer];
-    [jsonRequest setAuthorizationHeaderFieldWithToken:_accessToken];
+    [jsonRequest setValue:_accessToken forHTTPHeaderField:@"Authorization"];
     
     NSMutableURLRequest *request = [jsonRequest requestWithMethod:@"PUT"
                                                         URLString:[self urlWithPath:@"users"]
@@ -162,8 +166,9 @@ static MHAPI *_sharedAPI = nil;
     NSError *error;
     
     AFJSONRequestSerializer* jsonRequest = [AFJSONRequestSerializer serializer];
-    [jsonRequest setAuthorizationHeaderFieldWithToken:_accessToken];
+    [jsonRequest setValue:_accessToken forHTTPHeaderField:@"Authorization"];
     
+#warning - this is wrong, we should use 'users/user_id'
     NSMutableURLRequest *request = [jsonRequest requestWithMethod:@"DELETE"
                                                         URLString:[self urlWithPath:@"users"]
                                                        parameters:nil
@@ -171,7 +176,7 @@ static MHAPI *_sharedAPI = nil;
     
     AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
                                                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                                                          completionBlock(responseObject, nil);
+                                                                          completionBlock(nil, nil);
                                                                       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                                                           [self localizedDescriptionForErrorCode:error];
                                                                           completionBlock(nil, error);
@@ -192,7 +197,7 @@ static MHAPI *_sharedAPI = nil;
     NSError *error;
     
     AFJSONRequestSerializer* jsonRequest = [AFJSONRequestSerializer serializer];
-    [jsonRequest setAuthorizationHeaderFieldWithToken:_accessToken];
+    [jsonRequest setValue:_accessToken forHTTPHeaderField:@"Authorization"];
     
     NSMutableURLRequest *request = [jsonRequest requestWithMethod:@"POST"
                                                         URLString:[self urlWithPath:@"oauth/token"]
@@ -204,7 +209,7 @@ static MHAPI *_sharedAPI = nil;
     
     AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
                                                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                                                          completionBlock(responseObject, nil);
+                                                                          completionBlock(nil, nil);
                                                                       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                                                           [self localizedDescriptionForErrorCode:error];
                                                                           completionBlock(nil, error);
@@ -236,7 +241,7 @@ static MHAPI *_sharedAPI = nil;
                                                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
                                                                           _accessToken = [responseObject valueForKeyPath:@"access_token"];
                                                                           _refreshToken = [responseObject valueForKeyPath:@"refresh_token"];
-                                                                          completionBlock(responseObject, nil);
+                                                                          completionBlock(nil, nil);
                                                                       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                                                           [self localizedDescriptionForErrorCode:error];
                                                                           completionBlock(nil, error);
@@ -257,7 +262,7 @@ static MHAPI *_sharedAPI = nil;
     NSError *error;
     
     AFJSONRequestSerializer *jsonSerializer = [AFJSONRequestSerializer serializer];
-    [jsonSerializer setAuthorizationHeaderFieldWithToken:_accessToken];
+    [jsonSerializer setValue:_accessToken forHTTPHeaderField:@"Authorization"];
     NSMutableURLRequest *request = [jsonSerializer requestWithMethod:@"POST"
                                                            URLString:[self urlWithPath:@"collections"]
                                                           parameters:@{@"name": collection.objName,
@@ -265,14 +270,20 @@ static MHAPI *_sharedAPI = nil;
                                                                        @"tags":collection.objTags}
                                                                error:&error];
     
+    __block MHCollection* c = collection;
+    
     AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
                                                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
                                                                           
-                                                                          MHCollection *createdCollection = [MHDatabaseManager insertCollectionWithObjName:responseObject[@"name"] objDescription:responseObject[@"description"] objTags:responseObject[@"tags"] objItemsNumber:responseObject[@"items_number"] objCreatedDate:responseObject[@"created_date"] objModifiedDate:responseObject[@"modified_date"] objOwner:responseObject[@"owner"]];
+                                                                          NSString* date = responseObject[@"created_date"];
+                                                                          c.objCreatedDate = [date dateFromRFC3339String];
+                                                                          date = responseObject[@"modified_date"];
+                                                                          c.objModifiedDate = [date dateFromRFC3339String];
+                                                                          c.objOwner = responseObject[@"owner"];
+                                                                          c.objId = responseObject[@"id"];
+                                                                          [[MHCoreDataContext getInstance] saveContext];
                                                                           
-                                                                          createdCollection.objId = responseObject[@"id"];
-                                                                          
-                                                                          completionBlock(createdCollection, error);
+                                                                          completionBlock(c, error);
                                                                       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                                                           completionBlock(nil, error);
                                                                       }];
@@ -290,7 +301,7 @@ static MHAPI *_sharedAPI = nil;
     NSError *error;
     
     AFJSONRequestSerializer *jsonSerializer = [AFJSONRequestSerializer serializer];
-    [jsonSerializer setAuthorizationHeaderFieldWithToken:_accessToken];
+    [jsonSerializer setValue:_accessToken forHTTPHeaderField:@"Authorization"];
     NSMutableURLRequest *request = [jsonSerializer requestWithMethod:@"GET"
                                                            URLString:[self urlWithPath:@"collections"]
                                                           parameters:nil
@@ -300,12 +311,25 @@ static MHAPI *_sharedAPI = nil;
                                                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
                                                                           for (NSDictionary *responseDictionary in responseObject) {
                                                                               
-                                                                              MHCollection *createdCollection = [MHDatabaseManager insertCollectionWithObjName:responseDictionary[@"name"] objDescription:responseDictionary[@"description"] objTags:responseDictionary[@"tags"] objItemsNumber:responseDictionary[@"items_number"] objCreatedDate:responseDictionary[@"created_date"] objModifiedDate:responseDictionary[@"modified_date"] objOwner:responseDictionary[@"owner"]];
+                                                                              NSString* date = responseObject[@"created_date"];
+                                                                              NSDate* created = [date dateFromRFC3339String];
+                                                                              date = responseObject[@"modified_date"];
+                                                                              NSDate* modified = [date dateFromRFC3339String];
+
+                                                                              
+                                                                              MHCollection *createdCollection = [MHDatabaseManager insertCollectionWithObjName:responseDictionary[@"name"]
+                                                                                                                                                objDescription:responseDictionary[@"description"]
+                                                                                                                                                       objTags:responseDictionary[@"tags"]
+                                                                                                                                                objCreatedDate:created
+                                                                                                                                               objModifiedDate:modified
+                                                                                                                                                      objOwner:responseDictionary[@"owner"]];
                                                                               
                                                                               createdCollection.objId = responseDictionary[@"id"];
                                                                           }
                                                                           
-                                                                          completionBlock(responseObject, error);
+                                                                          [[MHCoreDataContext getInstance] saveContext];
+                                                                          
+                                                                          completionBlock(nil, error);
                                                                       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                                                           completionBlock(nil, error);
                                                                       }];
@@ -319,27 +343,34 @@ static MHAPI *_sharedAPI = nil;
 #pragma read specified user collection
 
 - (AFHTTPRequestOperation *)readUserCollection:(MHCollection *)collection
-                                     completionBlock:(MHAPICompletionBlock)completionBlock {
+                               completionBlock:(MHAPICompletionBlock)completionBlock {
     
     NSError *error;
     
     AFJSONRequestSerializer *jsonSerializer = [AFJSONRequestSerializer serializer];
-    [jsonSerializer setAuthorizationHeaderFieldWithToken:_accessToken];
+    [jsonSerializer setValue:_accessToken forHTTPHeaderField:@"Authorization"];
     NSMutableURLRequest *request = [jsonSerializer requestWithMethod:@"GET"
                                                            URLString:[NSString stringWithFormat:@"%@%@",[self urlWithPath:@"collections"],collection.objId]
                                                           parameters:nil
                                                                error:&error];
     
+    __block MHCollection* c = collection;
+    
     AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
-                                                                      success:^(AFHTTPRequestOperation *operation, id responseObject) {                                                                          
-                                                                          for (NSDictionary *responseDictionary in responseObject) {
-                                                                              
-                                                                              MHCollection *createdCollection = [MHDatabaseManager insertCollectionWithObjName:responseDictionary[@"name"] objDescription:responseDictionary[@"description"] objTags:responseDictionary[@"tags"] objItemsNumber:responseDictionary[@"items_number"] objCreatedDate:responseDictionary[@"created_date"] objModifiedDate:responseDictionary[@"modified_date"] objOwner:responseDictionary[@"owner"]];
-                                                                              
-                                                                              createdCollection.objId = responseDictionary[@"id"];
-                                                                          }
+                                                                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                                                          c.objName = responseObject[@"name"];
+                                                                          c.objDescription = responseObject[@"description"];
+                                                                          c.objTags = responseObject[@"tags"];
+                                                                          NSString* date = responseObject[@"created_date"];
+                                                                          c.objCreatedDate = [date dateFromRFC3339String];
+                                                                          date = responseObject[@"modified_date"];
+                                                                          c.objModifiedDate = [date dateFromRFC3339String];
+                                                                          c.objOwner = responseObject[@"owner"];
+                                                                          c.objId = responseObject[@"id"];
                                                                           
-                                                                          completionBlock(responseObject, error);
+                                                                          [[MHCoreDataContext getInstance] saveContext];
+                                                                          
+                                                                          completionBlock(c, error);
                                                                       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                                                           completionBlock(nil, error);
                                                                       }];
@@ -357,7 +388,7 @@ static MHAPI *_sharedAPI = nil;
     NSError *error;
     
     AFJSONRequestSerializer* jsonRequest = [AFJSONRequestSerializer serializer];
-    [jsonRequest setAuthorizationHeaderFieldWithToken:_accessToken];
+    [jsonRequest setValue:_accessToken forHTTPHeaderField:@"Authorization"];
     
     NSMutableURLRequest *request = [jsonRequest requestWithMethod:@"PUT"
                                                         URLString:[NSString stringWithFormat:@"%@%@",[self urlWithPath:@"collections"],collection.objId]
@@ -368,7 +399,7 @@ static MHAPI *_sharedAPI = nil;
     
     AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
                                                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                                                          completionBlock(responseObject, nil);
+                                                                          completionBlock(nil, nil);
                                                                       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                                                           [self localizedDescriptionForErrorCode:error];
                                                                           completionBlock(nil, error);
@@ -389,7 +420,7 @@ static MHAPI *_sharedAPI = nil;
     NSError *error;
     
     AFJSONRequestSerializer* jsonRequest = [AFJSONRequestSerializer serializer];
-    [jsonRequest setAuthorizationHeaderFieldWithToken:_accessToken];
+    [jsonRequest setValue:_accessToken forHTTPHeaderField:@"Authorization"];
     
     NSMutableURLRequest *request = [jsonRequest requestWithMethod:@"DELETE"
                                                         URLString:[NSString stringWithFormat:@"%@%@",[self urlWithPath:@"collections"],collection.objId]
@@ -398,7 +429,7 @@ static MHAPI *_sharedAPI = nil;
     
     AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
                                                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                                                          completionBlock(responseObject, nil);
+                                                                          completionBlock(nil, nil);
                                                                       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                                                           [self localizedDescriptionForErrorCode:error];
                                                                           completionBlock(nil, error);
@@ -416,16 +447,16 @@ static MHAPI *_sharedAPI = nil;
 - (AFHTTPRequestOperation *)createMedia:(MHMedia *)media
                         completionBlock:(MHAPICompletionBlock)completionBlock
 {
-    NSError *error;
-    //Implementacja potrzebuje poprawy
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager.requestSerializer setAuthorizationHeaderFieldWithToken:_accessToken];
+    [manager.requestSerializer setValue:_accessToken forHTTPHeaderField:@"Authorization"];
 
+    __block MHMedia* m = media;
     NSURL *url = [NSURL fileURLWithPath:media.objLocalPath];
+#warning test and update this method if needed
     [manager POST:[self urlWithPath:@"media"] parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         [formData appendPartWithFileURL:url name:media.objId error:nil];
     } success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        completionBlock(nil, error);
+        m.objId = responseObject[@"id"];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         completionBlock(nil, error);
     }];
@@ -444,7 +475,7 @@ static MHAPI *_sharedAPI = nil;
     NSError *error;
     
     AFJSONRequestSerializer *jsonSerializer = [AFJSONRequestSerializer serializer];
-    [jsonSerializer setAuthorizationHeaderFieldWithToken:_accessToken];
+    [jsonSerializer setValue:_accessToken forHTTPHeaderField:@"Authorization"];
     NSMutableURLRequest *request = [jsonSerializer requestWithMethod:@"GET"
                                                            URLString:[NSString stringWithFormat:@"%@%@/",[self urlWithPath:@"media"],media.objId]
                                                           parameters:nil
@@ -452,13 +483,12 @@ static MHAPI *_sharedAPI = nil;
     
     AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
                                                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                                                          UIImage *responseImage = [UIImage imageWithData:responseObject];
-                                                                          completionBlock(responseImage, error);
+#warning save image in ocal directory and update MHMedia object?
+                                                                          completionBlock(responseObject, nil);
                                                                       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                                                           completionBlock(nil, error);
                                                                       }];
-    operation.responseSerializer = [AFJSONResponseSerializer serializer];
-    operation.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", nil];
+    operation.responseSerializer = [AFImageResponseSerializer serializer];
     [self.operationQueue addOperation:operation];
     
     return operation;
@@ -467,14 +497,14 @@ static MHAPI *_sharedAPI = nil;
 #pragma update media
 
 - (AFHTTPRequestOperation *)updateMedia:(MHMedia *)media
-                              completionBlock:(MHAPICompletionBlock)completionBlock {
+                        completionBlock:(MHAPICompletionBlock)completionBlock {
     NSError *error;
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    [manager.requestSerializer setAuthorizationHeaderFieldWithToken:_accessToken];
+    [manager.requestSerializer setValue:_accessToken forHTTPHeaderField:@"Authorization"];
 
     NSURL *url = [NSURL fileURLWithPath:media.objId];
-    
+#warning test and update if needed
     [manager POST:[NSString stringWithFormat:@"%@%@/",[self urlWithPath:@"media"],media.objId] parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         [formData appendPartWithFileURL:url name:media.objId error:nil];
     } success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -482,14 +512,6 @@ static MHAPI *_sharedAPI = nil;
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         completionBlock(nil, error);
     }];
-    
-    /********PUT**************
-    [manager PUT:[NSString stringWithFormat:@"%@%@/",[self urlWithPath:@"media"],mediaId] parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
-    }];
-    **************************/
     
     [manager.responseSerializer setAcceptableContentTypes:[NSSet setWithObjects:@"application/json", nil]];
     
@@ -504,7 +526,7 @@ static MHAPI *_sharedAPI = nil;
     NSError *error;
     
     AFJSONRequestSerializer *jsonSerializer = [AFJSONRequestSerializer serializer];
-    [jsonSerializer setAuthorizationHeaderFieldWithToken:_accessToken];
+    [jsonSerializer setValue:_accessToken forHTTPHeaderField:@"Authorization"];
     NSMutableURLRequest *request = [jsonSerializer requestWithMethod:@"DELETE"
                                                            URLString:[NSString stringWithFormat:@"%@%@/",[self urlWithPath:@"media"],media.objId]
                                                           parameters:nil
@@ -512,7 +534,8 @@ static MHAPI *_sharedAPI = nil;
     
     AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
                                                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                                                          completionBlock(responseObject, error);
+#warning remove media object from database?
+                                                                          completionBlock(nil, nil);
                                                                       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                                                           completionBlock(nil, error);
                                                                       }];
@@ -550,7 +573,7 @@ static MHAPI *_sharedAPI = nil;
     NSError *error;
     
     AFJSONRequestSerializer *jsonSerializer = [AFJSONRequestSerializer serializer];
-    [jsonSerializer setAuthorizationHeaderFieldWithToken:_accessToken];
+    [jsonSerializer setValue:_accessToken forHTTPHeaderField:@"Authorization"];
     NSMutableURLRequest *request = [jsonSerializer requestWithMethod:@"GET"
                                                            URLString:[NSString stringWithFormat:@"%@%@/?size=%@",[self urlWithPath:@"media"],media.objId,thumbnailSize]
                                                           parameters:nil
@@ -558,13 +581,11 @@ static MHAPI *_sharedAPI = nil;
     
     AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
                                                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                                                          UIImage *responseImage = [UIImage imageWithData:responseObject];
-                                                                          completionBlock(responseImage, error);
+                                                                          completionBlock(responseObject, nil);
                                                                       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                                                           completionBlock(nil, error);
                                                                       }];
-    operation.responseSerializer = [AFJSONResponseSerializer serializer];
-    operation.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", nil];
+    operation.responseSerializer = [AFImageResponseSerializer serializer];
     [self.operationQueue addOperation:operation];
     
     return operation;
@@ -578,54 +599,38 @@ static MHAPI *_sharedAPI = nil;
     NSError *error;
     
     AFJSONRequestSerializer *jsonSerializer = [AFJSONRequestSerializer serializer];
-    [jsonSerializer setAuthorizationHeaderFieldWithToken:_accessToken];
+    [jsonSerializer setValue:_accessToken forHTTPHeaderField:@"Authorization"];
+    
+    NSMutableArray* mediaIds = [[NSMutableArray alloc] init];
+    for (MHMedia* media in item.media) {
+        [mediaIds addObject:media.objId];
+    }
+    NSMutableDictionary* params = [NSMutableDictionary dictionaryWithDictionary:@{@"name": item.objName,
+                                                                                  @"description": item.objDescription,
+                                                                                  @"media": mediaIds,
+                                                                                  @"collection": item.collection.objId}];
+
+    CLLocation *l = item.objLocation;
+    if (l) {
+        params[@"location"] = @{@"lat": @(l.coordinate.latitude),
+                                @"lng": @(l.coordinate.longitude)};
+    }
+                                                                                  
+
     NSMutableURLRequest *request = [jsonSerializer requestWithMethod:@"POST"
                                                            URLString:[self urlWithPath:@"items"]
-                                                          parameters:@{@"name": item.objName,
-                                                                       @"description": item.objDescription,
-                                                                       @"location":item.objLocation,
-                                                                       @"quantity":item.objQuantity,
-                                                                       @"media":item.objMediaIds}
+                                                          parameters:params
                                                                error:&error];
     
+    __block MHItem* i = item;
     AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
                                                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                                                          completionBlock(nil, error);
+#warning parse response and store data in 'i'
+                                                                          completionBlock(i, error);
                                                                       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                                                           completionBlock(nil, error);
                                                                       }];
     
-    operation.responseSerializer = [AFJSONResponseSerializer serializer];
-    operation.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", nil];
-    [self.operationQueue addOperation:operation];
-    
-    return operation;
-}
-
-#pragma read item
-
-- (AFHTTPRequestOperation *)readItem:(MHItem *)item
-                                     completionBlock:(MHAPICompletionBlock)completionBlock {
-    
-    NSError *error;
-    
-    AFJSONRequestSerializer *jsonSerializer = [AFJSONRequestSerializer serializer];
-    [jsonSerializer setAuthorizationHeaderFieldWithToken:_accessToken];
-    NSMutableURLRequest *request = [jsonSerializer requestWithMethod:@"GET"
-                                                           URLString:[NSString stringWithFormat:@"%@%@",[self urlWithPath:@"items"],item.objId]
-                                                          parameters:nil
-                                                               error:&error];
-    
-    AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
-                                                                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                                                          for (NSDictionary *responseDictionary in responseObject) {
-                                                                              
-                                                                            [MHDatabaseManager insertItemWithObjName:responseDictionary[@"name"] objDescription:responseDictionary[@"description"] objTags:nil objLocation:responseDictionary[@"location"] objQuantity:nil objMediaIds:responseDictionary[@"media"] objCreatedDate:responseDictionary[@"created_date"] objModifiedDate:responseDictionary[@"modified_date"] objCollectionId:responseDictionary[@"collection"] objOwner:responseDictionary[@"owner"] collection:responseDictionary[@"collection"]];
-                                                                          }
-                                                                          completionBlock(nil, error);
-                                                                      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                                                          completionBlock(nil, error);
-                                                                      }];
     operation.responseSerializer = [AFJSONResponseSerializer serializer];
     operation.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", nil];
     [self.operationQueue addOperation:operation];
@@ -641,20 +646,32 @@ static MHAPI *_sharedAPI = nil;
     NSError *error;
     
     AFJSONRequestSerializer *jsonSerializer = [AFJSONRequestSerializer serializer];
-    [jsonSerializer setAuthorizationHeaderFieldWithToken:_accessToken];
+    [jsonSerializer setValue:_accessToken forHTTPHeaderField:@"Authorization"];
+    
+    NSMutableArray* mediaIds = [[NSMutableArray alloc] init];
+    for (MHMedia* media in item.media) {
+        [mediaIds addObject:media.objId];
+    }
+    NSMutableDictionary* params = [NSMutableDictionary dictionaryWithDictionary:@{@"name": item.objName,
+                                                                                  @"description": item.objDescription,
+                                                                                  @"media": mediaIds,
+                                                                                  @"collection": item.collection.objId}];
+    
+    CLLocation *l = item.objLocation;
+    if (l) {
+        params[@"location"] = @{@"lat": @(l.coordinate.latitude),
+                                @"lng": @(l.coordinate.longitude)};
+    }
+
+    __block MHItem* i = item;
     NSMutableURLRequest *request = [jsonSerializer requestWithMethod:@"PUT"
                                                            URLString:[NSString stringWithFormat:@"%@%@",[self urlWithPath:@"items"],item.objId]
-                                                          parameters:@{@"name": item.objName,
-                                                                       @"description": item.objDescription,
-                                                                       @"location":item.objLocation,
-                                                                       @"quantity":item.objQuantity,
-                                                                       @"media":item.media,
-                                                                       @"collection":item.objCollectionId}
+                                                          parameters:params
                                                                error:&error];
     
     AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
                                                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                                                          completionBlock(nil, error);
+                                                                          completionBlock(i, error);
                                                                       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                                                           completionBlock(nil, error);
                                                                       }];
@@ -674,7 +691,7 @@ static MHAPI *_sharedAPI = nil;
     NSError *error;
     
     AFJSONRequestSerializer* jsonRequest = [AFJSONRequestSerializer serializer];
-    [jsonRequest setAuthorizationHeaderFieldWithToken:_accessToken];
+    [jsonRequest setValue:_accessToken forHTTPHeaderField:@"Authorization"];
     
     NSMutableURLRequest *request = [jsonRequest requestWithMethod:@"DELETE"
                                                         URLString:[NSString stringWithFormat:@"%@%@",[self urlWithPath:@"items"],item.objId]
@@ -683,7 +700,7 @@ static MHAPI *_sharedAPI = nil;
     
     AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
                                                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                                                          completionBlock(responseObject, nil);
+                                                                          completionBlock(nil, nil);
                                                                       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                                                           [self localizedDescriptionForErrorCode:error];
                                                                           completionBlock(nil, error);
