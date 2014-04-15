@@ -551,7 +551,8 @@ static MHAPI *_sharedAPI = nil;
     
     AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
                                                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
-#warning remove media object from database?
+                                                                          [[MHCoreDataContext getInstance].managedObjectContext deleteObject:media];
+                                                                          [[MHCoreDataContext getInstance]saveContext];
                                                                           completionBlock(nil, nil);
                                                                       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                                                           completionBlock(nil, error);
