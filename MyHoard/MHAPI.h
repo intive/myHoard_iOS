@@ -17,6 +17,7 @@ typedef enum  {
 #import <AFNetworking.h>
 #import "MHUserProfile.h"
 #import "MHCollection.h"
+#import "MHMedia.h"
 
 typedef void (^MHAPICompletionBlock)(id object, NSError *error);
 
@@ -40,6 +41,8 @@ typedef void (^MHAPICompletionBlock)(id object, NSError *error);
 
 - (void)logout:(MHAPICompletionBlock)completionBlock;
 
+- (BOOL)activeSession;
+
 - (AFHTTPRequestOperation *)updateUser:(NSString *)username
                           withPassword:(NSString *)password
                               andEmail:(NSString *)email
@@ -53,4 +56,10 @@ typedef void (^MHAPICompletionBlock)(id object, NSError *error);
 
 - (AFHTTPRequestOperation *)createCollection:(MHCollection *)collection
                              completionBlock:(MHAPICompletionBlock)completionBlock;
+
+- (AFHTTPRequestOperation *)readUserCollectionsWithCompletionBlock:(MHAPICompletionBlock)completionBlock;
+
+- (AFHTTPRequestOperation *)createMedia:(MHMedia *)media
+                        completionBlock:(MHAPICompletionBlock)completionBlock;
+
 @end

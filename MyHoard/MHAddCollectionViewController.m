@@ -118,8 +118,9 @@
                                                                    objCreatedDate:[NSDate date]
                                                                   objModifiedDate:nil
                                                                          objOwner:nil];
-#warning - create collection on server if user is logged n - add method to check that in MHAPI
-        if (0) { //check if user is logged in!
+        
+        if ([[MHAPI getInstance]activeSession] == YES) {
+            NSLog(@"Yes you are logged in");
             if (![_typeLabel.text isEqualToString:@"Offline"]) {
                 __block MHWaitDialog* wait = [[MHWaitDialog alloc] init];
                 [wait show];

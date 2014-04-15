@@ -68,6 +68,16 @@ static MHAPI *_sharedAPI = nil;
     completionBlock(nil, nil);
 }
 
+- (BOOL)activeSession {
+    
+    if (_accessToken && _refreshToken) {
+        return YES;
+    }else {
+        return NO;
+    }
+    
+}
+
 - (AFHTTPRequestOperation *)createUser:(NSString *)email
                           withPassword:(NSString *)password
                        completionBlock:(MHAPICompletionBlock)completionBlock
@@ -454,7 +464,7 @@ static MHAPI *_sharedAPI = nil;
     NSURL *url = [NSURL fileURLWithPath:media.objLocalPath];
 #warning test and update this method if needed
     [manager POST:[self urlWithPath:@"media"] parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-        [formData appendPartWithFileURL:url name:media.objId error:nil];
+        [formData appendPartWithFileURL:url name:@"test" error:nil];
     } success:^(AFHTTPRequestOperation *operation, id responseObject) {
         m.objId = responseObject[@"id"];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

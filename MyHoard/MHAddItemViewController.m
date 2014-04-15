@@ -9,6 +9,7 @@
 #import "MHAddItemViewController.h"
 #import "MHDatabaseManager.h"
 #import "UIImage+Gallery.h"
+#import "MHAPI.h"
 
 static const CGFloat KEYBOARD_ANIMATION_DURATION = 0.3;
 static const CGFloat MINIMUM_SCROLL_FRACTION = 0.01;
@@ -251,12 +252,20 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 200;
                                                      collection:self.selectedCollection];
         
         if (self.mediaId) {
+            //MHMedia *media =
             [MHDatabaseManager insertMediaWithCreatedDate:[NSDate date]
                                                 objOwner:nil
                                             objLocalPath:self.mediaId
                                                     item:item];
+            /*
+            [[MHAPI getInstance]createMedia:media completionBlock:^(id object, NSError *error) {
+                if (error) {
+                    NSLog(@"%@", error);
+                }
+            }];
+             */
         }
-
+        
         [self.navigationController dismissViewControllerAnimated:YES completion:nil];
     }
 }
