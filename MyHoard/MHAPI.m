@@ -472,7 +472,7 @@ static MHAPI *_sharedAPI = nil;
         } success:^(AFHTTPRequestOperation *operation, id responseObject) {
             m.objId = responseObject[@"id"];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            completionBlock(operation.responseObject, error);
+            completionBlock(nil, error);
         }];
         
         [manager.responseSerializer setAcceptableContentTypes:[NSSet setWithObjects:@"application/json", nil]];
@@ -521,22 +521,26 @@ static MHAPI *_sharedAPI = nil;
 
 - (AFHTTPRequestOperation *)updateMedia:(MHMedia *)media
                         completionBlock:(MHAPICompletionBlock)completionBlock {
-    NSError *error;
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager.requestSerializer setValue:_accessToken forHTTPHeaderField:@"Authorization"];
 
-    NSURL *url = [NSURL fileURLWithPath:media.objId];
-#warning test and update if needed
-    [manager POST:[NSString stringWithFormat:@"%@%@/",[self urlWithPath:@"media"],media.objId] parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-        [formData appendPartWithFileURL:url name:media.objId error:nil];
-    } success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        completionBlock(nil, error);
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        completionBlock(nil, error);
-    }];
+    __block NSData *assetData = [[NSData alloc]init];
     
-    [manager.responseSerializer setAcceptableContentTypes:[NSSet setWithObjects:@"application/json", nil]];
+    [UIImage imageForAssetPath:media.objLocalPath completion:^(UIImage *image) {
+        assetData = UIImagePNGRepresentation(image);
+        
+        [manager POST:[NSString stringWithFormat:@"%@%@/",[self urlWithPath:@"media"],media.objId] parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+            [formData appendPartWithFileData:assetData name:@"image" fileName:media.objLocalPath mimeType:@"image/*"];
+        } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            completionBlock(nil, nil);
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            completionBlock(nil, error);
+        }];
+        
+        [manager.responseSerializer setAcceptableContentTypes:[NSSet setWithObjects:@"application/json", nil]];
+        
+    }];
     
     return nil;
 }
