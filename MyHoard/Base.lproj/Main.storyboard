@@ -1261,7 +1261,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wiC-uX-kdj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="397" y="592"/>
+            <point key="canvasLocation" x="501" y="600"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="Oqw-Sc-Bel">
@@ -1760,11 +1760,8 @@
         <image name="confirm" width="22" height="22"/>
         <image name="plus_y" width="30" height="30"/>
         <image name="startLogo" width="125" height="125"/>
-<<<<<<< HEAD
-        <image name="x" width="22" height="22"/>
-=======
         <image name="up_g" width="22" height="22"/>
->>>>>>> Item details view controller, CollectionDetailsView Controller upgrade
+        <image name="x" width="22" height="22"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
@@ -1772,25 +1769,9 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-<<<<<<< HEAD
-<<<<<<< HEAD
         <segue reference="jZp-GR-mKO"/>
         <segue reference="7Aw-hx-44V"/>
         <segue reference="3wb-xF-lsE"/>
         <segue reference="AJS-nz-tvm"/>
-=======
-        <segue reference="3wb-xF-lsE"/>
-        <segue reference="7Aw-hx-44V"/>
-=======
->>>>>>> Item details view controller, CollectionDetailsView Controller upgrade
-        <segue reference="f1Y-Gw-JyE"/>
-        <segue reference="7Aw-hx-44V"/>
-        <segue reference="cHI-6z-e6b"/>
-        <segue reference="adL-u6-2Xg"/>
-<<<<<<< HEAD
->>>>>>> DragUpView
-=======
-        <segue reference="Xtm-aX-Up0"/>
->>>>>>> Item details view controller, CollectionDetailsView Controller upgrade
     </inferredMetricsTieBreakers>
 </document>
