@@ -654,7 +654,7 @@ static MHAPI *_sharedAPI = nil;
                                                                           
                                                                           for (MHMedia *media in i.media) {
                                                                               for (NSDictionary *d in responseObject[@"media"]) {
-                                                                                  media.objId = [d valueForKey:@"url"];
+                                                                                  media.objId = [d valueForKey:@"id"];
                                                                                   media.objLocalPath = [d valueForKey:@"url"];
                                                                               }
                                                                           }
