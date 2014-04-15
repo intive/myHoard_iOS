@@ -15,6 +15,7 @@
 #import "MHDatabaseManager.h"
 #import "MHCoreDataContext.h"
 #import "NSString+RFC3339.h"
+#import "UIImage+Gallery.h"
 
 static MHAPI *_sharedAPI = nil;
 
@@ -459,19 +460,24 @@ static MHAPI *_sharedAPI = nil;
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager.requestSerializer setValue:_accessToken forHTTPHeaderField:@"Authorization"];
-
-    __block MHMedia* m = media;
-    NSURL *url = [NSURL fileURLWithPath:media.objLocalPath];
-#warning test and update this method if needed
-    [manager POST:[self urlWithPath:@"media"] parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-        [formData appendPartWithFileURL:url name:media.objId error:nil];
-    } success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        m.objId = responseObject[@"id"];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        completionBlock(nil, error);
-    }];
     
-    [manager.responseSerializer setAcceptableContentTypes:[NSSet setWithObjects:@"application/json", nil]];
+    __block MHMedia* m = media;
+    __block NSData *assetData = [[NSData alloc]init];
+    
+    [UIImage imageForAssetPath:media.objLocalPath completion:^(UIImage *image) {
+        assetData = UIImagePNGRepresentation(image);
+        
+        [manager POST:[self urlWithPath:@"media"] parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+            [formData appendPartWithFileData:assetData name:@"image" fileName:m.objLocalPath mimeType:@"image/*"];
+        } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            m.objId = responseObject[@"id"];
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            completionBlock(operation.responseObject, error);
+        }];
+        
+        [manager.responseSerializer setAcceptableContentTypes:[NSSet setWithObjects:@"application/json", nil]];
+        
+    }];
     
     return nil;
 
