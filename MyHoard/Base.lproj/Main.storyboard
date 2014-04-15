@@ -911,6 +911,7 @@
                         <outlet property="collectionName" destination="bJD-IS-1l0" id="twV-qS-KhL"/>
                         <outlet property="collectionView" destination="5dp-fo-Hmy" id="Hgo-60-dL6"/>
                         <segue destination="fW1-8f-0eN" kind="push" identifier="ShowItemDetails" id="1lU-XD-Edz"/>
+                        <segue destination="cF2-Sm-u7f" kind="modal" identifier="AddItemSegue" id="cHI-6z-e6b"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M4V-vx-C5w" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -933,16 +934,71 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="390"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </imageView>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UWp-Sz-MmU">
+                                <rect key="frame" x="0.0" y="390" width="320" height="400"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TYC-0P-fks">
+                                        <rect key="frame" x="10" y="22" width="300" height="28"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U7D-oo-ZwF">
+                                        <rect key="frame" x="10" y="40" width="300" height="360"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleAspectFit" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4M2-bn-RPW">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="22"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <gestureRecognizers/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <state key="normal" image="up_g">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="0Vd-1X-Oa3" appends="YES" id="O8w-s2-pWa"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <gestureRecognizers/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="FxD-ph-WQ7" appends="YES" id="2Q6-Yx-tF3"/>
+                            <outletCollection property="gestureRecognizers" destination="3Je-ND-Hpc" appends="YES" id="3XR-KP-Aq1"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="pSm-AF-Jtc" userLabel="Navigation Item"/>
                     <connections>
+                        <outlet property="bottomView" destination="UWp-Sz-MmU" id="okZ-rW-cDE"/>
+                        <outlet property="dragTopButton" destination="4M2-bn-RPW" id="aS2-4E-Di8"/>
                         <outlet property="frontImage" destination="4cj-ad-f3B" id="alf-7X-AoO"/>
+                        <outlet property="itemCommentLabel" destination="U7D-oo-ZwF" id="0tJ-z9-124"/>
                         <outlet property="itemTitle" destination="pSm-AF-Jtc" id="zLZ-WT-hIh"/>
+                        <outlet property="itemTitleLabel" destination="TYC-0P-fks" id="Mvc-il-qRo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3Z2-NE-j1x" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="0Vd-1X-Oa3">
+                    <connections>
+                        <action selector="showOrHide:" destination="fW1-8f-0eN" id="aaY-MA-D8P"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <swipeGestureRecognizer cancelsTouchesInView="NO" direction="up" id="FxD-ph-WQ7">
+                    <connections>
+                        <action selector="swipeToTop:" destination="fW1-8f-0eN" id="puZ-Wp-6NY"/>
+                    </connections>
+                </swipeGestureRecognizer>
+                <swipeGestureRecognizer cancelsTouchesInView="NO" direction="down" id="3Je-ND-Hpc">
+                    <connections>
+                        <action selector="swipeToBottom:" destination="fW1-8f-0eN" id="l3L-h3-JRf"/>
+                    </connections>
+                </swipeGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="839" y="-758"/>
         </scene>
@@ -1205,7 +1261,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wiC-uX-kdj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="501" y="600"/>
+            <point key="canvasLocation" x="397" y="592"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="Oqw-Sc-Bel">
@@ -1704,7 +1760,11 @@
         <image name="confirm" width="22" height="22"/>
         <image name="plus_y" width="30" height="30"/>
         <image name="startLogo" width="125" height="125"/>
+<<<<<<< HEAD
         <image name="x" width="22" height="22"/>
+=======
+        <image name="up_g" width="22" height="22"/>
+>>>>>>> Item details view controller, CollectionDetailsView Controller upgrade
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
@@ -1713,6 +1773,7 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
 <<<<<<< HEAD
+<<<<<<< HEAD
         <segue reference="jZp-GR-mKO"/>
         <segue reference="7Aw-hx-44V"/>
         <segue reference="3wb-xF-lsE"/>
@@ -1720,9 +1781,16 @@
 =======
         <segue reference="3wb-xF-lsE"/>
         <segue reference="7Aw-hx-44V"/>
+=======
+>>>>>>> Item details view controller, CollectionDetailsView Controller upgrade
         <segue reference="f1Y-Gw-JyE"/>
-        <segue reference="Xtm-aX-Up0"/>
+        <segue reference="7Aw-hx-44V"/>
+        <segue reference="cHI-6z-e6b"/>
         <segue reference="adL-u6-2Xg"/>
+<<<<<<< HEAD
 >>>>>>> DragUpView
+=======
+        <segue reference="Xtm-aX-Up0"/>
+>>>>>>> Item details view controller, CollectionDetailsView Controller upgrade
     </inferredMetricsTieBreakers>
 </document>

@@ -8,7 +8,7 @@
 #import "MHCollectionDetailsViewController.h"
 #import "UIImage+Gallery.h"
 #import "MHItemDetailsViewController.h"
-
+#import "MHAddItemViewController.h"
 
 @implementation MHCollectionDetailsViewController
 
@@ -106,6 +106,10 @@
     if ([segue.identifier isEqualToString:@"ShowItemDetails"]) {
         MHItemDetailsViewController * vc = [segue destinationViewController];
         vc.item = sender;
+    } else if ([segue.identifier isEqualToString:@"AddItemSegue"]) {
+        UINavigationController* nc = segue.destinationViewController;
+        MHAddItemViewController *vc = (MHAddItemViewController *)nc.visibleViewController;
+        vc.selectedCollection = self.collection;
     }
 }
 
@@ -153,7 +157,7 @@
 
 - (void)dropDownMenu:(MHDropDownMenu*)menu didSelectItemAtIndex:(NSUInteger)index {
     if (index == 0) {
-        
+        [self performSegueWithIdentifier:@"AddItemSegue" sender:nil];
     } else {
         NSLog(@"Unknown menu item %lu selected:", (unsigned long)index);
     }
