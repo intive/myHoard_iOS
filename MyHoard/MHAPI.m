@@ -491,10 +491,17 @@ static MHAPI *_sharedAPI = nil;
                                                           parameters:nil
                                                                error:&error];
     
+    __block MHMedia *tmpMedia = media;
+    
     AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
                                                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
-#warning save image in ocal directory and update MHMedia object?
-                                                                          completionBlock(responseObject, nil);
+                                                                          NSData* imageData = responseObject;
+                                                                          NSString* imagePath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:[NSString stringWithFormat:@"/%@.png", responseObject[@"id"]]];
+                                                                          [imageData writeToFile:imagePath atomically:YES];
+                                                                          
+                                                                          [self updateMedia:tmpMedia completionBlock:nil];
+                                                                          
+                                                                          completionBlock(nil, nil);
                                                                       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                                                           completionBlock(nil, error);
                                                                       }];
@@ -635,7 +642,24 @@ static MHAPI *_sharedAPI = nil;
     __block MHItem* i = item;
     AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
                                                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
-#warning parse response and store data in 'i'
+                                                                          i.objId = responseObject[@"id"];
+                                                                          i.objName = responseObject[@"name"];
+                                                                          i.objDescription = responseObject[@"description"];
+                                                                          i.objLocation = responseObject[@"location"];
+                                                                          NSString* date = responseObject[@"created_date"];
+                                                                          i.objCreatedDate = [date dateFromRFC3339String];
+                                                                          date = responseObject[@"modified_date"];
+                                                                          i.objModifiedDate = [date dateFromRFC3339String];
+                                                                          i.objOwner = responseObject[@"owner"];
+                                                                          
+                                                                          for (MHMedia *media in i.media) {
+                                                                              for (NSDictionary *d in responseObject[@"media"]) {
+                                                                                  media.objId = [d valueForKey:@"url"];
+                                                                                  media.objLocalPath = [d valueForKey:@"url"];
+                                                                              }
+                                                                          }
+                                                                          
+                                                                          [[MHCoreDataContext getInstance] saveContext];
                                                                           completionBlock(i, error);
                                                                       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                                                           completionBlock(nil, error);

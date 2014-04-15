@@ -177,7 +177,7 @@
 {
     UIImage *image = [info valueForKey:UIImagePickerControllerOriginalImage];
     
-    NSData* imageData = UIImageJPEGRepresentation(image, 1.0);
+    NSData* imageData = UIImagePNGRepresentation(image);
     NSString* imagePath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"/libraryProfilePhoto.png"];
     [imageData writeToFile:imagePath atomically:YES];
     
