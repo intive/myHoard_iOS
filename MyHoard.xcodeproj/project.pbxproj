@@ -716,14 +716,7 @@
 				CE09D99318F2CAE5007E8885 /* MHUserProfile.m in Sources */,
 				23C4E68318FC7542002FB84D /* NSString+RFC3339.m in Sources */,
 				23F27A5518D8E59F00877D30 /* MHDropDownMenuViewController.m in Sources */,
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-				9357DB7418FAE98300E74194 /* MHDragUpView.m in Sources */,
-=======
->>>>>>> MHDragUpView remove
 				23DE905F18F41ED100B15424 /* MHMedia.m in Sources */,
->>>>>>> DragUpView
 				CEF82A0718F0383F00058BB8 /* MHEditAccountViewController.m in Sources */,
 				93245CA418E0931D008AFE37 /* MHCollectionDetailsCell.m in Sources */,
 				23D02EFB18EEAA0300114941 /* MHAPI.m in Sources */,
