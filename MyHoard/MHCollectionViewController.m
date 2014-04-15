@@ -448,7 +448,7 @@ newIndexPath:(NSIndexPath *)newIndexPath
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc]init];
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"MHCollection" inManagedObjectContext:[MHCoreDataContext getInstance].managedObjectContext];
     [fetchRequest setEntity:entity];
-    NSSortDescriptor *sort = [[NSSortDescriptor alloc] initWithKey:@"objName" ascending:YES];
+    NSSortDescriptor *sort = [[NSSortDescriptor alloc] initWithKey:@"objName" ascending:YES selector:@selector(localizedStandardCompare:)];
     [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
     [fetchRequest setFetchBatchSize:20];
     NSFetchedResultsController *frc = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:[MHCoreDataContext getInstance].managedObjectContext sectionNameKeyPath:nil cacheName:@"Root"];

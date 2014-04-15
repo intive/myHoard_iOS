@@ -60,7 +60,9 @@
     
     [fetchRequest setEntity:entity];
     
-    [fetchRequest setSortDescriptors:@[ [[NSSortDescriptor alloc] initWithKey: @"objName" ascending:YES] ]];
+    NSSortDescriptor *sd = [[NSSortDescriptor alloc] initWithKey:@"objName" ascending:YES selector:@selector(localizedStandardCompare:)];
+
+    [fetchRequest setSortDescriptors:@[ sd ]];
     
     NSError *error = nil;
     
