@@ -7,7 +7,6 @@
 //
 
 #import "MHBaseViewController.h"
-#import "MHDragUpView.h"
 #import "MHItem.h"
 #import "MHMedia.h"
 
