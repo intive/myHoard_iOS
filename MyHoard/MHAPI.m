@@ -220,6 +220,7 @@ static MHAPI *_sharedAPI = nil;
     
     AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
                                                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
+#warning parse response, save refreshed token
                                                                           completionBlock(nil, nil);
                                                                       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                                                           [self localizedDescriptionForErrorCode:error];
@@ -233,7 +234,7 @@ static MHAPI *_sharedAPI = nil;
     return operation;
 }
 
-#pragma get token/login
+#pragma mark get token/login
 
 - (AFHTTPRequestOperation *)accessTokenForUser:(NSString *)email
                                   withPassword:(NSString *)password
@@ -265,7 +266,7 @@ static MHAPI *_sharedAPI = nil;
     return operation;
 }
 
-#pragma Collections/create collection
+#pragma mark Collections/create collection
 
 - (AFHTTPRequestOperation *)createCollection:(MHCollection *)collection
                              completionBlock:(MHAPICompletionBlock)completionBlock
@@ -305,7 +306,7 @@ static MHAPI *_sharedAPI = nil;
     return operation;
 }
 
-#pragma read all of user collections
+#pragma mark read all of user collections
 
 - (AFHTTPRequestOperation *)readUserCollectionsWithCompletionBlock:(MHAPICompletionBlock)completionBlock {
     
@@ -351,7 +352,7 @@ static MHAPI *_sharedAPI = nil;
     return operation;
 }
 
-#pragma read specified user collection
+#pragma mark read specified user collection
 
 - (AFHTTPRequestOperation *)readUserCollection:(MHCollection *)collection
                                completionBlock:(MHAPICompletionBlock)completionBlock {
@@ -392,7 +393,7 @@ static MHAPI *_sharedAPI = nil;
     return operation;
 }
 
-#pragma update collection
+#pragma mark update collection
 
 - (AFHTTPRequestOperation *)updateCollection:(MHCollection *)collection
                        completionBlock:(MHAPICompletionBlock)completionBlock {
@@ -423,7 +424,7 @@ static MHAPI *_sharedAPI = nil;
     return operation;
 }
 
-#pragma delete collection
+#pragma mark delete collection
 
 - (AFHTTPRequestOperation *)deleteCollection:(MHCollection *)collection
                                    completionBlock:(MHAPICompletionBlock)completionBlock {
@@ -453,7 +454,7 @@ static MHAPI *_sharedAPI = nil;
     return operation;
 }
 
-#pragma Media/create media
+#pragma mark Media/create media
 
 - (AFHTTPRequestOperation *)createMedia:(MHMedia *)media
                         completionBlock:(MHAPICompletionBlock)completionBlock
@@ -483,7 +484,7 @@ static MHAPI *_sharedAPI = nil;
 
 }
 
-#pragma read media
+#pragma mark read media
 
 - (AFHTTPRequestOperation *)readMedia:(MHMedia *)media
                             completionBlock:(MHAPICompletionBlock)completionBlock {
@@ -517,7 +518,7 @@ static MHAPI *_sharedAPI = nil;
     return operation;
 }
 
-#pragma update media
+#pragma mark update media
 
 - (AFHTTPRequestOperation *)updateMedia:(MHMedia *)media
                         completionBlock:(MHAPICompletionBlock)completionBlock {
@@ -545,7 +546,7 @@ static MHAPI *_sharedAPI = nil;
     return nil;
 }
 
-#pragma delete media
+#pragma mark delete media
 
 - (AFHTTPRequestOperation *)deleteMedia:(MHMedia *)media
                               completionBlock:(MHAPICompletionBlock)completionBlock {
@@ -574,7 +575,7 @@ static MHAPI *_sharedAPI = nil;
     return operation;
 }
 
-#pragma read thumbnail
+#pragma mark read thumbnail
 
 - (AFHTTPRequestOperation *)readThumbnail:(MHThumbnailSize)size
                           forMedia:(MHMedia *)media
@@ -619,7 +620,7 @@ static MHAPI *_sharedAPI = nil;
     return operation;
 }
 
-#pragma Item/create item
+#pragma mark Item/create item
 
 - (AFHTTPRequestOperation *)createItem:(MHItem *)item
                        completionBlock:(MHAPICompletionBlock)completionBlock
@@ -683,7 +684,7 @@ static MHAPI *_sharedAPI = nil;
     return operation;
 }
 
-#pragma update item
+#pragma mark update item
 
 - (AFHTTPRequestOperation *)updateItem:(MHItem *)item
                        completionBlock:(MHAPICompletionBlock)completionBlock
@@ -728,7 +729,7 @@ static MHAPI *_sharedAPI = nil;
     return operation;
 }
 
-#pragma delete item
+#pragma mark delete item
 
 - (AFHTTPRequestOperation *)deleteItemWithId:(MHItem *)item
                                    completionBlock:(MHAPICompletionBlock)completionBlock {
