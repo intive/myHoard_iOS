@@ -10,7 +10,25 @@
 #import "MHItemDetailsViewController.h"
 #import "MHAddItemViewController.h"
 
+typedef NS_ENUM(NSInteger, ItemSortMode) {
+    ItemSortModeByName = 0,
+    ItemSortModeByDate
+};
+
+#define HEADER_HEIGHT 44
+
+@interface MHCollectionDetailsViewController ()
+
+@property (nonatomic, assign) ItemSortMode sortMode;
+
+@end
+
 @implementation MHCollectionDetailsViewController
+{
+    UIView* _headerView;
+    BOOL _isDragging;
+    BOOL _isVisible;
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -39,6 +57,27 @@
     
     _collectionView.backgroundColor = [UIColor lighterGray];
     self.collectionName.title = _collection.objName;
+    
+    _headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0 - HEADER_HEIGHT, self.view.frame.size.width, HEADER_HEIGHT)];
+    _headerView.backgroundColor = [UIColor blackColor];
+    
+    NSArray *itemArray = [NSArray arrayWithObjects: @"Date", @"Name", nil];
+    UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:itemArray];
+    segmentedControl.frame = CGRectMake(8, 8, _headerView.frame.size.width - 16, _headerView.frame.size.height - 16);
+    segmentedControl.segmentedControlStyle = UISegmentedControlStylePlain;
+    segmentedControl.selectedSegmentIndex = 1;
+    segmentedControl.layer.borderColor = [UIColor lighterYellow].CGColor;
+    segmentedControl.layer.borderWidth = 1.0;
+    segmentedControl.layer.cornerRadius = 6.0;
+    segmentedControl.tintColor = [UIColor lighterYellow];
+    
+    [segmentedControl addTarget:self
+                         action:@selector(segmentedControlValueChanged:)
+               forControlEvents:UIControlEventValueChanged];
+    
+    [_headerView addSubview:segmentedControl];
+    [self.collectionView addSubview:_headerView];
+    self.collectionView.alwaysBounceVertical = YES;
 }
 
 - (void)didReceiveMemoryWarning
@@ -65,7 +104,20 @@
 
     MHCollectionDetailsCell *cell = (MHCollectionDetailsCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"MHItemCell" forIndexPath:indexPath];
     
-    MHItem* object = [_collection.items.allObjects objectAtIndex:indexPath.row];
+    NSMutableArray *objects = [[NSMutableArray alloc]init];
+    [objects addObjectsFromArray:_collection.items.allObjects];
+    if (self.sortMode == ItemSortModeByName)
+    {
+        NSSortDescriptor *sort = [[NSSortDescriptor alloc] initWithKey:@"objName" ascending:YES selector:@selector(localizedStandardCompare:)];
+        [objects sortUsingDescriptors:[NSArray arrayWithObject:sort]];
+    }
+    else if (self.sortMode == ItemSortModeByDate)
+    {
+        NSSortDescriptor *sort = [[NSSortDescriptor alloc] initWithKey:@"objCreatedDate" ascending:NO];
+        [objects sortUsingDescriptors:[NSArray arrayWithObject:sort]];
+    }
+    
+    MHItem *object = [objects objectAtIndex:indexPath.row];
     
     cell.itemTitle.textColor = [UIColor collectionNameFrontColor];
     cell.itemComment.textColor = [UIColor appBackgroundColor];
@@ -164,5 +216,53 @@
     
 }
 
+#pragma mark scroll view
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    if (_isVisible) return;
+    _isDragging = YES;
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (_isVisible) {
+        if (scrollView.contentOffset.y > 0)
+            self.collectionView.contentInset = UIEdgeInsetsZero;
+        else if (scrollView.contentOffset.y >= -HEADER_HEIGHT)
+            self.collectionView.contentInset = UIEdgeInsetsMake(-scrollView.contentOffset.y, 0, 0, 0);
+    } else if (_isDragging && scrollView.contentOffset.y < 0) {
+    }
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    _isDragging = NO;
+    
+    if (_isVisible) {
+        if (scrollView.contentOffset.y < 0) {
+            _isVisible = NO;
+            [UIView animateWithDuration:0.3 animations:^{
+                self.collectionView.contentInset = UIEdgeInsetsZero;
+            }];
+        }
+    } else {
+        if (scrollView.contentOffset.y <= -HEADER_HEIGHT) {
+            _isVisible = YES;
+            [UIView animateWithDuration:0.3 animations:^{
+                self.collectionView.contentInset = UIEdgeInsetsMake(HEADER_HEIGHT, 0, 0, 0);
+            }];
+        }
+    }
+}
+
+#pragma mark segmented control
+
+- (void)segmentedControlValueChanged:(UISegmentedControl *)sender {
+    NSInteger index = [sender selectedSegmentIndex];
+    if (index == 0) {
+        self.sortMode = ItemSortModeByDate;
+    } else {
+        self.sortMode = ItemSortModeByName;
+    }
+    [self.collectionView reloadData];
+}
 
 @end
