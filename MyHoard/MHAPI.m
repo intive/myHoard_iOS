@@ -220,7 +220,8 @@ static MHAPI *_sharedAPI = nil;
     
     AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
                                                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
-#warning parse response, save refreshed token
+                                                                          _accessToken = responseObject[@"access_token"];
+                                                                          _refreshToken = responseObject[@"refresh_token"];
                                                                           completionBlock(nil, nil);
                                                                       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                                                           [self localizedDescriptionForErrorCode:error];
