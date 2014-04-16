@@ -6,6 +6,7 @@ branches:
 before_install:
 - gem install cocoapods --no-rdoc --no-ri --no-document --quiet
 before_script:
+- export LANG=en_US.UTF-8
 - sudo easy_install cpp-coveralls
 - sudo easy_install PyYAML
 - brew update
