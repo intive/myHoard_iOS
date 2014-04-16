@@ -685,6 +685,55 @@ static MHAPI *_sharedAPI = nil;
     return operation;
 }
 
+#pragma mark read item
+
+- (AFHTTPRequestOperation *)readItem:(MHItem *)item
+                       completionBlock:(MHAPICompletionBlock)completionBlock
+{
+    NSError *error;
+    
+    AFJSONRequestSerializer *jsonSerializer = [AFJSONRequestSerializer serializer];
+    [jsonSerializer setValue:_accessToken forHTTPHeaderField:@"Authorization"];
+    
+    NSMutableURLRequest *request = [jsonSerializer requestWithMethod:@"GET"
+                                                           URLString:[NSString stringWithFormat:@"%@%@/",[self urlWithPath:@"items"],item.objId]
+                                                          parameters:nil
+                                                               error:&error];
+    
+    __block MHItem* i = item;
+    AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
+                                                                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                                                          
+                                                                          i.objId = responseObject[@"id"];
+                                                                          i.objName = responseObject[@"name"];
+                                                                          i.objDescription = responseObject[@"description"];
+                                                                          i.objLocation = responseObject[@"location"];
+                                                                          NSString* date = responseObject[@"created_date"];
+                                                                          i.objCreatedDate = [date dateFromRFC3339String];
+                                                                          date = responseObject[@"modified_date"];
+                                                                          i.objModifiedDate = [date dateFromRFC3339String];
+                                                                          i.objOwner = responseObject[@"owner"];
+                                                                          i.collection = responseObject[@"collection"];
+                                                                          for (MHMedia *media in i.media) {
+                                                                              for (NSDictionary *d in responseObject[@"media"]) {
+                                                                                  media.objId = d[@"id"];
+                                                                                  media.objLocalPath = d[@"url"];
+                                                                              }
+                                                                          }
+                                                                          [[MHCoreDataContext getInstance] saveContext];
+                                                                          
+                                                                          completionBlock(i, error);
+                                                                      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                                                          completionBlock(nil, error);
+                                                                      }];
+    
+    operation.responseSerializer = [AFJSONResponseSerializer serializer];
+    operation.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", nil];
+    [self.operationQueue addOperation:operation];
+    
+    return operation;
+}
+
 #pragma mark update item
 
 - (AFHTTPRequestOperation *)updateItem:(MHItem *)item
