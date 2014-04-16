@@ -10,7 +10,7 @@ before_script:
 - sudo easy_install PyYAML
 - brew update
 - brew upgrade xctool
-- openssl aes-256-cbc -k "$ENCRYPTION_SECRET" -in scripts/profile/MyHoard_AdHoc_Distribution.mobileprovision.enc -d -a -out scripts/profile/MyHoard_AdHoc_Distribution.mobileprovision
+- openssl aes-256-cbc -k "$ENCRYPTION_SECRET2" -in scripts/profile/MyHoard_AdHoc_Distribution.mobileprovision.enc -d -a -out scripts/profile/MyHoard_AdHoc_Distribution.mobileprovision
 - openssl aes-256-cbc -k "$ENCRYPTION_SECRET" -in scripts/certs/dist.cer.enc -d -a -out scripts/certs/dist.cer
 - openssl aes-256-cbc -k "$ENCRYPTION_SECRET" -in scripts/certs/dist.p12.enc -d -a -out scripts/certs/dist.p12
 - ./scripts/add-key.sh
@@ -35,3 +35,4 @@ env:
   - secure: MxhPhWn3gD3tdLAwJGvcg/sGDxm43HHTw7Dqti7+MMotW64RKbwTmg8kyXXNNqK8buDhhoVJ7qDCgOEC7MqxRWq1Ud96vsl2MsvDKOh0hSKWgbXVdAuATYZhKGhfRRoqgS1D7tNhBA+nEXF+2n5oyO9t5/OiIEXb87cWmm6TUlM=
   - secure: G0PhUvlXqKEKA0q8XzVzdbaXMQKcvnd3dcHOQQvCeuq/26VkOW9khm9yxg60xseKzlkuWaJHH4nIDg9qGml/I6RbzQ7ranoeJ3iaH9yi+UjvF9tGilWSRne61uvwZ8xzSNd0CngviLSl6wF/AptZXET5g+vbbit1e2pj24bCdbE=
   - secure: P/9/fxmgvHd04lN81hYgC8R13EvM1yEgSauySqc9QfQRCeyQD+g2K/eM5ZYg2ucIA8/7/YFdlk8xEaYfgUhufYve0a4UPoFK6lnKhpMJPXnf7w9nnKmrDiW/jdFNby1TZosCL+uMFJxXQSOFbeOX5sPeU5TQNvjiaijsT/LHSlo=
+  - secure: TCQmXZ77N6+Rc6KbS9+yZ+SkJZu7nPzk6eQ5oQm7wSkBY9N5pXLO2ro2Oyw8lJrydxAyGvVcht5QpXrKMEBLR+ikArxluSM49CMuZQO+MGzudFhcQggy2sQJe3hIhrj1VGustx0bhN/A43htiuFpHfis+xT4ChU9HqaqnP3VlBw=
