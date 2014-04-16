@@ -156,6 +156,16 @@
         return nil;
 }
 
++ (NSArray*) allItemsWithObjName: (NSString*)objName{
+    NSFetchRequest *fetch = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"MHItem" inManagedObjectContext: [MHCoreDataContext getInstance].managedObjectContext];
+    [fetch setEntity:entityDescription];
+    [fetch setPredicate:[NSPredicate predicateWithFormat:@"objName = %@", objName]];
+    NSError *error = nil;
+    NSArray *fetchedObjects = [[MHCoreDataContext getInstance].managedObjectContext executeFetchRequest:fetch error:&error];
+    return fetchedObjects;
+}
+
 #pragma mark - Media
 + (MHMedia*)insertMediaWithCreatedDate:(NSDate*)objCreatedDate
                               objOwner:(NSString*)objOwner

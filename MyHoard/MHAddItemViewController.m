@@ -226,15 +226,23 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 200;
 - (IBAction)doneButton:(id)sender {
     NSString *result = [self.titleTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     
+    BOOL duplicate = NO;
+    NSArray *objects = [MHDatabaseManager allItemsWithObjName:self.titleTextField.text];
+    for (int i=0; i<[objects count]; i++){
+        MHItem *item = [objects objectAtIndex:i];
+        if ([item.objName isEqualToString:self.titleTextField.text] && [item.collection.objName isEqualToString:self.selectedCollection.objName]){
+            duplicate = YES;}
+    }
+    
     if([result length]<2){
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"error" message:@"Title is to short(spaces, tabs are not included in counting)" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
         [alert show];
     }else if([self.titleTextField.text length]>64){
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"error" message:@"Title is to long(max64)" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
         [alert show];
-    }else if([MHDatabaseManager itemWithObjName: self.titleTextField.text]!=nil){
+    }else if (duplicate == YES){
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"error" message:@"Item of that title exists." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
-        [alert show];
+            [alert show];
     }else if(self.selectedCollection==nil){
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"error" message:@"Collection is not set properly" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
         [alert show];

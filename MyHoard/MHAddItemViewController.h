@@ -12,6 +12,8 @@
 #import <CoreLocation/CoreLocation.h>
 #import "MHMedia.h"
 #import "MHDatabaseManager.h"
+#import "MHItem.h"
+#import "MHCollection.h"
 
 @interface MHAddItemViewController : MHBaseViewController <UITextViewDelegate, CollectionSelectorDelegate, LocationSelectorDelegate>
 
