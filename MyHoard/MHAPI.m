@@ -632,13 +632,29 @@ static MHAPI *_sharedAPI = nil;
     [jsonSerializer setValue:_accessToken forHTTPHeaderField:@"Authorization"];
     
     NSMutableArray* mediaIds = [[NSMutableArray alloc] init];
-    for (MHMedia* media in item.media) {
-        [mediaIds addObject:media.objId];
+    NSMutableDictionary* params = [[NSMutableDictionary alloc]init];
+    
+    if ([item.media count] > 0) {
+        for (MHMedia* media in item.media) {
+            if (!media.objId) {
+                params = [NSMutableDictionary dictionaryWithDictionary:@{@"name": item.objName,
+                                                                         @"description": item.objDescription,
+                                                                         @"collection": item.collection.objId}];
+                
+            }else {
+                [mediaIds addObject:media.objId];
+            }
+        }
+        params = [NSMutableDictionary dictionaryWithDictionary:@{@"name": item.objName,
+                                                                 @"description": item.objDescription,
+                                                                 @"media": mediaIds,
+                                                                 @"collection": item.collection.objId}];
+    }else {
+        
+        params = [NSMutableDictionary dictionaryWithDictionary:@{@"name": item.objName,
+                                                                 @"description": item.objDescription,
+                                                                 @"collection": item.collection.objId}];
     }
-    NSMutableDictionary* params = [NSMutableDictionary dictionaryWithDictionary:@{@"name": item.objName,
-                                                                                  @"description": item.objDescription,
-                                                                                  @"media": mediaIds,
-                                                                                  @"collection": item.collection.objId}];
 
     CLLocation *l = item.objLocation;
     if (l) {
