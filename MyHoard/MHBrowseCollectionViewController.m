@@ -76,6 +76,12 @@
     MHCollection *collect = [_collections objectAtIndex:indexPath.row];
     cell.textLabel.text = collect.objName;
 
+    if (collect == self.selectedCollection) {
+        cell.accessoryView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"check_col"]];
+    } else {
+        cell.accessoryView = nil;
+    }
+    
     cell.textLabel.textColor = [UIColor collectionNameFrontColor];
     cell.backgroundColor = [UIColor appBackgroundColor];
     return cell;

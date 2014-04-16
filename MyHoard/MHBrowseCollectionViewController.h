@@ -19,6 +19,7 @@
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak) id <CollectionSelectorDelegate> delegate;
+@property (nonatomic, strong) MHCollection* selectedCollection;
 
 - (IBAction)cancelButton:(id)sender;
 - (IBAction)addButton:(id)sender;

@@ -205,6 +205,7 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 200;
     [self dismissKeyboard];
     MHBrowseCollectionViewController *VC = [self.storyboard instantiateViewControllerWithIdentifier:@"browse"];
     VC.delegate = self;
+    VC.selectedCollection = _selectedCollection;
     [[self navigationController] pushViewController:VC animated:YES];
 }
 
