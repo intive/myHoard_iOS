@@ -100,6 +100,8 @@
 
 - (IBAction)add:(id)sender {
     NSString *result = [self.nameTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSString *trimmedString = [self.nameTextField.text stringByTrimmingCharactersInSet:
+                               [NSCharacterSet whitespaceCharacterSet]];
     if([result length]<2){
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"error" message:@"Name is to short(spaces, tabs are not included in counting)" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
         [alert show];
@@ -112,7 +114,7 @@
     }
     else{
         
-        MHCollection* collection = [MHDatabaseManager insertCollectionWithObjName:self.nameTextField.text
+        MHCollection* collection = [MHDatabaseManager insertCollectionWithObjName:trimmedString
                                                                    objDescription:self.descriptionTextField.text
                                                                           objTags:[self.tagsTextField.text tags]
                                                                    objCreatedDate:[NSDate date]
