@@ -41,7 +41,7 @@
     _itemTitleLabel.text = _item.objName;
     _itemTitleLabel.textColor = [UIColor collectionNameFrontColor];
     for(MHMedia *media in _item.media) {
-        [UIImage thumbnailForAssetPath:media.objLocalPath completion:^(UIImage *image) {
+        [UIImage thumbnailForAssetPath:media.objLocalPath completion:^(UIImage *image, CLLocationCoordinate2D coordinate) {
             _frontImage.image = image;
         }];
         break; //just read first item

@@ -21,12 +21,14 @@
                  ALAssetRepresentation* r = [asset defaultRepresentation];
                  CGImageRef img = [r fullScreenImage];
                  UIImage* image = [UIImage imageWithCGImage:img];
-                 completion(image);
+                 
+                 CLLocation *location = [asset valueForProperty:ALAssetPropertyLocation];
+                 completion(image, location.coordinate);
              }
      
             failureBlock:^(NSError *error)
      {
-         completion(nil);
+         completion(nil, kCLLocationCoordinate2DInvalid);
      }];
 }
 
@@ -38,11 +40,14 @@
              resultBlock:^(ALAsset *asset) {
                  CGImageRef ref = [asset aspectRatioThumbnail];
                  UIImage* thumbnail = [UIImage imageWithCGImage:ref];
-                 completion(thumbnail);
+                 
+                 CLLocation *location = [asset valueForProperty:ALAssetPropertyLocation];
+
+                 completion(thumbnail, location.coordinate);
              }
      
             failureBlock:^(NSError *error) {
-                completion(nil);
+                completion(nil, kCLLocationCoordinate2DInvalid);
             }];
 }
 

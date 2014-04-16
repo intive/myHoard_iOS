@@ -171,7 +171,7 @@ typedef NS_ENUM(NSInteger, CollectionSortMode) {
             MHItem* item = items[arc4random() % [items count]];
             if (item.media.count) {
                 for(MHMedia* media in item.media) {
-                    [UIImage thumbnailForAssetPath:media.objLocalPath completion:^(UIImage *image) {
+                    [UIImage thumbnailForAssetPath:media.objLocalPath completion:^(UIImage *image, CLLocationCoordinate2D coordinate) {
                         [mhcell.kenBurnsView addImage:image];
                         current++;
                         if (current == max) {
@@ -188,7 +188,7 @@ typedef NS_ENUM(NSInteger, CollectionSortMode) {
         for (MHItem *item in collection.items) {
             if (item.media.count) {
                 for(MHMedia* media in item.media) {
-                    [UIImage thumbnailForAssetPath:media.objLocalPath completion:^(UIImage *image) {
+                    [UIImage thumbnailForAssetPath:media.objLocalPath completion:^(UIImage *image, CLLocationCoordinate2D coordinate) {
                         [mhcell.kenBurnsView addImage:image];
                         current++;
                         if (current == max) {

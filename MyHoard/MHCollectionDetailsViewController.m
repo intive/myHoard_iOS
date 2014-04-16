@@ -136,7 +136,7 @@ typedef NS_ENUM(NSInteger, ItemSortMode) {
     cell.itemTitle.text = item.objName;
 
     for(MHMedia *media in item.media) {
-        [UIImage thumbnailForAssetPath:media.objLocalPath completion:^(UIImage *image) {
+        [UIImage thumbnailForAssetPath:media.objLocalPath completion:^(UIImage *image, CLLocationCoordinate2D coordinate) {
             cell.mediaView.image = image;
         }];
         break; //just read first item

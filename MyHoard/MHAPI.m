@@ -466,7 +466,7 @@ static MHAPI *_sharedAPI = nil;
     __block MHMedia* m = media;
     __block NSData *assetData = [[NSData alloc]init];
     
-    [UIImage imageForAssetPath:media.objLocalPath completion:^(UIImage *image) {
+    [UIImage imageForAssetPath:media.objLocalPath completion:^(UIImage *image, CLLocationCoordinate2D coordinate) {
         assetData = UIImagePNGRepresentation(image);
         
         [manager POST:[self urlWithPath:@"media"] parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
@@ -529,7 +529,7 @@ static MHAPI *_sharedAPI = nil;
 
     __block NSData *assetData = [[NSData alloc]init];
     
-    [UIImage imageForAssetPath:media.objLocalPath completion:^(UIImage *image) {
+    [UIImage imageForAssetPath:media.objLocalPath completion:^(UIImage *image, CLLocationCoordinate2D coordinate) {
         assetData = UIImagePNGRepresentation(image);
         
         [manager POST:[NSString stringWithFormat:@"%@%@/",[self urlWithPath:@"media"],media.objId] parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {

@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreLocation/CoreLocation.h>
 
-typedef void(^UIImageCompletionBlock)(UIImage *image);
+typedef void(^UIImageCompletionBlock)(UIImage *image, CLLocationCoordinate2D coordinate);
 
 @interface UIImage (Gallery)
 

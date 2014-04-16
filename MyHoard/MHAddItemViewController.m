@@ -58,7 +58,7 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 200;
     _commentaryTextView.backgroundColor = [UIColor clearColor];
     _commentaryTextView.textColor = [UIColor lighterYellow];
     if (self.mediaId){
-        [UIImage imageForAssetPath:self.mediaId completion:^(UIImage *image) {
+        [UIImage imageForAssetPath:self.mediaId completion:^(UIImage *image, CLLocationCoordinate2D coordinate) {
             self.imageView.image = image;
         }];
     }
