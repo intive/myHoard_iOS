@@ -709,18 +709,13 @@ static MHAPI *_sharedAPI = nil;
                                                                               date = responseDictionary[@"modified_date"];
                                                                               NSDate* modified = [date dateFromRFC3339String];
                                                                               
-                                                                              MHItem *i = [MHDatabaseManager insertItemWithObjName:responseDictionary[@"name"] objDescription:responseDictionary[@"description"] objTags:nil objLocation:nil objCreatedDate:created objModifiedDate:modified objOwner:responseDictionary[@"owner"] collection:responseDictionary[@"collection"]];
-
-                                                                              for (MHMedia *media in i.media) {
-                                                                                  for (NSDictionary *d in responseDictionary[@"media"]) {
-                                                                                      media.objId = d[@"id"];
-                                                                                      media.objLocalPath = d[@"url"];
-                                                                                  }
-                                                                              }
+                                                                              CLLocation *l = [[CLLocation alloc]initWithLatitude:[responseDictionary[@"location"][@"lat"] doubleValue]longitude:[responseDictionary[@"location"][@"lng"]doubleValue]];
                                                                               
-                                                                              for (NSDictionary *locationDictionary in responseDictionary[@"location"]) {
-                                                                                  i.objLocation[@"latitude"] = locationDictionary[@"lat"];
-                                                                                  i.objLocation[@"longitude"] = locationDictionary[@"lng"];
+                                                                              MHItem *i = [MHDatabaseManager insertItemWithObjName:responseDictionary[@"name"] objDescription:responseDictionary[@"description"] objTags:nil objLocation:l objCreatedDate:created objModifiedDate:modified objOwner:responseDictionary[@"owner"] collection:collection];
+
+                                                                              for (NSDictionary *d in responseDictionary[@"media"]) {
+                                                                                  MHMedia *m = [MHDatabaseManager insertMediaWithCreatedDate:[NSDate date] objOwner:nil objLocalPath:d[@"url"] item:i];
+                                                                                  m.objId = d[@"id"];
                                                                               }
                                                                               
                                                                               [[MHCoreDataContext getInstance] saveContext];
