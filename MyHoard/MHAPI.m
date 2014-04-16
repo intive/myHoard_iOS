@@ -714,7 +714,7 @@ static MHAPI *_sharedAPI = nil;
                                                                               MHItem *i = [MHDatabaseManager insertItemWithObjName:responseDictionary[@"name"] objDescription:responseDictionary[@"description"] objTags:nil objLocation:l objCreatedDate:created objModifiedDate:modified objOwner:responseDictionary[@"owner"] collection:collection];
 
                                                                               for (NSDictionary *d in responseDictionary[@"media"]) {
-                                                                                  MHMedia *m = [MHDatabaseManager insertMediaWithCreatedDate:[NSDate date] objOwner:nil objLocalPath:d[@"url"] item:i];
+                                                                                  MHMedia *m = [MHDatabaseManager insertMediaWithCreatedDate:[NSDate date] objOwner:nil objLocalPath:nil item:i];
                                                                                   m.objId = d[@"id"];
                                                                               }
                                                                               
