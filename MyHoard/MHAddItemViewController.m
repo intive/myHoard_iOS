@@ -248,12 +248,8 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 200;
     NSString *result = [self.titleTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     
     BOOL duplicate = NO;
-    NSArray *objects = [MHDatabaseManager allItemsWithObjName:self.titleTextField.text];
-    for (int i=0; i<[objects count]; i++){
-        MHItem *item = [objects objectAtIndex:i];
-        if ([item.objName isEqualToString:self.titleTextField.text] && [item.collection.objName isEqualToString:self.selectedCollection.objName]){
-            duplicate = YES;}
-    }
+    NSArray *objects = [MHDatabaseManager allItemsWithObjName:self.titleTextField.text inCollection:self.selectedCollection];
+    if ([objects count]) duplicate = YES;
     
     if([result length]<2){
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"error" message:@"Title is to short(spaces, tabs are not included in counting)" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];

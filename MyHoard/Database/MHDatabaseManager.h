@@ -34,7 +34,7 @@
                       collection:(MHCollection *)collection;
 
 + (MHItem*)itemWithObjName:(NSString*)objName;
-+ (NSArray*) allItemsWithObjName: (NSString*)objName;
++ (NSArray*) allItemsWithObjName: (NSString*)objName inCollection:(MHCollection*)collection;
 
 #pragma mark - Media
 + (MHMedia*)insertMediaWithCreatedDate:(NSDate*)objCreatedDate
