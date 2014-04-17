@@ -9,9 +9,13 @@
 #import "MHImagePickerViewController.h"
 #import "MHMedia.h"
 #import "MHDatabaseManager.h"
+#import "MHRoundButton.h"
 
 @interface MHImagePickerViewController ()
-
+{
+    id<UINavigationControllerDelegate,UIImagePickerControllerDelegate> _realDelegate;
+    NSDictionary* _mediaInfo;
+}
 
 @end
 
@@ -20,263 +24,82 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    self.capturedImages = [[NSMutableArray alloc]init];
-    
-    if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-        //if no camera, disable camera button
-        self.navigationItem.rightBarButtonItem.enabled = NO;
-    }
-    
-    [self.navigationController.navigationBar setBarTintColor:[UIColor cameraBottomBarBackgroundColor]];
-    [self.navigationController.navigationBar setTintColor:[UIColor cameraBottomBarBackgroundColor]];
-    
-    [self showImagePickerForSourceType:UIImagePickerControllerSourceTypeCamera];
-    
-}
 
-
-/*- (IBAction)showImagePickerForCamera:(id)sender {
-    
-    [self showImagePickerForSourceType:UIImagePickerControllerSourceTypeCamera];
-}
-
-- (IBAction)showImagePickerForPhotoLibrary:(id)sender {
-    
-    [self showImagePickerForSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
-}*/
-
-- (void)showImagePickerForSourceType:(UIImagePickerControllerSourceType)sourceType {
-
-    if (sourceType == UIImagePickerControllerSourceTypeCamera
-        && !([UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceFront]
-            || [UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceRear]))
-    {
-        //TODO: Show alert about lack of camera device
-        return;
-    }
-
-    if (self.imageView.isAnimating) {
+    if (self.sourceType == UIImagePickerControllerSourceTypeCamera) {
+        [[NSBundle mainBundle] loadNibNamed:@"CameraOverlayView" owner:self options:nil];
         
-        [self.imageView stopAnimating];
-    }
-    
-    if (self.capturedImages.count > 0) {
+        _overlayView.topView.backgroundColor = [UIColor cameraBottomBarBackgroundColor];
+        _overlayView.bottomView.backgroundColor = [UIColor cameraBottomBarBackgroundColor];
+        _overlayView.takePhotoButton.cornerRadius = _overlayView.takePhotoButton.frame.size.width / 2;
+        _overlayView.imageView.hidden = YES;
         
-        [self.capturedImages removeAllObjects];
-    }
-    
-    UIImagePickerController *imagePickerController = [[UIImagePickerController alloc]init];
-    imagePickerController.modalPresentationStyle = UIModalPresentationCurrentContext;
-    imagePickerController.sourceType = sourceType;
-    imagePickerController.delegate = self;
-    
-    if (sourceType == UIImagePickerControllerSourceTypeCamera) {
-        
-        imagePickerController.showsCameraControls = NO;
-        
-        [[NSBundle mainBundle] loadNibNamed:@"MHImagePickerViewController" owner:self options:nil];
-        self.MHIPView.frame = imagePickerController.cameraOverlayView.frame;
-        imagePickerController.cameraOverlayView = self.MHIPView;
-        self.MHIPView = nil;
-    }
-    
-    self.imagePickerController = imagePickerController;
-    [self presentViewController:self.imagePickerController animated:YES completion:nil];
-}
-
-- (BOOL)isLocationInImage:(NSString *)fileName
-{
-    BOOL ret = NO;
-    CFURLRef url = CFURLCreateFromFileSystemRepresentation (kCFAllocatorDefault, (const UInt8 *)[fileName UTF8String], [fileName length], false);
-    
-    if (!url) {
-        NSLog(@"%s: Bad input file path", __PRETTY_FUNCTION__);
-        return ret;
-    }
-    
-    CGImageSourceRef myImageSource;
-    
-    myImageSource = CGImageSourceCreateWithURL(url, NULL);
-    
-    CFDictionaryRef imagePropertiesDictionary;
-    
-    imagePropertiesDictionary = CGImageSourceCopyPropertiesAtIndex(myImageSource, 0, NULL);
-    
-    CFNumberRef imageLocation = (CFNumberRef)CFDictionaryGetValue(imagePropertiesDictionary, kCGImagePropertyGPSDictionary);
-
-    if (!imageLocation)
-    {
-        NSLog(@"%s: No location", __PRETTY_FUNCTION__);
-    }
-    else
-    {
-        ret = YES;
-    }
-    
-    CFRelease(imagePropertiesDictionary);
-    CFRelease(myImageSource);
-    CFRelease(url);
-
-    return ret;
-}
-
-- (IBAction)cancel:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
-- (CLLocationCoordinate2D)locationForImage:(NSString *)fileName
-{
-    CFURLRef url = CFURLCreateFromFileSystemRepresentation (kCFAllocatorDefault, (const UInt8 *)[fileName UTF8String], [fileName length], false);
-    
-    if (!url)
-    {
-        NSLog (@"%s: Bad input file path", __PRETTY_FUNCTION__);
-        return kCLLocationCoordinate2DInvalid;
-    }
-    
-    CGImageSourceRef myImageSource;
-    myImageSource = CGImageSourceCreateWithURL(url, NULL);
-    CFDictionaryRef imagePropertiesDictionary;
-    imagePropertiesDictionary = CGImageSourceCopyPropertiesAtIndex(myImageSource, 0, NULL);
-    CFDictionaryRef imageLocation = CFDictionaryGetValue(imagePropertiesDictionary, kCGImagePropertyGPSDictionary);
-    if (!imageLocation)
-    {
-        CFRelease(imagePropertiesDictionary);
-        CFRelease(myImageSource);
-        CFRelease(url);
-        NSLog(@"%s: No location", __PRETTY_FUNCTION__);
-        return kCLLocationCoordinate2DInvalid;
-    }
-    else
-    {
-        CLLocationDegrees latitude;
-        CLLocationDegrees longtitude;
-        if ([@"N"  isEqualToString: (NSString *)CFDictionaryGetValue(imageLocation, kCGImagePropertyGPSLatitudeRef)]) {
-             latitude = [(NSString *)CFDictionaryGetValue(imageLocation, kCGImagePropertyGPSLatitude) doubleValue];
-        } else {
-             latitude = -[(NSString *)CFDictionaryGetValue(imageLocation, kCGImagePropertyGPSLatitude) doubleValue];
-        }
-        if ([@"E"  isEqualToString:(NSString *)CFDictionaryGetValue(imageLocation, kCGImagePropertyGPSLongitudeRef)]) {
-             longtitude = [(NSString *)CFDictionaryGetValue(imageLocation, kCGImagePropertyGPSLongitude) doubleValue];
-        } else {
-             longtitude = -[(NSString *)CFDictionaryGetValue(imageLocation, kCGImagePropertyGPSLongitude) doubleValue];
+        if (![UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceFront]) {
+            _overlayView.cameraButton.enabled = NO;
         }
         
-        
-        CFRelease(imagePropertiesDictionary);
-        CFRelease(myImageSource);
-        CFRelease(url);
-        
-        return CLLocationCoordinate2DMake(latitude, longtitude);
+//        self.showsCameraControls = NO;
+//        self.delegate = self;
     }
-}
-- (IBAction)switchCamera:(id)sender{
-    self.camera = 0;
-    [self addVideoInput];
-    self.camera = 1;
+    
+    self.allowsEditing = NO;
 }
 
-- (void)addVideoInput {
-    NSArray *devices = [AVCaptureDevice devices];
-    AVCaptureDevice *frontCamera;
-    AVCaptureDevice *backCamera;
-    
-    for (AVCaptureDevice *device in devices) {
-        
-        NSLog(@"Device name: %@", [device localizedName]);
-        
-        if ([device hasMediaType:AVMediaTypeVideo]) {
-            
-            if ([device position] == AVCaptureDevicePositionBack && self.camera%2==0) {
-                backCamera = device;
-            }
-            else if ([device position] == AVCaptureDevicePositionFront && self.camera%2==1) {
-                frontCamera = device;
-            }
-        }
-    }
-    
-    NSError *error = nil;
-    AVCaptureDeviceInput *frontFacingCameraDeviceInput = [AVCaptureDeviceInput deviceInputWithDevice:frontCamera error:&error];
-    if (!error) {
-        if ([[self captureSession] canAddInput:frontFacingCameraDeviceInput])
-            [[self captureSession] addInput:frontFacingCameraDeviceInput];
-        else {
-            NSLog(@"Couldn't add front facing video input");
-        }
-    }
-    
-    NSError *error1 = nil;
-    AVCaptureDeviceInput *backFacingCameraDeviceInput = [AVCaptureDeviceInput deviceInputWithDevice:backCamera error:&error1];
-    if (!error1) {
-        if ([[self captureSession] canAddInput:backFacingCameraDeviceInput])
-            [[self captureSession] addInput:backFacingCameraDeviceInput];
-        else {
-            NSLog(@"Couldn't add front facing video input");
-        }
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+
+//    if (self.sourceType == UIImagePickerControllerSourceTypeCamera) {
+//        [self.view addSubview:_overlayView];
+//        _overlayView.frame = self.view.bounds;
+//
+//        self.cameraViewTransform = CGAffineTransformScale(self.cameraViewTransform, 1, 1.5);        
+//    }
+}
+
+- (IBAction)cameraButtonPressed:(id)sender {
+    if (self.cameraDevice == UIImagePickerControllerCameraDeviceRear) {
+        self.cameraDevice = UIImagePickerControllerCameraDeviceFront;
+    } else {
+        self.cameraDevice = UIImagePickerControllerCameraDeviceRear;
     }
 }
 
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    
-    if([segue.identifier isEqualToString:@"cameraSegue"])
-    {
-        MHSavePhotoViewController *destinationViewController;
-        destinationViewController.capturedImages = self.capturedImages;
-    }
+- (IBAction)takePhotoButtonPressed:(id)sender {
+    [self takePicture];
 }
 
-
-
-
-#pragma Xib toolbar actions
-
-- (IBAction)done:(id)sender {
-
-    [self finishAndUpdate];
-}
-
-- (IBAction)takePhoto:(id)sender {
-    
-    [self.imagePickerController takePicture];
-}
-
-- (void)finishAndUpdate {
-    
+- (IBAction)cancelButtonPressed:(id)sender {
+    if ([_realDelegate respondsToSelector:@selector(imagePickerControllerDidCancel:)]) {
+		[_realDelegate performSelector:@selector(imagePickerControllerDidCancel:) withObject:self];
+	}
     [self dismissViewControllerAnimated:YES completion:nil];
-    
-    if ([self.capturedImages count] > 0) {
-        if ([self.capturedImages count] == 1) {
-            [self.imageView setImage:[self.capturedImages objectAtIndex:0]];
-        }
-        
-        [self.capturedImages removeAllObjects];
-    }
-    
-    self.imagePickerController = nil;
 }
 
-#pragma mark - UIImagePickerControllerDelegate
-
-// This method is called when an image has been chosen from the library or taken from the camera.
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
-{
-    UIImage *image = [info valueForKey:UIImagePickerControllerOriginalImage];
-    
-    [self.capturedImages addObject:image];
-    
-    NSURL *imageUrl = [info valueForKey:UIImagePickerControllerReferenceURL];
-    
-#warning - pass imageUrl to the add item view controller.
-    
-    [self finishAndUpdate];
+- (IBAction)retakeButtonPressed:(id)sender {
+    _overlayView.imageView.hidden = YES;
+    _overlayView.imageView.image = nil;
+    _overlayView.topView.hidden = NO;
+    _overlayView.bottomView.hidden = NO;
 }
 
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    
+    _mediaInfo = info;
+    _overlayView.imageView.image = info[UIImagePickerControllerOriginalImage];
+    _overlayView.imageView.hidden = NO;
+    _overlayView.topView.hidden = YES;
+    _overlayView.bottomView.hidden = YES;
+}
 
-- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
-{
-    [self dismissViewControllerAnimated:YES completion:NULL];
+- (void)setDelegate:(id<UINavigationControllerDelegate,UIImagePickerControllerDelegate>)delegate {
+//    if (self.sourceType == UIImagePickerControllerSourceTypeCamera) {
+//        if ([delegate isEqual:self]) {
+//            [super setDelegate:delegate];
+//        } else {
+//            _realDelegate = delegate;
+//        }
+//    } else {
+        [super setDelegate:delegate];
+//    }
 }
 
 @end

@@ -12,6 +12,8 @@
 #import "UIImage+Gallery.h"
 #import "MHMedia.h"
 #import "MHAPI.h"
+#import "MHImagePickerViewController.h"
+
 
 typedef NS_ENUM(NSInteger, CollectionSortMode) {
     CollectionSortModeByName = 0,
@@ -446,7 +448,7 @@ newIndexPath:(NSIndexPath *)newIndexPath
 }
 
 - (NSFetchedResultsController*) sortByName{
-    [NSFetchedResultsController deleteCacheWithName:@"Root"];
+//    [NSFetchedResultsController deleteCacheWithName:@"Root"];
     #warning To someone who made this class :Can i clear cache here(without clearing cache app crashes after switching user account). If yes remove warning else tell it to me :)
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc]init];
     
@@ -461,7 +463,7 @@ newIndexPath:(NSIndexPath *)newIndexPath
 }
 
 - (NSFetchedResultsController*) sortByDate{
-    [NSFetchedResultsController deleteCacheWithName:@"Root"];
+//    [NSFetchedResultsController deleteCacheWithName:@"Root"];
     #warning To someone who made this class :Can i clear cache here(without clearing cache app crashes after switching user account)?
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc]init];
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"MHCollection" inManagedObjectContext:[MHCoreDataContext getInstance].managedObjectContext];
@@ -561,7 +563,7 @@ newIndexPath:(NSIndexPath *)newIndexPath
 
 - (void)showImagePickerForSourceType:(UIImagePickerControllerSourceType)sourceType {
 
-    UIImagePickerController *imagePickerController = [[UIImagePickerController alloc]init];
+    MHImagePickerViewController *imagePickerController = [[MHImagePickerViewController alloc] init];
     imagePickerController.modalPresentationStyle = UIModalPresentationCurrentContext;
     imagePickerController.sourceType = sourceType;
     imagePickerController.delegate = self;
@@ -575,7 +577,7 @@ newIndexPath:(NSIndexPath *)newIndexPath
             [self performSegueWithIdentifier:@"AddItemSegue" sender:nil];
             break;
         case 1:
-            [self performSegueWithIdentifier:@"ImagePickerSegue" sender:nil];
+            [self showImagePickerForSourceType:UIImagePickerControllerSourceTypeCamera];
             break;
         case 2:
             [self showImagePickerForSourceType:UIImagePickerControllerSourceTypePhotoLibrary];

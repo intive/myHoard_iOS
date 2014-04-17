@@ -7,34 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <ImageIO/ImageIO.h>
-#import <CoreLocation/CoreLocation.h>
 #import <AVFoundation/AVFoundation.h>
-#import <AssetsLibrary/AssetsLibrary.h>
-#import "MHSavePhotoViewController.h"
 
+#import "CameraOverlayView.h"
 
-@interface MHImagePickerViewController : UIViewController <UINavigationControllerDelegate, UIImagePickerControllerDelegate>
+@interface MHImagePickerViewController : UIImagePickerController <UINavigationControllerDelegate,UIImagePickerControllerDelegate>
 
-@property (weak, nonatomic) IBOutlet UIImageView *imageView;
-@property (weak, nonatomic) IBOutlet UIView *MHIPView;
-@property (weak, nonatomic) IBOutlet UIToolbar *MHIPToolbar;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *MHIPDoneButton;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *MHIPTakePictureButton;
-@property (strong) AVCaptureSession *captureSession;
-@property (nonatomic) NSInteger camera;
-
-@property (nonatomic) UIImagePickerController *imagePickerController;
-
-@property (nonatomic) NSMutableArray *capturedImages;
-
-//- (IBAction)showImagePickerForCamera:(id)sender;
-//- (IBAction)showImagePickerForPhotoLibrary:(id)sender;
-//- (IBAction)done:(id)sender;
-- (IBAction)takePhoto:(id)sender;
-- (CLLocationCoordinate2D)locationForImage:(NSString *)fileName;
-- (BOOL)isLocationInImage:(NSString *)fileName;
-- (IBAction)cancel:(id)sender;
-- (IBAction)switchCamera:(id)sender;
+@property (strong, nonatomic) IBOutlet CameraOverlayView *overlayView;
 
 @end
