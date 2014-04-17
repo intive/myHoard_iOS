@@ -45,7 +45,7 @@ static MHAPI *_sharedAPI = nil;
     NSString *ret = @"";
     switch([MHUserSettings serverType]) {
         case MHServerTypePython:
-            ret = @"http://78.133.154.18:8080";
+            ret = @"http://78.133.154.18:8081";
             break;
         case MHServerTypeJava1:
             ret = @"http://78.133.154.39:1080";
