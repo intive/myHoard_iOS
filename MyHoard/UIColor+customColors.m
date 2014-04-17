@@ -19,11 +19,11 @@
 }
 
 +(UIColor*)cameraBottomBarBackgroundColor{
-    return [UIColor colorWithHexString:@"#ffc002" alpha:1.0];
+    return [UIColor colorWithHexString:@"#000000" alpha:1.0];
 }
 
 +(UIColor*)cameraButtonColor{
-    return [UIColor colorWithHexString:@"#ffffff" alpha:1.0];
+    return [UIColor colorWithHexString:@"#ffc002" alpha:1.0];
 }
 
 +(UIColor*)navigationBarBackgroundColor{
