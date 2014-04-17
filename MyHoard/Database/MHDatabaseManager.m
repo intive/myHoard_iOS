@@ -156,11 +156,11 @@
         return nil;
 }
 
-+ (NSArray*) allItemsWithObjName: (NSString*)objName inCollection:(MHCollection *)collection{
++ (NSArray*) allItemsWithObjName: (NSString*)objName{
     NSFetchRequest *fetch = [[NSFetchRequest alloc] init];
     NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"MHItem" inManagedObjectContext: [MHCoreDataContext getInstance].managedObjectContext];
     [fetch setEntity:entityDescription];
-    [fetch setPredicate:[NSPredicate predicateWithFormat:@"objName = %@ AND collection = %@", objName, collection]];
+    [fetch setPredicate:[NSPredicate predicateWithFormat:@"objName = %@", objName]];
     NSError *error = nil;
     NSArray *fetchedObjects = [[MHCoreDataContext getInstance].managedObjectContext executeFetchRequest:fetch error:&error];
     return fetchedObjects;
