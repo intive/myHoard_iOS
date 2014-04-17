@@ -65,6 +65,7 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 200;
             CLLocation *loc = [[CLLocation alloc]initWithLatitude:coordinate.latitude longitude:coordinate.longitude];
             [geo reverseGeocodeLocation: loc completionHandler:
              ^(NSArray *placemarks, NSError *error) {
+                 if (placemarks.count && !error){
                  CLPlacemark *placemark = [placemarks objectAtIndex:0];
                  NSMutableString *tmp = [[NSMutableString alloc]init];
                  if (placemark.thoroughfare != nil){
@@ -79,6 +80,9 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 200;
                  _locationNameString=tmp;
                  if (tmp.length) {
                      self.localizationNoneLabel.text=_locationNameString;
+                 }
+                 }else{
+                     NSLog(@"error when geting name from location located in photo");
                  }
              }];
         }];
