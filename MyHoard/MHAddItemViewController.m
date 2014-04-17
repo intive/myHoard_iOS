@@ -60,6 +60,27 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 200;
     if (self.mediaId){
         [UIImage imageForAssetPath:self.mediaId completion:^(UIImage *image, CLLocationCoordinate2D coordinate) {
             self.imageView.image = image;
+            _locationCoordinatePassed=coordinate;
+            CLGeocoder *geo = [[CLGeocoder alloc]init];
+            CLLocation *loc = [[CLLocation alloc]initWithLatitude:coordinate.latitude longitude:coordinate.longitude];
+            [geo reverseGeocodeLocation: loc completionHandler:
+             ^(NSArray *placemarks, NSError *error) {
+                 CLPlacemark *placemark = [placemarks objectAtIndex:0];
+                 NSMutableString *tmp = [[NSMutableString alloc]init];
+                 if (placemark.thoroughfare != NULL){
+                     [tmp appendFormat:@"%@",placemark.thoroughfare];
+                 }
+                 if (placemark.thoroughfare != NULL && placemark.locality != NULL){
+                     [tmp appendFormat:@", "];
+                 }
+                 if (placemark.locality != NULL){
+                     [tmp appendFormat:@"%@", placemark.locality];
+                 }
+                 _locationNameString=tmp;
+                 if (![tmp isEqualToString:@""]) {
+                     self.localizationNoneLabel.text=_locationNameString;
+                 }
+             }];
         }];
     }
 }
