@@ -277,12 +277,12 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 200;
                                                     objLocation:loc
                                                  objCreatedDate:[NSDate date]
                                                 objModifiedDate:nil
-                                                       objOwner:nil
+                                                       objOwner:[[MHDatabaseManager sharedInstance]userName]
                                                      collection:self.selectedCollection];
-        
+        NSLog(@"owner: %@",[[MHDatabaseManager sharedInstance]userName]);
         if (self.mediaId) {
             [MHDatabaseManager insertMediaWithCreatedDate:[NSDate date]
-                                                objOwner:nil
+                                                objOwner:[[MHDatabaseManager sharedInstance]userName]
                                             objLocalPath:self.mediaId
                                                     item:item];
         }

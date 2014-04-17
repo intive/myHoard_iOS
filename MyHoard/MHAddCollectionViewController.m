@@ -119,7 +119,7 @@
                                                                           objTags:[self.tagsTextField.text tags]
                                                                    objCreatedDate:[NSDate date]
                                                                   objModifiedDate:nil
-                                                                         objOwner:nil];
+                                                                         objOwner:[[MHDatabaseManager sharedInstance]userName]];
         
         if ([[MHAPI getInstance]activeSession] == YES) {
             NSLog(@"Yes you are logged in");

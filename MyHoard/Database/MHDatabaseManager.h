@@ -11,6 +11,10 @@
 @class MHCollection, MHItem, MHMedia, CLLocation;
 
 @interface MHDatabaseManager : NSObject
+@property (strong, nonatomic) NSString *userName;
+
++ (MHDatabaseManager *)sharedInstance;
+- (void)setUserName:(NSString *)userName;
 
 #pragma mark - Collection
 + (MHCollection*)insertCollectionWithObjName:(NSString*)objName
@@ -22,6 +26,7 @@
 
 + (MHCollection*)collectionWithObjName:(NSString*)objName;
 + (NSArray*)allCollections;
++ (NSArray*)allCollectionsForUser: (NSString*)objOwner;
 
 #pragma mark - Item
 + (MHItem*)insertItemWithObjName:(NSString*)objName

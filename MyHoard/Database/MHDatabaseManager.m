@@ -75,6 +75,10 @@
     return fetchedObjects;
 }
 
++ (NSArray*)allCollectionsForUser: (NSString*)objOwner{
+    return nil;
+}
+
 + (MHCollection*)collectionWithObjName:(NSString*)objName {
     
     NSFetchRequest *fetch = [[NSFetchRequest alloc] init];
@@ -194,6 +198,28 @@
     
     [[MHCoreDataContext getInstance] saveContext];
     return media;
+}
+
+static MHDatabaseManager *sharedInstance;
+
++ (MHDatabaseManager *)sharedInstance {
+    @synchronized(self) {
+        if (!sharedInstance)
+            sharedInstance=[[MHDatabaseManager alloc] init];
+    }
+    return sharedInstance;
+}
+
++(id)alloc {
+    @synchronized(self) {
+        NSAssert(sharedInstance == nil, @"Attempted to allocate a second instance of a singleton dataBaseController.");
+        sharedInstance = [super alloc];
+    }
+    return sharedInstance;
+}
+
+-(void)setUserName:(NSString *)userName{
+    _userName=userName;
 }
 
 @end

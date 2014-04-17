@@ -66,6 +66,7 @@ static MHAPI *_sharedAPI = nil;
 - (void)logout:(MHAPICompletionBlock)completionBlock {
     _accessToken = nil;
     _refreshToken = nil;
+    [[MHDatabaseManager sharedInstance]setUserName:@""];
     completionBlock(nil, nil);
 }
 
@@ -254,6 +255,7 @@ static MHAPI *_sharedAPI = nil;
                                                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
                                                                           _accessToken = [responseObject valueForKeyPath:@"access_token"];
                                                                           _refreshToken = [responseObject valueForKeyPath:@"refresh_token"];
+                                                                          [[MHDatabaseManager sharedInstance]setUserName:email];
                                                                           completionBlock(nil, nil);
                                                                       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                                                           [self localizedDescriptionForErrorCode:error];
