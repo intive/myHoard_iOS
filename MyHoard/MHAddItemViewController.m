@@ -67,17 +67,17 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 200;
              ^(NSArray *placemarks, NSError *error) {
                  CLPlacemark *placemark = [placemarks objectAtIndex:0];
                  NSMutableString *tmp = [[NSMutableString alloc]init];
-                 if (placemark.thoroughfare != NULL){
+                 if (placemark.thoroughfare != nil){
                      [tmp appendFormat:@"%@",placemark.thoroughfare];
                  }
-                 if (placemark.thoroughfare != NULL && placemark.locality != NULL){
+                 if (placemark.thoroughfare != nil && placemark.locality != nil){
                      [tmp appendFormat:@", "];
                  }
-                 if (placemark.locality != NULL){
+                 if (placemark.locality != nil){
                      [tmp appendFormat:@"%@", placemark.locality];
                  }
                  _locationNameString=tmp;
-                 if (![tmp isEqualToString:@""]) {
+                 if (tmp.length) {
                      self.localizationNoneLabel.text=_locationNameString;
                  }
              }];
