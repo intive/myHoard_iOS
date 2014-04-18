@@ -326,9 +326,9 @@ static MHAPI *_sharedAPI = nil;
                                                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
                                                                           for (NSDictionary *responseDictionary in responseObject) {
                                                                               
-                                                                              NSString* date = responseObject[@"created_date"];
+                                                                              NSString* date = responseDictionary[@"created_date"];
                                                                               NSDate* created = [date dateFromRFC3339String];
-                                                                              date = responseObject[@"modified_date"];
+                                                                              date = responseDictionary[@"modified_date"];
                                                                               NSDate* modified = [date dateFromRFC3339String];
 
                                                                               
@@ -340,10 +340,9 @@ static MHAPI *_sharedAPI = nil;
                                                                                                                        objOwnerNilAddLogedUserCode:responseDictionary[@"owner"]];
                                                                               
                                                                               createdCollection.objId = responseDictionary[@"id"];
+                                                                              
+                                                                            [[MHCoreDataContext getInstance] saveContext];
                                                                           }
-                                                                          
-                                                                          [[MHCoreDataContext getInstance] saveContext];
-                                                                          
                                                                           completionBlock(nil, error);
                                                                       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                                                           completionBlock(nil, error);
