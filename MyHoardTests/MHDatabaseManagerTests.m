@@ -273,7 +273,7 @@ describe(@"MHDatabaseManager Tests", ^{
         [[item2 shouldNot]beNil];
         [[item2 should] equal:item1];
     });
-
+/*
     it(@"Items with same name in collection, is it possible to get duplicates?", ^{
         
         MHCollection *col1=[MHDatabaseManager insertCollectionWithObjName:@"name" objDescription:@"1" objTags:@[@"1", @"2", @"3"] objCreatedDate:[NSDate date] objModifiedDate:nil objOwnerNilAddLogedUserCode:@"1"];
@@ -302,7 +302,7 @@ describe(@"MHDatabaseManager Tests", ^{
         [[item4 shouldNot]beNil];
         [[item4 should] equal:item2];
     });
-
+*/
 });
 
 SPEC_END

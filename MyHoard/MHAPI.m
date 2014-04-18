@@ -117,7 +117,7 @@ static MHAPI *_sharedAPI = nil;
     AFJSONRequestSerializer *jsonRequest = [AFJSONRequestSerializer serializer];
     [jsonRequest setValue:_accessToken forHTTPHeaderField:@"Authorization"];
     
-    NSMutableURLRequest *request = [jsonRequest requestWithMethod:@"GET" URLString:[self urlWithPath:@"users"] parameters:nil error:&error];
+    NSMutableURLRequest *request = [jsonRequest requestWithMethod:@"GET" URLString:[NSString stringWithFormat:@"%@%@/", [self urlWithPath:@"users"],_userId] parameters:nil error:&error];
     
     
     AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
@@ -150,7 +150,7 @@ static MHAPI *_sharedAPI = nil;
     [jsonRequest setValue:_accessToken forHTTPHeaderField:@"Authorization"];
     
     NSMutableURLRequest *request = [jsonRequest requestWithMethod:@"PUT"
-                                                        URLString:[self urlWithPath:@"users"]
+                                                        URLString:[NSString stringWithFormat:@"%@%@/", [self urlWithPath:@"users"],_userId]
                                                        parameters:@{@"username": username,
                                                                     @"password": password,
                                                                     @"email": email}
@@ -180,9 +180,8 @@ static MHAPI *_sharedAPI = nil;
     AFJSONRequestSerializer* jsonRequest = [AFJSONRequestSerializer serializer];
     [jsonRequest setValue:_accessToken forHTTPHeaderField:@"Authorization"];
     
-#warning - this is wrong, we should use 'users/user_id'
     NSMutableURLRequest *request = [jsonRequest requestWithMethod:@"DELETE"
-                                                        URLString:[self urlWithPath:@"users"]
+                                                        URLString:[NSString stringWithFormat:@"%@%@/", [self urlWithPath:@"users"],_userId]
                                                        parameters:nil
                                                             error:&error];
     
@@ -223,6 +222,7 @@ static MHAPI *_sharedAPI = nil;
                                                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
                                                                           _accessToken = responseObject[@"access_token"];
                                                                           _refreshToken = responseObject[@"refresh_token"];
+                                                                          _userId = responseObject[@"user_id"];
                                                                           completionBlock(nil, nil);
                                                                       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                                                           [self localizedDescriptionForErrorCode:error];
