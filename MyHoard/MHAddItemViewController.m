@@ -9,6 +9,8 @@
 #import "MHAddItemViewController.h"
 #import "MHDatabaseManager.h"
 #import "UIImage+Gallery.h"
+#import "MHAPI.h"
+#import "MHWaitDialog.h"
 
 static const CGFloat KEYBOARD_ANIMATION_DURATION = 0.3;
 static const CGFloat MINIMUM_SCROLL_FRACTION = 0.01;
@@ -280,8 +282,31 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 200;
                                                      collection:self.selectedCollection];
         if (self.mediaId) {
             [MHDatabaseManager insertMediaWithCreatedDate:[NSDate date]
-                                            objLocalPath:self.mediaId
-                                                    item:item];
+                                             objLocalPath:self.mediaId
+                                                     item:item];
+            
+        }
+        
+        if ([[MHAPI getInstance]activeSession] == YES) {
+            __block MHWaitDialog* wait = [[MHWaitDialog alloc] init];
+            [wait show];
+            [[MHAPI getInstance] createItem:item completionBlock:^(id object, NSError *error) {
+                [wait dismiss];
+                if (error) {
+                    UIAlertView *alert = [[UIAlertView alloc]
+                                          initWithTitle:@"Error"
+                                          message:error.localizedDescription
+                                          delegate:self
+                                          cancelButtonTitle:@"Ok"
+                                          otherButtonTitles:nil];
+                    [alert show];
+                }
+                
+                [self dismissViewControllerAnimated:YES completion:nil];
+            }];
+        }else {
+            
+            [self dismissViewControllerAnimated:YES completion:nil];
         }
         
         [self.navigationController dismissViewControllerAnimated:YES completion:nil];
