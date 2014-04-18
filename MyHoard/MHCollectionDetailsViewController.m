@@ -179,9 +179,11 @@ typedef NS_ENUM(NSInteger, ItemSortMode) {
 
         headerView.collectionTitle.text = _collection.objDescription.length ? _collection.objDescription : _collection.objName;
         
+        NSMutableString* tags = [NSMutableString new];
         for (NSString *tag in _collection.objTags) {
-            headerView.collectionTags.text = [NSString stringWithFormat:@"%@#%@ ", headerView.collectionTags.text, tag];
+            [tags appendFormat:@"#%@ ", tag];
         }
+        headerView.collectionTags.text = tags;
         
         reusableview = headerView;
     }
