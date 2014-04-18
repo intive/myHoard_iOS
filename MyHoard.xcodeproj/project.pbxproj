@@ -26,7 +26,6 @@
 		23CD276619012FE5005203C2 /* MHCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 23CD276519012FE5005203C2 /* MHCollection.m */; };
 		23D02EFB18EEAA0300114941 /* MHAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D02EFA18EEAA0300114941 /* MHAPI.m */; };
 		23D02F0318EF38C600114941 /* MHWaitDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D02F0218EF38C600114941 /* MHWaitDialog.m */; };
-		23D02F0A18F2026000114941 /* UIImage+Gallery.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D02F0918F2026000114941 /* UIImage+Gallery.m */; };
 		23D321A1184BBFFA002FC13A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23D321A0184BBFFA002FC13A /* Foundation.framework */; };
 		23D321A3184BBFFA002FC13A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23D321A2184BBFFA002FC13A /* CoreGraphics.framework */; };
 		23D321A5184BBFFA002FC13A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23D321A4184BBFFA002FC13A /* UIKit.framework */; };
@@ -132,8 +131,6 @@
 		23D02EFA18EEAA0300114941 /* MHAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHAPI.m; sourceTree = "<group>"; };
 		23D02F0118EF38C600114941 /* MHWaitDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHWaitDialog.h; sourceTree = "<group>"; };
 		23D02F0218EF38C600114941 /* MHWaitDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHWaitDialog.m; sourceTree = "<group>"; };
-		23D02F0818F2026000114941 /* UIImage+Gallery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Gallery.h"; sourceTree = "<group>"; };
-		23D02F0918F2026000114941 /* UIImage+Gallery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Gallery.m"; sourceTree = "<group>"; };
 		23D3219D184BBFFA002FC13A /* MyHoard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyHoard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		23D321A0184BBFFA002FC13A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		23D321A2184BBFFA002FC13A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -333,8 +330,6 @@
 			children = (
 				23FB2BCD18D23DDF009EFDE7 /* UIColor+customColors.h */,
 				23FB2BCE18D23DDF009EFDE7 /* UIColor+customColors.m */,
-				23D02F0818F2026000114941 /* UIImage+Gallery.h */,
-				23D02F0918F2026000114941 /* UIImage+Gallery.m */,
 				53062B5218F48F8E006FC69C /* NSString+Tags.h */,
 				53062B5318F48F8E006FC69C /* NSString+Tags.m */,
 				23C4E68118FC7542002FB84D /* NSString+RFC3339.h */,
@@ -734,7 +729,6 @@
 				93245CA418E0931D008AFE37 /* MHCollectionDetailsCell.m in Sources */,
 				23D02EFB18EEAA0300114941 /* MHAPI.m in Sources */,
 				E74EDDBA18E6F7F200488AD1 /* UIActionSheet+ButtonState.m in Sources */,
-				23D02F0A18F2026000114941 /* UIImage+Gallery.m in Sources */,
 				CE92CB5818C321EF005038D9 /* MHImagePickerViewController.m in Sources */,
 				CEA8F94518DE024600B75355 /* MHStartScreenViewController.m in Sources */,
 				23A3C30A18FEC45E00597337 /* CameraOverlayView.m in Sources */,

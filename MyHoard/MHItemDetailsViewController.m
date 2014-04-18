@@ -7,7 +7,6 @@
 //
 
 #import "MHItemDetailsViewController.h"
-#import "UIImage+Gallery.h"
 #import "MHImageCache.h"
 
 @interface MHItemDetailsViewController ()

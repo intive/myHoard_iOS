@@ -9,7 +9,6 @@
 #import "MHCollectionViewController.h"
 #import "MHCollectionDetailsViewController.h"
 #import "MHAddItemViewController.h"
-#import "UIImage+Gallery.h"
 #import "MHMedia.h"
 #import "MHAPI.h"
 #import "MHImagePickerViewController.h"

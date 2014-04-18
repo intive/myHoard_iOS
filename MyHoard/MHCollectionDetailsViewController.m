@@ -6,7 +6,6 @@
 //  Copyright (c) 2014 BLStream. All rights reserved.
 //
 #import "MHCollectionDetailsViewController.h"
-#import "UIImage+Gallery.h"
 #import "MHItemDetailsViewController.h"
 #import "MHAddItemViewController.h"
 #import "MHImageCache.h"

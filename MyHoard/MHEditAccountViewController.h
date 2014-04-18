@@ -9,7 +9,6 @@
 #import "MHBaseViewController.h"
 #import "UIActionSheet+ButtonState.h"
 #import "MHAPI.h"
-#import "UIImage+Gallery.h"
 
 #import "MHAccountViewController.h"
 

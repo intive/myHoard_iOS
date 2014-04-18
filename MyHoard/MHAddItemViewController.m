@@ -8,7 +8,6 @@
 
 #import "MHAddItemViewController.h"
 #import "MHDatabaseManager.h"
-#import "UIImage+Gallery.h"
 #import "MHAPI.h"
 #import "MHWaitDialog.h"
 #import "MHImageCache.h"
