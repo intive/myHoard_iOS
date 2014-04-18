@@ -17,13 +17,13 @@
 
 @interface MHAddItemViewController : MHBaseViewController <UITextViewDelegate, CollectionSelectorDelegate, LocationSelectorDelegate>
 
-@property (nonatomic) NSMutableArray *capturedImagesURL;// need to be set by previous controllers
-@property (nonatomic, readwrite) NSString *mediaId;
+@property (nonatomic, strong) UIImage* selectedImage;
 
 @property (nonatomic,strong) MHLocalizationViewController *VCL;
 @property (nonatomic,strong) MHCollection* selectedCollection;
 @property (nonatomic,strong) NSString *locationNameString;
 @property (nonatomic) CLLocationCoordinate2D locationCoordinatePassed;
+
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (weak, nonatomic) IBOutlet UIView *titleBackground;
 @property (weak, nonatomic) IBOutlet UIView *collectionBackground;

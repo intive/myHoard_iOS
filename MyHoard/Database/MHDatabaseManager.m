@@ -169,7 +169,7 @@
 
 #pragma mark - Media
 + (MHMedia*)insertMediaWithCreatedDate:(NSDate*)objCreatedDate
-                          objLocalPath:(NSString*)objLocalPath
+                                objKey:(NSString*)objKey
                                   item:(MHItem *)item
 {
     // mandatory fields
@@ -184,9 +184,8 @@
     media.objCreatedDate = objCreatedDate;
 
     media.item = item;
-    
-    if (objLocalPath.length)
-        media.objLocalPath = objLocalPath;
+
+    media.objKey = objKey;
     
     //objOwner don't need to be set becouse we are getting media only for items, so situation where we take items from different owner then owner of a item couldn't happen.
     

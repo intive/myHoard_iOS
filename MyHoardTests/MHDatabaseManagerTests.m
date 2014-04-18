@@ -118,7 +118,7 @@ describe(@"MHDatabaseManager Tests", ^{
     });
     
     it(@"Add media to DB test", ^{
-        [MHDatabaseManager insertMediaWithCreatedDate:[NSDate date] objLocalPath:@"sciezka" item:nil];
+        [MHDatabaseManager insertMediaWithCreatedDate:[NSDate date] objKey:@"key" item:nil];
         
         NSManagedObjectContext* context = cdcTest.managedObjectContext;
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
@@ -135,16 +135,16 @@ describe(@"MHDatabaseManager Tests", ^{
         MHMedia* me = [fetchedObjects objectAtIndex:0];
         
         [[me.objCreatedDate should] beKindOfClass:[NSDate class]];
-        [[me.objLocalPath should] equal:@"sciezka"];
+        [[me.objKey should] equal:@"key"];
         
     });
     
     it(@"Id of media should be unique", ^{
-        [MHDatabaseManager insertMediaWithCreatedDate:[NSDate date] objLocalPath:@"sciezka" item:nil];
-        [MHDatabaseManager insertMediaWithCreatedDate:[NSDate date] objLocalPath:@"sciezka2" item:nil];
+        [MHDatabaseManager insertMediaWithCreatedDate:[NSDate date] objKey:@"key" item:nil];
+        [MHDatabaseManager insertMediaWithCreatedDate:[NSDate date] objKey:@"key" item:nil];
         
         // the same as first one, should not be added to db
-        [MHDatabaseManager insertMediaWithCreatedDate:[NSDate date] objLocalPath:@"sciezka" item:nil];
+        [MHDatabaseManager insertMediaWithCreatedDate:[NSDate date] objKey:@"key" item:nil];
         
         NSManagedObjectContext* context = cdcTest.managedObjectContext;
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];

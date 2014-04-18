@@ -11,6 +11,7 @@
 #import "UIImage+Gallery.h"
 #import "MHAPI.h"
 #import "MHWaitDialog.h"
+#import "MHImageCache.h"
 
 static const CGFloat KEYBOARD_ANIMATION_DURATION = 0.3;
 static const CGFloat MINIMUM_SCROLL_FRACTION = 0.01;
@@ -59,36 +60,38 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 200;
     _defaultLabel.textColor = [UIColor darkerYellow];
     _commentaryTextView.backgroundColor = [UIColor clearColor];
     _commentaryTextView.textColor = [UIColor lighterYellow];
-    if (self.mediaId){
-        [UIImage imageForAssetPath:self.mediaId completion:^(UIImage *image, CLLocationCoordinate2D coordinate) {
-            self.imageView.image = image;
-            _locationCoordinatePassed=coordinate;
-            CLGeocoder *geo = [[CLGeocoder alloc]init];
-            CLLocation *loc = [[CLLocation alloc]initWithLatitude:coordinate.latitude longitude:coordinate.longitude];
-            [geo reverseGeocodeLocation: loc completionHandler:
-             ^(NSArray *placemarks, NSError *error) {
-                 if (placemarks.count && !error){
-                 CLPlacemark *placemark = [placemarks objectAtIndex:0];
-                 NSMutableString *tmp = [[NSMutableString alloc]init];
-                 if (placemark.thoroughfare != nil){
-                     [tmp appendFormat:@"%@",placemark.thoroughfare];
-                 }
-                 if (placemark.thoroughfare != nil && placemark.locality != nil){
-                     [tmp appendFormat:@", "];
-                 }
-                 if (placemark.locality != nil){
-                     [tmp appendFormat:@"%@", placemark.locality];
-                 }
-                 _locationNameString=tmp;
-                 if (tmp.length) {
-                     self.localizationNoneLabel.text=_locationNameString;
-                 }
-                 }else{
-                     NSLog(@"error when geting name from location located in photo");
-                 }
-             }];
-        }];
-    }
+#warning - get location!
+    self.imageView.image = self.selectedImage;
+//    if (self.mediaId){
+//        [UIImage imageForAssetPath:self.mediaId completion:^(UIImage *image, CLLocationCoordinate2D coordinate) {
+//            self.imageView.image = image;
+//            _locationCoordinatePassed=coordinate;
+//            CLGeocoder *geo = [[CLGeocoder alloc]init];
+//            CLLocation *loc = [[CLLocation alloc]initWithLatitude:coordinate.latitude longitude:coordinate.longitude];
+//            [geo reverseGeocodeLocation: loc completionHandler:
+//             ^(NSArray *placemarks, NSError *error) {
+//                 if (placemarks.count && !error){
+//                 CLPlacemark *placemark = [placemarks objectAtIndex:0];
+//                 NSMutableString *tmp = [[NSMutableString alloc]init];
+//                 if (placemark.thoroughfare != nil){
+//                     [tmp appendFormat:@"%@",placemark.thoroughfare];
+//                 }
+//                 if (placemark.thoroughfare != nil && placemark.locality != nil){
+//                     [tmp appendFormat:@", "];
+//                 }
+//                 if (placemark.locality != nil){
+//                     [tmp appendFormat:@"%@", placemark.locality];
+//                 }
+//                 _locationNameString=tmp;
+//                 if (tmp.length) {
+//                     self.localizationNoneLabel.text=_locationNameString;
+//                 }
+//                 }else{
+//                     NSLog(@"error when geting name from location located in photo");
+//                 }
+//             }];
+//        }];
+//    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -280,10 +283,13 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 200;
                                                  objCreatedDate:[NSDate date]
                                                 objModifiedDate:nil
                                                      collection:self.selectedCollection];
-        if (self.mediaId) {
-            MHMedia *media = [MHDatabaseManager insertMediaWithCreatedDate:[NSDate date]
-                                             objLocalPath:self.mediaId
-                                                     item:item];
+
+        if (self.selectedImage) {
+            NSString *key = [[MHImageCache sharedInstance] cacheImage:self.selectedImage];
+            
+            MHMedia* media = [MHDatabaseManager insertMediaWithCreatedDate:[NSDate date]
+                                                                    objKey:key
+                                                                      item:item];
             
             if ([[MHAPI getInstance]activeSession] == YES) {
                 [[MHAPI getInstance]createMedia:media completionBlock:^(id object, NSError *error) {
@@ -321,8 +327,6 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 200;
             
             [self dismissViewControllerAnimated:YES completion:nil];
         }
-        
-        [self.navigationController dismissViewControllerAnimated:YES completion:nil];
     }
 }
 

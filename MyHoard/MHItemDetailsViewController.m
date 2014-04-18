@@ -8,6 +8,7 @@
 
 #import "MHItemDetailsViewController.h"
 #import "UIImage+Gallery.h"
+#import "MHImageCache.h"
 
 @interface MHItemDetailsViewController ()
 
@@ -41,9 +42,7 @@
     _itemTitleLabel.text = _item.objName;
     _itemTitleLabel.textColor = [UIColor collectionNameFrontColor];
     for(MHMedia *media in _item.media) {
-        [UIImage thumbnailForAssetPath:media.objLocalPath completion:^(UIImage *image, CLLocationCoordinate2D coordinate) {
-            _frontImage.image = image;
-        }];
+        _frontImage.image = [[MHImageCache sharedInstance] imageForKey:media.objKey];
         break; //just read first item
     }
     _itemTitle.title = _item.objName;

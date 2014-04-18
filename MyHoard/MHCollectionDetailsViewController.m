@@ -9,6 +9,7 @@
 #import "UIImage+Gallery.h"
 #import "MHItemDetailsViewController.h"
 #import "MHAddItemViewController.h"
+#import "MHImageCache.h"
 
 typedef NS_ENUM(NSInteger, ItemSortMode) {
     ItemSortModeByName = 0,
@@ -136,9 +137,7 @@ typedef NS_ENUM(NSInteger, ItemSortMode) {
     cell.itemTitle.text = item.objName;
 
     for(MHMedia *media in item.media) {
-        [UIImage thumbnailForAssetPath:media.objLocalPath completion:^(UIImage *image, CLLocationCoordinate2D coordinate) {
-            cell.mediaView.image = image;
-        }];
+        cell.mediaView.image = [[MHImageCache sharedInstance] thumbnailForKey:media.objKey];
         break; //just read first item
     }
 }

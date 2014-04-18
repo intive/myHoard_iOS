@@ -19,10 +19,11 @@
 		23A3C30A18FEC45E00597337 /* CameraOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A3C30918FEC45E00597337 /* CameraOverlayView.m */; };
 		23B0A70B18F861AF00FA806C /* MHSliderMenuHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 23B0A70A18F861AF00FA806C /* MHSliderMenuHeader.m */; };
 		23B0A70E18F862D900FA806C /* MHSliderMenuTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 23B0A70D18F862D900FA806C /* MHSliderMenuTableCell.m */; };
-		23C4E67A18FC4EC8002FB84D /* MHMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = 23C4E67918FC4EC8002FB84D /* MHMedia.m */; };
-		23C4E67D18FC4EC9002FB84D /* MHItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 23C4E67C18FC4EC9002FB84D /* MHItem.m */; };
-		23C4E68018FC4EC9002FB84D /* MHCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 23C4E67F18FC4EC9002FB84D /* MHCollection.m */; };
 		23C4E68318FC7542002FB84D /* NSString+RFC3339.m in Sources */ = {isa = PBXBuildFile; fileRef = 23C4E68218FC7542002FB84D /* NSString+RFC3339.m */; };
+		23CD275C19012931005203C2 /* MHImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 23CD275B19012931005203C2 /* MHImageCache.m */; };
+		23CD276019012FE4005203C2 /* MHItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 23CD275F19012FE4005203C2 /* MHItem.m */; };
+		23CD276319012FE5005203C2 /* MHMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = 23CD276219012FE5005203C2 /* MHMedia.m */; };
+		23CD276619012FE5005203C2 /* MHCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 23CD276519012FE5005203C2 /* MHCollection.m */; };
 		23D02EFB18EEAA0300114941 /* MHAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D02EFA18EEAA0300114941 /* MHAPI.m */; };
 		23D02F0318EF38C600114941 /* MHWaitDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D02F0218EF38C600114941 /* MHWaitDialog.m */; };
 		23D02F0A18F2026000114941 /* UIImage+Gallery.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D02F0918F2026000114941 /* UIImage+Gallery.m */; };
@@ -117,14 +118,16 @@
 		23B0A70A18F861AF00FA806C /* MHSliderMenuHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHSliderMenuHeader.m; sourceTree = "<group>"; };
 		23B0A70C18F862D900FA806C /* MHSliderMenuTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHSliderMenuTableCell.h; sourceTree = "<group>"; };
 		23B0A70D18F862D900FA806C /* MHSliderMenuTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHSliderMenuTableCell.m; sourceTree = "<group>"; };
-		23C4E67818FC4EC8002FB84D /* MHMedia.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHMedia.h; sourceTree = "<group>"; };
-		23C4E67918FC4EC8002FB84D /* MHMedia.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHMedia.m; sourceTree = "<group>"; };
-		23C4E67B18FC4EC9002FB84D /* MHItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHItem.h; sourceTree = "<group>"; };
-		23C4E67C18FC4EC9002FB84D /* MHItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHItem.m; sourceTree = "<group>"; };
-		23C4E67E18FC4EC9002FB84D /* MHCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHCollection.h; sourceTree = "<group>"; };
-		23C4E67F18FC4EC9002FB84D /* MHCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHCollection.m; sourceTree = "<group>"; };
 		23C4E68118FC7542002FB84D /* NSString+RFC3339.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+RFC3339.h"; sourceTree = "<group>"; };
 		23C4E68218FC7542002FB84D /* NSString+RFC3339.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+RFC3339.m"; sourceTree = "<group>"; };
+		23CD275A19012931005203C2 /* MHImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHImageCache.h; sourceTree = "<group>"; };
+		23CD275B19012931005203C2 /* MHImageCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHImageCache.m; sourceTree = "<group>"; };
+		23CD275E19012FE4005203C2 /* MHItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHItem.h; sourceTree = "<group>"; };
+		23CD275F19012FE4005203C2 /* MHItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHItem.m; sourceTree = "<group>"; };
+		23CD276119012FE5005203C2 /* MHMedia.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHMedia.h; sourceTree = "<group>"; };
+		23CD276219012FE5005203C2 /* MHMedia.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHMedia.m; sourceTree = "<group>"; };
+		23CD276419012FE5005203C2 /* MHCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHCollection.h; sourceTree = "<group>"; };
+		23CD276519012FE5005203C2 /* MHCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHCollection.m; sourceTree = "<group>"; };
 		23D02EF918EEAA0300114941 /* MHAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHAPI.h; sourceTree = "<group>"; };
 		23D02EFA18EEAA0300114941 /* MHAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHAPI.m; sourceTree = "<group>"; };
 		23D02F0118EF38C600114941 /* MHWaitDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHWaitDialog.h; sourceTree = "<group>"; };
@@ -389,6 +392,8 @@
 				23D02EFC18EEAA0F00114941 /* Networking */,
 				23D02F0018EF386F00114941 /* CustomViews */,
 				23D02F0718F2023D00114941 /* Categories */,
+				23CD275A19012931005203C2 /* MHImageCache.h */,
+				23CD275B19012931005203C2 /* MHImageCache.m */,
 				CE09D99418F2D8E8007E8885 /* UserSettings */,
 				23D321AF184BBFFA002FC13A /* AppDelegate.h */,
 				23D321B0184BBFFA002FC13A /* AppDelegate.m */,
@@ -475,16 +480,16 @@
 			isa = PBXGroup;
 			children = (
 				537CF82A18AD643D008A7E04 /* MyHoardModel.xcdatamodeld */,
-				23C4E67E18FC4EC9002FB84D /* MHCollection.h */,
-				23C4E67F18FC4EC9002FB84D /* MHCollection.m */,
-				23C4E67B18FC4EC9002FB84D /* MHItem.h */,
-				23C4E67C18FC4EC9002FB84D /* MHItem.m */,
-				23C4E67818FC4EC8002FB84D /* MHMedia.h */,
-				23C4E67918FC4EC8002FB84D /* MHMedia.m */,
 				537CF83118AD7D6E008A7E04 /* MHCoreDataContext.h */,
 				537CF83218AD7D6E008A7E04 /* MHCoreDataContext.m */,
 				537CF83418AD8FBF008A7E04 /* MHDatabaseManager.h */,
 				537CF83518AD8FBF008A7E04 /* MHDatabaseManager.m */,
+				23CD275E19012FE4005203C2 /* MHItem.h */,
+				23CD275F19012FE4005203C2 /* MHItem.m */,
+				23CD276119012FE5005203C2 /* MHMedia.h */,
+				23CD276219012FE5005203C2 /* MHMedia.m */,
+				23CD276419012FE5005203C2 /* MHCollection.h */,
+				23CD276519012FE5005203C2 /* MHCollection.m */,
 			);
 			name = Database;
 			sourceTree = "<group>";
@@ -720,6 +725,7 @@
 				23D321B1184BBFFA002FC13A /* AppDelegate.m in Sources */,
 				CECB9CE418F544E800FF724E /* MHSliderMenuViewController.m in Sources */,
 				537CF83618AD8FBF008A7E04 /* MHDatabaseManager.m in Sources */,
+				23CD275C19012931005203C2 /* MHImageCache.m in Sources */,
 				9370CAEB18CFC1E400C77461 /* MHCollectionCell.m in Sources */,
 				CE09D99318F2CAE5007E8885 /* MHUserProfile.m in Sources */,
 				23C4E68318FC7542002FB84D /* NSString+RFC3339.m in Sources */,
@@ -739,22 +745,22 @@
 				CE6C31BC18B1422100983736 /* MHCollectionDetailsViewController.m in Sources */,
 				537CF82C18AD643D008A7E04 /* MyHoardModel.xcdatamodeld in Sources */,
 				23D02F0318EF38C600114941 /* MHWaitDialog.m in Sources */,
-				23C4E68018FC4EC9002FB84D /* MHCollection.m in Sources */,
 				23F64D2718DE682C003420E3 /* MHTagsView.m in Sources */,
 				23D321AD184BBFFA002FC13A /* main.m in Sources */,
 				9370CAF418CFC30A00C77461 /* MHCollectionViewController.m in Sources */,
 				53062B5418F48F8E006FC69C /* NSString+Tags.m in Sources */,
 				1A059F3818D200B700ECC6D0 /* MHAddCollectionViewController.m in Sources */,
 				23B0A70E18F862D900FA806C /* MHSliderMenuTableCell.m in Sources */,
-				23C4E67A18FC4EC8002FB84D /* MHMedia.m in Sources */,
 				1A059F3518D200B700ECC6D0 /* MHAddItemViewController.m in Sources */,
 				CEF82A0518F0383F00058BB8 /* MHAccountViewController.m in Sources */,
 				23F64D6518E4CBBE003420E3 /* MHRoundButton.m in Sources */,
 				93C28E4218D1E83B0011E41E /* MHBaseViewController.m in Sources */,
+				23CD276019012FE4005203C2 /* MHItem.m in Sources */,
 				93BFC82F18F30A2B00F4777C /* MHCollectionDetailsHeaderView.m in Sources */,
 				235EB3C618DDAE3C0032D769 /* MHPasswordStrengthView.m in Sources */,
+				23CD276319012FE5005203C2 /* MHMedia.m in Sources */,
 				1A29F6B418EF324C00BCFB11 /* MHLocalizationViewController.m in Sources */,
-				23C4E67D18FC4EC9002FB84D /* MHItem.m in Sources */,
+				23CD276619012FE5005203C2 /* MHCollection.m in Sources */,
 				23FB2BCF18D23DDF009EFDE7 /* UIColor+customColors.m in Sources */,
 				93A341A618FAD42300830047 /* MHItemDetailsViewController.m in Sources */,
 				23F27A5B18D9A6D100877D30 /* MHDropDownMenuItem.m in Sources */,

@@ -13,6 +13,8 @@
 #import "MHMedia.h"
 #import "MHAPI.h"
 #import "MHImagePickerViewController.h"
+#import "MHImageCache.h"
+
 
 
 typedef NS_ENUM(NSInteger, CollectionSortMode) {
@@ -174,13 +176,12 @@ typedef NS_ENUM(NSInteger, CollectionSortMode) {
             MHItem* item = items[arc4random() % [items count]];
             if (item.media.count) {
                 for(MHMedia* media in item.media) {
-                    [UIImage thumbnailForAssetPath:media.objLocalPath completion:^(UIImage *image, CLLocationCoordinate2D coordinate) {
-                        [mhcell.kenBurnsView addImage:image];
-                        current++;
-                        if (current == max) {
-//                            [mhcell.kenBurnsView startAnimation];
-                        }
-                    }];
+                    UIImage* image = [[MHImageCache sharedInstance] thumbnailForKey:media.objKey];
+                    [mhcell.kenBurnsView addImage:image];
+                    current++;
+                    if (current == max) {
+                        [mhcell.kenBurnsView startAnimation];
+                    }
                 }
             } else {
                 current++;
@@ -191,13 +192,12 @@ typedef NS_ENUM(NSInteger, CollectionSortMode) {
         for (MHItem *item in collection.items) {
             if (item.media.count) {
                 for(MHMedia* media in item.media) {
-                    [UIImage thumbnailForAssetPath:media.objLocalPath completion:^(UIImage *image, CLLocationCoordinate2D coordinate) {
-                        [mhcell.kenBurnsView addImage:image];
-                        current++;
-                        if (current == max) {
-//                            [mhcell.kenBurnsView startAnimation];
-                        }
-                    }];
+                    UIImage* image = [[MHImageCache sharedInstance] thumbnailForKey:media.objKey];
+                    [mhcell.kenBurnsView addImage:image];
+                    current++;
+                    if (current == max) {
+//                      [mhcell.kenBurnsView startAnimation];
+                    }
                 }
             } else {
                 current++;
@@ -248,7 +248,7 @@ typedef NS_ENUM(NSInteger, CollectionSortMode) {
     } else if ([segue.identifier isEqualToString:@"AddItemSegue"]) {
         UINavigationController* nc = segue.destinationViewController;
         MHAddItemViewController *vc = (MHAddItemViewController *)nc.visibleViewController;
-        vc.mediaId = sender;
+        vc.selectedImage = sender;
     }
 }
 
@@ -589,9 +589,9 @@ newIndexPath:(NSIndexPath *)newIndexPath
 #pragma mark image picker delegate
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-    NSURL *imageUrl = [info valueForKey:UIImagePickerControllerReferenceURL];
+    UIImage *image = [info valueForKey:UIImagePickerControllerOriginalImage];
     [self dismissViewControllerAnimated:YES completion:^{
-        [self performSegueWithIdentifier:@"AddItemSegue" sender:[imageUrl absoluteString]];
+        [self performSegueWithIdentifier:@"AddItemSegue" sender:image];
     }];
 }
 

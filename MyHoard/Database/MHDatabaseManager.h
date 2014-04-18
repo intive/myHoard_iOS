@@ -37,7 +37,7 @@
 
 #pragma mark - Media
 + (MHMedia*)insertMediaWithCreatedDate:(NSDate*)objCreatedDate
-                          objLocalPath:(NSString*)objLocalPath
+                                objKey:(NSString*)objKey
                                   item:(MHItem *)item;
 
 @end

@@ -15,7 +15,7 @@
 #import "MHDatabaseManager.h"
 #import "MHCoreDataContext.h"
 #import "NSString+RFC3339.h"
-#import "UIImage+Gallery.h"
+#import "MHImageCache.h"
 
 static MHAPI *_sharedAPI = nil;
 
@@ -465,25 +465,20 @@ static MHAPI *_sharedAPI = nil;
     [manager.requestSerializer setValue:_accessToken forHTTPHeaderField:@"Authorization"];
     
     __block MHMedia* m = media;
-    __block NSData *assetData = [[NSData alloc]init];
-    
-    [UIImage imageForAssetPath:media.objLocalPath completion:^(UIImage *image, CLLocationCoordinate2D coordinate) {
-        assetData = UIImagePNGRepresentation(image);
-        
-        [manager POST:[self urlWithPath:@"media"] parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-            [formData appendPartWithFileData:assetData name:@"image" fileName:m.objLocalPath mimeType:@"image/*"];
-        } success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            m.objId = responseObject[@"id"];
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            completionBlock(nil, error);
-        }];
-        
-        [manager.responseSerializer setAcceptableContentTypes:[NSSet setWithObjects:@"application/json", nil]];
-        
+
+    NSData* assetData = [[MHImageCache sharedInstance] dataForKey:media.objKey];
+
+    [manager POST:[self urlWithPath:@"media"] parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        [formData appendPartWithFileData:assetData name:@"image" fileName:m.objKey mimeType:@"image/*"];
+    } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        m.objId = responseObject[@"id"];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        completionBlock(nil, error);
     }];
     
-    return nil;
+    [manager.responseSerializer setAcceptableContentTypes:[NSSet setWithObjects:@"application/json", nil]];
 
+    return nil;
 }
 
 #pragma mark read media
@@ -528,23 +523,17 @@ static MHAPI *_sharedAPI = nil;
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager.requestSerializer setValue:_accessToken forHTTPHeaderField:@"Authorization"];
 
-    __block NSData *assetData = [[NSData alloc]init];
-    
-    [UIImage imageForAssetPath:media.objLocalPath completion:^(UIImage *image, CLLocationCoordinate2D coordinate) {
-        assetData = UIImagePNGRepresentation(image);
-        
-        [manager POST:[NSString stringWithFormat:@"%@%@/",[self urlWithPath:@"media"],media.objId] parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-            [formData appendPartWithFileData:assetData name:@"image" fileName:media.objLocalPath mimeType:@"image/*"];
-        } success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            completionBlock(nil, nil);
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            completionBlock(nil, error);
-        }];
-        
-        [manager.responseSerializer setAcceptableContentTypes:[NSSet setWithObjects:@"application/json", nil]];
-        
+    NSData* assetData = [[MHImageCache sharedInstance] dataForKey:media.objKey];
+    [manager POST:[NSString stringWithFormat:@"%@%@/",[self urlWithPath:@"media"],media.objId] parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        [formData appendPartWithFileData:assetData name:@"image" fileName:media.objKey mimeType:@"image/*"];
+    } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        completionBlock(nil, nil);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        completionBlock(nil, error);
     }];
     
+    [manager.responseSerializer setAcceptableContentTypes:[NSSet setWithObjects:@"application/json", nil]];
+
     return nil;
 }
 
@@ -682,13 +671,6 @@ static MHAPI *_sharedAPI = nil;
                                                                           i.objModifiedDate = [date dateFromRFC3339String];
                                                                           i.objOwner = responseObject[@"owner"];
                                                                           
-                                                                          for (MHMedia *media in i.media) {
-                                                                              for (NSDictionary *d in responseObject[@"media"]) {
-                                                                                  media.objId = [d valueForKey:@"id"];
-                                                                                  media.objLocalPath = [d valueForKey:@"url"];
-                                                                              }
-                                                                          }
-                                                                          
                                                                           [[MHCoreDataContext getInstance] saveContext];
                                                                           completionBlock(i, error);
                                                                       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -730,8 +712,10 @@ static MHAPI *_sharedAPI = nil;
                                                                               
                                                                               MHItem *i = [MHDatabaseManager insertItemWithObjName:responseDictionary[@"name"] objDescription:responseDictionary[@"description"] objTags:nil objLocation:l objCreatedDate:created objModifiedDate:modified collection:collection];
 
+                                                                              
+#warning MHMedia has been added to item, but the actual data has not been downloaded yet.
                                                                               for (NSDictionary *d in responseDictionary[@"media"]) {
-                                                                                  MHMedia *m = [MHDatabaseManager insertMediaWithCreatedDate:[NSDate date] objLocalPath:nil item:i];
+                                                                                  MHMedia *m = [MHDatabaseManager insertMediaWithCreatedDate:[NSDate date] objKey:nil item:i];
                                                                                   m.objId = d[@"id"];
                                                                               }
                                                                               
