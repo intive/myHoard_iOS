@@ -12,6 +12,7 @@
 #import "MHCollection.h"
 #import "MHItem.h"
 #import "MHMedia.h"
+#import "MHApi.h"
 
 
 @implementation MHDatabaseManager
@@ -22,7 +23,7 @@
                                      objTags:(NSArray*)objTags
                               objCreatedDate:(NSDate*)objCreatedDate
                              objModifiedDate:(NSDate*)objModifiedDate
-                                    objOwner:(NSString*)objOwner
+                 objOwnerNilAddLogedUserCode:(NSString*)objOwner
 {
     // mandatory fields
     if (!objName.length || !objCreatedDate)
@@ -45,23 +46,26 @@
 
     if (objModifiedDate)
         collection.objModifiedDate = objModifiedDate;
-
-    if (objOwner.length)
-        collection.objOwner = objOwner;
-
+    
+    if (objOwner.length) {
+        collection.objOwner=objOwner;
+    }else{
+        collection.objOwner = [[MHAPI getInstance]userId];
+    }
+    
     [[MHCoreDataContext getInstance] saveContext];
     return collection;
 }
 
-+ (NSArray*)allCollections
-{
++ (NSArray*)allCollections{
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc]init];
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"MHCollection" inManagedObjectContext:[MHCoreDataContext getInstance].managedObjectContext];
     
     [fetchRequest setEntity:entity];
-    
-    NSSortDescriptor *sd = [[NSSortDescriptor alloc] initWithKey:@"objName" ascending:YES selector:@selector(localizedStandardCompare:)];
+    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"objOwner = %@", [[MHAPI getInstance]userId]]];
 
+    NSSortDescriptor *sd = [[NSSortDescriptor alloc] initWithKey:@"objName" ascending:YES selector:@selector(localizedStandardCompare:)];
+    
     [fetchRequest setSortDescriptors:@[ sd ]];
     
     NSError *error = nil;
@@ -75,16 +79,12 @@
     return fetchedObjects;
 }
 
-+ (NSArray*)allCollectionsForUser: (NSString*)objOwner{
-    return nil;
-}
-
 + (MHCollection*)collectionWithObjName:(NSString*)objName {
     
     NSFetchRequest *fetch = [[NSFetchRequest alloc] init];
     NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"MHCollection" inManagedObjectContext: [MHCoreDataContext getInstance].managedObjectContext];
     [fetch setEntity:entityDescription];
-    [fetch setPredicate:[NSPredicate predicateWithFormat:@"objName = %@", objName]];
+    [fetch setPredicate:[NSPredicate predicateWithFormat:@"(objName = %@) AND (objOwner = %@)", objName,[[MHAPI getInstance]userId]]];
     NSError *error = nil;
     NSArray *fetchedObjects = [[MHCoreDataContext getInstance].managedObjectContext executeFetchRequest:fetch error:&error];
     if(error==nil){
@@ -105,7 +105,6 @@
                      objLocation:(CLLocation*)objLocation
                   objCreatedDate:(NSDate*)objCreatedDate
                  objModifiedDate:(NSDate*)objModifiedDate
-                        objOwner:(NSString*)objOwner
                       collection:(MHCollection *)collection
 {
     
@@ -134,23 +133,20 @@
         item.objModifiedDate = objModifiedDate;
     }
     
-    if (objOwner.length) {
-        item.objOwner = objOwner;
-    }
+    //objOwner don't need to be set becouse we are getting items only for collection, so situation where we take items from different owner then owner of a collection couldn't happen.
     
     [[MHCoreDataContext getInstance] saveContext];
     
     return item;
 }
 
-+ (MHItem*)itemWithObjName:(NSString*)objName{
++ (MHItem*)itemWithObjName:(NSString*)objName inCollection:(MHCollection *)collection{
     NSFetchRequest *fetch = [[NSFetchRequest alloc] init];
     NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"MHItem" inManagedObjectContext: [MHCoreDataContext getInstance].managedObjectContext];
     [fetch setEntity:entityDescription];
-    [fetch setPredicate:[NSPredicate predicateWithFormat:@"objName = %@", objName]];
+    [fetch setPredicate:[NSPredicate predicateWithFormat:@"(objName = %@) AND (collection = %@)", objName, collection]];
     NSError *error = nil;
     NSArray *fetchedObjects = [[MHCoreDataContext getInstance].managedObjectContext executeFetchRequest:fetch error:&error];
-    
     if([fetchedObjects count] == 1)
     {
         MHItem *item = [fetchedObjects objectAtIndex:0];
@@ -173,7 +169,6 @@
 
 #pragma mark - Media
 + (MHMedia*)insertMediaWithCreatedDate:(NSDate*)objCreatedDate
-                              objOwner:(NSString*)objOwner
                           objLocalPath:(NSString*)objLocalPath
                                   item:(MHItem *)item
 {
@@ -193,33 +188,10 @@
     if (objLocalPath.length)
         media.objLocalPath = objLocalPath;
     
-    if (objOwner.length)
-        media.objOwner = objOwner;
+    //objOwner don't need to be set becouse we are getting media only for items, so situation where we take items from different owner then owner of a item couldn't happen.
     
     [[MHCoreDataContext getInstance] saveContext];
     return media;
-}
-
-static MHDatabaseManager *sharedInstance;
-
-+ (MHDatabaseManager *)sharedInstance {
-    @synchronized(self) {
-        if (!sharedInstance)
-            sharedInstance=[[MHDatabaseManager alloc] init];
-    }
-    return sharedInstance;
-}
-
-+(id)alloc {
-    @synchronized(self) {
-        NSAssert(sharedInstance == nil, @"Attempted to allocate a second instance of a singleton dataBaseController.");
-        sharedInstance = [super alloc];
-    }
-    return sharedInstance;
-}
-
--(void)setUserName:(NSString *)userName{
-    _userName=userName;
 }
 
 @end

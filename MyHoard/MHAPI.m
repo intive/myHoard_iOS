@@ -66,7 +66,7 @@ static MHAPI *_sharedAPI = nil;
 - (void)logout:(MHAPICompletionBlock)completionBlock {
     _accessToken = nil;
     _refreshToken = nil;
-    [[MHDatabaseManager sharedInstance]setUserName:@""];
+    _userId = nil;
     completionBlock(nil, nil);
 }
 
@@ -255,7 +255,7 @@ static MHAPI *_sharedAPI = nil;
                                                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
                                                                           _accessToken = [responseObject valueForKeyPath:@"access_token"];
                                                                           _refreshToken = [responseObject valueForKeyPath:@"refresh_token"];
-                                                                          [[MHDatabaseManager sharedInstance]setUserName:email];
+                                                                          _userId = [responseObject valueForKeyPath:@"user_id"];
                                                                           completionBlock(nil, nil);
                                                                       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                                                           [self localizedDescriptionForErrorCode:error];
@@ -337,7 +337,7 @@ static MHAPI *_sharedAPI = nil;
                                                                                                                                                        objTags:responseDictionary[@"tags"]
                                                                                                                                                 objCreatedDate:created
                                                                                                                                                objModifiedDate:modified
-                                                                                                                                                      objOwner:responseDictionary[@"owner"]];
+                                                                                                                       objOwnerNilAddLogedUserCode:responseDictionary[@"owner"]];
                                                                               
                                                                               createdCollection.objId = responseDictionary[@"id"];
                                                                           }
@@ -729,10 +729,10 @@ static MHAPI *_sharedAPI = nil;
                                                                               
                                                                               CLLocation *l = [[CLLocation alloc]initWithLatitude:[responseDictionary[@"location"][@"lat"] doubleValue]longitude:[responseDictionary[@"location"][@"lng"]doubleValue]];
                                                                               
-                                                                              MHItem *i = [MHDatabaseManager insertItemWithObjName:responseDictionary[@"name"] objDescription:responseDictionary[@"description"] objTags:nil objLocation:l objCreatedDate:created objModifiedDate:modified objOwner:responseDictionary[@"owner"] collection:collection];
+                                                                              MHItem *i = [MHDatabaseManager insertItemWithObjName:responseDictionary[@"name"] objDescription:responseDictionary[@"description"] objTags:nil objLocation:l objCreatedDate:created objModifiedDate:modified collection:collection];
 
                                                                               for (NSDictionary *d in responseDictionary[@"media"]) {
-                                                                                  MHMedia *m = [MHDatabaseManager insertMediaWithCreatedDate:[NSDate date] objOwner:nil objLocalPath:nil item:i];
+                                                                                  MHMedia *m = [MHDatabaseManager insertMediaWithCreatedDate:[NSDate date] objLocalPath:nil item:i];
                                                                                   m.objId = d[@"id"];
                                                                               }
                                                                               
@@ -852,6 +852,10 @@ static MHAPI *_sharedAPI = nil;
             error = [[NSError alloc]initWithDomain:domain code:500 userInfo:userInfo];
             break;
     }
+}
+
+-(void) setUserId:(NSString *)userId{//only for tests
+    _userId=userId;
 }
 
 

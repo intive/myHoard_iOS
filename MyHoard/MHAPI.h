@@ -23,9 +23,13 @@ typedef void (^MHAPICompletionBlock)(id object, NSError *error);
 
 @interface MHAPI : AFHTTPRequestOperationManager
 
+@property(nonatomic, strong) NSString *userId;
+
 + (instancetype)getInstance;
 
 + (void)setSharedAPIInstance:(MHAPI *)api;
+
+-(void)setUserId:(NSString *)userId;//only for tests
 
 - (NSString *)serverUrl;
 

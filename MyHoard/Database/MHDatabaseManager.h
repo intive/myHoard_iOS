@@ -11,10 +11,6 @@
 @class MHCollection, MHItem, MHMedia, CLLocation;
 
 @interface MHDatabaseManager : NSObject
-@property (strong, nonatomic) NSString *userName;
-
-+ (MHDatabaseManager *)sharedInstance;
-- (void)setUserName:(NSString *)userName;
 
 #pragma mark - Collection
 + (MHCollection*)insertCollectionWithObjName:(NSString*)objName
@@ -22,11 +18,10 @@
                                      objTags:(NSArray*)objTags
                               objCreatedDate:(NSDate*)objCreatedDate
                              objModifiedDate:(NSDate*)objModifiedDate
-                                    objOwner:(NSString*)objOwner;
+                 objOwnerNilAddLogedUserCode:(NSString*) objOwner;
 
-+ (MHCollection*)collectionWithObjName:(NSString*)objName;
 + (NSArray*)allCollections;
-+ (NSArray*)allCollectionsForUser: (NSString*)objOwner;
++ (MHCollection*)collectionWithObjName:(NSString*)objName;
 
 #pragma mark - Item
 + (MHItem*)insertItemWithObjName:(NSString*)objName
@@ -35,15 +30,13 @@
                      objLocation:(CLLocation*)objLocation
                   objCreatedDate:(NSDate*)objCreatedDate
                  objModifiedDate:(NSDate*)objModifiedDate
-                        objOwner:(NSString*)objOwner
                       collection:(MHCollection *)collection;
 
-+ (MHItem*)itemWithObjName:(NSString*)objName;
++ (MHItem*) itemWithObjName:(NSString*)objName inCollection:(MHCollection *)collection;
 + (NSArray*) allItemsWithObjName: (NSString*)objName inCollection:(MHCollection*)collection;
 
 #pragma mark - Media
 + (MHMedia*)insertMediaWithCreatedDate:(NSDate*)objCreatedDate
-                              objOwner:(NSString*)objOwner
                           objLocalPath:(NSString*)objLocalPath
                                   item:(MHItem *)item;
 
