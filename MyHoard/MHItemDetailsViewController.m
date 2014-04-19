@@ -9,28 +9,23 @@
 #import "MHItemDetailsViewController.h"
 #import "MHImageCache.h"
 
-@interface MHItemDetailsViewController ()
+#define BOTTOM_VIEW_COLLAPSED_HEIGHT 90
 
-@property (nonatomic) BOOL ifHide;
+@interface MHItemDetailsViewController () <UIGestureRecognizerDelegate>
+{
+    BOOL _bottomViewExpanded;
+}
 
 @end
 
 @implementation MHItemDetailsViewController
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-    }
-    return self;
-}
 
 - (void)viewDidLoad
 {
     
     [super viewDidLoad];
     
-    _ifHide = YES;
+    _bottomViewExpanded = NO;
     
     _bottomView.backgroundColor = [UIColor collectionThumbnailOutlineColor];
     _bottomView.alpha = 0.6f;
@@ -47,70 +42,68 @@
     _itemTitle.title = _item.objName;
 }
 
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-{
-
-}
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)expandBottomView {
+    [UIView animateWithDuration:0.3 animations:^{
+        [_bottomView setFrame:CGRectMake(_bottomView.frame.origin.x, self.view.frame.size.height - _bottomView.frame.size.height, _bottomView.frame.size.width, _bottomView.frame.size.height)];
+        [_dragTopButton setImage:[UIImage imageNamed:@"down_g"] forState:UIControlStateNormal];
+        _bottomViewExpanded = YES;
+    }];
 }
-*/
 
-- (IBAction)showOrHide:(id)sender
+- (void)collapseBottomView {
+    [UIView animateWithDuration:0.3 animations:^{
+        [_bottomView setFrame:CGRectMake(_bottomView.frame.origin.x, self.view.frame.size.height - BOTTOM_VIEW_COLLAPSED_HEIGHT, _bottomView.frame.size.width, _bottomView.frame.size.height)];
+        [_dragTopButton setImage:[UIImage imageNamed:@"up_g"] forState:UIControlStateNormal];
+        _bottomViewExpanded = NO;
+    }];
+}
+
+- (IBAction)expandBottomViewButtonPressed:(id)sender
 {
-    if (_ifHide) {
-        _ifHide = NO;
-        [UIView animateWithDuration:1.0 animations:^{
-            [_bottomView setFrame:CGRectMake(0, 250, 320, 400)];
-            [_dragTopButton setImage:[UIImage imageNamed:@"down_g"] forState:UIControlStateNormal];
-
-        }];
-
+    if (_bottomViewExpanded) {
+        [self collapseBottomView];
     } else {
-        _ifHide = YES;
-        [UIView animateWithDuration:1.0 animations:^{
-            [_bottomView setFrame:CGRectMake(0, 380, 320, 400)];
-            [_dragTopButton setImage:[UIImage imageNamed:@"up_g"] forState:UIControlStateNormal];
-        }];
+        [self expandBottomView];
     }
 }
 
-- (IBAction)swipeToTop:(id)sender
+- (IBAction)panGesture:(UIPanGestureRecognizer *)gesture;
 {
-    if (_ifHide) {
-        _ifHide = NO;
-        [UIView animateWithDuration:1.0 animations:^{
-            [_bottomView setFrame:CGRectMake(0, 250, 320, 400)];
-            [_dragTopButton setImage:[UIImage imageNamed:@"down_g"] forState:UIControlStateNormal];
-            
-        }];
+    UIView *piece = _bottomView;
+    
+    CGFloat top = self.view.frame.size.height - _bottomView.frame.size.height;
+    CGFloat bottom = self.view.frame.size.height - BOTTOM_VIEW_COLLAPSED_HEIGHT;
+    
+    if ([gesture state] == UIGestureRecognizerStateBegan || [gesture state] == UIGestureRecognizerStateChanged) {
         
-    }
+        CGPoint translation = [gesture translationInView:[piece superview]];
+        [piece setCenter:CGPointMake([piece center].x, [piece center].y + translation.y)];
+		if (piece.frame.origin.y < top) {
+			[piece setFrame:CGRectMake(piece.frame.origin.x, top, piece.frame.size.width, piece.frame.size.height)];
+		}
+		if (piece.frame.origin.y > bottom) {
+			[piece setFrame:CGRectMake(piece.frame.origin.x, bottom, piece.frame.size.width, piece.frame.size.height)];
+		}
+        [gesture setTranslation:CGPointZero inView:[piece superview]];
+		
+    } else if ([gesture state] == UIGestureRecognizerStateEnded) {
+        CGFloat middle = (bottom - top) / 2.0;
+		if (_bottomView.frame.origin.y > (top + middle)) {
+			[self collapseBottomView];
+		} else {
+			[self expandBottomView];
+		}
+	}
 }
 
-- (IBAction)swipeToBottom:(id)sender
-{
-    if (!_ifHide){
-        _ifHide = YES;
-        [UIView animateWithDuration:0.5 animations:^{
-            [_bottomView setFrame:CGRectMake(0, 380, 320, 400)];
-            [_dragTopButton setImage:[UIImage imageNamed:@"up_g"] forState:UIControlStateNormal];
-        }];
-    }
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch{
+    return YES;
 }
 
 @end

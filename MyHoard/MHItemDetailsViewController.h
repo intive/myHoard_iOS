@@ -13,16 +13,12 @@
 @interface MHItemDetailsViewController : MHBaseViewController
 
 @property (weak, nonatomic) IBOutlet UIImageView *frontImage;
-@property (nonatomic, strong) MHItem *item;
 @property (weak, nonatomic) IBOutlet UINavigationItem *itemTitle;
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
 @property (weak, nonatomic) IBOutlet UIButton *dragTopButton;
 @property (weak, nonatomic) IBOutlet UILabel *itemTitleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *itemCommentLabel;
 
-
-- (IBAction)showOrHide:(id)sender;
-- (IBAction)swipeToTop:(id)sender;
-- (IBAction)swipeToBottom:(id)sender;
+@property (nonatomic, strong) MHItem *item;
 
 @end
