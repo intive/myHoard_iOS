@@ -320,8 +320,10 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 200;
                         }];
                     }
                 }];
+            } else {
+                [self dismissViewControllerAnimated:YES completion:nil];
             }
-        }else {
+        } else {
             if ([[MHAPI getInstance]activeSession] == YES) {
                 __block MHWaitDialog* wait = [[MHWaitDialog alloc] init];
                 [wait show];
