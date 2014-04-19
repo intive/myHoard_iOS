@@ -712,11 +712,14 @@ static MHAPI *_sharedAPI = nil;
                                                                               
                                                                               MHItem *i = [MHDatabaseManager insertItemWithObjName:responseDictionary[@"name"] objDescription:responseDictionary[@"description"] objTags:nil objLocation:l objCreatedDate:created objModifiedDate:modified collection:collection];
 
-                                                                              
-#warning MHMedia has been added to item, but the actual data has not been downloaded yet.
                                                                               for (NSDictionary *d in responseDictionary[@"media"]) {
                                                                                   MHMedia *m = [MHDatabaseManager insertMediaWithCreatedDate:[NSDate date] objKey:nil item:i];
                                                                                   m.objId = d[@"id"];
+                                                                                  [self readMedia:m completionBlock:^(id object, NSError *error) {
+                                                                                      if (error) {
+                                                                                          NSLog(@"There's been a problem while downloading your assets: %@", error);
+                                                                                      }
+                                                                                  }];
                                                                               }
                                                                               
                                                                               [[MHCoreDataContext getInstance] saveContext];
