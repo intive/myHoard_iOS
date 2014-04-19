@@ -56,6 +56,17 @@
     self.navigationController.navigationBar.topItem.leftBarButtonItems = @[cancel];
     _items = [[NSArray alloc]initWithObjects:@"Public", @"Private", @"Offline", nil];
     _last=0;
+    
+    if (_collection != nil) {
+        [self loadCollectionSettings];
+    }
+}
+
+- (void)loadCollectionSettings
+{
+    _nameTextField.text = _collection.objName;
+    _tagsTextField.text = _collection.objTags;
+    _descriptionTextField.text = _collection.objDescription;
 }
 
 - (void)didReceiveMemoryWarning
@@ -108,11 +119,18 @@
     }else if([self.nameTextField.text length]>64){
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"error" message:@"Name is to long(max64)" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
         [alert show];
-    }else if([MHDatabaseManager collectionWithObjName:self.nameTextField.text]!=nil){
+    }else if([MHDatabaseManager collectionWithObjName:self.nameTextField.text]!= nil && _collection == nil){
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"error" message:@"Collection of that name exists." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
         [alert show];
-    }
-    else{
+    } else if([MHDatabaseManager collectionWithObjName:self.nameTextField.text]!= nil && _collection != nil) {
+        MHCollection *databaseCollection = [MHDatabaseManager collectionWithObjName:_nameTextField.text];
+        databaseCollection.objName = trimmedString;
+        databaseCollection.objDescription = self.descriptionTextField.text;
+        databaseCollection.objModifiedDate = [NSDate date];
+        databaseCollection.objTags = [_tagsTextField.text tags];
+        [self dismissViewControllerAnimated:YES completion:nil];
+        
+    } else {
         
         MHCollection* collection = [MHDatabaseManager insertCollectionWithObjName:trimmedString
                                                                    objDescription:self.descriptionTextField.text

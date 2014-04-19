@@ -10,6 +10,7 @@
 #import "MHAddItemViewController.h"
 #import "MHImageCache.h"
 #import "MHImagePickerViewController.h"
+#import "MHAddCollectionViewController.h"
 
 typedef NS_ENUM(NSInteger, ItemSortMode) {
     ItemSortModeByName = 0,
@@ -167,6 +168,11 @@ typedef NS_ENUM(NSInteger, ItemSortMode) {
         UINavigationController* nc = segue.destinationViewController;
         MHAddItemViewController *vc = (MHAddItemViewController *)nc.visibleViewController;
         vc.selectedCollection = self.collection;
+    } else if ([segue.identifier isEqualToString:@"ChangeCollectionSettingsSegue"])
+    {
+        UINavigationController *nc = segue.destinationViewController;
+        MHAddCollectionViewController *vc = (MHAddCollectionViewController *)nc.visibleViewController;
+        vc.collection = self.collection;
     }
 }
 
@@ -201,13 +207,16 @@ typedef NS_ENUM(NSInteger, ItemSortMode) {
 #pragma mark MHDropDownMenu
 
 - (NSInteger)numberOfItemsInDropDownMenu:(MHDropDownMenu *)menu {
-    return 1;
+    return 2;
 }
 
 - (NSString*)titleInDropDownMenu:(MHDropDownMenu *)menu atIndex:(NSInteger)index {
     switch (index) {
         case 0:
             return [NSString stringWithFormat:@"Add item to '%@'", _collection.objName];
+            break;
+        case 1:
+            return [NSString stringWithFormat:@"Edit '%@'", _collection.objName];
             break;
         default:
             return @"unused menu item";
@@ -226,6 +235,8 @@ typedef NS_ENUM(NSInteger, ItemSortMode) {
         if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]){
             [alert setButton:1 toState:NO];
         }
+    } else if (index == 1) {
+        [self performSegueWithIdentifier:@"ChangeCollectionSettingsSegue" sender:_collection];
     } else {
         NSLog(@"Unknown menu item %lu selected:", (unsigned long)index);
     }

@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MHCollection.h"
 
 @interface MHAddCollectionViewController : MHBaseViewController<UITextFieldDelegate,UIPickerViewDelegate>
 
@@ -28,6 +29,8 @@
 - (IBAction)pickerSave:(id)sender;
 @property (weak, nonatomic) IBOutlet UIButton *pickerCancelColor;
 @property (weak, nonatomic) IBOutlet UIButton *pickerSaveColor;
+
+@property (nonatomic, strong) MHCollection *collection;
 
 - (IBAction)cancel:(id)sender;
 - (IBAction)add:(id)sender;

@@ -797,11 +797,12 @@
                         <outlet property="collectionView" destination="5dp-fo-Hmy" id="Hgo-60-dL6"/>
                         <segue destination="fW1-8f-0eN" kind="push" identifier="ShowItemDetails" id="1lU-XD-Edz"/>
                         <segue destination="cF2-Sm-u7f" kind="modal" identifier="AddItemSegue" id="cHI-6z-e6b"/>
+                        <segue destination="5Jx-7R-kxH" kind="modal" identifier="ChangeCollectionSettingsSegue" id="WHP-yM-ON6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M4V-vx-C5w" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="348" y="-764"/>
+            <point key="canvasLocation" x="-24" y="-728"/>
         </scene>
         <!--Item Details View Controller - Title-->
         <scene sceneID="ZYI-XA-VUS">
@@ -885,7 +886,7 @@
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="839" y="-758"/>
+            <point key="canvasLocation" x="819" y="-1526"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="A3J-Rx-2NW">
@@ -901,7 +902,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1qb-1o-eEd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2454" y="-386"/>
+            <point key="canvasLocation" x="2358" y="-728"/>
         </scene>
         <!--Add Collection View Controller - New collection-->
         <scene sceneID="v7k-up-Cvy">
@@ -1081,7 +1082,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zF1-rP-rWD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2979" y="-434"/>
+            <point key="canvasLocation" x="2859" y="-728"/>
         </scene>
         <!--Browse Collection View Controller - Collection-->
         <scene sceneID="M3w-0A-F3R">
@@ -1127,7 +1128,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="171-FX-cqf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1871" y="317"/>
+            <point key="canvasLocation" x="1815" y="329"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="GA7-zo-0z6">
@@ -1637,8 +1638,8 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="7Aw-hx-44V"/>
-        <segue reference="3wb-xF-lsE"/>
+        <segue reference="cHI-6z-e6b"/>
+        <segue reference="uZQ-yX-J1c"/>
         <segue reference="AJS-nz-tvm"/>
     </inferredMetricsTieBreakers>
 </document>
