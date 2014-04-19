@@ -143,6 +143,7 @@ typedef NS_ENUM(NSInteger, ItemSortMode) {
 {
     cell.itemComment.text = item.objDescription;
     cell.itemTitle.text = item.objName;
+    cell.mediaView.image = nil;
 
     for(MHMedia *media in item.media) {
         cell.mediaView.image = [[MHImageCache sharedInstance] thumbnailForKey:media.objKey];
