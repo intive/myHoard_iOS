@@ -19,7 +19,7 @@
 #import "UIActionSheet+ButtonState.h"
 
 
-@interface MHCollectionDetailsViewController : MHBaseViewController <UICollectionViewDataSource, UICollectionViewDelegate>
+@interface MHCollectionDetailsViewController : MHBaseViewController <UICollectionViewDataSource, UICollectionViewDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (nonatomic, strong) MHCollection *collection;
