@@ -291,7 +291,42 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 200;
                                                                       item:item];
             
             if ([[MHAPI getInstance]activeSession] == YES) {
+                __block MHWaitDialog* wait = [[MHWaitDialog alloc] init];
+                [wait show];
                 [[MHAPI getInstance]createMedia:media completionBlock:^(id object, NSError *error) {
+                    if (error) {
+                        [wait dismiss];
+                        UIAlertView *alert = [[UIAlertView alloc]
+                                              initWithTitle:@"Error"
+                                              message:error.localizedDescription
+                                              delegate:self
+                                              cancelButtonTitle:@"Ok"
+                                              otherButtonTitles:nil];
+                        [alert show];
+                    }else {
+                        [[MHAPI getInstance]createItem:item completionBlock:^(id object, NSError *error) {
+                            [wait dismiss];
+                            if (error) {
+                                UIAlertView *alert = [[UIAlertView alloc]
+                                                      initWithTitle:@"Error"
+                                                      message:error.localizedDescription
+                                                      delegate:self
+                                                      cancelButtonTitle:@"Ok"
+                                                      otherButtonTitles:nil];
+                                [alert show];
+                            }else {
+                                [self dismissViewControllerAnimated:YES completion:nil];
+                            }
+                        }];
+                    }
+                }];
+            }
+        }else {
+            if ([[MHAPI getInstance]activeSession] == YES) {
+                __block MHWaitDialog* wait = [[MHWaitDialog alloc] init];
+                [wait show];
+                [[MHAPI getInstance] createItem:item completionBlock:^(id object, NSError *error) {
+                    [wait dismiss];
                     if (error) {
                         UIAlertView *alert = [[UIAlertView alloc]
                                               initWithTitle:@"Error"
@@ -301,30 +336,11 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 200;
                                               otherButtonTitles:nil];
                         [alert show];
                     }
+                    [self dismissViewControllerAnimated:YES completion:nil];
                 }];
-            }
-        }
-        
-        if ([[MHAPI getInstance]activeSession] == YES) {
-            __block MHWaitDialog* wait = [[MHWaitDialog alloc] init];
-            [wait show];
-            [[MHAPI getInstance] createItem:item completionBlock:^(id object, NSError *error) {
-                [wait dismiss];
-                if (error) {
-                    UIAlertView *alert = [[UIAlertView alloc]
-                                          initWithTitle:@"Error"
-                                          message:error.localizedDescription
-                                          delegate:self
-                                          cancelButtonTitle:@"Ok"
-                                          otherButtonTitles:nil];
-                    [alert show];
-                }
-                
+            }else {
                 [self dismissViewControllerAnimated:YES completion:nil];
-            }];
-        }else {
-            
-            [self dismissViewControllerAnimated:YES completion:nil];
+            }
         }
     }
 }
