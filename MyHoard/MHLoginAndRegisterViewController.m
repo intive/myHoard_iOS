@@ -309,7 +309,6 @@
     [[MHAPI getInstance] accessTokenForUser:_emailTextField.text
                                withPassword:_passwordTextField.text
                             completionBlock:^(id object, NSError *error) {
-                                [_waitDialog dismiss];
                                 if (error) {
                                     UIAlertView *alert = [[UIAlertView alloc]
                                                           initWithTitle:@"Error"
@@ -321,11 +320,7 @@
                                     [alert show];
                                     
                                 } else {
-                                    [self dismissViewControllerAnimated:YES completion:^{
-                                        if (_loginCompletionBlock) {
-                                            _loginCompletionBlock();
-                                        }
-                                    }];
+                                    [self synchronize];
                                 }
                             }];
 }
@@ -362,4 +357,28 @@
 - (IBAction)cancelButtonPressed:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+
+- (void)synchronize {
+    [[MHAPI getInstance]readUserCollectionsWithCompletionBlock:^(NSArray *readCollectionsArray, NSError *error) {
+        if (error) {
+            UIAlertView *alert = [[UIAlertView alloc]
+                                  initWithTitle:@"Error"
+                                  message:error.localizedDescription
+                                  delegate:nil
+                                  cancelButtonTitle:@"OK"
+                                  otherButtonTitles:nil];
+            
+            [alert show];
+        }else {
+            [_waitDialog dismiss];
+            [self dismissViewControllerAnimated:YES completion:^{
+                if (_loginCompletionBlock) {
+                    _loginCompletionBlock();
+                }
+            }];
+        }
+    }];
+    
+}
+
 @end

@@ -322,28 +322,106 @@ static MHAPI *_sharedAPI = nil;
                                                           parameters:nil
                                                                error:&error];
     
+    __block NSArray *coreDataCollections = [MHDatabaseManager allCollections];
+    __block NSPredicate *predicate = [[NSPredicate alloc]init];
+    __block NSArray *predicationResult = [[NSArray alloc]init];
+    
     AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
                                                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                                                          for (NSDictionary *responseDictionary in responseObject) {
-                                                                              
-                                                                              NSString* date = responseDictionary[@"created_date"];
-                                                                              NSDate* created = [date dateFromRFC3339String];
-                                                                              date = responseDictionary[@"modified_date"];
-                                                                              NSDate* modified = [date dateFromRFC3339String];
-
-                                                                              
-                                                                              MHCollection *createdCollection = [MHDatabaseManager insertCollectionWithObjName:responseDictionary[@"name"]
-                                                                                                                                                objDescription:responseDictionary[@"description"]
-                                                                                                                                                       objTags:responseDictionary[@"tags"]
-                                                                                                                                                objCreatedDate:created
-                                                                                                                                               objModifiedDate:modified
-                                                                                                                       objOwnerNilAddLogedUserCode:responseDictionary[@"owner"]];
-                                                                              
-                                                                              createdCollection.objId = responseDictionary[@"id"];
-                                                                              
-                                                                            [[MHCoreDataContext getInstance] saveContext];
+                                                                          if ([coreDataCollections count] == 0) {
+                                                                              for (NSDictionary *responseDictionary in responseObject) {
+                                                                                  
+                                                                                  NSString* date = responseDictionary[@"created_date"];
+                                                                                  NSDate* created = [date dateFromRFC3339String];
+                                                                                  date = responseDictionary[@"modified_date"];
+                                                                                  NSDate* modified = [date dateFromRFC3339String];
+                                                                                  
+                                                                                  MHCollection *createdCollection = [MHDatabaseManager insertCollectionWithObjName:responseDictionary[@"name"]
+                                                                                                                                                    objDescription:responseDictionary[@"description"]
+                                                                                                                                                           objTags:responseDictionary[@"tags"]
+                                                                                                                                                    objCreatedDate:created
+                                                                                                                                                   objModifiedDate:modified
+                                                                                                                                       objOwnerNilAddLogedUserCode:responseDictionary[@"owner"]];
+                                                                                  
+                                                                                  createdCollection.objId = responseDictionary[@"id"];
+                                                                              }
+                                                                              [[MHCoreDataContext getInstance] saveContext];
+                                                                          }else {
+                                                                              for (NSDictionary *responseDictionary in responseObject) {
+                                                                                  predicate = [NSPredicate predicateWithFormat:@"objId == %@", responseDictionary[@"id"]];
+                                                                                  predicationResult = [coreDataCollections filteredArrayUsingPredicate:predicate];
+                                                                                  
+                                                                                  NSString* date = responseDictionary[@"created_date"];
+                                                                                  NSDate* created = [date dateFromRFC3339String];
+                                                                                  date = responseDictionary[@"modified_date"];
+                                                                                  NSDate* modified = [date dateFromRFC3339String];
+                                                                                  
+                                                                                  if ([predicationResult count] == 0) {
+                                                                                      MHCollection *createdCollection = [MHDatabaseManager insertCollectionWithObjName:responseDictionary[@"name"]
+                                                                                                                                                        objDescription:responseDictionary[@"description"]
+                                                                                                                                                               objTags:responseDictionary[@"tags"]
+                                                                                                                                                        objCreatedDate:created
+                                                                                                                                                       objModifiedDate:modified
+                                                                                                                                           objOwnerNilAddLogedUserCode:responseDictionary[@"owner"]];
+                                                                                      
+                                                                                      createdCollection.objId = responseDictionary[@"id"];
+                                                                                      
+                                                                                      [[MHCoreDataContext getInstance] saveContext];
+                                                                                  }else {
+                                                                                      predicate = [NSPredicate predicateWithFormat:@"objModifiedDate < %@", modified];
+                                                                                      NSArray *collectionsPredicatedWithModifiedDate = [predicationResult filteredArrayUsingPredicate:predicate];
+                                                                                      
+                                                                                      if ([collectionsPredicatedWithModifiedDate count] > 0) {
+                                                                                          for (MHCollection *result in collectionsPredicatedWithModifiedDate) {
+                                                                                              
+                                                                                              [[MHCoreDataContext getInstance].managedObjectContext deleteObject:result];
+                                                                                              [[MHCoreDataContext getInstance] saveContext];
+                                                                                              
+                                                                                              NSString* date = responseDictionary[@"created_date"];
+                                                                                              NSDate* created = [date dateFromRFC3339String];
+                                                                                              date = responseDictionary[@"modified_date"];
+                                                                                              NSDate* modified = [date dateFromRFC3339String];
+                                                                                              
+                                                                                              MHCollection *createdCollection = [MHDatabaseManager insertCollectionWithObjName:responseDictionary[@"name"]
+                                                                                                                                                                objDescription:responseDictionary[@"description"]
+                                                                                                                                                                       objTags:responseDictionary[@"tags"]
+                                                                                                                                                                objCreatedDate:created
+                                                                                                                                                               objModifiedDate:modified
+                                                                                                                                                   objOwnerNilAddLogedUserCode:responseDictionary[@"owner"]];
+                                                                                              
+                                                                                              createdCollection.objId = responseDictionary[@"id"];
+                                                                                              
+                                                                                              [[MHCoreDataContext getInstance] saveContext];
+                                                                                          }
+                                                                                      }else {
+                                                                                          
+                                                                                          predicate = [NSPredicate predicateWithFormat:@"objModifiedDate > %@", modified];
+                                                                                          NSArray *collectionsPredicatedWithModifiedDate = [predicationResult filteredArrayUsingPredicate:predicate];
+                                                                                          
+                                                                                          if ([predicationResult count] > 0) {
+                                                                                              for (MHCollection *result in collectionsPredicatedWithModifiedDate) {
+                                                                                                  [[MHAPI getInstance]updateCollection:result completionBlock:^(id object, NSError *error)   {
+                                                                                                      if (error) {
+                                                                                                          UIAlertView *alert = [[UIAlertView alloc]
+                                                                                                                                initWithTitle:@"Error"
+                                                                                                                                message:error.localizedDescription
+                                                                                                                                delegate:nil
+                                                                                                                                cancelButtonTitle:@"OK"
+                                                                                                                                otherButtonTitles:nil];
+                                                                                                          
+                                                                                                          [alert show];
+                                                                                                      }
+                                                                                                  }];
+                                                                                              }
+                                                                                          }
+                                                                                      }
+                                                                                  }
+                                                                                  [[MHCoreDataContext getInstance] saveContext];
+                                                                              }
                                                                           }
-                                                                          completionBlock(nil, error);
+                                                                          
+                                                                          [[MHCoreDataContext getInstance] saveContext];
+                                                                          completionBlock(nil, nil);
                                                                       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                                                           completionBlock(nil, error);
                                                                       }];

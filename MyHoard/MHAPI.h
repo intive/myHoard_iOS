@@ -63,6 +63,9 @@ typedef void (^MHAPICompletionBlock)(id object, NSError *error);
 
 - (AFHTTPRequestOperation *)readUserCollectionsWithCompletionBlock:(MHAPICompletionBlock)completionBlock;
 
+- (AFHTTPRequestOperation *)updateCollection:(MHCollection *)collection
+                             completionBlock:(MHAPICompletionBlock)completionBlock;
+
 - (AFHTTPRequestOperation *)createMedia:(MHMedia *)media
                         completionBlock:(MHAPICompletionBlock)completionBlock;
 
