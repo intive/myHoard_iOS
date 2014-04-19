@@ -50,6 +50,7 @@ typedef NS_ENUM(NSInteger, ItemSortMode) {
 {
     [super viewWillAppear:animated];
     [_collectionView reloadData];
+    _collectionName.title = _collection.objName;
 }
 
 - (void)viewDidLoad
@@ -213,10 +214,10 @@ typedef NS_ENUM(NSInteger, ItemSortMode) {
 - (NSString*)titleInDropDownMenu:(MHDropDownMenu *)menu atIndex:(NSInteger)index {
     switch (index) {
         case 0:
-            return [NSString stringWithFormat:@"Add item to '%@'", _collection.objName];
+            return @"Add item to collection";
             break;
         case 1:
-            return [NSString stringWithFormat:@"Edit '%@'", _collection.objName];
+            return @"Edit collection";
             break;
         default:
             return @"unused menu item";
