@@ -43,7 +43,13 @@ typedef NS_ENUM(NSInteger, CollectionSortMode) {
     BOOL _isDragging;
     BOOL _isVisible;
 }
+
+- (void)viewWillAppear:(BOOL)animated {
+    [_collectionView reloadData];
     
+    [super viewWillAppear:animated];
+}
+
 - (void)viewDidLoad
 {
 
