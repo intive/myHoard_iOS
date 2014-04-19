@@ -500,8 +500,8 @@ static MHAPI *_sharedAPI = nil;
     AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
                                                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
                                                                           NSData* imageData = responseObject;
-                                                                          NSString* imagePath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:[NSString stringWithFormat:@"/%@.png", responseObject[@"id"]]];
-                                                                          [imageData writeToFile:imagePath atomically:YES];
+                                                                          UIImage *responseImage = [UIImage imageWithData:imageData];
+                                                                          [[MHImageCache sharedInstance] cacheImage:responseImage forKey:[NSString stringWithFormat:@"%@", responseObject[@"id"]]];
                                                                           
                                                                           [self updateMedia:tmpMedia completionBlock:nil];
                                                                           
