@@ -11,6 +11,7 @@
 #import "NSString+Tags.h"
 #import "MHAPI.h"
 #import "MHWaitDialog.h"
+#import "MHCoreDataContext.h"
 
 @interface MHAddCollectionViewController ()
 @property (readwrite) NSUInteger last;
@@ -65,7 +66,12 @@
 - (void)loadCollectionSettings
 {
     _nameTextField.text = _collection.objName;
-    _tagsTextField.text = _collection.objTags;
+    NSString *tags = [NSString stringWithFormat:@""];
+    for (NSString *tag in _collection.objTags) {
+        tags = [NSString stringWithFormat:@"%@%@ ", tags, tag];
+    }
+    
+    _tagsTextField.text = tags;
     _descriptionTextField.text = _collection.objDescription;
 }
 
@@ -120,16 +126,45 @@
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"error" message:@"Name is to long(max64)" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
         [alert show];
     }else if([MHDatabaseManager collectionWithObjName:self.nameTextField.text]!= nil && _collection == nil){
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"error" message:@"Collection of that name exists." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
-        [alert show];
-    } else if([MHDatabaseManager collectionWithObjName:self.nameTextField.text]!= nil && _collection != nil) {
-        MHCollection *databaseCollection = [MHDatabaseManager collectionWithObjName:_nameTextField.text];
-        databaseCollection.objName = trimmedString;
-        databaseCollection.objDescription = self.descriptionTextField.text;
-        databaseCollection.objModifiedDate = [NSDate date];
-        databaseCollection.objTags = [_tagsTextField.text tags];
-        [self dismissViewControllerAnimated:YES completion:nil];
         
+        if (_collection) {
+            _collection.objName = trimmedString;
+            _collection.objDescription = self.descriptionTextField.text;
+            _collection.objModifiedDate = [NSDate date];
+            _collection.objTags = [_tagsTextField.text tags];
+            [[MHCoreDataContext getInstance] saveContext];
+            if ([[MHAPI getInstance]activeSession] == YES) {
+                NSLog(@"Yes you are logged in");
+                
+                if (![_typeLabel.text isEqualToString:@"Offline"]) {
+                    __block MHWaitDialog* wait = [[MHWaitDialog alloc] init];
+                    [wait show];
+                    [[MHAPI getInstance] createCollection:_collection completionBlock:^(id object, NSError *error) {
+                        [wait dismiss];
+                        
+                        if (error) {
+                            UIAlertView *alert = [[UIAlertView alloc]
+                                                  initWithTitle:@"Error"
+                                                  message:error.localizedDescription
+                                                  delegate:self
+                                                  cancelButtonTitle:@"Ok"
+                                                  otherButtonTitles:nil];
+                            [alert show];
+                            NSLog(@"%@", error);
+                        }
+                        [self dismissViewControllerAnimated:YES completion:nil];
+                    }];
+                } else {
+                    [self dismissViewControllerAnimated:YES completion:nil];
+                    
+                }
+            } else {
+                [self dismissViewControllerAnimated:YES completion:nil];
+            }
+        } else {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"error" message:@"Collection of that name exists." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
+            [alert show];
+        }
     } else {
         
         MHCollection* collection = [MHDatabaseManager insertCollectionWithObjName:trimmedString
