@@ -44,6 +44,12 @@ typedef NS_ENUM(NSInteger, ItemSortMode) {
     [super awakeFromNib];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [_collectionView reloadData];
+}
+
 - (void)viewDidLoad
 {
     
