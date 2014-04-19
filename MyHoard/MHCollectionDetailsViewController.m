@@ -9,6 +9,7 @@
 #import "MHItemDetailsViewController.h"
 #import "MHAddItemViewController.h"
 #import "MHImageCache.h"
+#import "MHImagePickerViewController.h"
 
 typedef NS_ENUM(NSInteger, ItemSortMode) {
     ItemSortModeByName = 0,
@@ -214,8 +215,17 @@ typedef NS_ENUM(NSInteger, ItemSortMode) {
 }
 
 - (void)dropDownMenu:(MHDropDownMenu*)menu didSelectItemAtIndex:(NSUInteger)index {
-    if (index == 0) {
-        [self performSegueWithIdentifier:@"AddItemSegue" sender:nil];
+    if (index == 0)
+    {
+        UIActionSheet *alert = [[UIActionSheet alloc]initWithTitle:nil
+                                                          delegate:self
+                                                 cancelButtonTitle:@"Cancel"
+                                            destructiveButtonTitle:nil
+                                                 otherButtonTitles:@"Create without photo", @"Take a photo", @"Choose from library", nil];
+        [alert showInView:self.view];
+        if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]){
+            [alert setButton:1 toState:NO];
+        }
     } else {
         NSLog(@"Unknown menu item %lu selected:", (unsigned long)index);
     }
@@ -270,5 +280,41 @@ typedef NS_ENUM(NSInteger, ItemSortMode) {
     }
     [self.collectionView reloadData];
 }
+
+
+- (void)showImagePickerForSourceType:(UIImagePickerControllerSourceType)sourceType {
+    
+    MHImagePickerViewController *imagePickerController = [[MHImagePickerViewController alloc] init];
+    imagePickerController.modalPresentationStyle = UIModalPresentationCurrentContext;
+    imagePickerController.sourceType = sourceType;
+    imagePickerController.delegate = self;
+    
+    [self presentViewController:imagePickerController animated:YES completion:nil];
+}
+
+-(void)actionSheet:(UIActionSheet *)alert clickedButtonAtIndex:(NSInteger)buttonIndex {
+    switch (buttonIndex){
+        case 0:
+            [self performSegueWithIdentifier:@"AddItemSegue" sender:nil];
+            break;
+        case 1:
+            [self showImagePickerForSourceType:UIImagePickerControllerSourceTypeCamera];
+            break;
+        case 2:
+            [self showImagePickerForSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+            break;
+    }
+}
+
+
+#pragma mark image picker delegate
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    UIImage *image = [info valueForKey:UIImagePickerControllerOriginalImage];
+    [self dismissViewControllerAnimated:YES completion:^{
+        [self performSegueWithIdentifier:@"AddItemSegue" sender:image];
+    }];
+}
+
 
 @end

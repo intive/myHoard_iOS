@@ -16,6 +16,8 @@
 #import "MHDatabaseManager.h"
 #import "MHMedia.h"
 #import "MHCollectionDetailsHeaderView.h"
+#import "UIActionSheet+ButtonState.h"
+
 
 @interface MHCollectionDetailsViewController : MHBaseViewController <UICollectionViewDataSource, UICollectionViewDelegate>
 
