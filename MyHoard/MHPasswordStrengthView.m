@@ -177,7 +177,7 @@
         ratio += step;
     }
     
-    for (int i=_currentValue;i<_numberOfSections;i++) {
+    for (NSInteger i=_currentValue;i<_numberOfSections;i++) {
         //draw background sections
         
         if (i == (_numberOfSections - 1)) {
