@@ -82,7 +82,7 @@ static MHImageCache *_sharedInstance = nil;
 }
 
 - (NSString *)cacheImage:(UIImage *)image {
-    NSData *data = UIImagePNGRepresentation(image);
+    NSData *data = UIImageJPEGRepresentation(image, 90);
     NSString *key = [self hashForData:data];
     [super storeData:data forKey:key];
     
