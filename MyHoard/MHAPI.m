@@ -919,10 +919,4 @@ static MHAPI *_sharedAPI = nil;
     }
 }
 
--(void) setUserId:(NSString *)userId{//only for tests
-    _userId=userId;
-}
-
-
-
 @end
