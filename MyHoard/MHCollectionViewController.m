@@ -439,7 +439,7 @@ newIndexPath:(NSIndexPath *)newIndexPath
 }
 
 - (NSFetchedResultsController*) sortByName{
-//    [NSFetchedResultsController deleteCacheWithName:@"Root"];
+    [NSFetchedResultsController deleteCacheWithName:@"Root"];
     #warning To someone who made this class :Can i clear cache here(without clearing cache app crashes after switching user account). If yes remove warning else tell it to me :)
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc]init];
     
@@ -454,7 +454,7 @@ newIndexPath:(NSIndexPath *)newIndexPath
 }
 
 - (NSFetchedResultsController*) sortByDate{
-//    [NSFetchedResultsController deleteCacheWithName:@"Root"];
+    [NSFetchedResultsController deleteCacheWithName:@"Root"];
     #warning To someone who made this class :Can i clear cache here(without clearing cache app crashes after switching user account)?
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc]init];
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"MHCollection" inManagedObjectContext:[MHCoreDataContext getInstance].managedObjectContext];
