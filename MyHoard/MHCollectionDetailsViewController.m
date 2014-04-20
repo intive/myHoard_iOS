@@ -20,8 +20,10 @@ typedef NS_ENUM(NSInteger, ItemSortMode) {
 #define HEADER_HEIGHT 44
 
 @interface MHCollectionDetailsViewController ()
-
-@property (nonatomic, assign) ItemSortMode sortMode;
+{
+    ItemSortMode _sortMode;
+    NSArray* _items;
+}
 
 @end
 
@@ -49,8 +51,29 @@ typedef NS_ENUM(NSInteger, ItemSortMode) {
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
     [_collectionView reloadData];
     _collectionName.title = _collection.objName;
+}
+
+- (void) setSortMode:(ItemSortMode)mode {
+    _sortMode = mode;
+    
+    NSMutableArray* objects = [NSMutableArray arrayWithArray:[self.collection.items allObjects]];
+    if (_sortMode == ItemSortModeByName)
+    {
+        NSSortDescriptor *sort = [[NSSortDescriptor alloc] initWithKey:@"objName" ascending:YES selector:@selector(localizedStandardCompare:)];
+        [objects sortUsingDescriptors:[NSArray arrayWithObject:sort]];
+    }
+    else if (_sortMode == ItemSortModeByDate)
+    {
+        NSSortDescriptor *sort = [[NSSortDescriptor alloc] initWithKey:@"objCreatedDate" ascending:NO];
+        [objects sortUsingDescriptors:[NSArray arrayWithObject:sort]];
+    }
+    
+    _items = objects;
+
+    [self.collectionView reloadData];
 }
 
 - (void)viewDidLoad
@@ -87,6 +110,8 @@ typedef NS_ENUM(NSInteger, ItemSortMode) {
     [_headerView addSubview:segmentedControl];
     [self.collectionView addSubview:_headerView];
     self.collectionView.alwaysBounceVertical = YES;
+    
+    [self setSortMode:ItemSortModeByName];
 }
 
 - (void)didReceiveMemoryWarning
@@ -113,20 +138,7 @@ typedef NS_ENUM(NSInteger, ItemSortMode) {
 
     MHCollectionDetailsCell *cell = (MHCollectionDetailsCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"MHItemCell" forIndexPath:indexPath];
     
-    NSMutableArray *objects = [[NSMutableArray alloc]init];
-    [objects addObjectsFromArray:_collection.items.allObjects];
-    if (self.sortMode == ItemSortModeByName)
-    {
-        NSSortDescriptor *sort = [[NSSortDescriptor alloc] initWithKey:@"objName" ascending:YES selector:@selector(localizedStandardCompare:)];
-        [objects sortUsingDescriptors:[NSArray arrayWithObject:sort]];
-    }
-    else if (self.sortMode == ItemSortModeByDate)
-    {
-        NSSortDescriptor *sort = [[NSSortDescriptor alloc] initWithKey:@"objCreatedDate" ascending:NO];
-        [objects sortUsingDescriptors:[NSArray arrayWithObject:sort]];
-    }
-    
-    MHItem *object = [objects objectAtIndex:indexPath.row];
+    MHItem *object = [_items objectAtIndex:indexPath.row];
     
     cell.itemTitle.textColor = [UIColor collectionNameFrontColor];
     cell.itemComment.textColor = [UIColor appBackgroundColor];
@@ -156,7 +168,7 @@ typedef NS_ENUM(NSInteger, ItemSortMode) {
     NSInteger count = [self collectionView:_collectionView numberOfItemsInSection:[self numberOfSectionsInCollectionView:_collectionView]];
     
     if (count) {
-        MHItem  *object = [_collection.items.allObjects  objectAtIndex:indexPath.row];
+        MHItem  *object = [_items  objectAtIndex:indexPath.row];
         [self performSegueWithIdentifier:@"ShowItemDetails" sender:object];
     }
     
@@ -170,6 +182,7 @@ typedef NS_ENUM(NSInteger, ItemSortMode) {
         UINavigationController* nc = segue.destinationViewController;
         MHAddItemViewController *vc = (MHAddItemViewController *)nc.visibleViewController;
         vc.selectedCollection = self.collection;
+        vc.selectedImage = sender;
     } else if ([segue.identifier isEqualToString:@"ChangeCollectionSettingsSegue"])
     {
         UINavigationController *nc = segue.destinationViewController;
@@ -287,13 +300,11 @@ typedef NS_ENUM(NSInteger, ItemSortMode) {
 - (void)segmentedControlValueChanged:(UISegmentedControl *)sender {
     NSInteger index = [sender selectedSegmentIndex];
     if (index == 0) {
-        self.sortMode = ItemSortModeByDate;
+        [self setSortMode:ItemSortModeByDate];
     } else {
-        self.sortMode = ItemSortModeByName;
+        [self setSortMode:ItemSortModeByName];
     }
-    [self.collectionView reloadData];
 }
-
 
 - (void)showImagePickerForSourceType:(UIImagePickerControllerSourceType)sourceType {
     
