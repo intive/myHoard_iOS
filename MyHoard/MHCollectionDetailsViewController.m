@@ -52,6 +52,8 @@ typedef NS_ENUM(NSInteger, ItemSortMode) {
 {
     [super viewWillAppear:animated];
     
+    [self setSortMode:_sortMode]; //set sort mode again, so the _items array is correct after adding new item to the colelction.
+    
     [_collectionView reloadData];
     _collectionName.title = _collection.objName;
 }
