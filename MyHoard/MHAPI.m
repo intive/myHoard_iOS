@@ -323,8 +323,8 @@ static MHAPI *_sharedAPI = nil;
                                                                error:&error];
     
     __block NSArray *coreDataCollections = [MHDatabaseManager allCollections];
-    __block NSPredicate *predicate = [[NSPredicate alloc]init];
-    __block NSArray *predicationResult = [[NSArray alloc]init];
+    __block NSPredicate *predicate;
+    __block NSArray *predicationResult;
     
     AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
                                                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -579,7 +579,8 @@ static MHAPI *_sharedAPI = nil;
                                                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
                                                                           NSData* imageData = responseObject;
                                                                           UIImage *responseImage = [UIImage imageWithData:imageData];
-                                                                          [[MHImageCache sharedInstance] cacheImage:responseImage forKey:[NSString stringWithFormat:@"%@", responseObject[@"id"]]];
+                                                                          [[MHImageCache sharedInstance] cacheImage:responseImage forKey:responseObject[@"id"]];
+                                                                          tmpMedia.objKey = responseObject[@"id"];
                                                                           
                                                                           [self updateMedia:tmpMedia completionBlock:nil];
                                                                           
