@@ -47,7 +47,7 @@ static MHImageCache *_sharedInstance = nil;
 }
 
 - (void)cacheImage:(UIImage *)image forKey:(NSString *)key {
-    NSData *data = UIImagePNGRepresentation(image);
+    NSData *data = UIImageJPEGRepresentation(image, 90);
     [super storeData:data forKey:key];
 }
 
@@ -86,7 +86,8 @@ static MHImageCache *_sharedInstance = nil;
     NSString *key = [self hashForData:data];
     [super storeData:data forKey:key];
     
-    [self cacheImage:[self thumbnailFromImage:image] forKey:[self keyForThumbnailWithBaseKey:key]];
+    NSData* thumbData = UIImagePNGRepresentation([self thumbnailFromImage:image]);
+    [super storeData:thumbData forKey:[self keyForThumbnailWithBaseKey:key]];
     return key;
 }
 
