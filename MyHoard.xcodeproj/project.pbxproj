@@ -24,6 +24,7 @@
 		23CD276019012FE4005203C2 /* MHItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 23CD275F19012FE4005203C2 /* MHItem.m */; };
 		23CD276319012FE5005203C2 /* MHMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = 23CD276219012FE5005203C2 /* MHMedia.m */; };
 		23CD276619012FE5005203C2 /* MHCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 23CD276519012FE5005203C2 /* MHCollection.m */; };
+		23CD283219048761005203C2 /* JBKenBurnsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 23CD283119048761005203C2 /* JBKenBurnsView.m */; };
 		23D02EFB18EEAA0300114941 /* MHAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D02EFA18EEAA0300114941 /* MHAPI.m */; };
 		23D02F0318EF38C600114941 /* MHWaitDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D02F0218EF38C600114941 /* MHWaitDialog.m */; };
 		23D321A1184BBFFA002FC13A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23D321A0184BBFFA002FC13A /* Foundation.framework */; };
@@ -127,6 +128,8 @@
 		23CD276219012FE5005203C2 /* MHMedia.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHMedia.m; sourceTree = "<group>"; };
 		23CD276419012FE5005203C2 /* MHCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHCollection.h; sourceTree = "<group>"; };
 		23CD276519012FE5005203C2 /* MHCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHCollection.m; sourceTree = "<group>"; };
+		23CD283019048761005203C2 /* JBKenBurnsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JBKenBurnsView.h; sourceTree = "<group>"; };
+		23CD283119048761005203C2 /* JBKenBurnsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JBKenBurnsView.m; sourceTree = "<group>"; };
 		23D02EF918EEAA0300114941 /* MHAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHAPI.h; sourceTree = "<group>"; };
 		23D02EFA18EEAA0300114941 /* MHAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHAPI.m; sourceTree = "<group>"; };
 		23D02F0118EF38C600114941 /* MHWaitDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHWaitDialog.h; sourceTree = "<group>"; };
@@ -291,6 +294,7 @@
 		235EB3CB18DDF16F0032D769 /* Collections */ = {
 			isa = PBXGroup;
 			children = (
+				23CD282F19048761005203C2 /* KenBurns */,
 				CE28669318DB2A9D003AC446 /* MHKenBurns.h */,
 				CE28669418DB2A9D003AC446 /* MHKenBurns.m */,
 				23F64D2518DE682C003420E3 /* MHTagsView.h */,
@@ -303,6 +307,15 @@
 				E74EDDB918E6F7F200488AD1 /* UIActionSheet+ButtonState.m */,
 			);
 			name = Collections;
+			sourceTree = "<group>";
+		};
+		23CD282F19048761005203C2 /* KenBurns */ = {
+			isa = PBXGroup;
+			children = (
+				23CD283019048761005203C2 /* JBKenBurnsView.h */,
+				23CD283119048761005203C2 /* JBKenBurnsView.m */,
+			);
+			path = KenBurns;
 			sourceTree = "<group>";
 		};
 		23D02EFC18EEAA0F00114941 /* Networking */ = {
@@ -742,6 +755,7 @@
 				CE6C31BC18B1422100983736 /* MHCollectionDetailsViewController.m in Sources */,
 				537CF82C18AD643D008A7E04 /* MyHoardModel.xcdatamodeld in Sources */,
 				23D02F0318EF38C600114941 /* MHWaitDialog.m in Sources */,
+				23CD283219048761005203C2 /* JBKenBurnsView.m in Sources */,
 				23F64D2718DE682C003420E3 /* MHTagsView.m in Sources */,
 				23D321AD184BBFFA002FC13A /* main.m in Sources */,
 				9370CAF418CFC30A00C77461 /* MHCollectionViewController.m in Sources */,
