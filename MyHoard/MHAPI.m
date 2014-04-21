@@ -837,13 +837,8 @@ static MHAPI *_sharedAPI = nil;
                                                            URLString:[NSString stringWithFormat:@"%@%@/items/",[self urlWithPath:@"collections"],collection.objId]
                                                           parameters:nil
                                                                error:&error];
-    NSFetchRequest *fetch = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"MHItem" inManagedObjectContext: [MHCoreDataContext getInstance].managedObjectContext];
-    [fetch setEntity:entityDescription];
-    [fetch setPredicate:[NSPredicate predicateWithFormat:@"collection = %@", collection]];
-    
-    NSError *fetchError = nil;
-    __block NSArray *coreDataItems = [[MHCoreDataContext getInstance].managedObjectContext executeFetchRequest:fetch error:&fetchError];
+
+    __block NSArray *coreDataItems = [collection.items allObjects];
     __block NSPredicate *predicate;
     __block NSArray *predicationResult;
     
