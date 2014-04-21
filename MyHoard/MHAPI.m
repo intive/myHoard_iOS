@@ -412,20 +412,39 @@ static MHAPI *_sharedAPI = nil;
                                                                                   [[MHCoreDataContext getInstance] saveContext];
                                                                                   
                                                                                   /*****Commented out until objCollectionStatus is implemented in database*********
-                                                                                   
-                                                                                  predicate = [NSPredicate predicateWithFormat:@"(objCollectionStatus == 'deleted') OR (objCollectionStatus == 'offline')"];
-                                                                                  predicationResult = [coreDataCollections filteredArrayUsingPredicate:predicate];
                                                                                   
-                                                                                  if ([predicationResult count] > 0) {
-                                                                                      for (MHCollection *collectionsWithStatus in predicationResult) {
-                                                                                          [self deleteCollection:collectionsWithStatus completionBlock:^(id object, NSError *error) {
-                                                                                              if (error) {
-                                                                                                  completionBlock(nil, error);
-                                                                                              }
-                                                                                          }];
-                                                                                      }
-                                                                                  }
-                                                                                   ********************************************************************************/
+                                                                                   predicate = [NSPredicate predicateWithFormat:@"(objCollectionStatus == 'deleted') OR (objCollectionStatus == 'offline')"];
+                                                                                   predicationResult = [coreDataCollections filteredArrayUsingPredicate:predicate];
+                                                                                   
+                                                                                   if ([predicationResult count] > 0) {
+                                                                                       for (MHCollection *eachCollectionWithStatus in predicationResult) {
+                                                                                           predicate = [NSPredicate predicateWithFormat:@"id == %@", eachCollectionWithStatus.objId];
+                                                                                           predicationResult = [responseObject filteredArrayUsingPredicate:predicate];
+                                                                                           if ([predicationResult count] > 0) {
+                                                                                               for (MHCollection *collectionsWithStatus in predicationResult) {
+                                                                                                   [self deleteCollection:collectionsWithStatus completionBlock:^(id object, NSError *error) {
+                                                                                                       if (error) {
+                                                                                                           completionBlock(nil, error);
+                                                                                                       }
+                                                                                                   }];
+                                                                                               }
+                                                                                           }
+                                                                                       }
+                                                                                   }else {
+                                                                                       for (MHCollection *eachCollectionWithoutStatus in coreDataCollections) {
+                                                                                           predicate = [NSPredicate predicateWithFormat:@"id == %@", eachCollectionWithoutStatus.objId];
+                                                                                           predicationResult = [coreDataCollections filteredArrayUsingPredicate:predicate];
+                                                                                           if ([predicationResult count] == 0) {
+                                                                                               [self createCollection:eachCollectionWithoutStatus completionBlock:^(id object, NSError *error) {
+                                                                                                   if (error) {
+                                                                                                       completionBlock(nil, error);
+                                                                                                   }
+                                                                                               }];
+                                                                                           }
+                                                                                       }
+                                                                                   }
+                                                                                   
+                                                                                   *****Commented out until objCollectionStatus is implemented in database*********/
                                                                               }
                                                                           }
                                                                           
