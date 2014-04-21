@@ -477,9 +477,39 @@ static MHAPI *_sharedAPI = nil;
                                                                error:&error];
     
     __block MHCollection* c = collection;
+    //__block MHCollection *coreDataCollection = [MHDatabaseManager collectionWithObjName:collection.objId];
     
     AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
                                                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                                                          /*****Commented out until objCollectionStatus is implemented in database*********
+                                                                          if (coreDataCollection.objCollectionStatus == @"Public") {
+                                                                          
+                                                                              NSString* date = responseObject[@"created_date"];
+                                                                              NSDate* created = [date dateFromRFC3339String];
+                                                                              date = responseObject[@"modified_date"];
+                                                                              NSDate* modified = [date dateFromRFC3339String];
+                                                                          
+                                                                              if ([[coreDataCollection.objModifiedDate laterDate:modified] isEqualToDate:coreDataCollection.objModifiedDate]) {
+                                                                                  [self updateCollection:c completionBlock:^(id object, NSError *error) {
+                                                                                      if (error) {
+                                                                                          completionBlock(nil, error);
+                                                                                      }
+                                                                                  }];
+                                                                              }else {
+                                                                                  [[MHCoreDataContext getInstance].managedObjectContext deleteObject:collection];
+                                                                                  [[MHCoreDataContext getInstance]saveContext];
+                                                                                  MHCollection * collection = [MHDatabaseManager insertCollectionWithObjName:responseObject[@"name"] objDescription:responseObject[@"description"] objTags:responseObject[@"tags"] objCreatedDate:created objModifiedDate:modified objOwnerNilAddLogedUserCode:responseObject[@"owner"]];
+                                                                                  collection.objId = responseObject[@"id"];
+                                                                              }
+                                                                          }else {
+                                                                              [self deleteCollection:collection completionBlock:^(id object, NSError *error) {
+                                                                                  if (error) {
+                                                                                      completionBlock(nil, error);
+                                                                                  }
+                                                                              }];
+                                                                          }
+                                                                           *****Commented out until objCollectionStatus is implemented in database*********/
+
                                                                           c.objName = responseObject[@"name"];
                                                                           c.objDescription = responseObject[@"description"];
                                                                           c.objTags = responseObject[@"tags"];
