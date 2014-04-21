@@ -400,7 +400,7 @@ static MHAPI *_sharedAPI = nil;
                                                                                           
                                                                                           if ([predicationResult count] > 0) {
                                                                                               for (MHCollection *result in collectionsPredicatedWithModifiedDate) {
-                                                                                                  [[MHAPI getInstance]updateCollection:result completionBlock:^(id object, NSError *error)   {
+                                                                                                  [self updateCollection:result completionBlock:^(id object, NSError *error)   {
                                                                                                       if (error) {
                                                                                                           completionBlock(nil, error);
                                                                                                       }
@@ -410,6 +410,22 @@ static MHAPI *_sharedAPI = nil;
                                                                                       }
                                                                                   }
                                                                                   [[MHCoreDataContext getInstance] saveContext];
+                                                                                  
+                                                                                  /*****Commented out until objCollectionStatus is implemented in database*********
+                                                                                   
+                                                                                  predicate = [NSPredicate predicateWithFormat:@"(objCollectionStatus == 'deleted') OR (objCollectionStatus == 'offline')"];
+                                                                                  predicationResult = [coreDataCollections filteredArrayUsingPredicate:predicate];
+                                                                                  
+                                                                                  if ([predicationResult count] > 0) {
+                                                                                      for (MHCollection *collectionsWithStatus in predicationResult) {
+                                                                                          [self deleteCollection:collectionsWithStatus completionBlock:^(id object, NSError *error) {
+                                                                                              if (error) {
+                                                                                                  completionBlock(nil, error);
+                                                                                              }
+                                                                                          }];
+                                                                                      }
+                                                                                  }
+                                                                                   ********************************************************************************/
                                                                               }
                                                                           }
                                                                           
