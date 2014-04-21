@@ -402,14 +402,7 @@ static MHAPI *_sharedAPI = nil;
                                                                                               for (MHCollection *result in collectionsPredicatedWithModifiedDate) {
                                                                                                   [[MHAPI getInstance]updateCollection:result completionBlock:^(id object, NSError *error)   {
                                                                                                       if (error) {
-                                                                                                          UIAlertView *alert = [[UIAlertView alloc]
-                                                                                                                                initWithTitle:@"Error"
-                                                                                                                                message:error.localizedDescription
-                                                                                                                                delegate:nil
-                                                                                                                                cancelButtonTitle:@"OK"
-                                                                                                                                otherButtonTitles:nil];
-                                                                                                          
-                                                                                                          [alert show];
+                                                                                                          completionBlock(nil, error);
                                                                                                       }
                                                                                                   }];
                                                                                               }
@@ -421,7 +414,6 @@ static MHAPI *_sharedAPI = nil;
                                                                           }
                                                                           
                                                                           [[MHCoreDataContext getInstance] saveContext];
-                                                                          completionBlock(nil, nil);
                                                                       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                                                           completionBlock(nil, error);
                                                                       }];
