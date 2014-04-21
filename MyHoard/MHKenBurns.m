@@ -8,9 +8,17 @@
 
 #import "MHKenBurns.h"
 
+#define kAnimationDuration 12.0
+
 @implementation MHKenBurns
 {
     UIImageView* _imageView;
+    
+    NSMutableArray *_images;
+}
+
++ (CGFloat)animationDuration {
+    return kAnimationDuration;
 }
 
 - (void)baseInit {
@@ -26,13 +34,6 @@
 
     [self setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin];
     [self setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
-    
-    _images = [[NSMutableArray alloc]init];
-    
-    _animationDuration = 12;
-    _delay = 3;
-    _shouldLoop = YES;
-    _isLandscape = YES;
     
     _images = [NSMutableArray array];
 }
@@ -70,43 +71,28 @@
     }
 }
 
-- (void)animationTapperOff {
-    
-    UITapGestureRecognizer *tapper = [[UITapGestureRecognizer alloc]initWithTarget:_kenBurnsView action:@selector(stopAnimation)];
-    tapper.numberOfTapsRequired = 1;
-    [_kenBurnsView addGestureRecognizer:tapper];
-    [_kenBurnsView setUserInteractionEnabled:YES];
-
-}
-
-- (void)animationTapperOn {
-    
-    UITapGestureRecognizer *tapper = [[UITapGestureRecognizer alloc]initWithTarget:_kenBurnsView action:@selector(startAnimation)];
-    tapper.numberOfTapsRequired = 2;
-    [_kenBurnsView addGestureRecognizer:tapper];
-    [_kenBurnsView setUserInteractionEnabled:YES];
-    
-}
-
 - (void)stopAnimation {
     [_kenBurnsView.layer removeAllAnimations];
+    [_kenBurnsView stopAnimation];
+    _imageView.hidden = NO;
+    _kenBurnsView.hidden = YES;
+
     if (_images.count) {
-        _imageView.hidden = NO;
-        _kenBurnsView.hidden = YES;
         _imageView.image = _images[0];
     }
 }
 
 - (void)startAnimation {
     
-    _imageView.hidden = YES;
-    _kenBurnsView.hidden = NO;
-    
-    [_kenBurnsView animateWithImages:_images
-                  transitionDuration:_animationDuration
-                                loop:_shouldLoop
-                         isLandscape:_isLandscape];
-
+    if (_images.count > 1) {
+        _imageView.hidden = YES;
+        _kenBurnsView.hidden = NO;
+        
+        [_kenBurnsView animateWithImages:_images
+                      transitionDuration:kAnimationDuration / (CGFloat)_images.count
+                                    loop:NO
+                             isLandscape:YES];
+    }
 }
 
 @end

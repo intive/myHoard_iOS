@@ -12,15 +12,10 @@
 @interface MHKenBurns : UIView
 
 @property (nonatomic, strong) JBKenBurnsView *kenBurnsView;
-@property (nonatomic, strong) NSMutableArray *images;
-@property (nonatomic) CGFloat animationDuration;
-@property (nonatomic) BOOL shouldLoop;
-@property (nonatomic) BOOL isLandscape;
-@property (nonatomic) NSTimeInterval delay;
+
++ (CGFloat)animationDuration;
 
 - (void)addImage:(UIImage *)image;
-- (void)animationTapperOff;
-- (void)animationTapperOn;
 - (void)stopAnimation;
 - (void)startAnimation;
 - (void)removeAllImages;

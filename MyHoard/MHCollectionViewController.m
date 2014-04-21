@@ -27,27 +27,37 @@ typedef NS_ENUM(NSInteger, CollectionSortMode) {
 
 @property (nonatomic, assign) CollectionSortMode sortMode;
 
--(void)resetIdleTimer;
--(void)idleTimerExceeded;
-
 @end
 
 @implementation MHCollectionViewController
 {
     NSMutableArray *_objectChanges;
     NSMutableArray *_sectionChanges;
-    NSTimer *timeToChangeCollection;
-    MHCollectionCell *animatingCell;
-
+    
+    NSTimer *_cellSelectionTimer;
+    MHCollectionCell *_selectedCell;
+    
     UIView* _headerView;
     BOOL _isDragging;
     BOOL _isVisible;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    [_selectedCell.kenBurnsView stopAnimation];
+    _selectedCell = nil;
+
     [_collectionView reloadData];
     
     [super viewWillAppear:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    [_selectedCell.kenBurnsView stopAnimation];
+    _selectedCell = nil;
+
+    [self stopCellSelectionTimer];
 }
 
 - (void)viewDidLoad
@@ -63,7 +73,6 @@ typedef NS_ENUM(NSInteger, CollectionSortMode) {
     
     _objectChanges = [NSMutableArray array];
     _sectionChanges = [NSMutableArray array];
-    animatingCell = nil;
     
     self.collectionView.backgroundColor = [UIColor appBackgroundColor];
     self.sortMode = CollectionSortModeByName;
@@ -157,64 +166,44 @@ typedef NS_ENUM(NSInteger, CollectionSortMode) {
 
     [cell.kenBurnsView removeAllImages];
     
-    NSArray* items = collection.items.allObjects;
-    
-    __block int max = 5;
-    __block int current = 0;
-    __block MHCollectionCell* mhcell = cell;
-    if (items.count > 5) {
-        for (int i=0;i<5;i++) {
-            MHItem* item = items[arc4random() % [items count]];
-            if (item.media.count) {
-                for(MHMedia* media in item.media) {
-                    UIImage* image = [[MHImageCache sharedInstance] thumbnailForKey:media.objKey];
-                    [mhcell.kenBurnsView addImage:image];
-                    current++;
-                    if (current == max) {
-                        [mhcell.kenBurnsView startAnimation];
-                    }
-                }
-            } else {
-                current++;
-            }
-        }
+    NSMutableArray* items = [NSMutableArray arrayWithArray:collection.items.allObjects];
+
+    if (_selectedCell == nil) {
+        _selectedCell = cell;
+        
+        NSInteger max = collection.items.count < 5 ? collection.items.count : 5;
+
+        [self addImages:max from:items toCell:cell];
+        
+        [self startCellSelectionTimer];
+        
     } else {
-        max = collection.items.count;
-        for (MHItem *item in collection.items) {
-            if (item.media.count) {
-                for(MHMedia* media in item.media) {
-                    UIImage* image = [[MHImageCache sharedInstance] thumbnailForKey:media.objKey];
-                    [mhcell.kenBurnsView addImage:image];
-                    current++;
-                    if (current == max) {
-//                      [mhcell.kenBurnsView startAnimation];
-                    }
-                }
-            } else {
-                current++;
-            }
-        }
+
+        [self addImages:1 from:items toCell:cell];
+        
     }
 }
 
-#pragma mark - picking random images for kenburns animation
-
-- (NSMutableArray *)animateWithRandomImages:(NSMutableArray *)imagesArray {
-    
-    NSMutableArray *randomImages = [[NSMutableArray alloc]init];
-    int randomCount = 5;
-    
-    if ([imagesArray count] >= randomCount) {
-        while (randomCount > 0) {
-            UIImage *randomImage = [imagesArray objectAtIndex:arc4random() % [imagesArray count]];
-            if (![randomImages containsObject:randomImage]) {
-                [randomImages addObject:randomImage];
-                randomCount--;
+- (void)addImages:(NSInteger)numberOfImages from:(NSMutableArray *)items toCell:(MHCollectionCell *)cell {
+    NSInteger current = 1;
+    if (items.count) {
+        while (current <= numberOfImages) {
+            MHItem* item = items[arc4random() % items.count];
+            [items removeObject:item];
+            if (item.media.count) {
+                for(MHMedia* media in item.media) {
+                    UIImage* image = [[MHImageCache sharedInstance] thumbnailForKey:media.objKey];
+                    [cell.kenBurnsView addImage:image];
+                    if (current == numberOfImages) {
+                        [cell.kenBurnsView startAnimation];
+                    }
+                    current++;
+                }
+            } else {
+                current = numberOfImages;
             }
         }
     }
-    
-    return randomImages;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
@@ -401,41 +390,32 @@ newIndexPath:(NSIndexPath *)newIndexPath
     return shouldReload;
 }
 
--(void)sendEvent:(UIEvent *)event
-{
-    [self resetIdleTimer];
+- (void)startCellSelectionTimer {
+    [self stopCellSelectionTimer];
+    _cellSelectionTimer = [NSTimer scheduledTimerWithTimeInterval:[MHKenBurns animationDuration] target:self selector:@selector(cellSelectionTimerFired) userInfo:nil repeats:NO];
 }
 
--(void)resetIdleTimer
-{
-    [self stopAnimationTimer];
-    timeToChangeCollection = [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(idleTimerExceeded) userInfo:nil repeats:NO];
-
+- (void)stopCellSelectionTimer {
+    [_cellSelectionTimer invalidate];
+    _cellSelectionTimer = nil;
+    
 }
 
--(void)idleTimerExceeded
+- (void)cellSelectionTimerFired
 {
-    if (animatingCell != nil) {
-        [animatingCell.kenBurnsView stopAnimation];
-    }
+    [_selectedCell.kenBurnsView stopAnimation];
+    _selectedCell = nil;
     
     NSArray *visibleCells = [self.collectionView indexPathsForVisibleItems];
-    NSNumber *randomCell = [NSNumber numberWithUnsignedLong:(rand() % (visibleCells.count - 1))];
+    NSIndexPath *cellPath = visibleCells[arc4random() % visibleCells.count];
     
-    NSIndexPath *cellPath = [NSIndexPath indexPathWithIndex:[randomCell unsignedIntegerValue]];
-    
-    MHCollectionCell *cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:@"MHCollectionCell" forIndexPath:cellPath];
+    MHCollectionCell *cell = (MHCollectionCell *)[self.collectionView cellForItemAtIndexPath:cellPath];
     [self.collectionView scrollToItemAtIndexPath:cellPath atScrollPosition:UICollectionViewScrollPositionTop animated:YES];
-    //animating and showing cell, other things which needs to be implemented
-    
+
     MHCollection *object = [self.fetchedResultsController objectAtIndexPath:cellPath];
     
     [self configureCell:cell withCollection:object];
-    
-    [cell.kenBurnsView startAnimation];
-    
-    animatingCell = cell;
-    [self resetIdleTimer];
+
 }
 
 - (NSFetchedResultsController*) sortByName{
@@ -484,17 +464,6 @@ newIndexPath:(NSIndexPath *)newIndexPath
 	    NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
 	    abort();
 	}
-}
-
-- (void)stopAnimationTimer
-{
-    [timeToChangeCollection invalidate];
-    timeToChangeCollection = nil;
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [self stopAnimationTimer];
 }
 
 #pragma mark MHDropDownMenu
