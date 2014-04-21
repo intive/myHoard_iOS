@@ -949,8 +949,47 @@ static MHAPI *_sharedAPI = nil;
                                                                                   }
                                                                                   
                                                                                   [[MHCoreDataContext getInstance] saveContext];
-                                                                              }
-                                                                          }
+                                                                                  
+                                                                                  /*****Commented out until objItemStatus is implemented in database*********
+
+                                                                                   predicate = [NSPredicate predicateWithFormat:@"objItemStatus == 'deleted'"];
+                                                                                   predicationResult = [coreDataItems filteredArrayUsingPredicate:predicate];
+                                                                                   
+                                                                                   if ([predicationResult count] > 0) {
+                                                                                       for (MHItem *eachItemWithStatus in predicationResult) {
+                                                                                           predicate = [NSPredicate predicateWithFormat:@"id == %@", eachItemWithStatus.objId];
+                                                                                           predicationResult = [responseObject filteredArrayUsingPredicate:predicate];
+                                                                                           if ([predicationResult count] > 0) {
+                                                                                               for (MHItem *itemWithStatus in predicationResult) {
+                                                                                                   [self deleteItemWithId:itemWithStatus completionBlock:^(id object, NSError *error) {
+                                                                                                       if (error) {
+                                                                                                           completionBlock(nil, error);
+                                                                                                       }else {
+                                                                                                           [[MHCoreDataContext getInstance].managedObjectContext deleteObject:itemWithStatus];
+                                                                                                           [[MHCoreDataContext getInstance] saveContext];
+                                                                                                       }
+                                                                                                   }];
+                                                                                               }
+                                                                                           }
+                                                                                       }
+                                                                                   }else {
+                                                                                       for (MHItem *eachItemWithoutStatus in coreDataItems) {
+                                                                                           predicate = [NSPredicate predicateWithFormat:@"id == %@", eachItemWithoutStatus.objId];
+                                                                                           predicationResult = [coreDataItems filteredArrayUsingPredicate:predicate];
+                                                                                           if ([predicationResult count] == 0) {
+                                                                                               [self createItem:eachItemWithoutStatus completionBlock:^(id object, NSError *error) {
+                                                                                                   if (error) {
+                                                                                                       if (error) {
+                                                                                                           completionBlock(nil, error);
+                                                                                                       }
+                                                                                                   }
+                                                                                               }];
+                                                                                           }
+                                                                                       }
+                                                                                    }
+                                                                                   *****Commented out until objItemStatus is implemented in database*********/
+                                                                            }
+                                                                        }
                                                                       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                                                           completionBlock(nil, error);
                                                                       }];
