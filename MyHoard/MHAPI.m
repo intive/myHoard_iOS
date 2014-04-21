@@ -425,6 +425,9 @@ static MHAPI *_sharedAPI = nil;
                                                                                                    [self deleteCollection:collectionsWithStatus completionBlock:^(id object, NSError *error) {
                                                                                                        if (error) {
                                                                                                            completionBlock(nil, error);
+                                                                                                       }else {
+                                                                                                           [[MHCoreDataContext getInstance].managedObjectContext deleteObject:collectionsWithStatus];
+                                                                                                           [[MHCoreDataContext getInstance] saveContext];
                                                                                                        }
                                                                                                    }];
                                                                                                }
@@ -443,8 +446,8 @@ static MHAPI *_sharedAPI = nil;
                                                                                            }
                                                                                        }
                                                                                    }
-                                                                                   
-                                                                                   *****Commented out until objCollectionStatus is implemented in database*********/
+                                                                                  
+                                                                                  *****Commented out until objCollectionStatus is implemented in database*********/
                                                                               }
                                                                           }
                                                                           
