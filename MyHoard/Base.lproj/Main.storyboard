@@ -585,7 +585,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Add" id="NRU-TM-15n">
-                        <barButtonItem key="leftBarButtonItem" title="x" systemItem="stop" id="g4y-ir-9Tl">
+                        <barButtonItem key="leftBarButtonItem" title="x" id="g4y-ir-9Tl">
                             <connections>
                                 <action selector="backButton:" destination="smS-mw-uPB" id="gCs-kO-s9o"/>
                             </connections>
@@ -1631,7 +1631,7 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="cHI-6z-e6b"/>
-        <segue reference="WHP-yM-ON6"/>
+        <segue reference="uZQ-yX-J1c"/>
         <segue reference="AJS-nz-tvm"/>
     </inferredMetricsTieBreakers>
 </document>

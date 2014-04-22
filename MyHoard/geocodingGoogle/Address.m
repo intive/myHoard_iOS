@@ -53,7 +53,7 @@
  *	Finds an address component of a specific type inside the given address components array
  */
 + (NSString *)addressComponent:(NSString *)component inAddressArray:(NSArray *)array ofType:(NSString *)type{
-	int index = [array indexOfObjectPassingTest:^(id obj, NSUInteger idx, BOOL *stop){
+	NSUInteger index = [array indexOfObjectPassingTest:^(id obj, NSUInteger idx, BOOL *stop){
         return [(NSString *)([[obj objectForKey:@"types"] objectAtIndex:0]) isEqualToString:component];
 	}];
 	
