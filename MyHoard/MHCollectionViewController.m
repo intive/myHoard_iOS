@@ -185,22 +185,22 @@ typedef NS_ENUM(NSInteger, CollectionSortMode) {
 }
 
 - (void)addImages:(NSInteger)numberOfImages from:(NSMutableArray *)items toCell:(MHCollectionCell *)cell {
-    NSInteger current = 1;
+    NSInteger current = 0;
     if (items.count) {
-        while (current <= numberOfImages) {
+        while (current < numberOfImages) {
             MHItem* item = items[arc4random() % items.count];
             [items removeObject:item];
             if (item.media.count) {
                 for(MHMedia* media in item.media) {
                     UIImage* image = [[MHImageCache sharedInstance] thumbnailForKey:media.objKey];
                     [cell.kenBurnsView addImage:image];
+                    current++;
                     if (current == numberOfImages) {
                         [cell.kenBurnsView startAnimation];
                     }
-                    current++;
                 }
             } else {
-                current = numberOfImages;
+                current++;
             }
         }
     }
