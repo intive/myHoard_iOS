@@ -134,11 +134,19 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    CLPlacemark *placemark = _localizations[indexPath.row];
-    [self.delegate selectedLocationName:placemark.description];
-    [self.delegate selectedLocationCoordinate:placemark.location.coordinate];
-    [self.navigationController setNavigationBarHidden:NO];
-    [self.navigationController popViewControllerAnimated:YES];
+    if ([_localizations[indexPath.row] isKindOfClass:[Address class]]) {
+            Address *address = [_localizations objectAtIndex:indexPath.row];
+            [self.delegate selectedLocationName:[address title]];
+            [self.delegate selectedLocationCoordinate:address.coordinate];
+            [self.navigationController setNavigationBarHidden:NO];
+            [self.navigationController popViewControllerAnimated:YES];
+        }else{
+            CLPlacemark *placemark = _localizations[indexPath.row];
+            [self.delegate selectedLocationName:placemark.description];
+            [self.delegate selectedLocationCoordinate:placemark.location.coordinate];
+            [self.navigationController setNavigationBarHidden:NO];
+            [self.navigationController popViewControllerAnimated:YES];
+        }
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle
