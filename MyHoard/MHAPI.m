@@ -402,7 +402,7 @@ static MHAPI *_sharedAPI = nil;
                                                                                   }
                                                                                   [[MHCoreDataContext getInstance] saveContext];
                                                                                   
-                                                                                   predicate = [NSPredicate predicateWithFormat:@"(objType == 'deleted') OR (objType == 'offline')"];
+                                                                                   predicate = [NSPredicate predicateWithFormat:@"(objType == 'deleted') OR (objStatus == 'offline')"];
                                                                                    predicationResult = [coreDataCollections filteredArrayUsingPredicate:predicate];
                                                                                    
                                                                                    if ([predicationResult count] > 0) {
