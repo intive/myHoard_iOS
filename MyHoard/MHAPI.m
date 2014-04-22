@@ -896,9 +896,7 @@ static MHAPI *_sharedAPI = nil;
                                                                                   
                                                                                   [[MHCoreDataContext getInstance] saveContext];
                                                                                   
-                                                                                  /*****Commented out until objItemStatus is implemented in database*********
-
-                                                                                   predicate = [NSPredicate predicateWithFormat:@"objItemStatus == 'deleted'"];
+                                                                                   predicate = [NSPredicate predicateWithFormat:@"objStatus == 'deleted'"];
                                                                                    predicationResult = [coreDataItems filteredArrayUsingPredicate:predicate];
                                                                                    
                                                                                    if ([predicationResult count] > 0) {
@@ -933,9 +931,8 @@ static MHAPI *_sharedAPI = nil;
                                                                                            }
                                                                                        }
                                                                                     }
-                                                                                   *****Commented out until objItemStatus is implemented in database*********/
+                                                                                }
                                                                             }
-                                                                        }
                                                                       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                                                           completionBlock(nil, error);
                                                                       }];
