@@ -7,6 +7,7 @@
         <attribute name="objModifiedDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="objName" attributeType="String" syncable="YES"/>
         <attribute name="objOwner" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="objStatus" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="objTags" optional="YES" attributeType="Transformable" syncable="YES"/>
         <relationship name="items" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MHItem" inverseName="collection" inverseEntity="MHItem" syncable="YES"/>
     </entity>
@@ -18,6 +19,7 @@
         <attribute name="objModifiedDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="objName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="objOwner" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="objStatus" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="objTags" optional="YES" attributeType="Transformable" syncable="YES"/>
         <relationship name="collection" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="MHCollection" inverseName="items" inverseEntity="MHCollection" syncable="YES"/>
         <relationship name="media" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MHMedia" inverseName="item" inverseEntity="MHMedia" syncable="YES"/>
@@ -27,11 +29,12 @@
         <attribute name="objId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="objKey" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="objOwner" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="objStatus" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="item" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="MHItem" inverseName="media" inverseEntity="MHItem" syncable="YES"/>
     </entity>
     <elements>
-        <element name="MHCollection" positionX="-8415" positionY="-2115" width="128" height="165"/>
-        <element name="MHItem" positionX="-8183" positionY="-2115" width="128" height="193"/>
-        <element name="MHMedia" positionX="-7949" positionY="-2124" width="128" height="120"/>
+        <element name="MHCollection" positionX="-8415" positionY="-2115" width="128" height="180"/>
+        <element name="MHItem" positionX="-8183" positionY="-2115" width="128" height="210"/>
+        <element name="MHMedia" positionX="-7949" positionY="-2124" width="128" height="133"/>
     </elements>
 </model>

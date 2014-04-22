@@ -23,6 +23,7 @@
 @property (nonatomic, retain) id objTags;
 @property (nonatomic, retain) MHCollection *collection;
 @property (nonatomic, retain) NSSet *media;
+@property (nonatomic, retain) NSString * objStatus;
 @end
 
 @interface MHItem (CoreDataGeneratedAccessors)

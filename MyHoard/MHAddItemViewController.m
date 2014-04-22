@@ -281,14 +281,16 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 200;
                                                     objLocation:loc
                                                  objCreatedDate:[NSDate date]
                                                 objModifiedDate:nil
-                                                     collection:self.selectedCollection];
+                                                     collection:self.selectedCollection
+                                                      objStatus:@"new"];
 
         if (self.selectedImage) {
             NSString *key = [[MHImageCache sharedInstance] cacheImage:self.selectedImage];
             
             MHMedia* media = [MHDatabaseManager insertMediaWithCreatedDate:[NSDate date]
                                                                     objKey:key
-                                                                      item:item];
+                                                                      item:item
+                                                                 objStatus:@"new"];
             
             if ([[MHAPI getInstance]activeSession] == YES) {
                 __block MHWaitDialog* wait = [[MHWaitDialog alloc] init];

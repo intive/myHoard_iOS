@@ -17,6 +17,7 @@
 @property (nonatomic, retain) NSString * objId;
 @property (nonatomic, retain) NSString * objKey;
 @property (nonatomic, retain) NSString * objOwner;
+@property (nonatomic, retain) NSString * objStatus;
 @property (nonatomic, retain) MHItem *item;
 
 @end

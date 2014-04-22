@@ -24,6 +24,7 @@
                               objCreatedDate:(NSDate*)objCreatedDate
                              objModifiedDate:(NSDate*)objModifiedDate
                  objOwnerNilAddLogedUserCode:(NSString*)objOwner
+                                   objStatus:(NSString*)objStatus
 {
     // mandatory fields
     if (!objName.length || !objCreatedDate)
@@ -51,6 +52,14 @@
         collection.objOwner=objOwner;
     }else{
         collection.objOwner = [[MHAPI getInstance]userId];
+    }
+    
+    if (objStatus.length){
+        if ([objStatus isEqualToString:@"ok"] || [objStatus isEqualToString:@"deleted"] || [objStatus isEqualToString:@"modified"] || [objStatus isEqualToString:@"new"]) {
+            collection.objStatus = objStatus;
+        }else{
+            NSLog(@"Collection status in not seted properly, options are: ok deleted modified new");
+        }
     }
     
     [[MHCoreDataContext getInstance] saveContext];
@@ -106,6 +115,7 @@
                   objCreatedDate:(NSDate*)objCreatedDate
                  objModifiedDate:(NSDate*)objModifiedDate
                       collection:(MHCollection *)collection
+                       objStatus:(NSString*)objStatus
 {
     
     //mandatory fields
@@ -134,6 +144,14 @@
     }
     
     //objOwner don't need to be set becouse we are getting items only for collection, so situation where we take items from different owner then owner of a collection couldn't happen.
+    
+    if (objStatus.length){
+        if ([objStatus isEqualToString:@"ok"] || [objStatus isEqualToString:@"deleted"] || [objStatus isEqualToString:@"modified"] || [objStatus isEqualToString:@"new"]) {
+            item.objStatus = objStatus;
+        }else{
+            NSLog(@"Item status in not seted properly, options are: ok deleted modified new");
+        }
+    }
     
     [[MHCoreDataContext getInstance] saveContext];
     
@@ -171,6 +189,7 @@
 + (MHMedia*)insertMediaWithCreatedDate:(NSDate*)objCreatedDate
                                 objKey:(NSString*)objKey
                                   item:(MHItem *)item
+                             objStatus:(NSString*)objStatus
 {
     // mandatory fields
     if (!objCreatedDate)
@@ -188,6 +207,14 @@
     media.objKey = objKey;
     
     //objOwner don't need to be set becouse we are getting media only for items, so situation where we take items from different owner then owner of a item couldn't happen.
+    
+    if (objStatus.length){
+        if ([objStatus isEqualToString:@"ok"] || [objStatus isEqualToString:@"deleted"] || [objStatus isEqualToString:@"modified"] || [objStatus isEqualToString:@"new"]) {
+            media.objStatus = objStatus;
+        }else{
+            NSLog(@"Media status in not seted properly, options are: ok deleted modified new");
+        }
+    }
     
     [[MHCoreDataContext getInstance] saveContext];
     return media;

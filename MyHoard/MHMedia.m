@@ -17,5 +17,6 @@
 @dynamic objKey;
 @dynamic objOwner;
 @dynamic item;
+@dynamic objStatus;
 
 @end

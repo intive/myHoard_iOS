@@ -18,7 +18,8 @@
                                      objTags:(NSArray*)objTags
                               objCreatedDate:(NSDate*)objCreatedDate
                              objModifiedDate:(NSDate*)objModifiedDate
-                 objOwnerNilAddLogedUserCode:(NSString*) objOwner;
+                 objOwnerNilAddLogedUserCode:(NSString*)objOwner
+                                   objStatus:(NSString*)objStatus;
 
 + (NSArray*)allCollections;
 + (MHCollection*)collectionWithObjName:(NSString*)objName;
@@ -30,7 +31,8 @@
                      objLocation:(CLLocation*)objLocation
                   objCreatedDate:(NSDate*)objCreatedDate
                  objModifiedDate:(NSDate*)objModifiedDate
-                      collection:(MHCollection *)collection;
+                      collection:(MHCollection *)collection
+                       objStatus:(NSString*)objStatus;
 
 + (MHItem*) itemWithObjName:(NSString*)objName inCollection:(MHCollection *)collection;
 + (NSArray*) allItemsWithObjName: (NSString*)objName inCollection:(MHCollection*)collection;
@@ -38,6 +40,7 @@
 #pragma mark - Media
 + (MHMedia*)insertMediaWithCreatedDate:(NSDate*)objCreatedDate
                                 objKey:(NSString*)objKey
-                                  item:(MHItem *)item;
+                                  item:(MHItem *)item
+                             objStatus:(NSString*)objStatus;
 
 @end

@@ -23,5 +23,6 @@
 @dynamic objTags;
 @dynamic collection;
 @dynamic media;
+@dynamic objStatus;
 
 @end

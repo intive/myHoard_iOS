@@ -15,6 +15,7 @@
 
 @property (nonatomic, retain) NSDate * objCreatedDate;
 @property (nonatomic, retain) NSString * objDescription;
+@property (nonatomic, retain) NSString * objStatus;
 @property (nonatomic, retain) NSString * objId;
 @property (nonatomic, retain) NSDate * objModifiedDate;
 @property (nonatomic, retain) NSString * objName;
