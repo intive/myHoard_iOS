@@ -407,7 +407,7 @@ static MHAPI *_sharedAPI = nil;
                                                                                    
                                                                                    if ([predicationResult count] > 0) {
                                                                                        for (MHCollection *eachCollectionWithStatus in predicationResult) {
-                                                                                           predicate = [NSPredicate predicateWithFormat:@"id == %@", eachCollectionWithStatus.objId];
+                                                                                           predicate = [NSPredicate predicateWithFormat:@"objId == %@", eachCollectionWithStatus.objId];
                                                                                            predicationResult = [responseObject filteredArrayUsingPredicate:predicate];
                                                                                            if ([predicationResult count] > 0) {
                                                                                                for (MHCollection *collectionsWithStatus in predicationResult) {
@@ -424,7 +424,7 @@ static MHAPI *_sharedAPI = nil;
                                                                                        }
                                                                                    }else {
                                                                                        for (MHCollection *eachCollectionWithoutStatus in coreDataCollections) {
-                                                                                           predicate = [NSPredicate predicateWithFormat:@"id == %@", eachCollectionWithoutStatus.objId];
+                                                                                           predicate = [NSPredicate predicateWithFormat:@"objId == %@", eachCollectionWithoutStatus.objId];
                                                                                            predicationResult = [coreDataCollections filteredArrayUsingPredicate:predicate];
                                                                                            if ([predicationResult count] == 0) {
                                                                                                [self createCollection:eachCollectionWithoutStatus completionBlock:^(id object, NSError *error) {
@@ -434,11 +434,12 @@ static MHAPI *_sharedAPI = nil;
                                                                                                }];
                                                                                            }
                                                                                        }
-                                                                                   }                                                                                  
+                                                                                   }
                                                                               }
                                                                           }
                                                                 
                                                                           [[MHCoreDataContext getInstance] saveContext];
+                                                                          completionBlock(nil, nil);
                                                                       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                                                           completionBlock(nil, error);
                                                                       }];
