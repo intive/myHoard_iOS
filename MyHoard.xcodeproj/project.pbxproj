@@ -12,6 +12,15 @@
 		1A059F3818D200B700ECC6D0 /* MHAddCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A059F3118D200B700ECC6D0 /* MHAddCollectionViewController.m */; };
 		1A0D0B6718C7C742004B99BA /* MHLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A0D0B6618C7C742004B99BA /* MHLocation.m */; };
 		1A0D0B6918C7DDA9004B99BA /* MHLocationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A0D0B6818C7DDA9004B99BA /* MHLocationTests.m */; };
+		1A135786190500BB0060DD31 /* Address.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A13576F190500BB0060DD31 /* Address.m */; };
+		1A135787190500BB0060DD31 /* NSObject+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A135772190500BB0060DD31 /* NSObject+SBJSON.m */; };
+		1A135788190500BB0060DD31 /* NSString+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A135774190500BB0060DD31 /* NSString+SBJSON.m */; };
+		1A135789190500BB0060DD31 /* SBJsonBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A135776190500BB0060DD31 /* SBJsonBase.m */; };
+		1A13578A190500BB0060DD31 /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A135778190500BB0060DD31 /* SBJsonParser.m */; };
+		1A13578B190500BB0060DD31 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A13577A190500BB0060DD31 /* SBJsonWriter.m */; };
+		1A13578C190500BB0060DD31 /* MJGeocoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A13577D190500BB0060DD31 /* MJGeocoder.m */; };
+		1A13578D190500BB0060DD31 /* MJPlacesFinder.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A135780190500BB0060DD31 /* MJPlacesFinder.m */; };
+		1A13578F190500BB0060DD31 /* Place.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A135784190500BB0060DD31 /* Place.m */; };
 		1A29F6B418EF324C00BCFB11 /* MHLocalizationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A29F6B318EF324C00BCFB11 /* MHLocalizationViewController.m */; };
 		2302787418B4C0A900FCD528 /* GcovTestObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 2302787318B4C0A900FCD528 /* GcovTestObserver.m */; };
 		235EB3C618DDAE3C0032D769 /* MHPasswordStrengthView.m in Sources */ = {isa = PBXBuildFile; fileRef = 235EB3C518DDAE3C0032D769 /* MHPasswordStrengthView.m */; };
@@ -104,6 +113,26 @@
 		1A0D0B6518C7C742004B99BA /* MHLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHLocation.h; sourceTree = "<group>"; };
 		1A0D0B6618C7C742004B99BA /* MHLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHLocation.m; sourceTree = "<group>"; };
 		1A0D0B6818C7DDA9004B99BA /* MHLocationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHLocationTests.m; sourceTree = "<group>"; };
+		1A13576E190500BB0060DD31 /* Address.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Address.h; sourceTree = "<group>"; };
+		1A13576F190500BB0060DD31 /* Address.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Address.m; sourceTree = "<group>"; };
+		1A135770190500BB0060DD31 /* JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSON.h; sourceTree = "<group>"; };
+		1A135771190500BB0060DD31 /* NSObject+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SBJSON.h"; sourceTree = "<group>"; };
+		1A135772190500BB0060DD31 /* NSObject+SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SBJSON.m"; sourceTree = "<group>"; };
+		1A135773190500BB0060DD31 /* NSString+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+SBJSON.h"; sourceTree = "<group>"; };
+		1A135774190500BB0060DD31 /* NSString+SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+SBJSON.m"; sourceTree = "<group>"; };
+		1A135775190500BB0060DD31 /* SBJsonBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonBase.h; sourceTree = "<group>"; };
+		1A135776190500BB0060DD31 /* SBJsonBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonBase.m; sourceTree = "<group>"; };
+		1A135777190500BB0060DD31 /* SBJsonParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonParser.h; sourceTree = "<group>"; };
+		1A135778190500BB0060DD31 /* SBJsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonParser.m; sourceTree = "<group>"; };
+		1A135779190500BB0060DD31 /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
+		1A13577A190500BB0060DD31 /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
+		1A13577C190500BB0060DD31 /* MJGeocoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJGeocoder.h; sourceTree = "<group>"; };
+		1A13577D190500BB0060DD31 /* MJGeocoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJGeocoder.m; sourceTree = "<group>"; };
+		1A13577E190500BB0060DD31 /* MJGeocodingServices.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJGeocodingServices.h; sourceTree = "<group>"; };
+		1A13577F190500BB0060DD31 /* MJPlacesFinder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJPlacesFinder.h; sourceTree = "<group>"; };
+		1A135780190500BB0060DD31 /* MJPlacesFinder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPlacesFinder.m; sourceTree = "<group>"; };
+		1A135783190500BB0060DD31 /* Place.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Place.h; sourceTree = "<group>"; };
+		1A135784190500BB0060DD31 /* Place.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Place.m; sourceTree = "<group>"; };
 		1A29F6B218EF324C00BCFB11 /* MHLocalizationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHLocalizationViewController.h; sourceTree = "<group>"; };
 		1A29F6B318EF324C00BCFB11 /* MHLocalizationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHLocalizationViewController.m; sourceTree = "<group>"; };
 		1ABD549C18F03C0700992A44 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -254,6 +283,41 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1A13577B190500BB0060DD31 /* JSON */ = {
+			isa = PBXGroup;
+			children = (
+				1A135770190500BB0060DD31 /* JSON.h */,
+				1A135771190500BB0060DD31 /* NSObject+SBJSON.h */,
+				1A135772190500BB0060DD31 /* NSObject+SBJSON.m */,
+				1A135773190500BB0060DD31 /* NSString+SBJSON.h */,
+				1A135774190500BB0060DD31 /* NSString+SBJSON.m */,
+				1A135775190500BB0060DD31 /* SBJsonBase.h */,
+				1A135776190500BB0060DD31 /* SBJsonBase.m */,
+				1A135777190500BB0060DD31 /* SBJsonParser.h */,
+				1A135778190500BB0060DD31 /* SBJsonParser.m */,
+				1A135779190500BB0060DD31 /* SBJsonWriter.h */,
+				1A13577A190500BB0060DD31 /* SBJsonWriter.m */,
+			);
+			path = JSON;
+			sourceTree = "<group>";
+		};
+		1A135785190500BB0060DD31 /* geocodingGoogle */ = {
+			isa = PBXGroup;
+			children = (
+				1A13576E190500BB0060DD31 /* Address.h */,
+				1A13576F190500BB0060DD31 /* Address.m */,
+				1A13577B190500BB0060DD31 /* JSON */,
+				1A13577C190500BB0060DD31 /* MJGeocoder.h */,
+				1A13577D190500BB0060DD31 /* MJGeocoder.m */,
+				1A13577E190500BB0060DD31 /* MJGeocodingServices.h */,
+				1A13577F190500BB0060DD31 /* MJPlacesFinder.h */,
+				1A135780190500BB0060DD31 /* MJPlacesFinder.m */,
+				1A135783190500BB0060DD31 /* Place.h */,
+				1A135784190500BB0060DD31 /* Place.m */,
+			);
+			path = geocodingGoogle;
+			sourceTree = "<group>";
+		};
 		231A904F18F5C53500FE4596 /* SlideMenu */ = {
 			isa = PBXGroup;
 			children = (
@@ -392,6 +456,7 @@
 		23D321A6184BBFFA002FC13A /* MyHoard */ = {
 			isa = PBXGroup;
 			children = (
+				1A135785190500BB0060DD31 /* geocodingGoogle */,
 				93BFC82C18F309F300F4777C /* CollectionDetails */,
 				537CF82918AD6282008A7E04 /* Database */,
 				235EB3CB18DDF16F0032D769 /* Collections */,
@@ -730,6 +795,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1A059F3618D200B700ECC6D0 /* MHBrowseCollectionViewController.m in Sources */,
+				1A135789190500BB0060DD31 /* SBJsonBase.m in Sources */,
 				23B0A70B18F861AF00FA806C /* MHSliderMenuHeader.m in Sources */,
 				23F27A5818D8E66D00877D30 /* MHDropDownMenu.m in Sources */,
 				CE529A7E18D8687B00A020E9 /* MHUserSettings.m in Sources */,
@@ -743,10 +809,14 @@
 				23F27A5518D8E59F00877D30 /* MHDropDownMenuViewController.m in Sources */,
 				CEF82A0718F0383F00058BB8 /* MHEditAccountViewController.m in Sources */,
 				93245CA418E0931D008AFE37 /* MHCollectionDetailsCell.m in Sources */,
+				1A13578F190500BB0060DD31 /* Place.m in Sources */,
 				23D02EFB18EEAA0300114941 /* MHAPI.m in Sources */,
 				E74EDDBA18E6F7F200488AD1 /* UIActionSheet+ButtonState.m in Sources */,
+				1A13578A190500BB0060DD31 /* SBJsonParser.m in Sources */,
+				1A13578D190500BB0060DD31 /* MJPlacesFinder.m in Sources */,
 				CE92CB5818C321EF005038D9 /* MHImagePickerViewController.m in Sources */,
 				CEA8F94518DE024600B75355 /* MHStartScreenViewController.m in Sources */,
+				1A135787190500BB0060DD31 /* NSObject+SBJSON.m in Sources */,
 				23A3C30A18FEC45E00597337 /* CameraOverlayView.m in Sources */,
 				1A0D0B6718C7C742004B99BA /* MHLocation.m in Sources */,
 				CEC22B1118DF6985002E7C76 /* MHBadgeView.m in Sources */,
@@ -756,9 +826,12 @@
 				537CF82C18AD643D008A7E04 /* MyHoardModel.xcdatamodeld in Sources */,
 				23D02F0318EF38C600114941 /* MHWaitDialog.m in Sources */,
 				23CD283219048761005203C2 /* JBKenBurnsView.m in Sources */,
+				1A13578B190500BB0060DD31 /* SBJsonWriter.m in Sources */,
 				23F64D2718DE682C003420E3 /* MHTagsView.m in Sources */,
 				23D321AD184BBFFA002FC13A /* main.m in Sources */,
 				9370CAF418CFC30A00C77461 /* MHCollectionViewController.m in Sources */,
+				1A135788190500BB0060DD31 /* NSString+SBJSON.m in Sources */,
+				1A13578C190500BB0060DD31 /* MJGeocoder.m in Sources */,
 				53062B5418F48F8E006FC69C /* NSString+Tags.m in Sources */,
 				1A059F3818D200B700ECC6D0 /* MHAddCollectionViewController.m in Sources */,
 				23B0A70E18F862D900FA806C /* MHSliderMenuTableCell.m in Sources */,
@@ -772,6 +845,7 @@
 				23CD276319012FE5005203C2 /* MHMedia.m in Sources */,
 				1A29F6B418EF324C00BCFB11 /* MHLocalizationViewController.m in Sources */,
 				23CD276619012FE5005203C2 /* MHCollection.m in Sources */,
+				1A135786190500BB0060DD31 /* Address.m in Sources */,
 				23FB2BCF18D23DDF009EFDE7 /* UIColor+customColors.m in Sources */,
 				93A341A618FAD42300830047 /* MHItemDetailsViewController.m in Sources */,
 				23F27A5B18D9A6D100877D30 /* MHDropDownMenuItem.m in Sources */,

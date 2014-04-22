@@ -8,6 +8,7 @@
 
 #import "MHLocalizationViewController.h"
 #import "MHLocation.h"
+#import "Address.h"
 
 @interface MHLocalizationViewController ()
 @end
@@ -25,6 +26,7 @@
 
 - (void)viewDidLoad
 {
+    [[MHLocation sharedInstance]startGettingLocation];
     _tableView.scrollEnabled = NO;
     [self.navigationController setNavigationBarHidden:YES];
     _tableView.backgroundColor = [UIColor locationTableViewBackground];
@@ -35,6 +37,10 @@
     _localizationText.textColor=[UIColor darkerYellow];
     [_tableView setSeparatorColor:[UIColor darkerYellow]];
     [_cancelButtonColor setTitleColor:[UIColor lighterYellow] forState:UIControlStateNormal];
+    if(!placesfinder){
+        placesfinder = [[MJPlacesFinder alloc] init];
+        placesfinder.delegate = self;
+    }
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 }
@@ -65,49 +71,65 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:simpleTableIdentifier];
     }
-    CLPlacemark *placemark = _localizations[indexPath.row];
-    cell.imageView.image=[UIImage imageNamed:@"search.png"];
-    cell.textLabel.textColor = [UIColor whiteColor];
-    cell.detailTextLabel.textColor = [UIColor whiteColor];
-    cell.backgroundColor = [UIColor clearColor];
-    [cell setSelectionStyle:UITableViewCellSelectionStyleNone]; 
-    NSMutableString *sub=[[NSMutableString  alloc]init];
-    
-    if (placemark.thoroughfare.length)
-    {
-        [sub appendFormat:@"%@", placemark.thoroughfare];
-    }
-    if (placemark.subThoroughfare.length)
-    {
-        [sub appendFormat:@" %@", placemark.subThoroughfare];
-    }
-    if (placemark.thoroughfare.length || placemark.subThoroughfare.length)
-    {
-    [sub appendFormat:@", "];
-    }
-    if (placemark.postalCode.length)
-    {
-        [sub appendFormat:@"%@", placemark.postalCode];
-    }
-    if (placemark.locality.length)
-    {
-        [sub appendFormat:@" %@", placemark.locality];
-    }
-    if (placemark.locality.length || placemark.postalCode.length)
-    {
-        [sub appendFormat:@", "];
-    }
-    if (placemark.country.length)
-    {
-        [sub appendFormat:@"%@", placemark.country];
-    }
-    
-    if (placemark.areasOfInterest.firstObject!=NULL) {
-    cell.textLabel.text = [NSString stringWithFormat:@"%@", placemark.areasOfInterest.firstObject];
-    cell.detailTextLabel.text = sub;
+    if ([[_localizations objectAtIndex:indexPath.row] isKindOfClass:[Address class]]) {
+        Address *address = [_localizations objectAtIndex:indexPath.row];
+        cell.imageView.image=[UIImage imageNamed:@"search.png"];
+        cell.textLabel.textColor = [UIColor whiteColor];
+        cell.detailTextLabel.textColor = [UIColor whiteColor];
+        cell.backgroundColor = [UIColor clearColor];
+        [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+        if([address title]){
+            cell.textLabel.text = [address title];
+        }else{
+            cell.textLabel.text = [address subtitle];
+        }
+        cell.detailTextLabel.text = [address subtitle];
     }else{
-       cell.textLabel.text = sub;
+        CLPlacemark *placemark = _localizations[indexPath.row];
+        cell.imageView.image=[UIImage imageNamed:@"search.png"];
+        cell.textLabel.textColor = [UIColor whiteColor];
+        cell.detailTextLabel.textColor = [UIColor whiteColor];
+        cell.backgroundColor = [UIColor clearColor];
+        [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+        NSMutableString *sub=[[NSMutableString  alloc]init];
+        
+        if (placemark.thoroughfare.length)
+        {
+            [sub appendFormat:@"%@", placemark.thoroughfare];
+        }
+        if (placemark.subThoroughfare.length)
+        {
+            [sub appendFormat:@" %@", placemark.subThoroughfare];
+        }
+        if (placemark.thoroughfare.length || placemark.subThoroughfare.length)
+        {
+            [sub appendFormat:@", "];
+        }
+        if (placemark.postalCode.length)
+        {
+            [sub appendFormat:@"%@", placemark.postalCode];
+        }
+        if (placemark.locality.length)
+        {
+            [sub appendFormat:@" %@", placemark.locality];
+        }
+        if (placemark.locality.length || placemark.postalCode.length)
+        {
+            [sub appendFormat:@", "];
+        }
+        if (placemark.country.length)
+        {
+            [sub appendFormat:@"%@", placemark.country];
+        }
+        
+        if (placemark.areasOfInterest.firstObject!=NULL) {
+            cell.textLabel.text = [NSString stringWithFormat:@"%@", placemark.areasOfInterest.firstObject];
+            cell.detailTextLabel.text = sub;
+        }else{
+            cell.textLabel.text = sub;
+        }
     }
+    
     return cell;
 }
 
@@ -125,14 +147,31 @@
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    _localizations=nil;
     if (textField == self.localizationText) {
+        CLLocationCoordinate2D loc=[[MHLocation sharedInstance]currentLocation].coordinate;
+        [placesfinder findPlacesNamed:_localizationText.text near: loc withRadius:1000.0];
         [[MHLocation sharedInstance]geolocateWithCity:textField.text withStreet:nil withPostalCode:nil completionBlock:^(NSArray *object) {
-            _localizations=object;
+            _localizations=[NSMutableArray arrayWithArray:object];
+            [_localizations addObjectsFromArray:_places];
             [_tableView reloadData];
         }];
 
     }
     return YES;
+}
+
+- (void)placesFinder:(MJPlacesFinder *)placesFinder didFindPlaces:(NSArray *)places{
+    _places=nil;
+    _places=places;
+    [_localizations addObjectsFromArray:_places];
+    [_tableView reloadData];
+}
+
+- (void)placesFinder:(MJPlacesFinder *)placesFinder didFailWithError:(NSError *)error{
+    _places=nil; 
+    _localizations=nil;
+    NSLog(@"no placmarks from google");
 }
 
 - (IBAction)cancelButton:(id)sender {
