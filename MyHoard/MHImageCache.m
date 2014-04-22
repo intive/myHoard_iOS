@@ -18,7 +18,7 @@ static MHImageCache *_sharedInstance = nil;
     if (!_sharedInstance) {
         NSString* path = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"ImageCache"];
 
-        _sharedInstance = [super cacheInTemporaryDirectoryWithRelativeURL:[NSURL fileURLWithPath:path]];
+        _sharedInstance = [super cacheForURL:[NSURL fileURLWithPath:path]];
         /// Prepare directory
         [_sharedInstance prepare:nil];
     }
