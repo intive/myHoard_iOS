@@ -4,8 +4,6 @@ branches:
   only:
     - master
 before_install:
-- security default-keychain -s ios-build.keychain
-- security unlock-keychain -p travis ios-build.keychain
 - gem install cocoapods --no-rdoc --no-ri --no-document --quiet
 before_script:
 - export LANG=en_US.UTF-8
