@@ -402,9 +402,7 @@ static MHAPI *_sharedAPI = nil;
                                                                                   }
                                                                                   [[MHCoreDataContext getInstance] saveContext];
                                                                                   
-                                                                                  /*****Commented out until objCollectionStatus is implemented in database*********
-                                                                                  
-                                                                                   predicate = [NSPredicate predicateWithFormat:@"(objCollectionStatus == 'deleted') OR (objCollectionStatus == 'offline')"];
+                                                                                   predicate = [NSPredicate predicateWithFormat:@"(objType == 'deleted') OR (objType == 'offline')"];
                                                                                    predicationResult = [coreDataCollections filteredArrayUsingPredicate:predicate];
                                                                                    
                                                                                    if ([predicationResult count] > 0) {
@@ -436,9 +434,7 @@ static MHAPI *_sharedAPI = nil;
                                                                                                }];
                                                                                            }
                                                                                        }
-                                                                                   }
-                                                                                  
-                                                                                  *****Commented out until objCollectionStatus is implemented in database*********/
+                                                                                   }                                                                                  
                                                                               }
                                                                           }
                                                                           
@@ -468,19 +464,13 @@ static MHAPI *_sharedAPI = nil;
                                                                error:&error];
     
     __block MHCollection* c = collection;
-    //__block MHCollection *coreDataCollection = [MHDatabaseManager collectionWithObjName:collection.objId];
+    __block MHCollection *coreDataCollection = [MHDatabaseManager collectionWithObjName:collection.objId];
     
     AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
                                                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                                                          /*****Commented out until objCollectionStatus is implemented in database*********
-                                                                          if (coreDataCollection.objCollectionStatus == @"Public") {
+                                                                          if ([coreDataCollection.objType isEqualToString:@"public"]) {
                                                                           
-                                                                              NSString* date = responseObject[@"created_date"];
-                                                                              NSDate* created = [date dateFromRFC3339String];
-                                                                              date = responseObject[@"modified_date"];
-                                                                              NSDate* modified = [date dateFromRFC3339String];
-                                                                          
-                                                                              if ([[coreDataCollection.objModifiedDate laterDate:modified] isEqualToDate:coreDataCollection.objModifiedDate]) {
+                                                                              if ([[coreDataCollection.objModifiedDate laterDate:[self dateParser:responseObject[@"created_date"]]] isEqualToDate:coreDataCollection.objModifiedDate]) {
                                                                                   [self updateCollection:c completionBlock:^(id object, NSError *error) {
                                                                                       if (error) {
                                                                                           completionBlock(nil, error);
@@ -489,7 +479,7 @@ static MHAPI *_sharedAPI = nil;
                                                                               }else {
                                                                                   [[MHCoreDataContext getInstance].managedObjectContext deleteObject:collection];
                                                                                   [[MHCoreDataContext getInstance]saveContext];
-                                                                                  MHCollection * collection = [MHDatabaseManager insertCollectionWithObjName:responseObject[@"name"] objDescription:responseObject[@"description"] objTags:responseObject[@"tags"] objCreatedDate:created objModifiedDate:modified objOwnerNilAddLogedUserCode:responseObject[@"owner"]];
+                                                                                  MHCollection * collection = [MHDatabaseManager insertCollectionWithObjName:responseObject[@"name"] objDescription:responseObject[@"description"] objTags:responseObject[@"tags"] objCreatedDate:[self dateParser:responseObject[@"created_date"]] objModifiedDate:[self dateParser:responseObject[@"modified_date"]] objOwnerNilAddLogedUserCode:responseObject[@"owner"] objStatus:@"updated" objType:nil];
                                                                                   collection.objId = responseObject[@"id"];
                                                                               }
                                                                           }else {
@@ -499,21 +489,6 @@ static MHAPI *_sharedAPI = nil;
                                                                                   }
                                                                               }];
                                                                           }
-                                                                           *****Commented out until objCollectionStatus is implemented in database*********/
-
-                                                                          c.objName = responseObject[@"name"];
-                                                                          c.objDescription = responseObject[@"description"];
-                                                                          c.objTags = responseObject[@"tags"];
-                                                                          NSString* date = responseObject[@"created_date"];
-                                                                          c.objCreatedDate = [date dateFromRFC3339String];
-                                                                          date = responseObject[@"modified_date"];
-                                                                          c.objModifiedDate = [date dateFromRFC3339String];
-                                                                          c.objOwner = responseObject[@"owner"];
-                                                                          c.objId = responseObject[@"id"];
-                                                                          
-                                                                          [[MHCoreDataContext getInstance] saveContext];
-                                                                          
-                                                                          completionBlock(c, error);
                                                                       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                                                           completionBlock(nil, error);
                                                                       }];
