@@ -437,7 +437,7 @@ static MHAPI *_sharedAPI = nil;
                                                                                    }                                                                                  
                                                                               }
                                                                           }
-                                                                          
+                                                                
                                                                           [[MHCoreDataContext getInstance] saveContext];
                                                                       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                                                           completionBlock(nil, error);
@@ -859,8 +859,7 @@ static MHAPI *_sharedAPI = nil;
                                                                                       if ([itemsPredicatedWithModifiedDate count] > 0) {
                                                                                           for (MHItem *result in itemsPredicatedWithModifiedDate) {
                                                                                               
-                                                                                              [[MHCoreDataContext getInstance].managedObjectContext deleteObject:result];
-                                                                                              [[MHCoreDataContext getInstance] saveContext];
+                                                                                              [collection removeItemsObject:result];
                                                                                               
                                                                                               CLLocation *l = [[CLLocation alloc]initWithLatitude:[responseDictionary[@"location"][@"lat"] doubleValue]longitude:[responseDictionary[@"location"][@"lng"]doubleValue]];
                                                                                               
@@ -909,8 +908,7 @@ static MHAPI *_sharedAPI = nil;
                                                                                                        if (error) {
                                                                                                            completionBlock(nil, error);
                                                                                                        }else {
-                                                                                                           [[MHCoreDataContext getInstance].managedObjectContext deleteObject:itemWithStatus];
-                                                                                                           [[MHCoreDataContext getInstance] saveContext];
+                                                                                                           [collection removeItemsObject:itemWithStatus];
                                                                                                        }
                                                                                                    }];
                                                                                                }
