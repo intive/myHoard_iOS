@@ -15,6 +15,7 @@
 
 @interface MHAddCollectionViewController ()
 @property (readwrite) NSUInteger last;
+@property (readwrite) NSUInteger type;
 @end
 
 @implementation MHAddCollectionViewController
@@ -129,6 +130,14 @@
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"error" message:@"Collection of that name exists." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
         [alert show];
     } else {
+        NSString *colllectionType = [[NSString alloc]init];
+        if (_type==0) {
+            colllectionType=@"public";
+        } else if (_type==1){
+            colllectionType=@"private";
+        } else {
+            colllectionType=@"offline";
+        }
         if (_collection) {
             
             MHCollection *collection = [MHDatabaseManager collectionWithObjName:_collection.objName];
@@ -175,7 +184,7 @@
                                                                       objModifiedDate:nil
                                                           objOwnerNilAddLogedUserCode:nil
                                                                             objStatus:@"new"
-                                        objType:_typeLabel.text];
+                                        objType:colllectionType];
         
             if ([[MHAPI getInstance]activeSession] == YES) {
                 NSLog(@"Yes you are logged in");
@@ -250,6 +259,7 @@
 -(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row
       inComponent:(NSInteger)component
 {
+    _type=row;
     _typeLabel.text=_items[row];
 }
 

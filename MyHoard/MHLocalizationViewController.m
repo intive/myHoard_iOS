@@ -37,10 +37,8 @@
     _localizationText.textColor=[UIColor darkerYellow];
     [_tableView setSeparatorColor:[UIColor darkerYellow]];
     [_cancelButtonColor setTitleColor:[UIColor lighterYellow] forState:UIControlStateNormal];
-    if(!placesfinder){
-        placesfinder = [[MJPlacesFinder alloc] init];
-        placesfinder.delegate = self;
-    }
+    _placesfinder = [[MJPlacesFinder alloc] init];
+    _placesfinder.delegate = self;
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 }
@@ -158,7 +156,7 @@
     _localizations=nil;
     if (textField == self.localizationText) {
         CLLocationCoordinate2D loc=[[MHLocation sharedInstance]currentLocation].coordinate;
-        [placesfinder findPlacesNamed:_localizationText.text near: loc withRadius:1000.0];
+        [_placesfinder findPlacesNamed:_localizationText.text near: loc withRadius:1000.0];
         [[MHLocation sharedInstance]geolocateWithCity:textField.text withStreet:nil withPostalCode:nil completionBlock:^(NSArray *object) {
             _localizations=[NSMutableArray arrayWithArray:object];
             [_localizations addObjectsFromArray:_places];

@@ -18,7 +18,6 @@
 @end
 
 @interface MHLocalizationViewController : UIViewController<UITableViewDelegate, UITableViewDataSource,MJPlacesFinderDelegate>{
-    MJPlacesFinder *placesfinder;
 }
 
 @property (weak) id <LocationSelectorDelegate> delegate;

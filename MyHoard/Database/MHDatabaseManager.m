@@ -64,10 +64,10 @@
     }
     
     if (objType.length){
-        if ([objType isEqualToString:@"Offline"] || [objType isEqualToString:@"Public"] || [objType isEqualToString:@"Private"]) {
+        if ([objType isEqualToString:@"offline"] || [objType isEqualToString:@"public"] || [objType isEqualToString:@"private"]) {
             collection.objType = objType;
         }else{
-            NSLog(@"Collection type in not seted properly, options are: Offline Public Private");
+            NSLog(@"Collection type in not seted properly, options are: offline public private");
         }
     }
     
