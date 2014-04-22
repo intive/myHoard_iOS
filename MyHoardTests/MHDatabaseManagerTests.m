@@ -35,7 +35,7 @@ describe(@"MHDatabaseManager Tests", ^{
     
     
     it(@"Add collections to DB test", ^{
-        [MHDatabaseManager insertCollectionWithObjName:@"name" objDescription:@"1" objTags:@[@"1", @"2"] objCreatedDate:[NSDate date] objModifiedDate:nil objOwnerNilAddLogedUserCode:nil objStatus:@"new"];
+        [MHDatabaseManager insertCollectionWithObjName:@"name" objDescription:@"1" objTags:@[@"1", @"2"] objCreatedDate:[NSDate date] objModifiedDate:nil objOwnerNilAddLogedUserCode:nil objStatus:@"new" objType:nil];
 
         NSManagedObjectContext* context = cdcTest.managedObjectContext;
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
@@ -66,7 +66,8 @@ describe(@"MHDatabaseManager Tests", ^{
                                                                    objCreatedDate:[NSDate date]
                                                                   objModifiedDate:nil
                                                       objOwnerNilAddLogedUserCode:nil
-                                                                        objStatus:@"new"];
+                                                                        objStatus:@"new"
+                                                                          objType:nil];
 
         [MHDatabaseManager insertItemWithObjName:@"name" objDescription:@"1" objTags:@[@"1", @"2"] objLocation:nil objCreatedDate:[NSDate date] objModifiedDate:nil collection:collection objStatus:@"new"];
         
@@ -93,7 +94,7 @@ describe(@"MHDatabaseManager Tests", ^{
     
     it(@"Take item from DB test", ^{
         
-        MHCollection* collection = [MHDatabaseManager insertCollectionWithObjName:@"name" objDescription:@"1" objTags:@[@"1", @"2"] objCreatedDate:[NSDate date] objModifiedDate:nil objOwnerNilAddLogedUserCode:nil objStatus:@"new"];
+        MHCollection* collection = [MHDatabaseManager insertCollectionWithObjName:@"name" objDescription:@"1" objTags:@[@"1", @"2"] objCreatedDate:[NSDate date] objModifiedDate:nil objOwnerNilAddLogedUserCode:nil objStatus:@"new" objType:nil];
         
         NSDate *itemCreatedDate = [NSDate date];
         MHItem* item = [MHDatabaseManager insertItemWithObjName:@"name" objDescription:@"1" objTags:@[@"1", @"2"] objLocation:nil objCreatedDate:itemCreatedDate objModifiedDate:nil collection:collection objStatus:@"new"];
@@ -108,8 +109,8 @@ describe(@"MHDatabaseManager Tests", ^{
     
     it(@"Get all collections", ^{
        
-        [MHDatabaseManager insertCollectionWithObjName:@"name" objDescription:@"1" objTags:@[@"1", @"2"] objCreatedDate:[NSDate date] objModifiedDate:nil objOwnerNilAddLogedUserCode:nil objStatus:@"new"];
-        [MHDatabaseManager insertCollectionWithObjName:@"name2" objDescription:@"2" objTags:@[@"2", @"1"] objCreatedDate:[NSDate date] objModifiedDate:nil objOwnerNilAddLogedUserCode:nil objStatus:@"new"];
+        [MHDatabaseManager insertCollectionWithObjName:@"name" objDescription:@"1" objTags:@[@"1", @"2"] objCreatedDate:[NSDate date] objModifiedDate:nil objOwnerNilAddLogedUserCode:nil objStatus:@"new" objType:nil];
+        [MHDatabaseManager insertCollectionWithObjName:@"name2" objDescription:@"2" objTags:@[@"2", @"1"] objCreatedDate:[NSDate date] objModifiedDate:nil objOwnerNilAddLogedUserCode:nil objStatus:@"new" objType:nil];
         
         NSArray *result = [MHDatabaseManager allCollections];
         
@@ -163,7 +164,7 @@ describe(@"MHDatabaseManager Tests", ^{
 
     it(@"Add item to a specified collection", ^{
        
-        MHCollection* collection = [MHDatabaseManager insertCollectionWithObjName:@"name" objDescription:@"1" objTags:@[@"1", @"2"] objCreatedDate:[NSDate date] objModifiedDate:nil objOwnerNilAddLogedUserCode:nil objStatus:@"new"];
+        MHCollection* collection = [MHDatabaseManager insertCollectionWithObjName:@"name" objDescription:@"1" objTags:@[@"1", @"2"] objCreatedDate:[NSDate date] objModifiedDate:nil objOwnerNilAddLogedUserCode:nil objStatus:@"new" objType:nil];
         
         [MHDatabaseManager insertItemWithObjName:@"name" objDescription:@"1" objTags:@[@"1", @"2"] objLocation:nil objCreatedDate:[NSDate date] objModifiedDate:nil collection:collection objStatus:@"new"];
         [MHDatabaseManager insertItemWithObjName:@"name2" objDescription:@"2" objTags:@[@"1", @"2"] objLocation:nil objCreatedDate:[NSDate date] objModifiedDate:nil collection:collection objStatus:@"new"];
@@ -183,7 +184,7 @@ describe(@"MHDatabaseManager Tests", ^{
     
     it(@"ADD collection with simulated user id(owner)", ^{
         [[MHAPI getInstance]setUserId:@"1"];//simulate that owner is 1
-        [MHDatabaseManager insertCollectionWithObjName:@"name" objDescription:@"1" objTags:@[@"1", @"2"] objCreatedDate:[NSDate date] objModifiedDate:nil objOwnerNilAddLogedUserCode:nil objStatus:@"new"];
+        [MHDatabaseManager insertCollectionWithObjName:@"name" objDescription:@"1" objTags:@[@"1", @"2"] objCreatedDate:[NSDate date] objModifiedDate:nil objOwnerNilAddLogedUserCode:nil objStatus:@"new" objType:nil];
         
         NSManagedObjectContext* context = cdcTest.managedObjectContext;
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
@@ -205,8 +206,8 @@ describe(@"MHDatabaseManager Tests", ^{
 
     it(@"ADD collections with same name for different owners", ^{
         
-        [MHDatabaseManager insertCollectionWithObjName:@"name" objDescription:@"1" objTags:@[@"1", @"2"] objCreatedDate:[NSDate date] objModifiedDate:nil objOwnerNilAddLogedUserCode:@"1" objStatus:@"new"];
-        [MHDatabaseManager insertCollectionWithObjName:@"name" objDescription:@"2" objTags:@[@"1", @"2"] objCreatedDate:[NSDate date] objModifiedDate:nil objOwnerNilAddLogedUserCode:@"2" objStatus:@"new"];
+        [MHDatabaseManager insertCollectionWithObjName:@"name" objDescription:@"1" objTags:@[@"1", @"2"] objCreatedDate:[NSDate date] objModifiedDate:nil objOwnerNilAddLogedUserCode:@"1" objStatus:@"new" objType:nil];
+        [MHDatabaseManager insertCollectionWithObjName:@"name" objDescription:@"2" objTags:@[@"1", @"2"] objCreatedDate:[NSDate date] objModifiedDate:nil objOwnerNilAddLogedUserCode:@"2" objStatus:@"new" objType:nil];
         NSFetchRequest *fetchRequest = [[NSFetchRequest alloc]init];
         NSEntityDescription *entity = [NSEntityDescription entityForName:@"MHCollection" inManagedObjectContext:[MHCoreDataContext getInstance].managedObjectContext];
         [fetchRequest setEntity:entity];
@@ -222,8 +223,8 @@ describe(@"MHDatabaseManager Tests", ^{
     
     it(@"Get collection with name for a specyfied owner", ^{
         
-        [MHDatabaseManager insertCollectionWithObjName:@"name" objDescription:@"1" objTags:@[@"1", @"2", @"3"] objCreatedDate:[NSDate date] objModifiedDate:nil objOwnerNilAddLogedUserCode:@"1" objStatus:@"new"];
-        [MHDatabaseManager insertCollectionWithObjName:@"name" objDescription:@"2" objTags:@[@"1", @"2"] objCreatedDate:[NSDate date] objModifiedDate:nil objOwnerNilAddLogedUserCode:@"2" objStatus:@"new"];
+        [MHDatabaseManager insertCollectionWithObjName:@"name" objDescription:@"1" objTags:@[@"1", @"2", @"3"] objCreatedDate:[NSDate date] objModifiedDate:nil objOwnerNilAddLogedUserCode:@"1" objStatus:@"new" objType:nil];
+        [MHDatabaseManager insertCollectionWithObjName:@"name" objDescription:@"2" objTags:@[@"1", @"2"] objCreatedDate:[NSDate date] objModifiedDate:nil objOwnerNilAddLogedUserCode:@"2" objStatus:@"new" objType:nil];
         
         [[MHAPI getInstance]setUserId:@"1"];//simulate that owner is 1
         MHCollection *col = [MHDatabaseManager collectionWithObjName:@"name"];
@@ -243,9 +244,9 @@ describe(@"MHDatabaseManager Tests", ^{
     
     it(@"Get collections for a specyfied owner", ^{
         
-        MHCollection *col1=[MHDatabaseManager insertCollectionWithObjName:@"name" objDescription:@"1" objTags:@[@"1", @"2", @"3"] objCreatedDate:[NSDate date] objModifiedDate:nil objOwnerNilAddLogedUserCode:@"1" objStatus:@"new"];
-        MHCollection *col2=[MHDatabaseManager insertCollectionWithObjName:@"name1" objDescription:@"2" objTags:@[@"1", @"2"] objCreatedDate:[NSDate date] objModifiedDate:nil objOwnerNilAddLogedUserCode:@"1"objStatus:@"new"];
-        MHCollection *col3=[MHDatabaseManager insertCollectionWithObjName:@"name" objDescription:@"2" objTags:@[@"1", @"2"] objCreatedDate:[NSDate date] objModifiedDate:nil objOwnerNilAddLogedUserCode:@"2" objStatus:@"new"];
+        MHCollection *col1=[MHDatabaseManager insertCollectionWithObjName:@"name" objDescription:@"1" objTags:@[@"1", @"2", @"3"] objCreatedDate:[NSDate date] objModifiedDate:nil objOwnerNilAddLogedUserCode:@"1" objStatus:@"new" objType:nil];
+        MHCollection *col2=[MHDatabaseManager insertCollectionWithObjName:@"name1" objDescription:@"2" objTags:@[@"1", @"2"] objCreatedDate:[NSDate date] objModifiedDate:nil objOwnerNilAddLogedUserCode:@"1"objStatus:@"new" objType:nil];
+        MHCollection *col3=[MHDatabaseManager insertCollectionWithObjName:@"name" objDescription:@"2" objTags:@[@"1", @"2"] objCreatedDate:[NSDate date] objModifiedDate:nil objOwnerNilAddLogedUserCode:@"2" objStatus:@"new" objType:nil];
         
         [[MHAPI getInstance]setUserId:@"1"];//simulate that owner is 1
         NSArray *colAll1 = [MHDatabaseManager allCollections];
@@ -266,7 +267,7 @@ describe(@"MHDatabaseManager Tests", ^{
     
     it(@"Item with object name", ^{
         
-        MHCollection *col1=[MHDatabaseManager insertCollectionWithObjName:@"name" objDescription:@"1" objTags:@[@"1", @"2", @"3"] objCreatedDate:[NSDate date] objModifiedDate:nil objOwnerNilAddLogedUserCode:@"1" objStatus:@"new"];
+        MHCollection *col1=[MHDatabaseManager insertCollectionWithObjName:@"name" objDescription:@"1" objTags:@[@"1", @"2", @"3"] objCreatedDate:[NSDate date] objModifiedDate:nil objOwnerNilAddLogedUserCode:@"1" objStatus:@"new" objType:nil];
         
         MHItem *item1=[MHDatabaseManager insertItemWithObjName:@"nazwa" objDescription:@"1I" objTags:nil objLocation:nil objCreatedDate:[NSDate date] objModifiedDate:nil collection:col1 objStatus:@"new"];
         

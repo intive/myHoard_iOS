@@ -342,7 +342,8 @@ static MHAPI *_sharedAPI = nil;
                                                                                                                                                     objCreatedDate:created
                                                                                                                                                    objModifiedDate:modified
                                                                                                                                        objOwnerNilAddLogedUserCode:responseDictionary[@"owner"]
-                                                                                                                                                         objStatus:@"new"];
+                                                                                                                                                         objStatus:@"new"
+                                                                                                                                                           objType:nil];
                                                                                   
                                                                                   createdCollection.objId = responseDictionary[@"id"];
                                                                               }
@@ -364,7 +365,8 @@ static MHAPI *_sharedAPI = nil;
                                                                                                                                                         objCreatedDate:created
                                                                                                                                                        objModifiedDate:modified
                                                                                                                                            objOwnerNilAddLogedUserCode:responseDictionary[@"owner"]
-                                                                                                                                                             objStatus:@"new"];
+                                                                                                                                                             objStatus:@"new"
+                                                                                                                                                               objType:nil];
                                                                                       
                                                                                       createdCollection.objId = responseDictionary[@"id"];
                                                                                       
@@ -390,7 +392,8 @@ static MHAPI *_sharedAPI = nil;
                                                                                                                                                                 objCreatedDate:created
                                                                                                                                                                objModifiedDate:modified
                                                                                                                                                    objOwnerNilAddLogedUserCode:responseDictionary[@"owner"]
-                                                                                                                                                                     objStatus:@"updated"];
+                                                                                                                                                                     objStatus:@"updated"
+                                                                                                                                                                       objType:nil];
                                                                                               
                                                                                               createdCollection.objId = responseDictionary[@"id"];
                                                                                               

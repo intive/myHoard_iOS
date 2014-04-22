@@ -21,5 +21,6 @@
 @dynamic objTags;
 @dynamic items;
 @dynamic objStatus;
+@dynamic objType;
 
 @end

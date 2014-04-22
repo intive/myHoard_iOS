@@ -174,7 +174,8 @@
                                                                        objCreatedDate:[NSDate date]
                                                                       objModifiedDate:nil
                                                           objOwnerNilAddLogedUserCode:nil
-                                                                            objStatus:@"new"];
+                                                                            objStatus:@"new"
+                                        objType:_typeLabel.text];
         
             if ([[MHAPI getInstance]activeSession] == YES) {
                 NSLog(@"Yes you are logged in");

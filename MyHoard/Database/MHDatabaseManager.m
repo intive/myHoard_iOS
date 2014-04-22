@@ -25,6 +25,7 @@
                              objModifiedDate:(NSDate*)objModifiedDate
                  objOwnerNilAddLogedUserCode:(NSString*)objOwner
                                    objStatus:(NSString*)objStatus
+                                     objType:(NSString*)objType
 {
     // mandatory fields
     if (!objName.length || !objCreatedDate)
@@ -59,6 +60,14 @@
             collection.objStatus = objStatus;
         }else{
             NSLog(@"Collection status in not seted properly, options are: ok deleted modified new");
+        }
+    }
+    
+    if (objType.length){
+        if ([objType isEqualToString:@"Offline"] || [objType isEqualToString:@"Public"] || [objType isEqualToString:@"Private"]) {
+            collection.objType = objType;
+        }else{
+            NSLog(@"Collection type in not seted properly, options are: Offline Public Private");
         }
     }
     

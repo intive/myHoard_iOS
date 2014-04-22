@@ -19,7 +19,8 @@
                               objCreatedDate:(NSDate*)objCreatedDate
                              objModifiedDate:(NSDate*)objModifiedDate
                  objOwnerNilAddLogedUserCode:(NSString*)objOwner
-                                   objStatus:(NSString*)objStatus;
+                                   objStatus:(NSString*)objStatus
+                                     objType:(NSString*)objType;
 
 + (NSArray*)allCollections;
 + (MHCollection*)collectionWithObjName:(NSString*)objName;
