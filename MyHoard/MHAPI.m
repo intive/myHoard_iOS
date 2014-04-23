@@ -401,42 +401,42 @@ static MHAPI *_sharedAPI = nil;
                                                                                       }
                                                                                   }
                                                                                   [[MHCoreDataContext getInstance] saveContext];
-                                                                                  
-                                                                                   predicate = [NSPredicate predicateWithFormat:@"(objType == 'deleted') OR (objStatus == 'offline')"];
-                                                                                   predicationResult = [coreDataCollections filteredArrayUsingPredicate:predicate];
-                                                                                   
-                                                                                   if ([predicationResult count] > 0) {
-                                                                                       for (MHCollection *eachCollectionWithStatus in predicationResult) {
-                                                                                           predicate = [NSPredicate predicateWithFormat:@"objId == %@", eachCollectionWithStatus.objId];
-                                                                                           predicationResult = [responseObject filteredArrayUsingPredicate:predicate];
-                                                                                           if ([predicationResult count] > 0) {
-                                                                                               for (MHCollection *collectionsWithStatus in predicationResult) {
-                                                                                                   [self deleteCollection:collectionsWithStatus completionBlock:^(id object, NSError *error) {
-                                                                                                       if (error) {
-                                                                                                           completionBlock(nil, error);
-                                                                                                       }else {
-                                                                                                           [[MHCoreDataContext getInstance].managedObjectContext deleteObject:collectionsWithStatus];
-                                                                                                           [[MHCoreDataContext getInstance] saveContext];
-                                                                                                       }
-                                                                                                   }];
-                                                                                               }
-                                                                                           }
-                                                                                       }
-                                                                                   }else {
-                                                                                       for (MHCollection *eachCollectionWithoutStatus in coreDataCollections) {
-                                                                                           predicate = [NSPredicate predicateWithFormat:@"objId == %@", eachCollectionWithoutStatus.objId];
-                                                                                           predicationResult = [coreDataCollections filteredArrayUsingPredicate:predicate];
-                                                                                           if ([predicationResult count] == 0) {
-                                                                                               [self createCollection:eachCollectionWithoutStatus completionBlock:^(id object, NSError *error) {
-                                                                                                   if (error) {
-                                                                                                       completionBlock(nil, error);
-                                                                                                   }
-                                                                                               }];
-                                                                                           }
-                                                                                       }
-                                                                                   }
                                                                               }
-                                                                          }
+                                                                                  predicate = [NSPredicate predicateWithFormat:@"(objType == 'deleted') OR (objStatus == 'offline')"];
+                                                                                  predicationResult = [coreDataCollections filteredArrayUsingPredicate:predicate];
+                                                                              
+                                                                                  if ([predicationResult count] > 0) {
+                                                                                      for (MHCollection *eachCollectionWithStatus in predicationResult) {
+                                                                                          predicate = [NSPredicate predicateWithFormat:@"id == %@", eachCollectionWithStatus.objId];
+                                                                                          predicationResult = [responseObject filteredArrayUsingPredicate:predicate];
+                                                                                          if ([predicationResult count] > 0) {
+                                                                                              for (MHCollection *collectionsWithStatus in predicationResult) {
+                                                                                                  [self deleteCollection:collectionsWithStatus completionBlock:^(id object, NSError *error) {
+                                                                                                      if (error) {
+                                                                                                          completionBlock(nil, error);
+                                                                                                      }else {
+                                                                                                          [[MHCoreDataContext getInstance].managedObjectContext deleteObject:collectionsWithStatus];
+                                                                                                          [[MHCoreDataContext getInstance] saveContext];
+                                                                                                      }
+                                                                                                  }];
+                                                                                              }
+                                                                                          }
+                                                                                      }
+                                                                                  }else {
+                                                                                      for (MHCollection *eachCollectionWithoutStatus in coreDataCollections) {
+                                                                                          predicate = [NSPredicate predicateWithFormat:@"id == %@", eachCollectionWithoutStatus.objId];
+                                                                                          predicationResult = [responseObject filteredArrayUsingPredicate:predicate];
+                                                                                          if ([predicationResult count] == 0) {
+                                                                                              [self createCollection:eachCollectionWithoutStatus completionBlock:^(id object, NSError *error) {
+                                                                                                  if (error) {
+                                                                                                      completionBlock(nil, error);
+                                                                                                  }
+                                                                                              }];
+                                                                                          }
+                                                                                      }
+                                                                                  }
+                                                                              }
+                                                                          
                                                                 
                                                                           [[MHCoreDataContext getInstance] saveContext];
                                                                           completionBlock(nil, nil);
