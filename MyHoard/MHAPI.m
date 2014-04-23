@@ -819,7 +819,7 @@ static MHAPI *_sharedAPI = nil;
                                                                                   i.objId = responseDictionary[@"id"];
 
                                                                                   for (NSDictionary *d in responseDictionary[@"media"]) {
-                                                                                      MHMedia *m = [MHDatabaseManager insertMediaWithCreatedDate:[NSDate date] objKey:nil item:i objStatus:@"ok"];
+                                                                                      MHMedia *m = [MHDatabaseManager insertMediaWithCreatedDate:[NSDate date] objKey:d[@"id"] item:i objStatus:@"ok"];
                                                                                       m.objId = d[@"id"];
                                                                                       [self readMedia:m completionBlock:^(id object, NSError *error) {
                                                                                           if (error) {
@@ -841,7 +841,7 @@ static MHAPI *_sharedAPI = nil;
                                                                                       i.objId = responseDictionary[@"id"];
 
                                                                                       for (NSDictionary *d in responseDictionary[@"media"]) {
-                                                                                          MHMedia *m = [MHDatabaseManager insertMediaWithCreatedDate:[NSDate date] objKey:nil item:i objStatus:@"ok"];
+                                                                                          MHMedia *m = [MHDatabaseManager insertMediaWithCreatedDate:[NSDate date] objKey:d[@"id"] item:i objStatus:@"ok"];
                                                                                           m.objId = d[@"id"];
                                                                                           [self readMedia:m completionBlock:^(id object, NSError *error) {
                                                                                               if (error) {
@@ -865,7 +865,7 @@ static MHAPI *_sharedAPI = nil;
                                                                                               i.objId = responseDictionary[@"id"];
 
                                                                                               for (NSDictionary *d in responseDictionary[@"media"]) {
-                                                                                                  MHMedia *m = [MHDatabaseManager insertMediaWithCreatedDate:[NSDate date] objKey:nil item:i objStatus:@"updated"];
+                                                                                                  MHMedia *m = [MHDatabaseManager insertMediaWithCreatedDate:[NSDate date] objKey:d[@"id"] item:i objStatus:@"updated"];
                                                                                                   m.objId = d[@"id"];
                                                                                                   [self readMedia:m completionBlock:^(id object, NSError *error) {
                                                                                                       if (error) {
