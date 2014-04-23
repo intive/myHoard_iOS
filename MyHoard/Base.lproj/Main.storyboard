@@ -1066,6 +1066,7 @@
                         <outlet property="pickerSaveColor" destination="M8k-EQ-Cqg" id="e3P-tL-0dw"/>
                         <outlet property="pickerView" destination="tg4-Nt-08s" id="qGa-Aw-Ve2"/>
                         <outlet property="questionBackgroundView" destination="5yg-zQ-QQg" id="rEw-X9-BHj"/>
+                        <outlet property="screenTitle" destination="Psv-xS-6GK" id="KhO-5g-62B"/>
                         <outlet property="tagsBackgroundView" destination="M46-sn-KFe" id="PhI-8N-JcU"/>
                         <outlet property="tagsTextField" destination="Sbl-LU-1Gr" id="HvF-fC-u95"/>
                         <outlet property="typeLabel" destination="jpI-62-Fdd" id="9bj-78-VIk"/>

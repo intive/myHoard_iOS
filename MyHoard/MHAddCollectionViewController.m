@@ -74,6 +74,7 @@
     
     _tagsTextField.text = tags;
     _descriptionTextField.text = _collection.objDescription;
+    _screenTitle.title = @"Edit Collection";
 }
 
 - (void)didReceiveMemoryWarning

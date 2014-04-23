@@ -29,6 +29,7 @@
 - (IBAction)pickerSave:(id)sender;
 @property (weak, nonatomic) IBOutlet UIButton *pickerCancelColor;
 @property (weak, nonatomic) IBOutlet UIButton *pickerSaveColor;
+@property (weak, nonatomic) IBOutlet UINavigationItem *screenTitle;
 
 @property (nonatomic, strong) MHCollection *collection;
 
