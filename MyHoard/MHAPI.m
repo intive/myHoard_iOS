@@ -918,7 +918,7 @@ static MHAPI *_sharedAPI = nil;
                                                                                    }else {
                                                                                        for (MHItem *eachItemWithoutStatus in coreDataItems) {
                                                                                            predicate = [NSPredicate predicateWithFormat:@"id == %@", eachItemWithoutStatus.objId];
-                                                                                           predicationResult = [coreDataItems filteredArrayUsingPredicate:predicate];
+                                                                                           predicationResult = [responseObject filteredArrayUsingPredicate:predicate];
                                                                                            if ([predicationResult count] == 0) {
                                                                                                [self createItem:eachItemWithoutStatus completionBlock:^(id object, NSError *error) {
                                                                                                    if (error) {
