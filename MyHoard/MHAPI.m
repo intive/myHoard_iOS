@@ -577,6 +577,7 @@ static MHAPI *_sharedAPI = nil;
         [formData appendPartWithFileData:assetData name:@"image" fileName:m.objKey mimeType:@"image/*"];
     } success:^(AFHTTPRequestOperation *operation, id responseObject) {
         m.objId = responseObject[@"id"];
+        completionBlock(nil, nil);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         completionBlock(nil, error);
     }];
@@ -814,11 +815,11 @@ static MHAPI *_sharedAPI = nil;
                                                                           if ([coreDataItems count] == 0 && [responseObject count] != 0) {
                                                                               for (NSDictionary *responseDictionary in responseObject) {
                                                                               
-                                                                                  MHItem *i = [MHDatabaseManager insertItemWithObjName:responseDictionary[@"name"] objDescription:responseDictionary[@"description"] objTags:nil objLocation:[self locationParser:responseDictionary] objCreatedDate:[self dateParser:responseDictionary[@"created_date"]] objModifiedDate:[self dateParser:responseDictionary[@"modified_date"]] collection:collection objStatus:@"new"];
+                                                                                  MHItem *i = [MHDatabaseManager insertItemWithObjName:responseDictionary[@"name"] objDescription:responseDictionary[@"description"] objTags:nil objLocation:[self locationParser:responseDictionary] objCreatedDate:[self dateParser:responseDictionary[@"created_date"]] objModifiedDate:[self dateParser:responseDictionary[@"modified_date"]] collection:collection objStatus:@"ok"];
                                                                                   i.objId = responseDictionary[@"id"];
 
                                                                                   for (NSDictionary *d in responseDictionary[@"media"]) {
-                                                                                      MHMedia *m = [MHDatabaseManager insertMediaWithCreatedDate:[NSDate date] objKey:nil item:i objStatus:@"new"];
+                                                                                      MHMedia *m = [MHDatabaseManager insertMediaWithCreatedDate:[NSDate date] objKey:nil item:i objStatus:@"ok"];
                                                                                       m.objId = d[@"id"];
                                                                                       [self readMedia:m completionBlock:^(id object, NSError *error) {
                                                                                           if (error) {
@@ -836,11 +837,11 @@ static MHAPI *_sharedAPI = nil;
                                                                                   predicationResult = [coreDataItems filteredArrayUsingPredicate:predicate];
                                                                                   
                                                                                   if ([predicationResult count] == 0) {
-                                                                                      MHItem *i = [MHDatabaseManager insertItemWithObjName:responseDictionary[@"name"] objDescription:responseDictionary[@"description"] objTags:nil objLocation:[self locationParser:responseDictionary] objCreatedDate:[self dateParser:responseDictionary[@"created_date"]] objModifiedDate:[self dateParser:responseDictionary[@"modified_date"]] collection:collection objStatus:@"new"];
+                                                                                      MHItem *i = [MHDatabaseManager insertItemWithObjName:responseDictionary[@"name"] objDescription:responseDictionary[@"description"] objTags:nil objLocation:[self locationParser:responseDictionary] objCreatedDate:[self dateParser:responseDictionary[@"created_date"]] objModifiedDate:[self dateParser:responseDictionary[@"modified_date"]] collection:collection objStatus:@"ok"];
                                                                                       i.objId = responseDictionary[@"id"];
 
                                                                                       for (NSDictionary *d in responseDictionary[@"media"]) {
-                                                                                          MHMedia *m = [MHDatabaseManager insertMediaWithCreatedDate:[NSDate date] objKey:nil item:i objStatus:@"new"];
+                                                                                          MHMedia *m = [MHDatabaseManager insertMediaWithCreatedDate:[NSDate date] objKey:nil item:i objStatus:@"ok"];
                                                                                           m.objId = d[@"id"];
                                                                                           [self readMedia:m completionBlock:^(id object, NSError *error) {
                                                                                               if (error) {
