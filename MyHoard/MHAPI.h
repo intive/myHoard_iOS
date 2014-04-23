@@ -70,4 +70,7 @@ typedef void (^MHAPICompletionBlock)(id object, NSError *error);
 - (AFHTTPRequestOperation *)createItem:(MHItem *)item
                        completionBlock:(MHAPICompletionBlock)completionBlock;
 
+- (AFHTTPRequestOperation *)readAllItemsOfCollection:(MHCollection *)collection
+                                     completionBlock:(MHAPICompletionBlock)completionBlock;
+
 @end

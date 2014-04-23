@@ -814,12 +814,11 @@ static MHAPI *_sharedAPI = nil;
                                                                           if ([coreDataItems count] == 0) {
                                                                               for (NSDictionary *responseDictionary in responseObject) {
                                                                               
-                                                                                  CLLocation *l = [[CLLocation alloc]initWithLatitude:[responseDictionary[@"location"][@"lat"] doubleValue]longitude:[responseDictionary[@"location"][@"lng"]doubleValue]];
-                                                                              
-                                                                                  MHItem *i = [MHDatabaseManager insertItemWithObjName:responseDictionary[@"name"] objDescription:responseDictionary[@"description"] objTags:nil objLocation:l objCreatedDate:[self dateParser:responseDictionary[@"created_date"]] objModifiedDate:[self dateParser:responseDictionary[@"modified_date"]] collection:collection objStatus:@"new"];
+                                                                                  MHItem *i = [MHDatabaseManager insertItemWithObjName:responseDictionary[@"name"] objDescription:responseDictionary[@"description"] objTags:nil objLocation:[self locationParser:responseDictionary] objCreatedDate:[self dateParser:responseDictionary[@"created_date"]] objModifiedDate:[self dateParser:responseDictionary[@"modified_date"]] collection:collection objStatus:@"new"];
+                                                                                  i.objId = responseDictionary[@"id"];
 
                                                                                   for (NSDictionary *d in responseDictionary[@"media"]) {
-                                                                                      MHMedia *m = [MHDatabaseManager insertMediaWithCreatedDate:[NSDate date] objKey:nil item:i objStatus:@"new"];
+                                                                                      MHMedia *m = [MHDatabaseManager insertMediaWithCreatedDate:[NSDate date] objKey:d[@"id"] item:i objStatus:@"new"];
                                                                                       m.objId = d[@"id"];
                                                                                       [self readMedia:m completionBlock:^(id object, NSError *error) {
                                                                                           if (error) {
@@ -836,11 +835,10 @@ static MHAPI *_sharedAPI = nil;
                                                                                   predicate = [NSPredicate predicateWithFormat:@"objId == %@", responseDictionary[@"id"]];
                                                                                   predicationResult = [coreDataItems filteredArrayUsingPredicate:predicate];
                                                                                   
-                                                                                  CLLocation *l = [[CLLocation alloc]initWithLatitude:[responseDictionary[@"location"][@"lat"] doubleValue]longitude:[responseDictionary[@"location"][@"lng"]doubleValue]];
-                                                                                  
                                                                                   if ([predicationResult count] == 0) {
-                                                                                      MHItem *i = [MHDatabaseManager insertItemWithObjName:responseDictionary[@"name"] objDescription:responseDictionary[@"description"] objTags:nil objLocation:l objCreatedDate:[self dateParser:responseDictionary[@"created_date"]] objModifiedDate:[self dateParser:responseDictionary[@"modified_date"]] collection:collection objStatus:@"new"];
-                                                                                      
+                                                                                      MHItem *i = [MHDatabaseManager insertItemWithObjName:responseDictionary[@"name"] objDescription:responseDictionary[@"description"] objTags:nil objLocation:[self locationParser:responseDictionary] objCreatedDate:[self dateParser:responseDictionary[@"created_date"]] objModifiedDate:[self dateParser:responseDictionary[@"modified_date"]] collection:collection objStatus:@"new"];
+                                                                                      i.objId = responseDictionary[@"id"];
+
                                                                                       for (NSDictionary *d in responseDictionary[@"media"]) {
                                                                                           MHMedia *m = [MHDatabaseManager insertMediaWithCreatedDate:[NSDate date] objKey:nil item:i objStatus:@"new"];
                                                                                           m.objId = d[@"id"];
@@ -862,10 +860,9 @@ static MHAPI *_sharedAPI = nil;
                                                                                               
                                                                                               [collection removeItemsObject:result];
                                                                                               
-                                                                                              CLLocation *l = [[CLLocation alloc]initWithLatitude:[responseDictionary[@"location"][@"lat"] doubleValue]longitude:[responseDictionary[@"location"][@"lng"]doubleValue]];
-                                                                                              
-                                                                                              MHItem *i = [MHDatabaseManager insertItemWithObjName:responseDictionary[@"name"] objDescription:responseDictionary[@"description"] objTags:nil objLocation:l objCreatedDate:[self dateParser:responseDictionary[@"created_date"]] objModifiedDate:[self dateParser:responseDictionary[@"modified_date"]] collection:collection objStatus:@"updated"];
-                                                                                              
+                                                                                              MHItem *i = [MHDatabaseManager insertItemWithObjName:responseDictionary[@"name"] objDescription:responseDictionary[@"description"] objTags:nil objLocation:[self locationParser:responseDictionary] objCreatedDate:[self dateParser:responseDictionary[@"created_date"]] objModifiedDate:[self dateParser:responseDictionary[@"modified_date"]] collection:collection objStatus:@"updated"];
+                                                                                              i.objId = responseDictionary[@"id"];
+
                                                                                               for (NSDictionary *d in responseDictionary[@"media"]) {
                                                                                                   MHMedia *m = [MHDatabaseManager insertMediaWithCreatedDate:[NSDate date] objKey:nil item:i objStatus:@"updated"];
                                                                                                   m.objId = d[@"id"];
@@ -1053,4 +1050,16 @@ static MHAPI *_sharedAPI = nil;
     return date;
 }
 
+- (CLLocation *)locationParser:(NSDictionary *)locationValue {
+    
+    CLLocation *l;
+    
+    if (locationValue[@"location"] != nil) {
+        l = [[CLLocation alloc]initWithLatitude:[[locationValue objectForKey:@"location.lat"]doubleValue]longitude:[[locationValue objectForKey:@"location.lng"]doubleValue]];
+    }else {
+        l = nil;
+    }
+
+    return l;
+}
 @end
