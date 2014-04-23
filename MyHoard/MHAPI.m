@@ -811,14 +811,14 @@ static MHAPI *_sharedAPI = nil;
     
     AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
                                                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                                                          if ([coreDataItems count] == 0) {
+                                                                          if ([coreDataItems count] == 0 && [responseObject count] != 0) {
                                                                               for (NSDictionary *responseDictionary in responseObject) {
                                                                               
                                                                                   MHItem *i = [MHDatabaseManager insertItemWithObjName:responseDictionary[@"name"] objDescription:responseDictionary[@"description"] objTags:nil objLocation:[self locationParser:responseDictionary] objCreatedDate:[self dateParser:responseDictionary[@"created_date"]] objModifiedDate:[self dateParser:responseDictionary[@"modified_date"]] collection:collection objStatus:@"new"];
                                                                                   i.objId = responseDictionary[@"id"];
 
                                                                                   for (NSDictionary *d in responseDictionary[@"media"]) {
-                                                                                      MHMedia *m = [MHDatabaseManager insertMediaWithCreatedDate:[NSDate date] objKey:d[@"id"] item:i objStatus:@"new"];
+                                                                                      MHMedia *m = [MHDatabaseManager insertMediaWithCreatedDate:[NSDate date] objKey:nil item:i objStatus:@"new"];
                                                                                       m.objId = d[@"id"];
                                                                                       [self readMedia:m completionBlock:^(id object, NSError *error) {
                                                                                           if (error) {
@@ -829,7 +829,7 @@ static MHAPI *_sharedAPI = nil;
                                                                               
                                                                                   [[MHCoreDataContext getInstance] saveContext];
                                                                               }
-                                                                          }else {
+                                                                          }else if ([coreDataItems count] != 0 && [responseObject count] != 0){
                                                                               for (NSDictionary *responseDictionary in responseObject) {
                                                                                   
                                                                                   predicate = [NSPredicate predicateWithFormat:@"objId == %@", responseDictionary[@"id"]];
@@ -929,6 +929,7 @@ static MHAPI *_sharedAPI = nil;
                                                                                     }
                                                                                 }
                                                                             }
+                                                                          completionBlock(nil, nil);
                                                                       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                                                           completionBlock(nil, error);
                                                                       }];

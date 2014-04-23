@@ -10,6 +10,7 @@
 #import "MHPasswordStrengthView.h"
 #import "MHAPI.h"
 #import "MHWaitDialog.h"
+#import "MHDatabaseManager.h"
 
 @interface MHLoginAndRegisterViewController () <UITextFieldDelegate> {
     MHWaitDialog* _waitDialog;
@@ -370,12 +371,28 @@
             
             [alert show];
         }else {
-            [_waitDialog dismiss];
-            [self dismissViewControllerAnimated:YES completion:^{
-                if (_loginCompletionBlock) {
-                    _loginCompletionBlock();
-                }
-            }];
+            __block NSArray *coreDataCollections = [MHDatabaseManager allCollections];
+            for (MHCollection *eachCollection in coreDataCollections) {
+                [[MHAPI getInstance]readAllItemsOfCollection:eachCollection completionBlock:^(id object, NSError *error) {
+                    if (error) {
+                        UIAlertView *alert = [[UIAlertView alloc]
+                                              initWithTitle:@"Error"
+                                              message:error.localizedDescription
+                                              delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+                        
+                        [alert show];
+                    }else {
+                        [_waitDialog dismiss];
+                        [self dismissViewControllerAnimated:YES completion:^{
+                            if (_loginCompletionBlock) {
+                                _loginCompletionBlock();
+                            }
+                        }];
+                    }
+                }];
+            }
         }
     }];
     
