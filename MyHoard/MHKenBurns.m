@@ -55,6 +55,7 @@
 }
 
 - (void)removeAllImages {
+    _imageView.image = nil;
     [_images removeAllObjects];
     [self stopAnimation];
 }
