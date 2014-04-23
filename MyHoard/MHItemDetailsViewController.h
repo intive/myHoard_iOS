@@ -17,7 +17,7 @@
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
 @property (weak, nonatomic) IBOutlet UIButton *dragTopButton;
 @property (weak, nonatomic) IBOutlet UILabel *itemTitleLabel;
-@property (weak, nonatomic) IBOutlet UILabel *itemCommentLabel;
+@property (weak, nonatomic) IBOutlet UITextView *itemCommentLabel;
 
 @property (nonatomic, strong) MHItem *item;
 

@@ -32,7 +32,8 @@
     
     _itemCommentLabel.text = _item.objDescription;
     _itemCommentLabel.textColor = [UIColor tagFrontColor];
-    
+    _itemCommentLabel.backgroundColor = [UIColor clearColor];
+    _itemCommentLabel.editable = NO;
     _itemTitleLabel.text = _item.objName;
     _itemTitleLabel.textColor = [UIColor collectionNameFrontColor];
     for(MHMedia *media in _item.media) {
