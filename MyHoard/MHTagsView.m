@@ -71,6 +71,8 @@
 }
 
 - (void)setTagList:(NSArray *)tagList {
+    [self currentLabel].text = @"";
+    [self nextLabel].text = @"";
     _tagList = tagList;
     _tagIndex = 0;
     if (tagList.count == 1) {
