@@ -340,7 +340,7 @@ static MHAPI *_sharedAPI = nil;
     
     AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
                                                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                                                          if ([coreDataCollections count] == 0) {
+                                                                          if ([coreDataCollections count] == 0 && [responseObject count] > 0) {
                                                                               for (NSDictionary *responseDictionary in responseObject) {
                                                                                   
                                                                                   MHCollection *createdCollection = [MHDatabaseManager insertCollectionWithObjName:responseDictionary[@"name"]
@@ -357,7 +357,7 @@ static MHAPI *_sharedAPI = nil;
                                                                                   
                                                                                   [[MHCoreDataContext getInstance] saveContext];
                                                                               }
-                                                                          }else {
+                                                                          }else if ([coreDataCollections count] > 0 && [responseObject count] > 0){
                                                                               for (NSDictionary *responseDictionary in responseObject) {
                                                                                   predicate = [NSPredicate predicateWithFormat:@"objId == %@", responseDictionary[@"id"]];
                                                                                   predicationResult = [coreDataCollections filteredArrayUsingPredicate:predicate];
@@ -451,7 +451,17 @@ static MHAPI *_sharedAPI = nil;
                                                                                           }
                                                                                       }
                                                                                   }
+                                                                          }else if ([coreDataCollections count] > 0 && [responseObject count] == 0) {
+                                                                              for (MHCollection *collection in coreDataCollections) {
+                                                                                  if ([collection.objType isEqualToString:@"public"]) {
+                                                                                      [self createCollection:collection completionBlock:^(id object, NSError *error) {
+                                                                                          if (error) {
+                                                                                              completionBlock(nil, error);
+                                                                                          }
+                                                                                      }];
+                                                                                  }
                                                                               }
+                                                                          }
                                                                           
                                                                 
                                                                           [[MHCoreDataContext getInstance] saveContext];
