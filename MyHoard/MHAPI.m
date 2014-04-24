@@ -282,7 +282,8 @@ static MHAPI *_sharedAPI = nil;
                                                            URLString:[self urlWithPath:@"collections"]
                                                           parameters:@{@"name": collection.objName,
                                                                        @"description": collection.objDescription,
-                                                                       @"tags":collection.objTags}
+                                                                       @"tags":collection.objTags,
+                                                                       @"public":@YES}
                                                                error:&error];
     
     __block MHCollection* c = collection;
@@ -296,6 +297,8 @@ static MHAPI *_sharedAPI = nil;
                                                                           c.objModifiedDate = [date dateFromRFC3339String];
                                                                           c.objOwner = responseObject[@"owner"];
                                                                           c.objId = responseObject[@"id"];
+                                                                          c.objType = [self objTypeParser:responseObject];
+                                                                          
                                                                           [[MHCoreDataContext getInstance] saveContext];
                                                                           
                                                                           completionBlock(c, error);
@@ -341,8 +344,10 @@ static MHAPI *_sharedAPI = nil;
                                                                                                                                                            objType:nil];
                                                                                   
                                                                                   createdCollection.objId = responseDictionary[@"id"];
+                                                                                  createdCollection.objType = [self objTypeParser:responseDictionary];
+                                                                                  
+                                                                                  [[MHCoreDataContext getInstance] saveContext];
                                                                               }
-                                                                              [[MHCoreDataContext getInstance] saveContext];
                                                                           }else {
                                                                               for (NSDictionary *responseDictionary in responseObject) {
                                                                                   predicate = [NSPredicate predicateWithFormat:@"objId == %@", responseDictionary[@"id"]];
@@ -359,6 +364,7 @@ static MHAPI *_sharedAPI = nil;
                                                                                                                                                                objType:nil];
                                                                                       
                                                                                       createdCollection.objId = responseDictionary[@"id"];
+                                                                                      createdCollection.objType = [self objTypeParser:responseDictionary];
                                                                                       
                                                                                       [[MHCoreDataContext getInstance] saveContext];
                                                                                   }else {
@@ -381,6 +387,7 @@ static MHAPI *_sharedAPI = nil;
                                                                                                                                                                        objType:nil];
                                                                                               
                                                                                               createdCollection.objId = responseDictionary[@"id"];
+                                                                                              createdCollection.objType = [self objTypeParser:responseDictionary];
                                                                                               
                                                                                               [[MHCoreDataContext getInstance] saveContext];
                                                                                           }
@@ -482,6 +489,9 @@ static MHAPI *_sharedAPI = nil;
                                                                                   [[MHCoreDataContext getInstance]saveContext];
                                                                                   MHCollection * collection = [MHDatabaseManager insertCollectionWithObjName:responseObject[@"name"] objDescription:responseObject[@"description"] objTags:responseObject[@"tags"] objCreatedDate:[self dateParser:responseObject[@"created_date"]] objModifiedDate:[self dateParser:responseObject[@"modified_date"]] objOwnerNilAddLogedUserCode:responseObject[@"owner"] objStatus:@"updated" objType:nil];
                                                                                   collection.objId = responseObject[@"id"];
+                                                                                  collection.objType = [self objTypeParser:responseObject];
+                                                                                  
+                                                                                  [[MHCoreDataContext getInstance]saveContext];
                                                                               }
                                                                           }else {
                                                                               [self deleteCollection:collection completionBlock:^(id object, NSError *error) {
@@ -513,7 +523,8 @@ static MHAPI *_sharedAPI = nil;
                                                         URLString:[NSString stringWithFormat:@"%@%@",[self urlWithPath:@"collections"],collection.objId]
                                                        parameters:@{@"name": collection.objName,
                                                                     @"description": collection.objDescription,
-                                                                    @"tags":collection.objTags}
+                                                                    @"tags":collection.objTags,
+                                                                    @"public":@YES}
                                                             error:&error];
     
     AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
@@ -1063,5 +1074,18 @@ static MHAPI *_sharedAPI = nil;
     }
 
     return l;
+}
+
+- (NSString *)objTypeParser:(NSDictionary *)objType {
+    
+    NSString *collectionType;
+    
+    if ([objType[@"public"] isEqualToNumber:@1]) {
+        collectionType = @"public";
+    }else {
+        collectionType = nil;
+    }
+    
+    return collectionType;
 }
 @end
