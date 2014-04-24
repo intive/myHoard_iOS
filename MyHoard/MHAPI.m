@@ -643,9 +643,7 @@ static MHAPI *_sharedAPI = nil;
     
     AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
                                                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                                                          NSData* imageData = responseObject;
-                                                                          UIImage *responseImage = [UIImage imageWithData:imageData];
-                                                                          [[MHImageCache sharedInstance] cacheImage:responseImage forKey:media.objId];
+                                                                          [[MHImageCache sharedInstance] cacheImage:responseObject forKey:media.objId];
                                                                           tmpMedia.objKey = media.objId;
                                                                           
                                                                           [self updateMedia:tmpMedia completionBlock:nil];

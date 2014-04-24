@@ -311,6 +311,7 @@
                                withPassword:_passwordTextField.text
                             completionBlock:^(id object, NSError *error) {
                                 if (error) {
+                                    [_waitDialog dismiss];
                                     UIAlertView *alert = [[UIAlertView alloc]
                                                           initWithTitle:@"Error"
                                                           message:error.localizedDescription
