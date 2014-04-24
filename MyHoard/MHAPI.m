@@ -281,13 +281,11 @@ static MHAPI *_sharedAPI = nil;
     
     NSNumber *objType;
     
-    if ([collection.objType length] > 0) {
         if ([collection.objType isEqualToString:@"public"]) {
-            objType = @1;
+            objType = @YES;
         }else {
-            objType = @0;
+            objType = @NO;
         }
-    }
     
     NSMutableURLRequest *request = [jsonSerializer requestWithMethod:@"POST"
                                                            URLString:[self urlWithPath:@"collections"]
@@ -532,13 +530,11 @@ static MHAPI *_sharedAPI = nil;
     
     NSNumber *objType;
     
-    if ([collection.objType length] > 0) {
         if ([collection.objType isEqualToString:@"public"]) {
-            objType = @1;
+            objType = @YES;
         }else {
-            objType = @0;
+            objType = @NO;
         }
-    }
     
     NSMutableURLRequest *request = [jsonRequest requestWithMethod:@"PUT"
                                                         URLString:[NSString stringWithFormat:@"%@%@",[self urlWithPath:@"collections"],collection.objId]
