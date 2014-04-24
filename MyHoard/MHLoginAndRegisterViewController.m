@@ -360,6 +360,7 @@
 }
 
 - (void)synchronize {
+    
     [[MHAPI getInstance]readUserCollectionsWithCompletionBlock:^(NSArray *readCollectionsArray, NSError *error) {
         if (error) {
             UIAlertView *alert = [[UIAlertView alloc]

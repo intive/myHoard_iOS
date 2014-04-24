@@ -73,4 +73,7 @@ typedef void (^MHAPICompletionBlock)(id object, NSError *error);
 - (AFHTTPRequestOperation *)readAllItemsOfCollection:(MHCollection *)collection
                                      completionBlock:(MHAPICompletionBlock)completionBlock;
 
+- (AFHTTPRequestOperation *)deleteCollection:(MHCollection *)collection
+                             completionBlock:(MHAPICompletionBlock)completionBlock;
+
 @end

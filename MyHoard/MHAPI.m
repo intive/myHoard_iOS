@@ -570,7 +570,7 @@ static MHAPI *_sharedAPI = nil;
     [jsonRequest setValue:_accessToken forHTTPHeaderField:@"Authorization"];
     
     NSMutableURLRequest *request = [jsonRequest requestWithMethod:@"DELETE"
-                                                        URLString:[NSString stringWithFormat:@"%@%@",[self urlWithPath:@"collections"],collection.objId]
+                                                        URLString:[NSString stringWithFormat:@"%@%@/",[self urlWithPath:@"collections"],collection.objId]
                                                        parameters:nil
                                                             error:&error];
     
