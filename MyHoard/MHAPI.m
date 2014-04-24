@@ -283,7 +283,7 @@ static MHAPI *_sharedAPI = nil;
                                                           parameters:@{@"name": collection.objName,
                                                                        @"description": collection.objDescription,
                                                                        @"tags":collection.objTags,
-                                                                       @"public":@YES}
+                                                                       @"public":collection.objType}
                                                                error:&error];
     
     __block MHCollection* c = collection;
@@ -524,7 +524,7 @@ static MHAPI *_sharedAPI = nil;
                                                        parameters:@{@"name": collection.objName,
                                                                     @"description": collection.objDescription,
                                                                     @"tags":collection.objTags,
-                                                                    @"public":@YES}
+                                                                    @"public":collection.objType}
                                                             error:&error];
     
     AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
@@ -1079,11 +1079,12 @@ static MHAPI *_sharedAPI = nil;
 - (NSString *)objTypeParser:(NSDictionary *)objType {
     
     NSString *collectionType;
+    NSNumber *type = objType[@"public"];
     
-    if ([objType[@"public"] isEqualToNumber:@1]) {
+    if ([type boolValue]) {
         collectionType = @"public";
     }else {
-        collectionType = nil;
+        collectionType = @"private";
     }
     
     return collectionType;
