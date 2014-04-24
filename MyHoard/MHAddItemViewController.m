@@ -19,6 +19,7 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 200;
 
 @interface MHAddItemViewController ()
 @property (readwrite) CGFloat animatedDistance;
+@property (nonatomic, retain) UIActivityViewController* controller;
 @end
 
 @implementation MHAddItemViewController
@@ -48,6 +49,7 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 200;
     self.view.backgroundColor = [UIColor darkerGray];
     self.titleBackground.backgroundColor = [UIColor appBackgroundColor];
     self.comentaryBackground.backgroundColor = [UIColor appBackgroundColor];
+    self.shareView.backgroundColor = [UIColor appBackgroundColor];
     self.localizationBackground.backgroundColor = [UIColor appBackgroundColor];
     self.collectionBackground.backgroundColor = [UIColor appBackgroundColor];
     self.collectionLabel.textColor = [UIColor collectionNameFrontColor];
@@ -55,10 +57,12 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 200;
     self.collectionNoneLabel.textColor = [UIColor darkerYellow];
     self.localizationNoneLabel.textColor = [UIColor darkerYellow];
     self.titleTextField.textColor = [UIColor lighterYellow];
+    self.shareLabel.textColor = [UIColor lighterYellow];
     _titleTextField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Title" attributes:@{NSForegroundColorAttributeName: [UIColor darkerYellow]}];
     _defaultLabel.textColor = [UIColor darkerYellow];
     _commentaryTextView.backgroundColor = [UIColor clearColor];
     _commentaryTextView.textColor = [UIColor lighterYellow];
+    [_shareSwitch setOn:1];
 #warning - get location!
     self.imageView.image = self.selectedImage;
 //    if (self.mediaId){
@@ -273,7 +277,108 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 200;
         [alert show];
     }
     else{
-
+        if (_shareSwitch.isOn) {
+            NSMutableString *text = [[NSMutableString alloc] initWithString: @"I've just added"];
+            [text appendFormat:@" %@ to my collection of %@!",_titleTextField.text, _collectionLabel.text];
+            NSArray *activityItems = [NSArray alloc];
+            _controller = [UIActivityViewController alloc];
+            if(_selectedImage){
+                activityItems =  @[text,_selectedImage];
+            }
+            else {
+                activityItems =  @[text];
+            }
+            [_controller initWithActivityItems:activityItems applicationActivities:nil];
+            _controller.excludedActivityTypes = @[UIActivityTypePostToWeibo,
+                                                 UIActivityTypeMail,
+                                                 UIActivityTypePrint,
+                                                 UIActivityTypeCopyToPasteboard,
+                                                 UIActivityTypeAssignToContact,
+                                                 UIActivityTypeSaveToCameraRoll,
+                                                 UIActivityTypeAddToReadingList,
+                                                 UIActivityTypePostToFlickr,
+                                                 UIActivityTypePostToVimeo,
+                                                 UIActivityTypePostToTencentWeibo,
+                                                 UIActivityTypeAirDrop];
+            [[self parentViewController] presentViewController:_controller animated:YES completion:nil];
+            __weak typeof(self) weakself = self;
+        [_controller setCompletionHandler:^(NSString *activityType, BOOL completed) {
+            if(completed){
+            CLLocation* loc = [[CLLocation alloc] initWithLatitude:_locationCoordinatePassed.latitude longitude:_locationCoordinatePassed.longitude];
+            MHItem* item = [MHDatabaseManager insertItemWithObjName:weakself.titleTextField.text
+                                                     objDescription:weakself.commentaryTextView.text
+                                                            objTags:nil
+                                                        objLocation:loc
+                                                     objCreatedDate:[NSDate date]
+                                                    objModifiedDate:nil
+                                                         collection:weakself.selectedCollection
+                                                          objStatus:@"new"];
+            
+            if (weakself.selectedImage) {
+                NSString *key = [[MHImageCache sharedInstance] cacheImage:weakself.selectedImage];
+                
+                MHMedia* media = [MHDatabaseManager insertMediaWithCreatedDate:[NSDate date]
+                                                                        objKey:key
+                                                                          item:item
+                                                                     objStatus:@"new"];
+                
+                if ([[MHAPI getInstance]activeSession] == YES) {
+                    __block MHWaitDialog* wait = [[MHWaitDialog alloc] init];
+                    [wait show];
+                    [[MHAPI getInstance]createMedia:media completionBlock:^(id object, NSError *error) {
+                        if (error) {
+                            [wait dismiss];
+                            UIAlertView *alert = [[UIAlertView alloc]
+                                                  initWithTitle:@"Error"
+                                                  message:error.localizedDescription
+                                                  delegate:weakself
+                                                  cancelButtonTitle:@"Ok"
+                                                  otherButtonTitles:nil];
+                            [alert show];
+                        }else {
+                            [[MHAPI getInstance]createItem:item completionBlock:^(id object, NSError *error) {
+                                [wait dismiss];
+                                if (error) {
+                                    UIAlertView *alert = [[UIAlertView alloc]
+                                                          initWithTitle:@"Error"
+                                                          message:error.localizedDescription
+                                                          delegate:weakself
+                                                          cancelButtonTitle:@"Ok"
+                                                          otherButtonTitles:nil];
+                                    [alert show];
+                                }else {
+                                    [weakself dismissViewControllerAnimated:YES completion:nil];
+                                }
+                            }];
+                        }
+                    }];
+                } else {
+                    [weakself dismissViewControllerAnimated:YES completion:nil];
+                }
+            } else {
+                if ([[MHAPI getInstance]activeSession] == YES) {
+                    __block MHWaitDialog* wait = [[MHWaitDialog alloc] init];
+                    [wait show];
+                    [[MHAPI getInstance] createItem:item completionBlock:^(id object, NSError *error) {
+                        [wait dismiss];
+                        if (error) {
+                            UIAlertView *alert = [[UIAlertView alloc]
+                                                  initWithTitle:@"Error"
+                                                  message:error.localizedDescription
+                                                  delegate:weakself
+                                                  cancelButtonTitle:@"Ok"
+                                                  otherButtonTitles:nil];
+                            [alert show];
+                        }
+                        [weakself dismissViewControllerAnimated:YES completion:nil];
+                    }];
+                } else {
+                    [weakself dismissViewControllerAnimated:YES completion:nil];
+                }
+            }
+            }
+        }];
+    } else {
         CLLocation* loc = [[CLLocation alloc] initWithLatitude:_locationCoordinatePassed.latitude longitude:_locationCoordinatePassed.longitude];
         MHItem* item = [MHDatabaseManager insertItemWithObjName:self.titleTextField.text
                                                  objDescription:self.commentaryTextView.text
@@ -283,7 +388,7 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 200;
                                                 objModifiedDate:nil
                                                      collection:self.selectedCollection
                                                       objStatus:@"new"];
-
+        
         if (self.selectedImage) {
             NSString *key = [[MHImageCache sharedInstance] cacheImage:self.selectedImage];
             
@@ -346,6 +451,7 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 200;
                 [self dismissViewControllerAnimated:YES completion:nil];
             }
         }
+    }
     }
 }
 

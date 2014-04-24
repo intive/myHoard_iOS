@@ -36,6 +36,9 @@
 @property (weak, nonatomic) IBOutlet UITextField *titleTextField;
 @property (weak, nonatomic) IBOutlet UITextView *commentaryTextView;
 @property (weak, nonatomic) IBOutlet UILabel *defaultLabel;
+@property (weak, nonatomic) IBOutlet UISwitch *shareSwitch;
+@property (weak, nonatomic) IBOutlet UILabel *shareLabel;
+@property (weak, nonatomic) IBOutlet UIView *shareView;
 
 - (IBAction)collectionButton:(id)sender;
 - (IBAction)localizationButton:(id)sender;
