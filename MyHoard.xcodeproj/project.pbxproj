@@ -26,6 +26,7 @@
 		235EB3C618DDAE3C0032D769 /* MHPasswordStrengthView.m in Sources */ = {isa = PBXBuildFile; fileRef = 235EB3C518DDAE3C0032D769 /* MHPasswordStrengthView.m */; };
 		235EB3C918DDF07E0032D769 /* MHLoginAndRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 235EB3C818DDF07E0032D769 /* MHLoginAndRegisterViewController.m */; };
 		23A3C30A18FEC45E00597337 /* CameraOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A3C30918FEC45E00597337 /* CameraOverlayView.m */; };
+		23A799091909896000230165 /* MHFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A799081909896000230165 /* MHFriendsViewController.m */; };
 		23B0A70B18F861AF00FA806C /* MHSliderMenuHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 23B0A70A18F861AF00FA806C /* MHSliderMenuHeader.m */; };
 		23B0A70E18F862D900FA806C /* MHSliderMenuTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 23B0A70D18F862D900FA806C /* MHSliderMenuTableCell.m */; };
 		23C4E68318FC7542002FB84D /* NSString+RFC3339.m in Sources */ = {isa = PBXBuildFile; fileRef = 23C4E68218FC7542002FB84D /* NSString+RFC3339.m */; };
@@ -143,6 +144,8 @@
 		235EB3C818DDF07E0032D769 /* MHLoginAndRegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHLoginAndRegisterViewController.m; sourceTree = "<group>"; };
 		23A3C30818FEC45E00597337 /* CameraOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraOverlayView.h; sourceTree = "<group>"; };
 		23A3C30918FEC45E00597337 /* CameraOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraOverlayView.m; sourceTree = "<group>"; };
+		23A799071909896000230165 /* MHFriendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHFriendsViewController.h; sourceTree = "<group>"; };
+		23A799081909896000230165 /* MHFriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHFriendsViewController.m; sourceTree = "<group>"; };
 		23B0A70918F861AF00FA806C /* MHSliderMenuHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHSliderMenuHeader.h; sourceTree = "<group>"; };
 		23B0A70A18F861AF00FA806C /* MHSliderMenuHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHSliderMenuHeader.m; sourceTree = "<group>"; };
 		23B0A70C18F862D900FA806C /* MHSliderMenuTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHSliderMenuTableCell.h; sourceTree = "<group>"; };
@@ -490,6 +493,8 @@
 				93C28E4118D1E83B0011E41E /* MHBaseViewController.m */,
 				93A341A418FAD42300830047 /* MHItemDetailsViewController.h */,
 				93A341A518FAD42300830047 /* MHItemDetailsViewController.m */,
+				23A799071909896000230165 /* MHFriendsViewController.h */,
+				23A799081909896000230165 /* MHFriendsViewController.m */,
 				A76BDE4518E3810100214095 /* Images.xcassets */,
 				23D321A7184BBFFA002FC13A /* Supporting Files */,
 				CED4B03418C892A300A84155 /* Settings.bundle */,
@@ -829,6 +834,7 @@
 				1A13578B190500BB0060DD31 /* SBJsonWriter.m in Sources */,
 				23F64D2718DE682C003420E3 /* MHTagsView.m in Sources */,
 				23D321AD184BBFFA002FC13A /* main.m in Sources */,
+				23A799091909896000230165 /* MHFriendsViewController.m in Sources */,
 				9370CAF418CFC30A00C77461 /* MHCollectionViewController.m in Sources */,
 				1A135788190500BB0060DD31 /* NSString+SBJSON.m in Sources */,
 				1A13578C190500BB0060DD31 /* MJGeocoder.m in Sources */,
@@ -984,8 +990,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
 				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -993,6 +999,7 @@
 				INFOPLIST_FILE = "MyHoard/MyHoard-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1003,7 +1010,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
 				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1011,6 +1019,7 @@
 				INFOPLIST_FILE = "MyHoard/MyHoard-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

@@ -123,8 +123,6 @@
 	[self addViewControllerToLastSection:controller tagged:3 withTitle:@"Collections" andIcon:@"collection_y"];
 	controller = [storyboard instantiateViewControllerWithIdentifier:@"MHFriendsViewController"];
 	[self addViewControllerToLastSection:controller tagged:4 withTitle:@"Friends" andIcon:@"friends_y"];
-	controller = [storyboard instantiateViewControllerWithIdentifier:@"MHNotificationsViewController"];
-	[self addViewControllerToLastSection:controller tagged:5 withTitle:@"Notifications" andIcon:@"notifications_y"];
     
     __block UINavigationController* nc = self.navigationController;
     
@@ -133,7 +131,7 @@
             [nc popToRootViewControllerAnimated:YES];
         }];
 	}
-                          tagged:3
+                          tagged:5
                        withTitle:@"Logout"
                          andIcon:@""];
     
