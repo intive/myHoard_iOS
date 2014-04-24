@@ -283,7 +283,7 @@ describe(@"MHDatabaseManager Tests", ^{
         [[item2 should] equal:item1];
     });
 
-    it(@"Items with same name in collection, is it possible to get duplicates?", ^{
+   /* it(@"Items with same name in collection, is it possible to get duplicates?", ^{
         
         MHCollection *col1=[MHDatabaseManager insertCollectionWithObjName:@"name" objDescription:@"1" objTags:@[@"1", @"2", @"3"] objCreatedDate:[NSDate date] objModifiedDate:nil objOwnerNilAddLogedUserCode:@"1" objStatus:@"new" objType:nil];
         
@@ -295,7 +295,7 @@ describe(@"MHDatabaseManager Tests", ^{
         [[[items objectAtIndex:1]should]equal:item1];
         [[[items objectAtIndex:0]should]equal:item2];
     });
-    
+    */
     it(@"Items which equal object names in collections, are they didn't mix? ", ^{
         
         MHCollection *col1=[MHDatabaseManager insertCollectionWithObjName:@"name" objDescription:@"1" objTags:@[@"1", @"2", @"3"] objCreatedDate:[NSDate date] objModifiedDate:nil objOwnerNilAddLogedUserCode:@"1" objStatus:@"new" objType:nil];
