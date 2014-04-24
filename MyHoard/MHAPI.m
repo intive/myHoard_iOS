@@ -278,12 +278,23 @@ static MHAPI *_sharedAPI = nil;
     
     AFJSONRequestSerializer *jsonSerializer = [AFJSONRequestSerializer serializer];
     [jsonSerializer setValue:_accessToken forHTTPHeaderField:@"Authorization"];
+    
+    NSNumber *objType;
+    
+    if ([collection.objType length] > 0) {
+        if ([collection.objType isEqualToString:@"public"]) {
+            objType = @1;
+        }else {
+            objType = @0;
+        }
+    }
+    
     NSMutableURLRequest *request = [jsonSerializer requestWithMethod:@"POST"
                                                            URLString:[self urlWithPath:@"collections"]
                                                           parameters:@{@"name": collection.objName,
                                                                        @"description": collection.objDescription,
                                                                        @"tags":collection.objTags,
-                                                                       @"public":collection.objType}
+                                                                       @"public":objType}
                                                                error:&error];
     
     __block MHCollection* c = collection;
@@ -519,12 +530,22 @@ static MHAPI *_sharedAPI = nil;
     AFJSONRequestSerializer* jsonRequest = [AFJSONRequestSerializer serializer];
     [jsonRequest setValue:_accessToken forHTTPHeaderField:@"Authorization"];
     
+    NSNumber *objType;
+    
+    if ([collection.objType length] > 0) {
+        if ([collection.objType isEqualToString:@"public"]) {
+            objType = @1;
+        }else {
+            objType = @0;
+        }
+    }
+    
     NSMutableURLRequest *request = [jsonRequest requestWithMethod:@"PUT"
                                                         URLString:[NSString stringWithFormat:@"%@%@",[self urlWithPath:@"collections"],collection.objId]
                                                        parameters:@{@"name": collection.objName,
                                                                     @"description": collection.objDescription,
                                                                     @"tags":collection.objTags,
-                                                                    @"public":collection.objType}
+                                                                    @"public":objType}
                                                             error:&error];
     
     AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
