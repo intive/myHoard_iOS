@@ -48,6 +48,7 @@
                                   otherButtonTitles:nil];
             
             [alert show];
+            [self finish];
         }else {
             NSArray *coreDataCollections = [MHDatabaseManager allCollections];
             if (coreDataCollections.count) {
@@ -63,17 +64,15 @@
                             
                             [alert show];
                         }else {
-                            completionBlock();
+                            [self finish];
                         }
                     }];
                 }
             }else {
-                completionBlock();
+                [self finish];
             }
         }
     }];
-    
-    [self finish];
 }
 
 @end
