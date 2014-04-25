@@ -14,6 +14,16 @@
 #import "MHMedia.h"
 #import "MHApi.h"
 
+#pragma mark - constants for collection type and object status
+
+NSString* const collectionTypePrivate = @"private";
+NSString* const collectionTypePublic = @"public";
+NSString* const collectionTypeOffline = @"offline";
+
+NSString* const objectStatusDeleted = @"deleted";
+NSString* const objectStatusOk = @"ok";
+NSString* const objectStatusModified = @"modified";
+NSString* const objectStatusNew = @"new";
 
 @implementation MHDatabaseManager
 
@@ -56,7 +66,7 @@
     }
     
     if (objStatus.length){
-        if ([objStatus isEqualToString:@"ok"] || [objStatus isEqualToString:@"deleted"] || [objStatus isEqualToString:@"modified"] || [objStatus isEqualToString:@"new"]) {
+        if ([objStatus isEqualToString:objectStatusOk] || [objStatus isEqualToString:objectStatusDeleted] || [objStatus isEqualToString:objectStatusModified] || [objStatus isEqualToString:objectStatusNew]) {
             collection.objStatus = objStatus;
         }else{
             NSLog(@"Collection status in not seted properly, options are: ok deleted modified new");
@@ -64,7 +74,7 @@
     }
     
     if (objType.length){
-        if ([objType isEqualToString:@"offline"] || [objType isEqualToString:@"public"] || [objType isEqualToString:@"private"]) {
+        if ([objType isEqualToString:collectionTypeOffline] || [objType isEqualToString:collectionTypePublic] || [objType isEqualToString:collectionTypePrivate]) {
             collection.objType = objType;
         }else{
             NSLog(@"Collection type in not seted properly, options are: offline public private");
@@ -155,7 +165,7 @@
     //objOwner don't need to be set becouse we are getting items only for collection, so situation where we take items from different owner then owner of a collection couldn't happen.
     
     if (objStatus.length){
-        if ([objStatus isEqualToString:@"ok"] || [objStatus isEqualToString:@"deleted"] || [objStatus isEqualToString:@"modified"] || [objStatus isEqualToString:@"new"]) {
+        if ([objStatus isEqualToString:objectStatusOk] || [objStatus isEqualToString:objectStatusDeleted] || [objStatus isEqualToString:objectStatusModified] || [objStatus isEqualToString:objectStatusNew]) {
             item.objStatus = objStatus;
         }else{
             NSLog(@"Item status in not seted properly, options are: ok deleted modified new");
@@ -218,7 +228,7 @@
     //objOwner don't need to be set becouse we are getting media only for items, so situation where we take items from different owner then owner of a item couldn't happen.
     
     if (objStatus.length){
-        if ([objStatus isEqualToString:@"ok"] || [objStatus isEqualToString:@"deleted"] || [objStatus isEqualToString:@"modified"] || [objStatus isEqualToString:@"new"]) {
+        if ([objStatus isEqualToString:objectStatusOk] || [objStatus isEqualToString:objectStatusDeleted] || [objStatus isEqualToString:objectStatusModified] || [objStatus isEqualToString:objectStatusNew]) {
             media.objStatus = objStatus;
         }else{
             NSLog(@"Media status in not seted properly, options are: ok deleted modified new");

@@ -10,6 +10,15 @@
 
 @class MHCollection, MHItem, MHMedia, CLLocation;
 
+extern NSString* const collectionTypePrivate;
+extern NSString* const collectionTypePublic;
+extern NSString* const collectionTypeOffline;
+
+extern NSString* const objectStatusDeleted;
+extern NSString* const objectStatusOk;
+extern NSString* const objectStatusModified;
+extern NSString* const objectStatusNew;
+
 @interface MHDatabaseManager : NSObject
 
 #pragma mark - Collection
