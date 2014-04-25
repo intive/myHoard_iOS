@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "MHAPI.h"
 
-typedef void(^MHSynchronizeCompletionBlock)();
+typedef void(^MHSynchronizeCompletionBlock)(NSError* error);
 
 @interface MHSynchronizer : NSObject
 

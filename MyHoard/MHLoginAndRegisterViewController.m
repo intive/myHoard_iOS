@@ -373,7 +373,7 @@
 - (void)synchronize {
     
     MHSynchronizer *sync = [[MHSynchronizer alloc]initWithAPI:[MHAPI getInstance]];
-    [sync synchronize:^{
+    [sync synchronize:^(NSError *error){
         [self loginDone];
     }];
 }

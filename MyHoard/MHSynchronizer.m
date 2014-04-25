@@ -28,9 +28,9 @@
     return self;
 }
 
-- (void)finish {
+- (void)finish:(NSError *)error {
     if (_completionBlock) {
-        _completionBlock();
+        _completionBlock(error);
     }
     self.completionBlock = nil;
 }
@@ -40,36 +40,17 @@
     
     [_api readUserCollectionsWithCompletionBlock:^(id object, NSError *error) {
         if (error) {
-            UIAlertView *alert = [[UIAlertView alloc]
-                                  initWithTitle:@"Error"
-                                  message:error.localizedDescription
-                                  delegate:nil
-                                  cancelButtonTitle:@"OK"
-                                  otherButtonTitles:nil];
-            
-            [alert show];
-            [self finish];
+            [self finish:error];
         }else {
             NSArray *coreDataCollections = [MHDatabaseManager allCollections];
             if (coreDataCollections.count) {
                 for (MHCollection *eachCollection in coreDataCollections) {
                     [_api readAllItemsOfCollection:eachCollection completionBlock:^(id object, NSError *error) {
-                        if (error) {
-                            UIAlertView *alert = [[UIAlertView alloc]
-                                                  initWithTitle:@"Error"
-                                                  message:error.localizedDescription
-                                                  delegate:nil
-                                                  cancelButtonTitle:@"OK"
-                                                  otherButtonTitles:nil];
-                            
-                            [alert show];
-                        }else {
-                            [self finish];
-                        }
+                        [self finish:error];
                     }];
                 }
             }else {
-                [self finish];
+                [self finish:nil];
             }
         }
     }];
