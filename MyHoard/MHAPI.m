@@ -418,7 +418,7 @@ static MHAPI *_sharedAPI = nil;
                                                                                   }
                                                                                   [[MHCoreDataContext getInstance] saveContext];
                                                                               }
-                                                                                  predicate = [NSPredicate predicateWithFormat:@"objType == 'deleted'"];
+                                                                                  predicate = [NSPredicate predicateWithFormat:@"objStatus == 'deleted'"];
                                                                                   predicationResult = [coreDataCollections filteredArrayUsingPredicate:predicate];
                                                                               
                                                                                   if ([predicationResult count] > 0) {
