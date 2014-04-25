@@ -27,6 +27,7 @@
 		235EB3C918DDF07E0032D769 /* MHLoginAndRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 235EB3C818DDF07E0032D769 /* MHLoginAndRegisterViewController.m */; };
 		23A3C30A18FEC45E00597337 /* CameraOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A3C30918FEC45E00597337 /* CameraOverlayView.m */; };
 		23A799091909896000230165 /* MHFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A799081909896000230165 /* MHFriendsViewController.m */; };
+		23AF3BA7190A947900F520CD /* MHSynchronizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 23AF3BA6190A947900F520CD /* MHSynchronizer.m */; };
 		23B0A70B18F861AF00FA806C /* MHSliderMenuHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 23B0A70A18F861AF00FA806C /* MHSliderMenuHeader.m */; };
 		23B0A70E18F862D900FA806C /* MHSliderMenuTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 23B0A70D18F862D900FA806C /* MHSliderMenuTableCell.m */; };
 		23C4E68318FC7542002FB84D /* NSString+RFC3339.m in Sources */ = {isa = PBXBuildFile; fileRef = 23C4E68218FC7542002FB84D /* NSString+RFC3339.m */; };
@@ -146,6 +147,8 @@
 		23A3C30918FEC45E00597337 /* CameraOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraOverlayView.m; sourceTree = "<group>"; };
 		23A799071909896000230165 /* MHFriendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHFriendsViewController.h; sourceTree = "<group>"; };
 		23A799081909896000230165 /* MHFriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHFriendsViewController.m; sourceTree = "<group>"; };
+		23AF3BA5190A947900F520CD /* MHSynchronizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHSynchronizer.h; sourceTree = "<group>"; };
+		23AF3BA6190A947900F520CD /* MHSynchronizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHSynchronizer.m; sourceTree = "<group>"; };
 		23B0A70918F861AF00FA806C /* MHSliderMenuHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHSliderMenuHeader.h; sourceTree = "<group>"; };
 		23B0A70A18F861AF00FA806C /* MHSliderMenuHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHSliderMenuHeader.m; sourceTree = "<group>"; };
 		23B0A70C18F862D900FA806C /* MHSliderMenuTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHSliderMenuTableCell.h; sourceTree = "<group>"; };
@@ -390,6 +393,8 @@
 			children = (
 				23D02EF918EEAA0300114941 /* MHAPI.h */,
 				23D02EFA18EEAA0300114941 /* MHAPI.m */,
+				23AF3BA5190A947900F520CD /* MHSynchronizer.h */,
+				23AF3BA6190A947900F520CD /* MHSynchronizer.m */,
 			);
 			name = Networking;
 			sourceTree = "<group>";
@@ -833,6 +838,7 @@
 				23CD283219048761005203C2 /* JBKenBurnsView.m in Sources */,
 				1A13578B190500BB0060DD31 /* SBJsonWriter.m in Sources */,
 				23F64D2718DE682C003420E3 /* MHTagsView.m in Sources */,
+				23AF3BA7190A947900F520CD /* MHSynchronizer.m in Sources */,
 				23D321AD184BBFFA002FC13A /* main.m in Sources */,
 				23A799091909896000230165 /* MHFriendsViewController.m in Sources */,
 				9370CAF418CFC30A00C77461 /* MHCollectionViewController.m in Sources */,
