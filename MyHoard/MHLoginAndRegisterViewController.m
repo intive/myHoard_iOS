@@ -360,6 +360,15 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (void) loginDone {
+    [_waitDialog dismiss];
+    [self dismissViewControllerAnimated:YES completion:^{
+        if (_loginCompletionBlock) {
+            _loginCompletionBlock();
+        }
+    }];
+}
+
 - (void)synchronize {
     
     [[MHAPI getInstance]readUserCollectionsWithCompletionBlock:^(NSArray *readCollectionsArray, NSError *error) {
@@ -374,26 +383,25 @@
             [alert show];
         }else {
             __block NSArray *coreDataCollections = [MHDatabaseManager allCollections];
-            for (MHCollection *eachCollection in coreDataCollections) {
-                [[MHAPI getInstance]readAllItemsOfCollection:eachCollection completionBlock:^(id object, NSError *error) {
-                    if (error) {
-                        UIAlertView *alert = [[UIAlertView alloc]
-                                              initWithTitle:@"Error"
-                                              message:error.localizedDescription
-                                              delegate:nil
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil];
-                        
-                        [alert show];
-                    }else {
-                        [_waitDialog dismiss];
-                        [self dismissViewControllerAnimated:YES completion:^{
-                            if (_loginCompletionBlock) {
-                                _loginCompletionBlock();
-                            }
-                        }];
-                    }
-                }];
+            if (coreDataCollections.count) {
+                for (MHCollection *eachCollection in coreDataCollections) {
+                    [[MHAPI getInstance]readAllItemsOfCollection:eachCollection completionBlock:^(id object, NSError *error) {
+                        if (error) {
+                            UIAlertView *alert = [[UIAlertView alloc]
+                                                  initWithTitle:@"Error"
+                                                  message:error.localizedDescription
+                                                  delegate:nil
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
+                            
+                            [alert show];
+                        }else {
+                            [self loginDone];
+                        }
+                    }];
+                }
+            } else {
+                [self loginDone];
             }
         }
     }];
