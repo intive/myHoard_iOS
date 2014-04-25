@@ -310,8 +310,7 @@ static MHAPI *_sharedAPI = nil;
                                                                           c.objOwner = responseObject[@"owner"];
                                                                           c.objId = responseObject[@"id"];
                                                                           c.objType = [self objTypeParser:responseObject];
-                                                                          
-#warning - change objStatus to "ok"
+                                                                          c.objStatus = objectStatusOk;
                                                                           [[MHCoreDataContext getInstance] saveContext];
                                                                           
                                                                           completionBlock(c, error);
@@ -422,7 +421,7 @@ static MHAPI *_sharedAPI = nil;
                                                                                   }
                                                                                   [[MHCoreDataContext getInstance] saveContext];
                                                                               }
-                                                                                  predicate = [NSPredicate predicateWithFormat:@"objStatus == 'deleted'"];
+                                                                                  predicate = [NSPredicate predicateWithFormat:@"objStatus == %@", objectStatusDeleted];
                                                                                   predicationResult = [coreDataCollections filteredArrayUsingPredicate:predicate];
                                                                               
                                                                                   if ([predicationResult count] > 0) {
@@ -456,18 +455,18 @@ static MHAPI *_sharedAPI = nil;
                                                                                       }
                                                                                   }
                                                                           }else if ([coreDataCollections count] > 0 && [responseObject count] == 0) {
-#warning - only create collection if its status is "new".
                                                                               for (MHCollection *collection in coreDataCollections) {
-                                                                                  if ([collection.objType isEqualToString:@"public"] || [collection.objType isEqualToString:@"private"]) {
-                                                                                      [self createCollection:collection completionBlock:^(id object, NSError *error) {
-                                                                                          if (error) {
-                                                                                              completionBlock(nil, error);
-                                                                                          }
-                                                                                      }];
+                                                                                  if ([collection.objStatus isEqualToString:objectStatusNew]) {
+                                                                                      if ([collection.objType isEqualToString:collectionTypePublic] || [collection.objType isEqualToString:collectionTypePrivate]) {
+                                                                                          [self createCollection:collection completionBlock:^(id object, NSError *error) {
+                                                                                              if (error) {
+                                                                                                  completionBlock(nil, error);
+                                                                                              }
+                                                                                          }];
+                                                                                      }
                                                                                   }
                                                                               }
                                                                           }
-                                                                          
                                                                 
                                                                           [[MHCoreDataContext getInstance] saveContext];
                                                                           completionBlock(nil, nil);
@@ -935,7 +934,7 @@ static MHAPI *_sharedAPI = nil;
                                                                                   
                                                                                   [[MHCoreDataContext getInstance] saveContext];
                                                                                   
-                                                                                   predicate = [NSPredicate predicateWithFormat:@"objStatus == 'deleted'"];
+                                                                                   predicate = [NSPredicate predicateWithFormat:@"objStatus == %@", objectStatusDeleted];
                                                                                    predicationResult = [coreDataItems filteredArrayUsingPredicate:predicate];
                                                                                    
                                                                                    if ([predicationResult count] > 0) {
