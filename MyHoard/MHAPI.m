@@ -287,12 +287,15 @@ static MHAPI *_sharedAPI = nil;
             objType = @NO;
         }
     
+    NSMutableDictionary* params = [NSMutableDictionary dictionaryWithDictionary:@{@"name": collection.objName,
+                                                                                 @"tags":collection.objTags,
+                                                                                  @"public":objType}];
+    if (collection.objDescription) {
+        params[@"description"] = collection.objDescription;
+    }
     NSMutableURLRequest *request = [jsonSerializer requestWithMethod:@"POST"
                                                            URLString:[self urlWithPath:@"collections"]
-                                                          parameters:@{@"name": collection.objName,
-                                                                       @"description": collection.objDescription,
-                                                                       @"tags":collection.objTags,
-                                                                       @"public":objType}
+                                                          parameters:params
                                                                error:&error];
     
     __block MHCollection* c = collection;
