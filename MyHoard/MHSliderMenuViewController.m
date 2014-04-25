@@ -8,6 +8,8 @@
 
 #import "MHSliderMenuViewController.h"
 #import "MHAPI.h"
+#import "MHWaitDialog.h"
+#import "MHDatabaseManager.h"
 
 @implementation MHSliderMenuViewController
 
@@ -125,13 +127,56 @@
 	[self addViewControllerToLastSection:controller tagged:4 withTitle:@"Friends" andIcon:@"friends_y"];
     
     __block UINavigationController* nc = self.navigationController;
+    __block MHWaitDialog *waitDialog = [[MHWaitDialog alloc]init];
+    
+    if ([[MHAPI getInstance]activeSession]) {
+        [self addActionToLastSection:^{
+            [waitDialog show];
+            [[MHAPI getInstance]readUserCollectionsWithCompletionBlock:^(id object, NSError *error) {
+                if (error) {
+                    [waitDialog dismiss];
+                    UIAlertView *alert = [[UIAlertView alloc]
+                                          initWithTitle:@"Error"
+                                          message:error.localizedDescription
+                                          delegate:nil
+                                          cancelButtonTitle:@"OK"
+                                          otherButtonTitles:nil];
+                
+                    [alert show];
+                }else {
+                    NSArray *coreDataCollections = [MHDatabaseManager allCollections];
+                    if (coreDataCollections.count) {
+                        for (MHCollection *eachCollection in coreDataCollections) {
+                            [[MHAPI getInstance]readAllItemsOfCollection:eachCollection completionBlock:^(id object, NSError *error) {
+                                if (error) {
+                                    [waitDialog dismiss];
+                                    UIAlertView *alert = [[UIAlertView alloc]
+                                                          initWithTitle:@"Error"
+                                                          message:error.localizedDescription
+                                                          delegate:nil
+                                                          cancelButtonTitle:@"OK"
+                                                          otherButtonTitles:nil];
+                                    
+                                    [alert show];
+                                }else {
+                                    [waitDialog dismiss];
+                                }
+                            }];
+                        }
+                    }else {
+                        [waitDialog dismiss];
+                    }
+                }
+            }];
+        } tagged:5 withTitle:@"Synchronization" andIcon:@""];
+    }
     
 	[self addActionToLastSection:^{
         [[MHAPI getInstance] logout:^(id object, NSError *error) {
             [nc popToRootViewControllerAnimated:YES];
         }];
 	}
-                          tagged:5
+                          tagged:6
                        withTitle:@"Logout"
                          andIcon:@""];
     
