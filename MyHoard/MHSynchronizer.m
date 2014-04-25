@@ -12,6 +12,7 @@
 @interface MHSynchronizer()
 {
     MHAPI* _api;
+    NSInteger _oldMaxConcurrentOperationCount;
 }
 
 @property (nonatomic, copy) MHSynchronizeCompletionBlock completionBlock;
@@ -33,10 +34,14 @@
         _completionBlock(error);
     }
     self.completionBlock = nil;
+    _api.operationQueue.maxConcurrentOperationCount = _oldMaxConcurrentOperationCount;
 }
 
 - (void)synchronize:(MHSynchronizeCompletionBlock)completionBlock {
     self.completionBlock = completionBlock;
+    
+    _oldMaxConcurrentOperationCount = _api.operationQueue.maxConcurrentOperationCount;
+    _api.operationQueue.maxConcurrentOperationCount = 1;
     
     [_api readUserCollectionsWithCompletionBlock:^(id object, NSError *error) {
         if (error) {
