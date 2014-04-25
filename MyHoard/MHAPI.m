@@ -311,6 +311,7 @@ static MHAPI *_sharedAPI = nil;
                                                                           c.objId = responseObject[@"id"];
                                                                           c.objType = [self objTypeParser:responseObject];
                                                                           
+#warning - change objStatus to "ok"
                                                                           [[MHCoreDataContext getInstance] saveContext];
                                                                           
                                                                           completionBlock(c, error);
@@ -455,6 +456,7 @@ static MHAPI *_sharedAPI = nil;
                                                                                       }
                                                                                   }
                                                                           }else if ([coreDataCollections count] > 0 && [responseObject count] == 0) {
+#warning - only create collection if its status is "new".
                                                                               for (MHCollection *collection in coreDataCollections) {
                                                                                   if ([collection.objType isEqualToString:@"public"] || [collection.objType isEqualToString:@"private"]) {
                                                                                       [self createCollection:collection completionBlock:^(id object, NSError *error) {
