@@ -418,7 +418,7 @@ static MHAPI *_sharedAPI = nil;
                                                                                   }
                                                                                   [[MHCoreDataContext getInstance] saveContext];
                                                                               }
-                                                                                  predicate = [NSPredicate predicateWithFormat:@"(objType == 'deleted') OR (objStatus == 'offline')"];
+                                                                                  predicate = [NSPredicate predicateWithFormat:@"objType == 'deleted'"];
                                                                                   predicationResult = [coreDataCollections filteredArrayUsingPredicate:predicate];
                                                                               
                                                                                   if ([predicationResult count] > 0) {
@@ -453,7 +453,7 @@ static MHAPI *_sharedAPI = nil;
                                                                                   }
                                                                           }else if ([coreDataCollections count] > 0 && [responseObject count] == 0) {
                                                                               for (MHCollection *collection in coreDataCollections) {
-                                                                                  if ([collection.objType isEqualToString:@"public"]) {
+                                                                                  if ([collection.objType isEqualToString:@"public"] || [collection.objType isEqualToString:@"private"]) {
                                                                                       [self createCollection:collection completionBlock:^(id object, NSError *error) {
                                                                                           if (error) {
                                                                                               completionBlock(nil, error);
