@@ -9,7 +9,7 @@
 #import "MHSliderMenuViewController.h"
 #import "MHAPI.h"
 #import "MHWaitDialog.h"
-#import "MHDatabaseManager.h"
+#import "MHSynchronizer.h"
 
 @implementation MHSliderMenuViewController
 
@@ -132,41 +132,9 @@
     if ([[MHAPI getInstance]activeSession]) {
         [self addActionToLastSection:^{
             [waitDialog show];
-            [[MHAPI getInstance]readUserCollectionsWithCompletionBlock:^(id object, NSError *error) {
-                if (error) {
-                    [waitDialog dismiss];
-                    UIAlertView *alert = [[UIAlertView alloc]
-                                          initWithTitle:@"Error"
-                                          message:error.localizedDescription
-                                          delegate:nil
-                                          cancelButtonTitle:@"OK"
-                                          otherButtonTitles:nil];
-                
-                    [alert show];
-                }else {
-                    NSArray *coreDataCollections = [MHDatabaseManager allCollections];
-                    if (coreDataCollections.count) {
-                        for (MHCollection *eachCollection in coreDataCollections) {
-                            [[MHAPI getInstance]readAllItemsOfCollection:eachCollection completionBlock:^(id object, NSError *error) {
-                                if (error) {
-                                    [waitDialog dismiss];
-                                    UIAlertView *alert = [[UIAlertView alloc]
-                                                          initWithTitle:@"Error"
-                                                          message:error.localizedDescription
-                                                          delegate:nil
-                                                          cancelButtonTitle:@"OK"
-                                                          otherButtonTitles:nil];
-                                    
-                                    [alert show];
-                                }else {
-                                    [waitDialog dismiss];
-                                }
-                            }];
-                        }
-                    }else {
-                        [waitDialog dismiss];
-                    }
-                }
+            MHSynchronizer *sync = [[MHSynchronizer alloc]initWithAPI:[MHAPI getInstance]];
+            [sync synchronize:^{
+                [waitDialog dismiss];
             }];
         } tagged:5 withTitle:@"Synchronization" andIcon:@""];
     }

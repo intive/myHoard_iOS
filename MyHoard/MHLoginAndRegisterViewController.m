@@ -11,6 +11,7 @@
 #import "MHAPI.h"
 #import "MHWaitDialog.h"
 #import "MHDatabaseManager.h"
+#import "MHSynchronizer.h"
 
 @interface MHLoginAndRegisterViewController () <UITextFieldDelegate> {
     MHWaitDialog* _waitDialog;
@@ -371,41 +372,10 @@
 
 - (void)synchronize {
     
-    [[MHAPI getInstance]readUserCollectionsWithCompletionBlock:^(NSArray *readCollectionsArray, NSError *error) {
-        if (error) {
-            UIAlertView *alert = [[UIAlertView alloc]
-                                  initWithTitle:@"Error"
-                                  message:error.localizedDescription
-                                  delegate:nil
-                                  cancelButtonTitle:@"OK"
-                                  otherButtonTitles:nil];
-            
-            [alert show];
-        }else {
-            __block NSArray *coreDataCollections = [MHDatabaseManager allCollections];
-            if (coreDataCollections.count) {
-                for (MHCollection *eachCollection in coreDataCollections) {
-                    [[MHAPI getInstance]readAllItemsOfCollection:eachCollection completionBlock:^(id object, NSError *error) {
-                        if (error) {
-                            UIAlertView *alert = [[UIAlertView alloc]
-                                                  initWithTitle:@"Error"
-                                                  message:error.localizedDescription
-                                                  delegate:nil
-                                                  cancelButtonTitle:@"OK"
-                                                  otherButtonTitles:nil];
-                            
-                            [alert show];
-                        }else {
-                            [self loginDone];
-                        }
-                    }];
-                }
-            } else {
-                [self loginDone];
-            }
-        }
+    MHSynchronizer *sync = [[MHSynchronizer alloc]initWithAPI:[MHAPI getInstance]];
+    [sync synchronize:^{
+        [self loginDone];
     }];
-    
 }
 
 @end

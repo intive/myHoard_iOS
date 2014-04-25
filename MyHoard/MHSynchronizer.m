@@ -7,6 +7,7 @@
 //
 
 #import "MHSynchronizer.h"
+#import "MHDatabaseManager.h"
 
 @interface MHSynchronizer()
 {
@@ -36,6 +37,41 @@
 
 - (void)synchronize:(MHSynchronizeCompletionBlock)completionBlock {
     self.completionBlock = completionBlock;
+    
+    [_api readUserCollectionsWithCompletionBlock:^(id object, NSError *error) {
+        if (error) {
+            UIAlertView *alert = [[UIAlertView alloc]
+                                  initWithTitle:@"Error"
+                                  message:error.localizedDescription
+                                  delegate:nil
+                                  cancelButtonTitle:@"OK"
+                                  otherButtonTitles:nil];
+            
+            [alert show];
+        }else {
+            NSArray *coreDataCollections = [MHDatabaseManager allCollections];
+            if (coreDataCollections.count) {
+                for (MHCollection *eachCollection in coreDataCollections) {
+                    [_api readAllItemsOfCollection:eachCollection completionBlock:^(id object, NSError *error) {
+                        if (error) {
+                            UIAlertView *alert = [[UIAlertView alloc]
+                                                  initWithTitle:@"Error"
+                                                  message:error.localizedDescription
+                                                  delegate:nil
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
+                            
+                            [alert show];
+                        }else {
+                            completionBlock();
+                        }
+                    }];
+                }
+            }else {
+                completionBlock();
+            }
+        }
+    }];
     
     [self finish];
 }
