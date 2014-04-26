@@ -470,7 +470,6 @@ static MHAPI *_sharedAPI = nil;
                                                                 
                                                                           [[MHCoreDataContext getInstance] saveContext];
                                                                           completionBlock(nil, nil);
-                                                                          NSLog(@"%@", coreDataCollections);
                                                                       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                                                           completionBlock(nil, error);
                                                                       }];
