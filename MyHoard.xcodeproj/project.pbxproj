@@ -92,6 +92,7 @@
 		CEF82A0518F0383F00058BB8 /* MHAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEF82A0018F0383F00058BB8 /* MHAccountViewController.m */; };
 		CEF82A0618F0383F00058BB8 /* MHChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEF82A0218F0383F00058BB8 /* MHChangePasswordViewController.m */; };
 		CEF82A0718F0383F00058BB8 /* MHEditAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEF82A0418F0383F00058BB8 /* MHEditAccountViewController.m */; };
+		CEFF60F5190C201100298E2C /* MHCollection+MHAPIUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = CEFF60F4190C201100298E2C /* MHCollection+MHAPIUtilities.m */; };
 		E74EDDBA18E6F7F200488AD1 /* UIActionSheet+ButtonState.m in Sources */ = {isa = PBXBuildFile; fileRef = E74EDDB918E6F7F200488AD1 /* UIActionSheet+ButtonState.m */; };
 /* End PBXBuildFile section */
 
@@ -256,6 +257,8 @@
 		CEF82A0218F0383F00058BB8 /* MHChangePasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHChangePasswordViewController.m; sourceTree = "<group>"; };
 		CEF82A0318F0383F00058BB8 /* MHEditAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHEditAccountViewController.h; sourceTree = "<group>"; };
 		CEF82A0418F0383F00058BB8 /* MHEditAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHEditAccountViewController.m; sourceTree = "<group>"; };
+		CEFF60F3190C201100298E2C /* MHCollection+MHAPIUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MHCollection+MHAPIUtilities.h"; sourceTree = "<group>"; };
+		CEFF60F4190C201100298E2C /* MHCollection+MHAPIUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MHCollection+MHAPIUtilities.m"; sourceTree = "<group>"; };
 		E74EDDB818E6F7F200488AD1 /* UIActionSheet+ButtonState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIActionSheet+ButtonState.h"; sourceTree = "<group>"; };
 		E74EDDB918E6F7F200488AD1 /* UIActionSheet+ButtonState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIActionSheet+ButtonState.m"; sourceTree = "<group>"; };
 		F724743366084FAC90257055 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -419,6 +422,8 @@
 				53062B5318F48F8E006FC69C /* NSString+Tags.m */,
 				23C4E68118FC7542002FB84D /* NSString+RFC3339.h */,
 				23C4E68218FC7542002FB84D /* NSString+RFC3339.m */,
+				CEFF60F3190C201100298E2C /* MHCollection+MHAPIUtilities.h */,
+				CEFF60F4190C201100298E2C /* MHCollection+MHAPIUtilities.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -859,6 +864,7 @@
 				23CD276619012FE5005203C2 /* MHCollection.m in Sources */,
 				1A135786190500BB0060DD31 /* Address.m in Sources */,
 				23FB2BCF18D23DDF009EFDE7 /* UIColor+customColors.m in Sources */,
+				CEFF60F5190C201100298E2C /* MHCollection+MHAPIUtilities.m in Sources */,
 				93A341A618FAD42300830047 /* MHItemDetailsViewController.m in Sources */,
 				23F27A5B18D9A6D100877D30 /* MHDropDownMenuItem.m in Sources */,
 				CE28669618DB2A9D003AC446 /* MHKenBurns.m in Sources */,

@@ -309,7 +309,7 @@ static MHAPI *_sharedAPI = nil;
                                                                           c.objModifiedDate = [date dateFromRFC3339String];
                                                                           c.objOwner = responseObject[@"owner"];
                                                                           c.objId = responseObject[@"id"];
-                                                                          c.objType = [self objTypeParser:responseObject];
+                                                                          [c typeFromBoolValue:responseObject[@"public"]];
                                                                           c.objStatus = objectStatusOk;
                                                                           [[MHCoreDataContext getInstance] saveContext];
                                                                           
@@ -356,7 +356,7 @@ static MHAPI *_sharedAPI = nil;
                                                                                                                                                            objType:nil];
                                                                                   
                                                                                   createdCollection.objId = responseDictionary[@"id"];
-                                                                                  createdCollection.objType = [self objTypeParser:responseDictionary];
+                                                                                  [createdCollection typeFromBoolValue:responseDictionary[@"public"]];
                                                                                   
                                                                                   [[MHCoreDataContext getInstance] saveContext];
                                                                               }
@@ -376,7 +376,7 @@ static MHAPI *_sharedAPI = nil;
                                                                                                                                                                objType:nil];
                                                                                       
                                                                                       createdCollection.objId = responseDictionary[@"id"];
-                                                                                      createdCollection.objType = [self objTypeParser:responseDictionary];
+                                                                                      [createdCollection typeFromBoolValue:responseDictionary[@"public"]];
                                                                                       
                                                                                       [[MHCoreDataContext getInstance] saveContext];
                                                                                   }else {
@@ -399,7 +399,7 @@ static MHAPI *_sharedAPI = nil;
                                                                                                                                                                        objType:nil];
                                                                                               
                                                                                               createdCollection.objId = responseDictionary[@"id"];
-                                                                                              createdCollection.objType = [self objTypeParser:responseDictionary];
+                                                                                              [createdCollection typeFromBoolValue:responseDictionary[@"public"]];
                                                                                               
                                                                                               [[MHCoreDataContext getInstance] saveContext];
                                                                                           }
@@ -470,6 +470,7 @@ static MHAPI *_sharedAPI = nil;
                                                                 
                                                                           [[MHCoreDataContext getInstance] saveContext];
                                                                           completionBlock(nil, nil);
+                                                                          NSLog(@"%@", coreDataCollections);
                                                                       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                                                           completionBlock(nil, error);
                                                                       }];
@@ -499,7 +500,7 @@ static MHAPI *_sharedAPI = nil;
     
     AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
                                                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                                                          if ([coreDataCollection.objType isEqualToString:@"public"]) {
+                                                                          if ([coreDataCollection.objType isEqualToString:collectionTypePublic]) {
                                                                           
                                                                               if ([[coreDataCollection.objModifiedDate laterDate:[self dateParser:responseObject[@"created_date"]]] isEqualToDate:coreDataCollection.objModifiedDate]) {
                                                                                   [self updateCollection:c completionBlock:^(id object, NSError *error) {
@@ -512,8 +513,7 @@ static MHAPI *_sharedAPI = nil;
                                                                                   [[MHCoreDataContext getInstance]saveContext];
                                                                                   MHCollection * collection = [MHDatabaseManager insertCollectionWithObjName:responseObject[@"name"] objDescription:responseObject[@"description"] objTags:responseObject[@"tags"] objCreatedDate:[self dateParser:responseObject[@"created_date"]] objModifiedDate:[self dateParser:responseObject[@"modified_date"]] objOwnerNilAddLogedUserCode:responseObject[@"owner"] objStatus:objectStatusOk objType:nil];
                                                                                   collection.objId = responseObject[@"id"];
-                                                                                  collection.objType = [self objTypeParser:responseObject];
-                                                                                  
+                                                                                  [collection typeFromBoolValue:responseObject[@"public"]];
                                                                                   [[MHCoreDataContext getInstance]saveContext];
                                                                               }
                                                                           }else {
@@ -968,7 +968,6 @@ static MHAPI *_sharedAPI = nil;
                                                                                 }
                                                                             }
                                                                           completionBlock(nil, nil);
-                                                                          NSLog(@"%@", responseObject);
                                                                       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                                                           completionBlock(nil, error);
                                                                       }];
@@ -1101,20 +1100,6 @@ static MHAPI *_sharedAPI = nil;
     }
 
     return l;
-}
-
-- (NSString *)objTypeParser:(NSDictionary *)objType {
-    
-    NSString *collectionType;
-    NSNumber *type = objType[@"public"];
-    
-    if ([type boolValue]) {
-        collectionType = collectionTypePublic;
-    }else {
-        collectionType = collectionTypePrivate;
-    }
-    
-    return collectionType;
 }
 
 @end

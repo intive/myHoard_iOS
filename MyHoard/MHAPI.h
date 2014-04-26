@@ -16,7 +16,7 @@ typedef enum  {
 
 #import <AFNetworking.h>
 #import "MHUserProfile.h"
-#import "MHCollection.h"
+#import "MHCollection+MHAPIUtilities.h"
 #import "MHMedia.h"
 
 typedef void (^MHAPICompletionBlock)(id object, NSError *error);
