@@ -134,14 +134,16 @@
             [waitDialog show];
             MHSynchronizer *sync = [[MHSynchronizer alloc]initWithAPI:[MHAPI getInstance]];
             [sync synchronize:^(NSError *error){
-                UIAlertView *alert = [[UIAlertView alloc]
-                                      initWithTitle:@"Error"
-                                      message:error.localizedDescription
-                                      delegate:nil
-                                      cancelButtonTitle:@"OK"
-                                      otherButtonTitles:nil];
-                
-                [alert show];
+                if (error) {
+                    UIAlertView *alert = [[UIAlertView alloc]
+                                          initWithTitle:@"Error"
+                                          message:error.localizedDescription
+                                          delegate:nil
+                                          cancelButtonTitle:@"OK"
+                                          otherButtonTitles:nil];
+                    
+                    [alert show];
+                }
                 [waitDialog dismiss];
             }];
         } tagged:5 withTitle:@"Synchronization" andIcon:@""];
