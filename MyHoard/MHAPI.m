@@ -647,11 +647,8 @@ static MHAPI *_sharedAPI = nil;
     
     AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
                                                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                                                          [[MHImageCache sharedInstance] cacheImage:responseObject forKey:media.objId];
-                                                                          if (!tmpMedia) {
+                                                                              [[MHImageCache sharedInstance] cacheImage:responseObject forKey:media.objId];
                                                                               tmpMedia.objKey = media.objId;
-                                                                              [self updateMedia:tmpMedia completionBlock:nil];
-                                                                          }
                                                                           completionBlock(nil, nil);
                                                                       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                                                           completionBlock(nil, error);
@@ -971,6 +968,7 @@ static MHAPI *_sharedAPI = nil;
                                                                                 }
                                                                             }
                                                                           completionBlock(nil, nil);
+                                                                          NSLog(@"%@", responseObject);
                                                                       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                                                           completionBlock(nil, error);
                                                                       }];
