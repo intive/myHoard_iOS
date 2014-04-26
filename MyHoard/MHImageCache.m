@@ -38,7 +38,13 @@ static MHImageCache *_sharedInstance = nil;
 }
 
 - (UIImage *)thumbnailForKey:(NSString *)key {
-    return [self imageForKey:[self keyForThumbnailWithBaseKey:key]];
+    UIImage *thumbnail = [self imageForKey:[self keyForThumbnailWithBaseKey:key]];
+    
+    if (!thumbnail) {
+        thumbnail = [self imageForKey:key];
+    }
+    
+    return thumbnail;
 }
 
 - (UIImage *)imageForKey:(NSString *)key {
