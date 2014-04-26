@@ -1109,9 +1109,9 @@ static MHAPI *_sharedAPI = nil;
     NSNumber *type = objType[@"public"];
     
     if ([type boolValue]) {
-        collectionType = @"public";
+        collectionType = collectionTypePublic;
     }else {
-        collectionType = @"private";
+        collectionType = collectionTypePrivate;
     }
     
     return collectionType;
