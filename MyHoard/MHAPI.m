@@ -613,11 +613,8 @@ static MHAPI *_sharedAPI = nil;
     
     __block MHMedia* m = media;
     
-    UIImage *original = [[MHImageCache sharedInstance]imageForKey:media.objKey];
-    UIImage *rescaled = [self rescaleImage:original toSize:CGSizeMake(100, 100)];
+    NSData* assetData = [[MHImageCache sharedInstance]dataForKey:media.objKey];
     
-    NSData *assetData = UIImageJPEGRepresentation(rescaled, 1.0);
-
     [manager POST:[self urlWithPath:@"media"] parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         [formData appendPartWithFileData:assetData name:@"image" fileName:m.objKey mimeType:@"image/*"];
     } success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -1122,13 +1119,4 @@ static MHAPI *_sharedAPI = nil;
     return collectionType;
 }
 
-- (UIImage *)rescaleImage:(UIImage *)image toSize:(CGSize)size {
-    
-    UIGraphicsBeginImageContext(size);
-    [image drawInRect:CGRectMake(0, 0, size.width, size.height)];
-    UIImage *rescaledImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    return rescaledImage;
-}
 @end
