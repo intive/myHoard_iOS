@@ -49,12 +49,15 @@
         }else {
             NSArray *coreDataCollections = [MHDatabaseManager allCollections];
             if (coreDataCollections.count) {
-                for (MHCollection *eachCollection in coreDataCollections) {
-                    [_api readAllItemsOfCollection:eachCollection completionBlock:^(id object, NSError *error) {
-                        [self finish:error];
+                for (NSInteger i = 0; i < coreDataCollections.count; i++) {
+                    MHCollection* c = coreDataCollections[i];
+                    [_api readAllItemsOfCollection:c completionBlock:^(id object, NSError *error) {
+                        if (i == (coreDataCollections.count - 1)) {
+                            [self finish:nil];
+                        }
                     }];
                 }
-            }else {
+            } else {
                 [self finish:nil];
             }
         }
