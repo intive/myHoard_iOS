@@ -612,8 +612,11 @@ static MHAPI *_sharedAPI = nil;
     [manager.requestSerializer setValue:_accessToken forHTTPHeaderField:@"Authorization"];
     
     __block MHMedia* m = media;
-
-    NSData* assetData = [[MHImageCache sharedInstance] dataForKey:media.objKey];
+    
+    UIImage *original = [[MHImageCache sharedInstance]imageForKey:media.objKey];
+    UIImage *rescaled = [self rescaleImage:original toSize:CGSizeMake(100, 100)];
+    
+    NSData *assetData = UIImageJPEGRepresentation(rescaled, 1.0);
 
     [manager POST:[self urlWithPath:@"media"] parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         [formData appendPartWithFileData:assetData name:@"image" fileName:m.objKey mimeType:@"image/*"];
@@ -648,10 +651,10 @@ static MHAPI *_sharedAPI = nil;
     AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
                                                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
                                                                           [[MHImageCache sharedInstance] cacheImage:responseObject forKey:media.objId];
-                                                                          tmpMedia.objKey = media.objId;
-                                                                          
-                                                                          [self updateMedia:tmpMedia completionBlock:nil];
-                                                                          
+                                                                          if (!tmpMedia) {
+                                                                              tmpMedia.objKey = media.objId;
+                                                                              [self updateMedia:tmpMedia completionBlock:nil];
+                                                                          }
                                                                           completionBlock(nil, nil);
                                                                       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                                                           completionBlock(nil, error);
@@ -1117,5 +1120,15 @@ static MHAPI *_sharedAPI = nil;
     }
     
     return collectionType;
+}
+
+- (UIImage *)rescaleImage:(UIImage *)image toSize:(CGSize)size {
+    
+    UIGraphicsBeginImageContext(size);
+    [image drawInRect:CGRectMake(0, 0, size.width, size.height)];
+    UIImage *rescaledImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return rescaledImage;
 }
 @end
