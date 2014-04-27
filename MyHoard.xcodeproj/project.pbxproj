@@ -92,6 +92,7 @@
 		CEF82A0518F0383F00058BB8 /* MHAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEF82A0018F0383F00058BB8 /* MHAccountViewController.m */; };
 		CEF82A0618F0383F00058BB8 /* MHChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEF82A0218F0383F00058BB8 /* MHChangePasswordViewController.m */; };
 		CEF82A0718F0383F00058BB8 /* MHEditAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEF82A0418F0383F00058BB8 /* MHEditAccountViewController.m */; };
+		CEFE8B83190CFFB90024302A /* MHItem+UtilityMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = CEFE8B82190CFFB90024302A /* MHItem+UtilityMethods.m */; };
 		CEFF60F5190C201100298E2C /* MHCollection+MHAPIUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = CEFF60F4190C201100298E2C /* MHCollection+MHAPIUtilities.m */; };
 		E74EDDBA18E6F7F200488AD1 /* UIActionSheet+ButtonState.m in Sources */ = {isa = PBXBuildFile; fileRef = E74EDDB918E6F7F200488AD1 /* UIActionSheet+ButtonState.m */; };
 /* End PBXBuildFile section */
@@ -257,6 +258,8 @@
 		CEF82A0218F0383F00058BB8 /* MHChangePasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHChangePasswordViewController.m; sourceTree = "<group>"; };
 		CEF82A0318F0383F00058BB8 /* MHEditAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHEditAccountViewController.h; sourceTree = "<group>"; };
 		CEF82A0418F0383F00058BB8 /* MHEditAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHEditAccountViewController.m; sourceTree = "<group>"; };
+		CEFE8B81190CFFB90024302A /* MHItem+UtilityMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MHItem+UtilityMethods.h"; sourceTree = "<group>"; };
+		CEFE8B82190CFFB90024302A /* MHItem+UtilityMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MHItem+UtilityMethods.m"; sourceTree = "<group>"; };
 		CEFF60F3190C201100298E2C /* MHCollection+MHAPIUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MHCollection+MHAPIUtilities.h"; sourceTree = "<group>"; };
 		CEFF60F4190C201100298E2C /* MHCollection+MHAPIUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MHCollection+MHAPIUtilities.m"; sourceTree = "<group>"; };
 		E74EDDB818E6F7F200488AD1 /* UIActionSheet+ButtonState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIActionSheet+ButtonState.h"; sourceTree = "<group>"; };
@@ -424,6 +427,8 @@
 				23C4E68218FC7542002FB84D /* NSString+RFC3339.m */,
 				CEFF60F3190C201100298E2C /* MHCollection+MHAPIUtilities.h */,
 				CEFF60F4190C201100298E2C /* MHCollection+MHAPIUtilities.m */,
+				CEFE8B81190CFFB90024302A /* MHItem+UtilityMethods.h */,
+				CEFE8B82190CFFB90024302A /* MHItem+UtilityMethods.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -843,6 +848,7 @@
 				23CD283219048761005203C2 /* JBKenBurnsView.m in Sources */,
 				1A13578B190500BB0060DD31 /* SBJsonWriter.m in Sources */,
 				23F64D2718DE682C003420E3 /* MHTagsView.m in Sources */,
+				CEFE8B83190CFFB90024302A /* MHItem+UtilityMethods.m in Sources */,
 				23AF3BA7190A947900F520CD /* MHSynchronizer.m in Sources */,
 				23D321AD184BBFFA002FC13A /* main.m in Sources */,
 				23A799091909896000230165 /* MHFriendsViewController.m in Sources */,

@@ -8,6 +8,7 @@
 
 #import "MHCollection+MHAPIUtilities.h"
 #import "MHDatabaseManager.h"
+#import "NSString+RFC3339.h"
 
 @implementation MHCollection (MHAPIUtilities)
 
@@ -20,4 +21,12 @@
     }
 }
 
++ (NSDate *)createdDateFromString:(NSString *)dateString {
+    NSDate *createdDate = [dateString dateFromRFC3339String];
+    return createdDate;
+}
+
+- (void)modifiedDateFromString:(NSString *)dateString {
+    self.objModifiedDate = [dateString dateFromRFC3339String];
+}
 @end

@@ -1,16 +1,16 @@
 //
-//  MHCollection+MHAPIUtilities.h
+//  MHItem+UtilityMethods.h
 //  MyHoard
 //
-//  Created by user on 26/04/14.
+//  Created by user on 27/04/14.
 //  Copyright (c) 2014 BLStream. All rights reserved.
 //
 
-#import "MHCollection.h"
+#import "MHItem.h"
 
-@interface MHCollection (MHAPIUtilities)
+@interface MHItem (UtilityMethods)
 
-- (void)typeFromBoolValue:(NSNumber *)value;
+- (void)locationParser:(NSDictionary *)locationValue;
 + (NSDate *)createdDateFromString:(NSString *)dateString;
 - (void)modifiedDateFromString:(NSString *)dateString;
 

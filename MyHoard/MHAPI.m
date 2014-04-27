@@ -10,7 +10,7 @@
 
 #import "MHAPI.h"
 #import "MHUserSettings.h"
-#import "MHItem.h"
+#import "MHItem+UtilityMethods.h"
 #import "MHMedia.h"
 #import "MHDatabaseManager.h"
 #import "MHCoreDataContext.h"
@@ -349,14 +349,16 @@ static MHAPI *_sharedAPI = nil;
                                                                                   MHCollection *createdCollection = [MHDatabaseManager insertCollectionWithObjName:responseDictionary[@"name"]
                                                                                                                                                     objDescription:responseDictionary[@"description"]
                                                                                                                                                            objTags:responseDictionary[@"tags"]
-                                                                                                                                                    objCreatedDate:[self dateParser:responseDictionary[@"created_date"]]
-                                                                                                                                                   objModifiedDate:[self dateParser:responseDictionary[@"modified_date"]]
+                                                                                                                                                    objCreatedDate:[MHCollection createdDateFromString:responseDictionary[@"created_date"]]
+
+                                                                                                                                                   objModifiedDate:nil
                                                                                                                                        objOwnerNilAddLogedUserCode:responseDictionary[@"owner"]
                                                                                                                                                          objStatus:objectStatusNew
                                                                                                                                                            objType:nil];
                                                                                   
                                                                                   createdCollection.objId = responseDictionary[@"id"];
                                                                                   [createdCollection typeFromBoolValue:responseDictionary[@"public"]];
+                                                                                  [createdCollection modifiedDateFromString:responseDictionary[@"modified_date"]];
                                                                                   
                                                                                   [[MHCoreDataContext getInstance] saveContext];
                                                                               }
@@ -369,18 +371,19 @@ static MHAPI *_sharedAPI = nil;
                                                                                       MHCollection *createdCollection = [MHDatabaseManager insertCollectionWithObjName:responseDictionary[@"name"]
                                                                                                                                                         objDescription:responseDictionary[@"description"]
                                                                                                                                                                objTags:responseDictionary[@"tags"]
-                                                                                                                                                        objCreatedDate:[self dateParser:responseDictionary[@"created_date"]]
-                                                                                                                                                       objModifiedDate:[self dateParser:responseDictionary[@"modified_date"]]
+                                                                                                                                                        objCreatedDate:[MHCollection createdDateFromString:responseDictionary[@"created_date"]]
+                                                                                                                                                       objModifiedDate:nil
                                                                                                                                            objOwnerNilAddLogedUserCode:responseDictionary[@"owner"]
                                                                                                                                                              objStatus:objectStatusNew
                                                                                                                                                                objType:nil];
                                                                                       
                                                                                       createdCollection.objId = responseDictionary[@"id"];
                                                                                       [createdCollection typeFromBoolValue:responseDictionary[@"public"]];
+                                                                                      [createdCollection modifiedDateFromString:responseDictionary[@"modified_date"]];
                                                                                       
                                                                                       [[MHCoreDataContext getInstance] saveContext];
                                                                                   }else {
-                                                                                      predicate = [NSPredicate predicateWithFormat:@"objModifiedDate < %@", [self dateParser:responseDictionary[@"modified_date"]]];
+                                                                                      predicate = [NSPredicate predicateWithFormat:@"objModifiedDate < %@",[MHCollection createdDateFromString:responseDictionary[@"modified_date"]]];
                                                                                       NSArray *collectionsPredicatedWithModifiedDate = [predicationResult filteredArrayUsingPredicate:predicate];
                                                                                       
                                                                                       if ([collectionsPredicatedWithModifiedDate count] > 0) {
@@ -392,20 +395,21 @@ static MHAPI *_sharedAPI = nil;
                                                                                               MHCollection *createdCollection = [MHDatabaseManager insertCollectionWithObjName:responseDictionary[@"name"]
                                                                                                                                                                 objDescription:responseDictionary[@"description"]
                                                                                                                                                                        objTags:responseDictionary[@"tags"]
-                                                                                                                                                                objCreatedDate:[self dateParser:responseDictionary[@"created_date"]]
-                                                                                                                                                               objModifiedDate:[self dateParser:responseDictionary[@"modified_date"]]
+                                                                                                                                                                objCreatedDate:[MHCollection createdDateFromString:responseDictionary[@"created_date"]]
+                                                                                                                                                               objModifiedDate:nil
                                                                                                                                                    objOwnerNilAddLogedUserCode:responseDictionary[@"owner"]
                                                                                                                                                                      objStatus:objectStatusOk
                                                                                                                                                                        objType:nil];
                                                                                               
                                                                                               createdCollection.objId = responseDictionary[@"id"];
                                                                                               [createdCollection typeFromBoolValue:responseDictionary[@"public"]];
+                                                                                              [createdCollection modifiedDateFromString:responseDictionary[@"modified_date"]];
                                                                                               
                                                                                               [[MHCoreDataContext getInstance] saveContext];
                                                                                           }
                                                                                       }else {
                                                                                           
-                                                                                          predicate = [NSPredicate predicateWithFormat:@"objModifiedDate > %@", [self dateParser:responseDictionary[@"modified_date"]]];
+                                                                                          predicate = [NSPredicate predicateWithFormat:@"objModifiedDate > %@", [MHCollection createdDateFromString:responseDictionary[@"modified_date"]]];
                                                                                           NSArray *collectionsPredicatedWithModifiedDate = [predicationResult filteredArrayUsingPredicate:predicate];
                                                                                           
                                                                                           if ([predicationResult count] > 0) {
@@ -470,6 +474,7 @@ static MHAPI *_sharedAPI = nil;
                                                                 
                                                                           [[MHCoreDataContext getInstance] saveContext];
                                                                           completionBlock(nil, nil);
+                                                                          NSLog(@"%@", coreDataCollections);
                                                                       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                                                           completionBlock(nil, error);
                                                                       }];
@@ -500,8 +505,8 @@ static MHAPI *_sharedAPI = nil;
     AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
                                                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
                                                                           if ([coreDataCollection.objType isEqualToString:collectionTypePublic]) {
-                                                                          
-                                                                              if ([[coreDataCollection.objModifiedDate laterDate:[self dateParser:responseObject[@"created_date"]]] isEqualToDate:coreDataCollection.objModifiedDate]) {
+                                                                              NSDate *laterThanDate = [responseObject[@"created_date"] dateFromRFC3339String];
+                                                                              if ([[coreDataCollection.objModifiedDate laterDate: laterThanDate] isEqualToDate:coreDataCollection.objModifiedDate]) {
                                                                                   [self updateCollection:c completionBlock:^(id object, NSError *error) {
                                                                                       if (error) {
                                                                                           completionBlock(nil, error);
@@ -510,9 +515,10 @@ static MHAPI *_sharedAPI = nil;
                                                                               }else {
                                                                                   [[MHCoreDataContext getInstance].managedObjectContext deleteObject:collection];
                                                                                   [[MHCoreDataContext getInstance]saveContext];
-                                                                                  MHCollection * collection = [MHDatabaseManager insertCollectionWithObjName:responseObject[@"name"] objDescription:responseObject[@"description"] objTags:responseObject[@"tags"] objCreatedDate:[self dateParser:responseObject[@"created_date"]] objModifiedDate:[self dateParser:responseObject[@"modified_date"]] objOwnerNilAddLogedUserCode:responseObject[@"owner"] objStatus:objectStatusOk objType:nil];
+                                                                                  MHCollection * collection = [MHDatabaseManager insertCollectionWithObjName:responseObject[@"name"] objDescription:responseObject[@"description"] objTags:responseObject[@"tags"] objCreatedDate:[MHCollection createdDateFromString:responseObject[@"created_date"]] objModifiedDate:nil objOwnerNilAddLogedUserCode:responseObject[@"owner"] objStatus:objectStatusOk objType:nil];
                                                                                   collection.objId = responseObject[@"id"];
                                                                                   [collection typeFromBoolValue:responseObject[@"public"]];
+                                                                                  [collection modifiedDateFromString:responseObject[@"modified_date"]];
                                                                                   [[MHCoreDataContext getInstance]saveContext];
                                                                               }
                                                                           }else {
@@ -851,8 +857,10 @@ static MHAPI *_sharedAPI = nil;
                                                                           if ([coreDataItems count] == 0 && [responseObject count] != 0) {
                                                                               for (NSDictionary *responseDictionary in responseObject) {
                                                                               
-                                                                                  MHItem *i = [MHDatabaseManager insertItemWithObjName:responseDictionary[@"name"] objDescription:responseDictionary[@"description"] objTags:nil objLocation:[self locationParser:responseDictionary] objCreatedDate:[self dateParser:responseDictionary[@"created_date"]] objModifiedDate:[self dateParser:responseDictionary[@"modified_date"]] collection:collection objStatus:objectStatusOk];
+                                                                                  MHItem *i = [MHDatabaseManager insertItemWithObjName:responseDictionary[@"name"] objDescription:responseDictionary[@"description"] objTags:nil objLocation:nil objCreatedDate:[MHItem createdDateFromString:responseDictionary[@"created_date"]] objModifiedDate:nil collection:collection objStatus:objectStatusOk];
                                                                                   i.objId = responseDictionary[@"id"];
+                                                                                  [i modifiedDateFromString:responseDictionary[@"modified_date"]];
+                                                                                   [i locationParser:responseDictionary[@"location"]];
 
                                                                                   for (NSDictionary *d in responseDictionary[@"media"]) {
                                                                                       MHMedia *m = [MHDatabaseManager insertMediaWithCreatedDate:[NSDate date] objKey:d[@"id"] item:i objStatus:objectStatusOk];
@@ -873,8 +881,10 @@ static MHAPI *_sharedAPI = nil;
                                                                                   predicationResult = [coreDataItems filteredArrayUsingPredicate:predicate];
                                                                                   
                                                                                   if ([predicationResult count] == 0) {
-                                                                                      MHItem *i = [MHDatabaseManager insertItemWithObjName:responseDictionary[@"name"] objDescription:responseDictionary[@"description"] objTags:nil objLocation:[self locationParser:responseDictionary] objCreatedDate:[self dateParser:responseDictionary[@"created_date"]] objModifiedDate:[self dateParser:responseDictionary[@"modified_date"]] collection:collection objStatus:objectStatusOk];
+                                                                                      MHItem *i = [MHDatabaseManager insertItemWithObjName:responseDictionary[@"name"] objDescription:responseDictionary[@"description"] objTags:nil objLocation:nil objCreatedDate:[MHItem createdDateFromString:responseDictionary[@"created_date"]] objModifiedDate:nil collection:collection objStatus:objectStatusOk];
                                                                                       i.objId = responseDictionary[@"id"];
+                                                                                      [i modifiedDateFromString:responseDictionary[@"modified_date"]];
+                                                                                       [i locationParser:responseDictionary[@"location"]];
 
                                                                                       for (NSDictionary *d in responseDictionary[@"media"]) {
                                                                                           MHMedia *m = [MHDatabaseManager insertMediaWithCreatedDate:[NSDate date] objKey:d[@"id"] item:i objStatus:objectStatusOk];
@@ -889,7 +899,7 @@ static MHAPI *_sharedAPI = nil;
                                                                                       [[MHCoreDataContext getInstance] saveContext];
 
                                                                                   }else {
-                                                                                      predicate = [NSPredicate predicateWithFormat:@"objModifiedDate < %@", [self dateParser:responseDictionary[@"modified_date"]]];
+                                                                                      predicate = [NSPredicate predicateWithFormat:@"objModifiedDate < %@",[MHItem createdDateFromString:responseDictionary[@"modified_date"]]];
                                                                                       NSArray *itemsPredicatedWithModifiedDate = [predicationResult filteredArrayUsingPredicate:predicate];
                                                                                       
                                                                                       if ([itemsPredicatedWithModifiedDate count] > 0) {
@@ -897,8 +907,10 @@ static MHAPI *_sharedAPI = nil;
                                                                                               
                                                                                               [collection removeItemsObject:result];
                                                                                               
-                                                                                              MHItem *i = [MHDatabaseManager insertItemWithObjName:responseDictionary[@"name"] objDescription:responseDictionary[@"description"] objTags:nil objLocation:[self locationParser:responseDictionary] objCreatedDate:[self dateParser:responseDictionary[@"created_date"]] objModifiedDate:[self dateParser:responseDictionary[@"modified_date"]] collection:collection objStatus:objectStatusOk];
+                                                                                              MHItem *i = [MHDatabaseManager insertItemWithObjName:responseDictionary[@"name"] objDescription:responseDictionary[@"description"] objTags:nil objLocation:nil objCreatedDate:[MHItem createdDateFromString:responseDictionary[@"created_date"]] objModifiedDate:nil collection:collection objStatus:objectStatusOk];
                                                                                               i.objId = responseDictionary[@"id"];
+                                                                                              [i modifiedDateFromString:responseDictionary[@"modified_date"]];
+                                                                                               [i locationParser:responseDictionary[@"location"]];
 
                                                                                               for (NSDictionary *d in responseDictionary[@"media"]) {
                                                                                                   MHMedia *m = [MHDatabaseManager insertMediaWithCreatedDate:[NSDate date] objKey:d[@"id"] item:i objStatus:objectStatusOk];
@@ -913,7 +925,7 @@ static MHAPI *_sharedAPI = nil;
                                                                                               [[MHCoreDataContext getInstance] saveContext];
                                                                                           }
                                                                                       }else {
-                                                                                          predicate = [NSPredicate predicateWithFormat:@"objModifiedDate > %@", [self dateParser:responseDictionary[@"modified_date"]]];
+                                                                                          predicate = [NSPredicate predicateWithFormat:@"objModifiedDate > %@", [MHItem createdDateFromString:responseDictionary[@"modified_date"]]];
                                                                                           NSArray *itemsPredicatedWithModifiedDate = [predicationResult filteredArrayUsingPredicate:predicate];
                                                                                           
                                                                                           if ([predicationResult count] > 0) {
@@ -967,6 +979,7 @@ static MHAPI *_sharedAPI = nil;
                                                                                 }
                                                                             }
                                                                           completionBlock(nil, nil);
+                                                                        NSLog(@"%@", coreDataItems);
                                                                       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                                                           completionBlock(nil, error);
                                                                       }];
@@ -1080,25 +1093,6 @@ static MHAPI *_sharedAPI = nil;
             error = [[NSError alloc]initWithDomain:domain code:500 userInfo:userInfo];
             break;
     }
-}
-
-- (NSDate *)dateParser:(NSString *)dateString {
-    
-    NSDate *date = [dateString dateFromRFC3339String];
-    return date;
-}
-
-- (CLLocation *)locationParser:(NSDictionary *)locationValue {
-    
-    CLLocation *l;
-    
-    if (locationValue[@"location"] != nil) {
-        l = [[CLLocation alloc]initWithLatitude:[[locationValue objectForKey:@"location.lat"]doubleValue]longitude:[[locationValue objectForKey:@"location.lng"]doubleValue]];
-    }else {
-        l = nil;
-    }
-
-    return l;
 }
 
 @end
