@@ -50,15 +50,10 @@
     _itemTitle.title = _item.objName;
     _itemMapView.hidden = YES;
     if(_item.objLocation) {
-
-        
         CLLocation *myLoc = _item.objLocation;
-        CLLocationCoordinate2D *myLoc2D = NULL;
-        myLoc2D->latitude = myLoc.coordinate.latitude;
-        myLoc2D->longitude = myLoc.coordinate.longitude;
-        MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(*myLoc2D, 0.5*METERS_PER_MILE, 0.5*METERS_PER_MILE);
+        MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(myLoc.coordinate, 0.5*METERS_PER_MILE, 0.5*METERS_PER_MILE);
         [_itemMapView setRegion:viewRegion animated:YES];
-    }
+    } // dodać else i zablokować button na szarym
 }
 
 - (void)didReceiveMemoryWarning
@@ -69,7 +64,7 @@
 
 - (void)expandBottomView {
     [UIView animateWithDuration:0.3 animations:^{
-        [_bottomView setFrame:CGRectMake(_bottomView.frame.origin.x, self.view.frame.size.height - _bottomView.frame.size.height, _bottomView.frame.size.width, _bottomView.frame.size.height)];
+        [_bottomView setFrame:CGRectMake(_bottomView.frame.origin.x, self.view.frame.size.height - (self.view.frame.size.height * 0.75), _bottomView.frame.size.width, _bottomView.frame.size.height)];
         [_dragTopButton setImage:[UIImage imageNamed:@"down_g"] forState:UIControlStateNormal];
         _bottomViewExpanded = YES;
     }];
@@ -127,16 +122,14 @@
 
 - (IBAction)switchLocationImageViews:(id)sender {
    
-    if (_mapViewEnabled) {
+    if (!_itemMapView.hidden) {
         [_locationButton setImage:[UIImage imageNamed:@"pin_y"] forState:UIControlStateNormal];
         _itemMapView.hidden = YES;
         _frontImage.hidden = NO;
-        _mapViewEnabled = NO;
     } else {
         [_locationButton setImage:[UIImage imageNamed:@"pin"] forState:UIControlStateNormal];
         _itemMapView.hidden = NO;
         _frontImage.hidden = YES;
-        _mapViewEnabled = YES;
     }
     
 }
