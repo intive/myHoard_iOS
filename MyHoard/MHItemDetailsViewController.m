@@ -26,16 +26,18 @@
     [super viewDidLoad];
     
     _bottomViewExpanded = NO;
+    _bottomView.backgroundColor = [UIColor clearColor];
     
-    _bottomView.backgroundColor = [UIColor collectionThumbnailOutlineColor];
-    _bottomView.alpha = 0.6f;
+    _alphaBackgroundView.backgroundColor = [UIColor collectionThumbnailOutlineColor];
+    _alphaBackgroundView.alpha = 0.7f;
     
     _itemCommentLabel.text = _item.objDescription;
-    _itemCommentLabel.textColor = [UIColor tagFrontColor];
+    _itemCommentLabel.textColor = [UIColor whiteColor];
     _itemCommentLabel.backgroundColor = [UIColor clearColor];
     _itemCommentLabel.editable = NO;
     _itemTitleLabel.text = _item.objName;
     _itemTitleLabel.textColor = [UIColor collectionNameFrontColor];
+    _itemTitleLabel.backgroundColor = [UIColor clearColor];
     for(MHMedia *media in _item.media) {
         _frontImage.image = [[MHImageCache sharedInstance] imageForKey:media.objKey];
         break; //just read first item

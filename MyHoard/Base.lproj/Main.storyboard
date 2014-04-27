@@ -807,6 +807,11 @@
                                 <rect key="frame" x="0.0" y="390" width="320" height="400"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hVf-7u-6lk">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="400"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                    </view>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JS9-Vf-gL5">
                                         <rect key="frame" x="10" y="40" width="300" height="360"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -845,6 +850,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="pSm-AF-Jtc" userLabel="Navigation Item"/>
                     <connections>
+                        <outlet property="alphaBackgroundView" destination="hVf-7u-6lk" id="UsA-a1-CH7"/>
                         <outlet property="bottomView" destination="UWp-Sz-MmU" id="okZ-rW-cDE"/>
                         <outlet property="dragTopButton" destination="4M2-bn-RPW" id="aS2-4E-Di8"/>
                         <outlet property="frontImage" destination="4cj-ad-f3B" id="alf-7X-AoO"/>
