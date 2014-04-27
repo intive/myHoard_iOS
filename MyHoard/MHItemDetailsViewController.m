@@ -10,10 +10,13 @@
 #import "MHImageCache.h"
 
 #define BOTTOM_VIEW_COLLAPSED_HEIGHT 90
+#define METERS_PER_MILE 1609.344
+
 
 @interface MHItemDetailsViewController () <UIGestureRecognizerDelegate>
 {
     BOOL _bottomViewExpanded;
+    BOOL _mapViewEnabled;
 }
 
 @end
@@ -24,6 +27,8 @@
 {
     
     [super viewDidLoad];
+    
+    _mapViewEnabled = NO;
     
     _bottomViewExpanded = NO;
     _bottomView.backgroundColor = [UIColor clearColor];
@@ -43,6 +48,17 @@
         break; //just read first item
     }
     _itemTitle.title = _item.objName;
+    _itemMapView.hidden = YES;
+    if(_item.objLocation) {
+
+        
+        CLLocation *myLoc = _item.objLocation;
+        CLLocationCoordinate2D *myLoc2D = NULL;
+        myLoc2D->latitude = myLoc.coordinate.latitude;
+        myLoc2D->longitude = myLoc.coordinate.longitude;
+        MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(*myLoc2D, 0.5*METERS_PER_MILE, 0.5*METERS_PER_MILE);
+        [_itemMapView setRegion:viewRegion animated:YES];
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -109,4 +125,19 @@
     return YES;
 }
 
+- (IBAction)switchLocationImageViews:(id)sender {
+   
+    if (_mapViewEnabled) {
+        [_locationButton setImage:[UIImage imageNamed:@"pin_y"] forState:UIControlStateNormal];
+        _itemMapView.hidden = YES;
+        _frontImage.hidden = NO;
+        _mapViewEnabled = NO;
+    } else {
+        [_locationButton setImage:[UIImage imageNamed:@"pin"] forState:UIControlStateNormal];
+        _itemMapView.hidden = NO;
+        _frontImage.hidden = YES;
+        _mapViewEnabled = YES;
+    }
+    
+}
 @end
