@@ -15,7 +15,7 @@
 
 - (void)locationParser:(NSDictionary *)locationValue {
     
-    if (locationValue[@"location"] != nil) {
+    if (![locationValue isEqual:[NSNull null]]) {
         self.objLocation = [[CLLocation alloc]initWithLatitude:[[locationValue objectForKey:@"location.lat"]doubleValue]longitude:[[locationValue objectForKey:@"location.lng"]doubleValue]];
     }else {
         self.objLocation = nil;

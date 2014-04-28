@@ -20,7 +20,7 @@
 static MHAPI *_sharedAPI = nil;
 
 @interface MHAPI() {
-
+    
     NSString* _accessToken;
     NSString* _refreshToken;
 }
@@ -128,8 +128,8 @@ static MHAPI *_sharedAPI = nil;
                                                                           userProfile.email = [responseObject valueForKeyPath:@"email"];
                                                                           
                                                                           completionBlock(userProfile, nil);                                                                      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                                                          completionBlock(nil, error);
-                                                                      }];
+                                                                              completionBlock(nil, error);
+                                                                          }];
     
     operation.responseSerializer = [AFJSONResponseSerializer serializer];
     operation.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", nil];
@@ -281,14 +281,14 @@ static MHAPI *_sharedAPI = nil;
     
     NSNumber *objType;
     
-        if ([collection.objType isEqualToString:@"public"]) {
-            objType = @YES;
-        }else {
-            objType = @NO;
-        }
+    if ([collection.objType isEqualToString:@"public"]) {
+        objType = @YES;
+    }else {
+        objType = @NO;
+    }
     
     NSMutableDictionary* params = [NSMutableDictionary dictionaryWithDictionary:@{@"name": collection.objName,
-                                                                                 @"tags":collection.objTags,
+                                                                                  @"tags":collection.objTags,
                                                                                   @"public":objType}];
     if (collection.objDescription) {
         params[@"description"] = collection.objDescription;
@@ -350,10 +350,10 @@ static MHAPI *_sharedAPI = nil;
                                                                                                                                                     objDescription:responseDictionary[@"description"]
                                                                                                                                                            objTags:responseDictionary[@"tags"]
                                                                                                                                                     objCreatedDate:[MHCollection createdDateFromString:responseDictionary[@"created_date"]]
-
+                                                                                                                     
                                                                                                                                                    objModifiedDate:nil
                                                                                                                                        objOwnerNilAddLogedUserCode:responseDictionary[@"owner"]
-                                                                                                                                                         objStatus:objectStatusNew
+                                                                                                                                                         objStatus:objectStatusOk
                                                                                                                                                            objType:nil];
                                                                                   
                                                                                   createdCollection.objId = responseDictionary[@"id"];
@@ -363,6 +363,53 @@ static MHAPI *_sharedAPI = nil;
                                                                                   [[MHCoreDataContext getInstance] saveContext];
                                                                               }
                                                                           }else if ([coreDataCollections count] > 0 && [responseObject count] > 0){
+                                                                              
+                                                                              predicate = [NSPredicate predicateWithFormat:@"objStatus == %@", objectStatusNew];
+                                                                              NSArray *objStatusNew = [coreDataCollections filteredArrayUsingPredicate:predicate];
+                                                                              
+                                                                              for (MHCollection *collectionWithNewStatus in objStatusNew) {
+                                                                                  predicate = [NSPredicate predicateWithFormat:@"objType == %@", collectionTypeOffline];
+                                                                                  NSArray *collectionsByType = [objStatusNew filteredArrayUsingPredicate:predicate];
+                                                                                  
+                                                                                  if (!collectionsByType.count) {
+                                                                                      [self createCollection:collectionWithNewStatus completionBlock:^(id object, NSError *error) {
+                                                                                          if (error) {
+                                                                                              completionBlock(nil, error);
+                                                                                          }
+                                                                                      }];
+                                                                                  }
+                                                                              }
+                                                                              
+                                                                              predicate = [NSPredicate predicateWithFormat:@"objStatus == %@", objectStatusModified];
+                                                                              NSArray *objStatusModified = [coreDataCollections filteredArrayUsingPredicate:predicate];
+                                                                              
+                                                                              for (MHCollection *collectionWithModifiedStatus in objStatusModified) {
+                                                                                  predicate = [NSPredicate predicateWithFormat:@"id == %@", collectionWithModifiedStatus.objId];
+                                                                                  NSArray *collectionsById = [responseObject filteredArrayUsingPredicate:predicate];
+                                                                                  
+                                                                                  if (!collectionsById.count) {
+                                                                                      collectionWithModifiedStatus.objStatus = objectStatusNew;
+                                                                                      [self createCollection:collectionWithModifiedStatus completionBlock:^(id object, NSError *error) {
+                                                                                          if (error) {
+                                                                                              completionBlock(nil, error);
+                                                                                          }
+                                                                                      }];
+                                                                                  }
+                                                                              }
+                                                                              
+                                                                              predicate = [NSPredicate predicateWithFormat:@"objStatus == %@", objectStatusOk];
+                                                                              NSArray *objStatusOk = [coreDataCollections filteredArrayUsingPredicate:predicate];
+                                                                              
+                                                                              for (MHCollection *collectionWithOkStatus in objStatusOk) {
+                                                                                  predicate = [NSPredicate predicateWithFormat:@"id == %@", collectionWithOkStatus.objId];
+                                                                                  NSArray *collectionsById = [responseObject filteredArrayUsingPredicate:predicate];
+                                                                                  
+                                                                                  if (!collectionsById.count) {
+                                                                                      [[MHCoreDataContext getInstance].managedObjectContext deleteObject:collectionWithOkStatus];
+                                                                                      [[MHCoreDataContext getInstance]saveContext];
+                                                                                  }
+                                                                              }
+                                                                              
                                                                               for (NSDictionary *responseDictionary in responseObject) {
                                                                                   predicate = [NSPredicate predicateWithFormat:@"objId == %@", responseDictionary[@"id"]];
                                                                                   predicationResult = [coreDataCollections filteredArrayUsingPredicate:predicate];
@@ -374,7 +421,7 @@ static MHAPI *_sharedAPI = nil;
                                                                                                                                                         objCreatedDate:[MHCollection createdDateFromString:responseDictionary[@"created_date"]]
                                                                                                                                                        objModifiedDate:nil
                                                                                                                                            objOwnerNilAddLogedUserCode:responseDictionary[@"owner"]
-                                                                                                                                                             objStatus:objectStatusNew
+                                                                                                                                                             objStatus:objectStatusOk
                                                                                                                                                                objType:nil];
                                                                                       
                                                                                       createdCollection.objId = responseDictionary[@"id"];
@@ -383,74 +430,74 @@ static MHAPI *_sharedAPI = nil;
                                                                                       
                                                                                       [[MHCoreDataContext getInstance] saveContext];
                                                                                   }else {
-                                                                                      predicate = [NSPredicate predicateWithFormat:@"objModifiedDate < %@",[MHCollection createdDateFromString:responseDictionary[@"modified_date"]]];
-                                                                                      NSArray *collectionsPredicatedWithModifiedDate = [predicationResult filteredArrayUsingPredicate:predicate];
                                                                                       
-                                                                                      if ([collectionsPredicatedWithModifiedDate count] > 0) {
-                                                                                          for (MHCollection *result in collectionsPredicatedWithModifiedDate) {
-                                                                                              
-                                                                                              [[MHCoreDataContext getInstance].managedObjectContext deleteObject:result];
-                                                                                              [[MHCoreDataContext getInstance] saveContext];
-                                                                                              
-                                                                                              MHCollection *createdCollection = [MHDatabaseManager insertCollectionWithObjName:responseDictionary[@"name"]
-                                                                                                                                                                objDescription:responseDictionary[@"description"]
-                                                                                                                                                                       objTags:responseDictionary[@"tags"]
-                                                                                                                                                                objCreatedDate:[MHCollection createdDateFromString:responseDictionary[@"created_date"]]
-                                                                                                                                                               objModifiedDate:nil
-                                                                                                                                                   objOwnerNilAddLogedUserCode:responseDictionary[@"owner"]
-                                                                                                                                                                     objStatus:objectStatusOk
-                                                                                                                                                                       objType:nil];
-                                                                                              
-                                                                                              createdCollection.objId = responseDictionary[@"id"];
-                                                                                              [createdCollection typeFromBoolValue:responseDictionary[@"public"]];
-                                                                                              [createdCollection modifiedDateFromString:responseDictionary[@"modified_date"]];
-                                                                                              
-                                                                                              [[MHCoreDataContext getInstance] saveContext];
-                                                                                          }
-                                                                                      }else {
+                                                                                      predicate = [NSPredicate predicateWithFormat:@"objStatus == %@", objectStatusDeleted];
+                                                                                      NSArray *objStatusDeleted = [predicationResult filteredArrayUsingPredicate:predicate];
+                                                                                      
+                                                                                      if (objStatusDeleted.count) {
+                                                                                          predicate = [NSPredicate predicateWithFormat:@"objModifiedDate < %@",[MHCollection createdDateFromString:responseDictionary[@"modified_date"]]];
+                                                                                          NSArray *collectionsPredicatedWithModifiedDate = [objStatusDeleted filteredArrayUsingPredicate:predicate];
                                                                                           
-                                                                                          predicate = [NSPredicate predicateWithFormat:@"objModifiedDate > %@", [MHCollection createdDateFromString:responseDictionary[@"modified_date"]]];
+                                                                                          for (MHCollection *outdatedCollection in collectionsPredicatedWithModifiedDate) {
+                                                                                              
+                                                                                              [self readUserCollection:outdatedCollection completionBlock:^(id object, NSError *error) {
+                                                                                                  if (error) {
+                                                                                                      completionBlock(nil, error);
+                                                                                                  }
+                                                                                              }];
+                                                                                          }
+                                                                                          
+                                                                                          predicate = [NSPredicate predicateWithFormat:@"objModifiedDate > %@",[MHCollection createdDateFromString:responseDictionary[@"modified_date"]]];
+                                                                                          collectionsPredicatedWithModifiedDate = [objStatusDeleted filteredArrayUsingPredicate:predicate];
+                                                                                          
+                                                                                          for (MHCollection *upToDateCollection in collectionsPredicatedWithModifiedDate) {
+                                                                                              
+                                                                                              [self deleteCollection:upToDateCollection completionBlock:^(id object, NSError *error) {
+                                                                                                  if (error) {
+                                                                                                      completionBlock(nil, error);
+                                                                                                  }else {
+                                                                                                      [[MHCoreDataContext getInstance].managedObjectContext deleteObject:upToDateCollection];
+                                                                                                      [[MHCoreDataContext getInstance]saveContext];
+                                                                                                  }
+                                                                                              }];
+                                                                                          }
+                                                                                      }
+                                                                                      
+                                                                                      predicate = [NSPredicate predicateWithFormat:@"(objStatus == %@) OR (objStatus == %@)", objectStatusOk, objectStatusModified];
+                                                                                      NSArray *objStatusOkOrModified = [predicationResult filteredArrayUsingPredicate:predicate];
+                                                                                      
+                                                                                      if (objStatusOkOrModified.count) {
+                                                                                          
+                                                                                          predicate = [NSPredicate predicateWithFormat:@"objModifiedDate < %@",[MHCollection createdDateFromString:responseDictionary[@"modified_date"]]];
                                                                                           NSArray *collectionsPredicatedWithModifiedDate = [predicationResult filteredArrayUsingPredicate:predicate];
                                                                                           
-                                                                                          if ([predicationResult count] > 0) {
-                                                                                              for (MHCollection *result in collectionsPredicatedWithModifiedDate) {
-                                                                                                  [self updateCollection:result completionBlock:^(id object, NSError *error)   {
-                                                                                                      if (error) {
-                                                                                                          completionBlock(nil, error);
-                                                                                                      }
-                                                                                                  }];
-                                                                                              }
+                                                                                          for (MHCollection *outdatedCollection in collectionsPredicatedWithModifiedDate) {
+                                                                                              
+                                                                                              [self readUserCollection:outdatedCollection completionBlock:^(id object, NSError *error) {
+                                                                                                  if (error) {
+                                                                                                      completionBlock(nil, error);
+                                                                                                  }
+                                                                                              }];
+                                                                                          }
+                                                                                          
+                                                                                          predicate = [NSPredicate predicateWithFormat:@"objModifiedDate > %@", [MHCollection createdDateFromString:responseDictionary[@"modified_date"]]];
+                                                                                          collectionsPredicatedWithModifiedDate = [predicationResult filteredArrayUsingPredicate:predicate];
+                                                                                          
+                                                                                          for (MHCollection *upToDateCollection in collectionsPredicatedWithModifiedDate) {
+                                                                                              [self updateCollection:upToDateCollection completionBlock:^(id object, NSError *error)   {
+                                                                                                  if (error) {
+                                                                                                      completionBlock(nil, error);
+                                                                                                  }
+                                                                                              }];
                                                                                           }
                                                                                       }
-                                                                                  }
-                                                                                  [[MHCoreDataContext getInstance] saveContext];
-                                                                              }
-                                                                                  predicate = [NSPredicate predicateWithFormat:@"objStatus == %@", objectStatusDeleted];
-                                                                                  predicationResult = [coreDataCollections filteredArrayUsingPredicate:predicate];
-                                                                              
-                                                                                  if ([predicationResult count] > 0) {
-                                                                                      for (MHCollection *eachCollectionWithStatus in predicationResult) {
-                                                                                          predicate = [NSPredicate predicateWithFormat:@"id == %@", eachCollectionWithStatus.objId];
-                                                                                          predicationResult = [responseObject filteredArrayUsingPredicate:predicate];
-                                                                                          if ([predicationResult count] > 0) {
-                                                                                              for (MHCollection *collectionsWithStatus in predicationResult) {
-                                                                                                  [self deleteCollection:collectionsWithStatus completionBlock:^(id object, NSError *error) {
-                                                                                                      if (error) {
-                                                                                                          completionBlock(nil, error);
-                                                                                                      }else {
-                                                                                                          [[MHCoreDataContext getInstance].managedObjectContext deleteObject:collectionsWithStatus];
-                                                                                                          [[MHCoreDataContext getInstance] saveContext];
-                                                                                                      }
-                                                                                                  }];
-                                                                                              }
-                                                                                          }
-                                                                                      }
-                                                                                  }else {
-                                                                                      for (MHCollection *eachCollectionWithoutStatus in coreDataCollections) {
-                                                                                          predicate = [NSPredicate predicateWithFormat:@"id == %@", eachCollectionWithoutStatus.objId];
-                                                                                          predicationResult = [responseObject filteredArrayUsingPredicate:predicate];
-                                                                                          if ([predicationResult count] == 0) {
-                                                                                              [self createCollection:eachCollectionWithoutStatus completionBlock:^(id object, NSError *error) {
+                                                                                      
+                                                                                      predicate = [NSPredicate predicateWithFormat:@"(objStatus == %@) AND (objModifiedDate == %@)", objectStatusModified, responseDictionary[@"modified_date"]];
+                                                                                      NSArray *objStatusModified = [predicationResult filteredArrayUsingPredicate:predicate];
+                                                                                      
+                                                                                      if (objStatusModified.count) {
+                                                                                          for (MHCollection *collectionToSend in objStatusModified) {
+                                                                                              [self updateCollection:collectionToSend completionBlock:^(id object, NSError *error) {
                                                                                                   if (error) {
                                                                                                       completionBlock(nil, error);
                                                                                                   }
@@ -458,20 +505,18 @@ static MHAPI *_sharedAPI = nil;
                                                                                           }
                                                                                       }
                                                                                   }
+                                                                              }
                                                                           }else if ([coreDataCollections count] > 0 && [responseObject count] == 0) {
-                                                                              for (MHCollection *collection in coreDataCollections) {
-                                                                                  if ([collection.objStatus isEqualToString:objectStatusNew]) {
-                                                                                      if ([collection.objType isEqualToString:collectionTypePublic] || [collection.objType isEqualToString:collectionTypePrivate]) {
-                                                                                          [self createCollection:collection completionBlock:^(id object, NSError *error) {
-                                                                                              if (error) {
-                                                                                                  completionBlock(nil, error);
-                                                                                              }
-                                                                                          }];
-                                                                                      }
+                                                                              for (MHCollection *eachCollection in coreDataCollections) {
+                                                                                  if (eachCollection.objStatus != collectionTypeOffline) {
+                                                                                      [self createCollection:eachCollection completionBlock:^(id object, NSError *error) {
+                                                                                          if (error) {
+                                                                                              completionBlock(nil, error);
+                                                                                          }
+                                                                                      }];
                                                                                   }
                                                                               }
                                                                           }
-                                                                
                                                                           [[MHCoreDataContext getInstance] saveContext];
                                                                           completionBlock(nil, nil);
                                                                       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -499,34 +544,16 @@ static MHAPI *_sharedAPI = nil;
                                                                error:&error];
     
     __block MHCollection* c = collection;
-    __block MHCollection *coreDataCollection = [MHDatabaseManager collectionWithObjName:collection.objId];
     
     AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
                                                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                                                          if ([coreDataCollection.objType isEqualToString:collectionTypePublic]) {
-                                                                              NSDate *laterThanDate = [responseObject[@"created_date"] dateFromRFC3339String];
-                                                                              if ([[coreDataCollection.objModifiedDate laterDate: laterThanDate] isEqualToDate:coreDataCollection.objModifiedDate]) {
-                                                                                  [self updateCollection:c completionBlock:^(id object, NSError *error) {
-                                                                                      if (error) {
-                                                                                          completionBlock(nil, error);
-                                                                                      }
-                                                                                  }];
-                                                                              }else {
-                                                                                  [[MHCoreDataContext getInstance].managedObjectContext deleteObject:collection];
-                                                                                  [[MHCoreDataContext getInstance]saveContext];
-                                                                                  MHCollection * collection = [MHDatabaseManager insertCollectionWithObjName:responseObject[@"name"] objDescription:responseObject[@"description"] objTags:responseObject[@"tags"] objCreatedDate:[MHCollection createdDateFromString:responseObject[@"created_date"]] objModifiedDate:nil objOwnerNilAddLogedUserCode:responseObject[@"owner"] objStatus:objectStatusOk objType:nil];
-                                                                                  collection.objId = responseObject[@"id"];
-                                                                                  [collection typeFromBoolValue:responseObject[@"public"]];
-                                                                                  [collection modifiedDateFromString:responseObject[@"modified_date"]];
-                                                                                  [[MHCoreDataContext getInstance]saveContext];
-                                                                              }
-                                                                          }else {
-                                                                              [self deleteCollection:collection completionBlock:^(id object, NSError *error) {
-                                                                                  if (error) {
-                                                                                      completionBlock(nil, error);
-                                                                                  }
-                                                                              }];
-                                                                          }
+                                                                          
+                                                                          c = [MHDatabaseManager insertCollectionWithObjName:responseObject[@"name"] objDescription:responseObject[@"description"] objTags:responseObject[@"tags"] objCreatedDate:[MHCollection createdDateFromString:responseObject[@"created_date"]] objModifiedDate:nil objOwnerNilAddLogedUserCode:responseObject[@"owner"] objStatus:objectStatusOk objType:nil];
+                                                                          c.objId = responseObject[@"id"];
+                                                                          [c typeFromBoolValue:responseObject[@"public"]];
+                                                                          [c modifiedDateFromString:responseObject[@"modified_date"]];
+                                                                          [[MHCoreDataContext getInstance]saveContext];
+                                                                          
                                                                       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                                                           completionBlock(nil, error);
                                                                       }];
@@ -540,7 +567,7 @@ static MHAPI *_sharedAPI = nil;
 #pragma mark update collection
 
 - (AFHTTPRequestOperation *)updateCollection:(MHCollection *)collection
-                       completionBlock:(MHAPICompletionBlock)completionBlock {
+                             completionBlock:(MHAPICompletionBlock)completionBlock {
     NSError *error;
     
     AFJSONRequestSerializer* jsonRequest = [AFJSONRequestSerializer serializer];
@@ -548,11 +575,11 @@ static MHAPI *_sharedAPI = nil;
     
     NSNumber *objType;
     
-        if ([collection.objType isEqualToString:@"public"]) {
-            objType = @YES;
-        }else {
-            objType = @NO;
-        }
+    if ([collection.objType isEqualToString:@"public"]) {
+        objType = @YES;
+    }else {
+        objType = @NO;
+    }
     
     NSMutableURLRequest *request = [jsonRequest requestWithMethod:@"PUT"
                                                         URLString:[NSString stringWithFormat:@"%@%@",[self urlWithPath:@"collections"],collection.objId]
@@ -580,7 +607,7 @@ static MHAPI *_sharedAPI = nil;
 #pragma mark delete collection
 
 - (AFHTTPRequestOperation *)deleteCollection:(MHCollection *)collection
-                                   completionBlock:(MHAPICompletionBlock)completionBlock {
+                             completionBlock:(MHAPICompletionBlock)completionBlock {
     
     NSError *error;
     
@@ -629,14 +656,14 @@ static MHAPI *_sharedAPI = nil;
     }];
     
     [manager.responseSerializer setAcceptableContentTypes:[NSSet setWithObjects:@"application/json", nil]];
-
+    
     return nil;
 }
 
 #pragma mark read media
 
 - (AFHTTPRequestOperation *)readMedia:(MHMedia *)media
-                            completionBlock:(MHAPICompletionBlock)completionBlock {
+                      completionBlock:(MHAPICompletionBlock)completionBlock {
     
     NSError *error;
     
@@ -651,8 +678,8 @@ static MHAPI *_sharedAPI = nil;
     
     AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
                                                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                                                              [[MHImageCache sharedInstance] cacheImage:responseObject forKey:media.objId];
-                                                                              tmpMedia.objKey = media.objId;
+                                                                          [[MHImageCache sharedInstance] cacheImage:responseObject forKey:media.objId];
+                                                                          tmpMedia.objKey = media.objId;
                                                                           completionBlock(nil, nil);
                                                                       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                                                           completionBlock(nil, error);
@@ -670,7 +697,7 @@ static MHAPI *_sharedAPI = nil;
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager.requestSerializer setValue:_accessToken forHTTPHeaderField:@"Authorization"];
-
+    
     NSData* assetData = [[MHImageCache sharedInstance] dataForKey:media.objKey];
     [manager POST:[NSString stringWithFormat:@"%@%@/",[self urlWithPath:@"media"],media.objId] parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         [formData appendPartWithFileData:assetData name:@"image" fileName:media.objKey mimeType:@"image/*"];
@@ -681,14 +708,14 @@ static MHAPI *_sharedAPI = nil;
     }];
     
     [manager.responseSerializer setAcceptableContentTypes:[NSSet setWithObjects:@"application/json", nil]];
-
+    
     return nil;
 }
 
 #pragma mark delete media
 
 - (AFHTTPRequestOperation *)deleteMedia:(MHMedia *)media
-                              completionBlock:(MHAPICompletionBlock)completionBlock {
+                        completionBlock:(MHAPICompletionBlock)completionBlock {
     
     NSError *error;
     
@@ -717,7 +744,7 @@ static MHAPI *_sharedAPI = nil;
 #pragma mark read thumbnail
 
 - (AFHTTPRequestOperation *)readThumbnail:(MHThumbnailSize)size
-                          forMedia:(MHMedia *)media
+                                 forMedia:(MHMedia *)media
                           completionBlock:(MHAPICompletionBlock)completionBlock {
     
     NSString *thumbnailSize = @"";
@@ -793,14 +820,14 @@ static MHAPI *_sharedAPI = nil;
                                                                  @"description": item.objDescription,
                                                                  @"collection": item.collection.objId}];
     }
-
+    
     CLLocation *l = item.objLocation;
     if (l) {
         params[@"location"] = @{@"lat": @(l.coordinate.latitude),
                                 @"lng": @(l.coordinate.longitude)};
     }
-                                                                                  
-
+    
+    
     NSMutableURLRequest *request = [jsonSerializer requestWithMethod:@"POST"
                                                            URLString:[self urlWithPath:@"items"]
                                                           parameters:params
@@ -812,7 +839,7 @@ static MHAPI *_sharedAPI = nil;
                                                                           i.objId = responseObject[@"id"];
                                                                           i.objName = responseObject[@"name"];
                                                                           i.objDescription = responseObject[@"description"];
-                                                                          i.objLocation = responseObject[@"location"];
+                                                                          [i locationParser:responseObject[@"location"]];
                                                                           NSString* date = responseObject[@"created_date"];
                                                                           i.objCreatedDate = [date dateFromRFC3339String];
                                                                           date = responseObject[@"modified_date"];
@@ -832,10 +859,51 @@ static MHAPI *_sharedAPI = nil;
     return operation;
 }
 
+#pragma mark read single item
+
+- (AFHTTPRequestOperation *)readItem:(MHItem *)item
+                     completionBlock:(MHAPICompletionBlock)completionBlock
+{
+    NSError *error;
+    
+    AFJSONRequestSerializer *jsonSerializer = [AFJSONRequestSerializer serializer];
+    [jsonSerializer setValue:_accessToken forHTTPHeaderField:@"Authorization"];
+    
+    
+    NSMutableURLRequest *request = [jsonSerializer requestWithMethod:@"GET"
+                                                           URLString:[NSString stringWithFormat:@"%@%@/",[self urlWithPath:@"items"],item.objId]
+                                                          parameters:nil
+                                                               error:&error];
+    
+    __block MHItem* i = item;
+    AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
+                                                                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                                                          i.objId = responseObject[@"id"];
+                                                                          i.objName = responseObject[@"name"];
+                                                                          i.objDescription = responseObject[@"description"];
+                                                                          NSString* date = responseObject[@"created_date"];
+                                                                          i.objCreatedDate = [date dateFromRFC3339String];
+                                                                          date = responseObject[@"modified_date"];
+                                                                          i.objModifiedDate = [date dateFromRFC3339String];
+                                                                          i.objOwner = responseObject[@"owner"];
+                                                                          [i locationParser:responseObject[@"location"]];
+                                                                          [[MHCoreDataContext getInstance] saveContext];
+                                                                          completionBlock(i, error);
+                                                                      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                                                          completionBlock(nil, error);
+                                                                      }];
+    
+    operation.responseSerializer = [AFJSONResponseSerializer serializer];
+    operation.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", nil];
+    [self.operationQueue addOperation:operation];
+    
+    return operation;
+}
+
 #pragma mark read items of a collection
 
 - (AFHTTPRequestOperation *)readAllItemsOfCollection:(MHCollection *)collection
-                     completionBlock:(MHAPICompletionBlock)completionBlock
+                                     completionBlock:(MHAPICompletionBlock)completionBlock
 {
     NSError *error;
     
@@ -846,7 +914,7 @@ static MHAPI *_sharedAPI = nil;
                                                            URLString:[NSString stringWithFormat:@"%@%@/items/",[self urlWithPath:@"collections"],collection.objId]
                                                           parameters:nil
                                                                error:&error];
-
+    
     __block NSArray *coreDataItems = [collection.items allObjects];
     __block NSPredicate *predicate;
     __block NSArray *predicationResult;
@@ -855,12 +923,12 @@ static MHAPI *_sharedAPI = nil;
                                                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
                                                                           if ([coreDataItems count] == 0 && [responseObject count] != 0) {
                                                                               for (NSDictionary *responseDictionary in responseObject) {
-                                                                              
+                                                                                  
                                                                                   MHItem *i = [MHDatabaseManager insertItemWithObjName:responseDictionary[@"name"] objDescription:responseDictionary[@"description"] objTags:nil objLocation:nil objCreatedDate:[MHItem createdDateFromString:responseDictionary[@"created_date"]] objModifiedDate:nil collection:collection objStatus:objectStatusOk];
                                                                                   i.objId = responseDictionary[@"id"];
                                                                                   [i modifiedDateFromString:responseDictionary[@"modified_date"]];
-                                                                                   [i locationParser:responseDictionary[@"location"]];
-
+                                                                                  [i locationParser:responseDictionary[@"location"]];
+                                                                                  
                                                                                   for (NSDictionary *d in responseDictionary[@"media"]) {
                                                                                       MHMedia *m = [MHDatabaseManager insertMediaWithCreatedDate:[NSDate date] objKey:d[@"id"] item:i objStatus:objectStatusOk];
                                                                                       m.objId = d[@"id"];
@@ -870,10 +938,73 @@ static MHAPI *_sharedAPI = nil;
                                                                                           }
                                                                                       }];
                                                                                   }
-                                                                              
+                                                                                  
                                                                                   [[MHCoreDataContext getInstance] saveContext];
                                                                               }
                                                                           }else if ([coreDataItems count] != 0 && [responseObject count] != 0){
+                                                                              
+                                                                              predicate = [NSPredicate predicateWithFormat:@"objStatus == %@", objectStatusNew];
+                                                                              NSArray *objStatusNew = [coreDataItems filteredArrayUsingPredicate:predicate];
+                                                                              
+                                                                              for (MHItem *itemWithNewStatus in objStatusNew) {
+                                                                                  predicate = [NSPredicate predicateWithFormat:@"id == %@", itemWithNewStatus.objId];
+                                                                                  NSArray *itemsById = [responseObject filteredArrayUsingPredicate:predicate];
+                                                                                  
+                                                                                  if (!itemsById.count) {
+                                                                                      [self createItem:itemWithNewStatus completionBlock:^(id object, NSError *error) {
+                                                                                          if (error) {
+                                                                                              completionBlock(nil, error);
+                                                                                          }else {
+                                                                                              for (MHMedia *media in itemWithNewStatus.media) {
+                                                                                                  [self createMedia:media completionBlock:^(id object, NSError *error) {
+                                                                                                      if (error) {
+                                                                                                          completionBlock(nil, error);
+                                                                                                      }
+                                                                                                  }];
+                                                                                              }
+                                                                                          }
+                                                                                      }];
+                                                                                  }
+                                                                              }
+                                                                              
+                                                                              predicate = [NSPredicate predicateWithFormat:@"(objStatus == %@)", objectStatusModified];
+                                                                              NSArray *objStatusModified = [coreDataItems filteredArrayUsingPredicate:predicate];
+                                                                              
+                                                                              for (MHItem *itemWithModifiedStatus in objStatusModified) {
+                                                                                  predicate = [NSPredicate predicateWithFormat:@"id == %@", itemWithModifiedStatus.objId];
+                                                                                  NSArray *itemsById = [responseObject filteredArrayUsingPredicate:predicate];
+                                                                                  
+                                                                                  if (!itemsById.count) {
+                                                                                      itemWithModifiedStatus.objStatus = objectStatusNew;
+                                                                                      [self createItem:itemWithModifiedStatus completionBlock:^(id object, NSError *error) {
+                                                                                          if (error) {
+                                                                                              completionBlock(nil, error);
+                                                                                          }else {
+                                                                                              for (MHMedia *media in itemWithModifiedStatus.media) {
+                                                                                                  [self createMedia:media completionBlock:^(id object, NSError *error) {
+                                                                                                      if (error) {
+                                                                                                          completionBlock(nil, error);
+                                                                                                      }
+                                                                                                  }];
+                                                                                              }
+                                                                                          }
+                                                                                      }];
+                                                                                  }
+                                                                              }
+                                                                              
+                                                                              predicate = [NSPredicate predicateWithFormat:@"(objStatus == %@)", objectStatusOk];
+                                                                              NSArray *objStatusOk = [coreDataItems filteredArrayUsingPredicate:predicate];
+                                                                              
+                                                                              for (MHItem *itemsWithOkStatus in objStatusOk) {
+                                                                                  predicate = [NSPredicate predicateWithFormat:@"id == %@", itemsWithOkStatus.objId];
+                                                                                  NSArray *itemsById = [responseObject filteredArrayUsingPredicate:predicate];
+                                                                                  
+                                                                                  if (!itemsById.count) {
+                                                                                      [itemsWithOkStatus removeMedia:itemsWithOkStatus.media];
+                                                                                      [collection removeItemsObject:itemsWithOkStatus];
+                                                                                  }
+                                                                              }
+                                                                              
                                                                               for (NSDictionary *responseDictionary in responseObject) {
                                                                                   
                                                                                   predicate = [NSPredicate predicateWithFormat:@"objId == %@", responseDictionary[@"id"]];
@@ -883,8 +1014,8 @@ static MHAPI *_sharedAPI = nil;
                                                                                       MHItem *i = [MHDatabaseManager insertItemWithObjName:responseDictionary[@"name"] objDescription:responseDictionary[@"description"] objTags:nil objLocation:nil objCreatedDate:[MHItem createdDateFromString:responseDictionary[@"created_date"]] objModifiedDate:nil collection:collection objStatus:objectStatusOk];
                                                                                       i.objId = responseDictionary[@"id"];
                                                                                       [i modifiedDateFromString:responseDictionary[@"modified_date"]];
-                                                                                       [i locationParser:responseDictionary[@"location"]];
-
+                                                                                      [i locationParser:responseDictionary[@"location"]];
+                                                                                      
                                                                                       for (NSDictionary *d in responseDictionary[@"media"]) {
                                                                                           MHMedia *m = [MHDatabaseManager insertMediaWithCreatedDate:[NSDate date] objKey:d[@"id"] item:i objStatus:objectStatusOk];
                                                                                           m.objId = d[@"id"];
@@ -896,87 +1027,117 @@ static MHAPI *_sharedAPI = nil;
                                                                                       }
                                                                                       
                                                                                       [[MHCoreDataContext getInstance] saveContext];
-
-                                                                                  }else {
-                                                                                      predicate = [NSPredicate predicateWithFormat:@"objModifiedDate < %@",[MHItem createdDateFromString:responseDictionary[@"modified_date"]]];
-                                                                                      NSArray *itemsPredicatedWithModifiedDate = [predicationResult filteredArrayUsingPredicate:predicate];
                                                                                       
-                                                                                      if ([itemsPredicatedWithModifiedDate count] > 0) {
-                                                                                          for (MHItem *result in itemsPredicatedWithModifiedDate) {
-                                                                                              
-                                                                                              [collection removeItemsObject:result];
-                                                                                              
-                                                                                              MHItem *i = [MHDatabaseManager insertItemWithObjName:responseDictionary[@"name"] objDescription:responseDictionary[@"description"] objTags:nil objLocation:nil objCreatedDate:[MHItem createdDateFromString:responseDictionary[@"created_date"]] objModifiedDate:nil collection:collection objStatus:objectStatusOk];
-                                                                                              i.objId = responseDictionary[@"id"];
-                                                                                              [i modifiedDateFromString:responseDictionary[@"modified_date"]];
-                                                                                               [i locationParser:responseDictionary[@"location"]];
-
-                                                                                              for (NSDictionary *d in responseDictionary[@"media"]) {
-                                                                                                  MHMedia *m = [MHDatabaseManager insertMediaWithCreatedDate:[NSDate date] objKey:d[@"id"] item:i objStatus:objectStatusOk];
-                                                                                                  m.objId = d[@"id"];
-                                                                                                  [self readMedia:m completionBlock:^(id object, NSError *error) {
-                                                                                                      if (error) {
-                                                                                                          completionBlock(nil, error);
+                                                                                  }else {
+                                                                                      
+                                                                                      predicate = [NSPredicate predicateWithFormat:@"objStatus == %@", objectStatusDeleted];
+                                                                                      NSArray *objStatusDeleted = [predicationResult filteredArrayUsingPredicate:predicate];
+                                                                                      
+                                                                                      if (objStatusDeleted.count) {
+                                                                                          predicate = [NSPredicate predicateWithFormat:@"objModifiedDate < %@",[MHItem createdDateFromString:responseDictionary[@"modified_date"]]];
+                                                                                          NSArray *itemsPredicatedWithModifiedDate = [objStatusDeleted filteredArrayUsingPredicate:predicate];
+                                                                                          
+                                                                                          for (MHItem *outdatedItem in itemsPredicatedWithModifiedDate) {
+                                                                                              [self readItem:outdatedItem completionBlock:^(id object, NSError *error) {
+                                                                                                  if (error) {
+                                                                                                      completionBlock(nil, error);
+                                                                                                  }else {
+                                                                                                      for (MHMedia *outdatedMedia in outdatedItem.media) {
+                                                                                                          [self readMedia:outdatedMedia completionBlock:^(id object, NSError *error) {
+                                                                                                              if (error) {
+                                                                                                                  completionBlock(nil, error);
+                                                                                                              }
+                                                                                                          }];
                                                                                                       }
-                                                                                                  }];
-                                                                                              }
-                                                                                              
-                                                                                              [[MHCoreDataContext getInstance] saveContext];
+                                                                                                  }
+                                                                                              }];
                                                                                           }
-                                                                                      }else {
-                                                                                          predicate = [NSPredicate predicateWithFormat:@"objModifiedDate > %@", [MHItem createdDateFromString:responseDictionary[@"modified_date"]]];
+                                                                                          
+                                                                                          predicate = [NSPredicate predicateWithFormat:@"objModifiedDate > %@",[MHItem createdDateFromString:responseDictionary[@"modified_date"]]];
+                                                                                          itemsPredicatedWithModifiedDate = [objStatusDeleted filteredArrayUsingPredicate:predicate];
+                                                                                          
+                                                                                          for (MHItem *upToDateItem in itemsPredicatedWithModifiedDate) {
+                                                                                              [self deleteItemWithId:upToDateItem completionBlock:^(id object, NSError *error) {
+                                                                                                  if (error) {
+                                                                                                      completionBlock(nil, error);
+                                                                                                  }else {
+                                                                                                      [upToDateItem removeMedia:upToDateItem.media];
+                                                                                                      [collection removeItemsObject:upToDateItem];
+                                                                                                  }
+                                                                                              }];
+                                                                                          }
+                                                                                      }
+                                                                                      
+                                                                                      predicate = [NSPredicate predicateWithFormat:@"(objStatus == %@) OR (objStatus == %@)", objectStatusOk, objectStatusModified];
+                                                                                      NSArray *objStatusOkOrModified = [predicationResult filteredArrayUsingPredicate:predicate];
+                                                                                      
+                                                                                      if (objStatusOkOrModified.count) {
+                                                                                          predicate = [NSPredicate predicateWithFormat:@"objModifiedDate < %@",[MHItem createdDateFromString:responseDictionary[@"modified_date"]]];
                                                                                           NSArray *itemsPredicatedWithModifiedDate = [predicationResult filteredArrayUsingPredicate:predicate];
                                                                                           
-                                                                                          if ([predicationResult count] > 0) {
-                                                                                              for (MHItem *result in itemsPredicatedWithModifiedDate) {
-                                                                                                  [self updateItem:result completionBlock:^(id object, NSError *error) {
-                                                                                                      if (error) {
-                                                                                                          completionBlock(nil, error);
+                                                                                          for (MHItem *outdatedItem in itemsPredicatedWithModifiedDate) {
+                                                                                              [self readItem:outdatedItem completionBlock:^(id object, NSError *error) {
+                                                                                                  if (error) {
+                                                                                                      completionBlock(nil, error);
+                                                                                                  }else {
+                                                                                                      for (MHMedia *media in outdatedItem.media) {
+                                                                                                          [self readMedia:media completionBlock:^(id object, NSError *error) {
+                                                                                                              if (error) {
+                                                                                                                  completionBlock(nil, error);
+                                                                                                              }
+                                                                                                          }];
                                                                                                       }
-                                                                                                  }];
-                                                                                              }
+                                                                                                  }
+                                                                                              }];
+                                                                                          }
+                                                                                          
+                                                                                          predicate = [NSPredicate predicateWithFormat:@"objModifiedDate > %@", [MHItem createdDateFromString:responseDictionary[@"modified_date"]]];
+                                                                                          itemsPredicatedWithModifiedDate = [predicationResult filteredArrayUsingPredicate:predicate];
+                                                                                          
+                                                                                          for (MHItem *upToDateItem in itemsPredicatedWithModifiedDate) {
+                                                                                              [self updateItem:upToDateItem completionBlock:^(id object, NSError *error) {
+                                                                                                  if (error) {
+                                                                                                      completionBlock(nil, error);
+                                                                                                  }else {
+                                                                                                      for (MHMedia *mediaToUpdate in upToDateItem.media) {
+                                                                                                          if (mediaToUpdate.objStatus == objectStatusModified) {
+                                                                                                              [self updateMedia:mediaToUpdate completionBlock:^(id object, NSError *error) {
+                                                                                                                  if (error) {
+                                                                                                                      completionBlock(nil, error);
+                                                                                                                  }
+                                                                                                              }];
+                                                                                                          }
+                                                                                                      }
+                                                                                                  }
+                                                                                              }];
+                                                                                          }
+                                                                                      }
+                                                                                      
+                                                                                      predicate = [NSPredicate predicateWithFormat:@"(objStatus == %@) AND (objModifiedDate == %@)", objectStatusModified, responseDictionary[@"modified_date"]];
+                                                                                      NSArray *objStatusModified = [predicationResult filteredArrayUsingPredicate:predicate];
+                                                                                      
+                                                                                      if (objStatusModified.count) {
+                                                                                          for (MHItem *itemToSend in objStatusModified) {
+                                                                                              [self updateItem:itemToSend completionBlock:^(id object, NSError *error) {
+                                                                                                  if (error) {
+                                                                                                      completionBlock(nil,error);
+                                                                                                  }else {
+                                                                                                      for (MHMedia *mediaToSend in itemToSend.media) {
+                                                                                                          if (mediaToSend.objStatus == objectStatusModified) {
+                                                                                                              [self updateMedia:mediaToSend completionBlock:^(id object, NSError *error) {
+                                                                                                                  if (error) {
+                                                                                                                      completionBlock(nil, error);
+                                                                                                                  }
+                                                                                                              }];
+                                                                                                          }
+                                                                                                      }
+                                                                                                  }
+                                                                                              }];
                                                                                           }
                                                                                       }
                                                                                   }
-                                                                                  
-                                                                                  [[MHCoreDataContext getInstance] saveContext];
-                                                                                  
-                                                                                   predicate = [NSPredicate predicateWithFormat:@"objStatus == %@", objectStatusDeleted];
-                                                                                   predicationResult = [coreDataItems filteredArrayUsingPredicate:predicate];
-                                                                                   
-                                                                                   if ([predicationResult count] > 0) {
-                                                                                       for (MHItem *eachItemWithStatus in predicationResult) {
-                                                                                           predicate = [NSPredicate predicateWithFormat:@"id == %@", eachItemWithStatus.objId];
-                                                                                           predicationResult = [responseObject filteredArrayUsingPredicate:predicate];
-                                                                                           if ([predicationResult count] > 0) {
-                                                                                               for (MHItem *itemWithStatus in predicationResult) {
-                                                                                                   [self deleteItemWithId:itemWithStatus completionBlock:^(id object, NSError *error) {
-                                                                                                       if (error) {
-                                                                                                           completionBlock(nil, error);
-                                                                                                       }else {
-                                                                                                           [collection removeItemsObject:itemWithStatus];
-                                                                                                       }
-                                                                                                   }];
-                                                                                               }
-                                                                                           }
-                                                                                       }
-                                                                                   }else {
-                                                                                       for (MHItem *eachItemWithoutStatus in coreDataItems) {
-                                                                                           predicate = [NSPredicate predicateWithFormat:@"id == %@", eachItemWithoutStatus.objId];
-                                                                                           predicationResult = [responseObject filteredArrayUsingPredicate:predicate];
-                                                                                           if ([predicationResult count] == 0) {
-                                                                                               [self createItem:eachItemWithoutStatus completionBlock:^(id object, NSError *error) {
-                                                                                                   if (error) {
-                                                                                                       if (error) {
-                                                                                                           completionBlock(nil, error);
-                                                                                                       }
-                                                                                                   }
-                                                                                               }];
-                                                                                           }
-                                                                                       }
-                                                                                    }
-                                                                                }
-                                                                            }
+                                                                              }
+                                                                          }
                                                                           completionBlock(nil, nil);
                                                                       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                                                           completionBlock(nil, error);
@@ -1013,7 +1174,7 @@ static MHAPI *_sharedAPI = nil;
         params[@"location"] = @{@"lat": @(l.coordinate.latitude),
                                 @"lng": @(l.coordinate.longitude)};
     }
-
+    
     __block MHItem* i = item;
     NSMutableURLRequest *request = [jsonSerializer requestWithMethod:@"PUT"
                                                            URLString:[NSString stringWithFormat:@"%@%@",[self urlWithPath:@"items"],item.objId]
@@ -1037,7 +1198,7 @@ static MHAPI *_sharedAPI = nil;
 #pragma mark delete item
 
 - (AFHTTPRequestOperation *)deleteItemWithId:(MHItem *)item
-                                   completionBlock:(MHAPICompletionBlock)completionBlock {
+                             completionBlock:(MHAPICompletionBlock)completionBlock {
     
     NSError *error;
     
