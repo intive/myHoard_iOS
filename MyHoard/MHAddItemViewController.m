@@ -398,6 +398,7 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 200;
                                                                  objStatus:@"new"];
             
             if ([[MHAPI getInstance]activeSession] == YES) {
+                if (![self.selectedCollection.objType isEqualToString:collectionTypeOffline]) {
                 __block MHWaitDialog* wait = [[MHWaitDialog alloc] init];
                 [wait show];
                 [[MHAPI getInstance]createMedia:media completionBlock:^(id object, NSError *error) {
@@ -427,11 +428,16 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 200;
                         }];
                     }
                 }];
+                    
+                }else {
+                    [self dismissViewControllerAnimated:YES completion:nil];
+                }
             } else {
                 [self dismissViewControllerAnimated:YES completion:nil];
             }
         } else {
             if ([[MHAPI getInstance]activeSession] == YES) {
+                if (![self.selectedCollection.objType isEqualToString:collectionTypeOffline]) {
                 __block MHWaitDialog* wait = [[MHWaitDialog alloc] init];
                 [wait show];
                 [[MHAPI getInstance] createItem:item completionBlock:^(id object, NSError *error) {
@@ -447,6 +453,9 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 200;
                     }
                     [self dismissViewControllerAnimated:YES completion:nil];
                 }];
+                }else {
+                    [self dismissViewControllerAnimated:YES completion:nil];
+                }
             }else {
                 [self dismissViewControllerAnimated:YES completion:nil];
             }

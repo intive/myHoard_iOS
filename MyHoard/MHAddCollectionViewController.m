@@ -141,11 +141,11 @@
     } else {
         NSString *colllectionType = [[NSString alloc]init];
         if (_type==0) {
-            colllectionType=@"public";
+            colllectionType = collectionTypePublic;
         } else if (_type==1){
-            colllectionType=@"private";
+            colllectionType = collectionTypePrivate;
         } else {
-            colllectionType=@"offline";
+            colllectionType = collectionTypeOffline;
         }
         if (_collection) {
             
