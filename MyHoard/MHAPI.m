@@ -588,9 +588,10 @@ static MHAPI *_sharedAPI = nil;
                                                                     @"tags":collection.objTags,
                                                                     @"public":objType}
                                                             error:&error];
-    
+    __block MHCollection *c = collection;
     AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
                                                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                                                          c.objStatus = objectStatusOk;
                                                                           completionBlock(nil, nil);
                                                                       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                                                           [self localizedDescriptionForErrorCode:error];
@@ -650,6 +651,7 @@ static MHAPI *_sharedAPI = nil;
         [formData appendPartWithFileData:assetData name:@"image" fileName:m.objKey mimeType:@"image/*"];
     } success:^(AFHTTPRequestOperation *operation, id responseObject) {
         m.objId = responseObject[@"id"];
+        m.objStatus = objectStatusOk;
         completionBlock(nil, nil);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         completionBlock(nil, error);
@@ -698,10 +700,13 @@ static MHAPI *_sharedAPI = nil;
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager.requestSerializer setValue:_accessToken forHTTPHeaderField:@"Authorization"];
     
+    __block MHMedia *tmpMedia = media;
+    
     NSData* assetData = [[MHImageCache sharedInstance] dataForKey:media.objKey];
     [manager POST:[NSString stringWithFormat:@"%@%@/",[self urlWithPath:@"media"],media.objId] parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         [formData appendPartWithFileData:assetData name:@"image" fileName:media.objKey mimeType:@"image/*"];
     } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        tmpMedia.objStatus = objectStatusOk;
         completionBlock(nil, nil);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         completionBlock(nil, error);
@@ -838,11 +843,10 @@ static MHAPI *_sharedAPI = nil;
                                                                           i.objName = responseObject[@"name"];
                                                                           i.objDescription = responseObject[@"description"];
                                                                           [i locationParser:responseObject[@"location"]];
-                                                                          NSString* date = responseObject[@"created_date"];
-                                                                          i.objCreatedDate = [date dateFromRFC3339String];
-                                                                          date = responseObject[@"modified_date"];
-                                                                          i.objModifiedDate = [date dateFromRFC3339String];
+                                                                          i.objCreatedDate = [MHItem createdDateFromString:responseObject[@"created_date"]];
                                                                           i.objOwner = responseObject[@"owner"];
+                                                                          [i modifiedDateFromString:responseObject[@"modified_date"]];
+                                                                          i.objStatus = objectStatusOk;
                                                                           
                                                                           [[MHCoreDataContext getInstance] saveContext];
                                                                           completionBlock(i, error);
@@ -879,12 +883,10 @@ static MHAPI *_sharedAPI = nil;
                                                                           i.objId = responseObject[@"id"];
                                                                           i.objName = responseObject[@"name"];
                                                                           i.objDescription = responseObject[@"description"];
-                                                                          NSString* date = responseObject[@"created_date"];
-                                                                          i.objCreatedDate = [date dateFromRFC3339String];
-                                                                          date = responseObject[@"modified_date"];
-                                                                          i.objModifiedDate = [date dateFromRFC3339String];
+                                                                          i.objCreatedDate = [MHItem createdDateFromString:responseObject[@"created_date"]];
                                                                           i.objOwner = responseObject[@"owner"];
                                                                           [i locationParser:responseObject[@"location"]];
+                                                                          [i modifiedDateFromString:responseObject[@"modified_date"]];
                                                                           [[MHCoreDataContext getInstance] saveContext];
                                                                           completionBlock(i, error);
                                                                       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -1203,7 +1205,8 @@ static MHAPI *_sharedAPI = nil;
     
     AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
                                                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                                                          completionBlock(i, error);
+                                                                          i.objStatus = objectStatusOk;
+                                                                          completionBlock(nil, error);
                                                                       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                                                           completionBlock(nil, error);
                                                                       }];
