@@ -32,6 +32,11 @@
 @property (weak, nonatomic) IBOutlet UINavigationItem *screenTitle;
 
 @property (nonatomic, strong) MHCollection *collection;
+@property (weak, nonatomic) IBOutlet UIView *deleteCollectionView;
+@property (weak, nonatomic) IBOutlet UIButton *deleteCollectionButton;
+
+
+- (IBAction)deleteCollection:(id)sender;
 
 - (IBAction)cancel:(id)sender;
 - (IBAction)add:(id)sender;

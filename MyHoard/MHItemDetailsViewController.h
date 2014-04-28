@@ -22,6 +22,7 @@
 @property (weak, nonatomic) IBOutlet UIView *alphaBackgroundView;
 @property (weak, nonatomic) IBOutlet MKMapView *itemMapView;
 @property (weak, nonatomic) IBOutlet UIButton *locationButton;
+@property (weak, nonatomic) IBOutlet UIView *borderView;
 
 
 - (IBAction)switchLocationImageViews:(id)sender;

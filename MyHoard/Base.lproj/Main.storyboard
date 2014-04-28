@@ -817,13 +817,17 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                     </view>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TYC-0P-fks">
-                                        <rect key="frame" x="20" y="10" width="280" height="28"/>
+                                        <rect key="frame" x="20" y="20" width="280" height="28"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hva-j2-JYo">
+                                        <rect key="frame" x="-2" y="20" width="324" height="28"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </view>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JS9-Vf-gL5">
-                                        <rect key="frame" x="10" y="40" width="300" height="360"/>
+                                        <rect key="frame" x="10" y="50" width="300" height="350"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -842,7 +846,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1ox-gG-oow">
-                                        <rect key="frame" x="224" y="9" width="52" height="37"/>
+                                        <rect key="frame" x="270" y="18" width="52" height="37"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <state key="normal" image="pin_y">
@@ -869,6 +873,7 @@
                     <navigationItem key="navigationItem" title="Title" id="pSm-AF-Jtc" userLabel="Navigation Item"/>
                     <connections>
                         <outlet property="alphaBackgroundView" destination="hVf-7u-6lk" id="UsA-a1-CH7"/>
+                        <outlet property="borderView" destination="Hva-j2-JYo" id="Lba-vo-OLR"/>
                         <outlet property="bottomView" destination="UWp-Sz-MmU" id="okZ-rW-cDE"/>
                         <outlet property="dragTopButton" destination="4M2-bn-RPW" id="aS2-4E-Di8"/>
                         <outlet property="frontImage" destination="4cj-ad-f3B" id="alf-7X-AoO"/>
@@ -1034,6 +1039,19 @@
                             <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" restorationIdentifier="delete button" translatesAutoresizingMaskIntoConstraints="NO" id="I1f-db-a5C">
                                 <rect key="frame" x="0.0" y="270" width="320" height="36"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Sr-ic-qng">
+                                        <rect key="frame" x="20" y="0.0" width="280" height="36"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Delete collection">
+                                            <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="deleteCollection:" destination="x5u-US-1lE" eventType="touchUpInside" id="jzy-qc-oyt"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
@@ -1072,6 +1090,8 @@
                     </view>
                     <navigationItem key="navigationItem" title="New collection" id="Psv-xS-6GK"/>
                     <connections>
+                        <outlet property="deleteCollectionButton" destination="6Sr-ic-qng" id="syV-HY-7lu"/>
+                        <outlet property="deleteCollectionView" destination="I1f-db-a5C" id="NYP-TA-Tpr"/>
                         <outlet property="descriptionBackgroundView" destination="Gz7-Cd-0ml" id="NuW-cb-hno"/>
                         <outlet property="descriptionTextField" destination="jDy-h9-467" id="VJW-Oi-SML"/>
                         <outlet property="nameBackgroundView" destination="Oth-kj-cgB" id="tcd-dW-MEz"/>

@@ -59,8 +59,14 @@
     _items = [[NSArray alloc]initWithObjects:@"Public", @"Private", @"Offline", nil];
     _last=0;
     
+    _deleteCollectionView.backgroundColor = [UIColor appBackgroundColor];
+    
     if (_collection != nil) {
         [self loadCollectionSettings];
+    } else {
+        _deleteCollectionButton.hidden = YES;
+        _deleteCollectionView.hidden = YES;
+        _deleteCollectionButton.enabled = NO;
     }
 }
 
@@ -71,7 +77,6 @@
     for (NSString *tag in _collection.objTags) {
         tags = [NSString stringWithFormat:@"%@%@ ", tags, tag];
     }
-    
     _tagsTextField.text = tags;
     _descriptionTextField.text = _collection.objDescription;
     _screenTitle.title = @"Edit Collection";
@@ -111,6 +116,9 @@
         self.typeTitleLAbel.textColor=[UIColor lighterYellow];
     }];
     _last=[_items indexOfObject: _typeLabel.text];
+}
+
+- (IBAction)deleteCollection:(id)sender {
 }
 
 - (IBAction)cancel:(id)sender {

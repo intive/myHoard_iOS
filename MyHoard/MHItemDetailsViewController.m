@@ -37,12 +37,31 @@
     _alphaBackgroundView.alpha = 0.7f;
     
     _itemCommentLabel.text = _item.objDescription;
-    _itemCommentLabel.textColor = [UIColor whiteColor];
+    _itemCommentLabel.textColor = [UIColor lightGrayColor];
     _itemCommentLabel.backgroundColor = [UIColor clearColor];
     _itemCommentLabel.editable = NO;
     _itemTitleLabel.text = _item.objName;
     _itemTitleLabel.textColor = [UIColor collectionNameFrontColor];
     _itemTitleLabel.backgroundColor = [UIColor clearColor];
+    _itemTitleLabel.clipsToBounds = YES;
+    
+    CALayer *bottomBorder = [CALayer layer];
+    bottomBorder.borderColor = [UIColor darkGrayColor].CGColor;
+    bottomBorder.borderWidth = 0.75f;
+    bottomBorder.frame = CGRectMake(0, 0, CGRectGetWidth(_borderView.frame)+2, CGRectGetHeight(_borderView.frame));
+    
+    CALayer *topBorder = [CALayer layer];
+    topBorder.borderColor = [UIColor darkGrayColor].CGColor;
+    topBorder.borderWidth = 0.75f;
+    topBorder.frame = CGRectMake(0, 1, CGRectGetWidth(_borderView.frame)+2, CGRectGetHeight(_borderView.frame));
+    
+    
+    [_borderView.layer addSublayer:topBorder];
+    [_borderView.layer addSublayer:bottomBorder];
+    
+    _borderView.backgroundColor = [UIColor clearColor];
+    _borderView.layer.borderColor = (__bridge CGColorRef)([UIColor grayColor]);
+    _borderView.layer.borderWidth = 1.0f;
     for(MHMedia *media in _item.media) {
         _frontImage.image = [[MHImageCache sharedInstance] imageForKey:media.objKey];
         break; //just read first item
