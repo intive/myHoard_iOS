@@ -728,9 +728,7 @@ static MHAPI *_sharedAPI = nil;
     
     AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
                                                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                                                          [[MHCoreDataContext getInstance].managedObjectContext deleteObject:media];
-                                                                          [[MHCoreDataContext getInstance]saveContext];
-                                                                          completionBlock(nil, nil);
+                                                                          completionBlock(media, nil);
                                                                       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                                                           completionBlock(nil, error);
                                                                       }];
@@ -950,7 +948,7 @@ static MHAPI *_sharedAPI = nil;
                                                                                               if (error) {
                                                                                                   completionBlock(nil, error);
                                                                                               }else {
-                                                                                                  [eachItem removeMediaObject:eachMedia];
+                                                                                                  [eachItem removeMediaObject:object];
                                                                                               }
                                                                                           }];
                                                                                       }
