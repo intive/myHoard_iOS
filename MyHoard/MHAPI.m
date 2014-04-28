@@ -945,7 +945,7 @@ static MHAPI *_sharedAPI = nil;
                                                                               
                                                                               for (MHItem *eachItem in coreDataItems) {
                                                                                   for (MHMedia *eachMedia in eachItem.media) {
-                                                                                      if (eachMedia.objStatus == objectStatusDeleted) {
+                                                                                      if ([eachMedia.objStatus isEqualToString:objectStatusDeleted]) {
                                                                                           [self deleteMedia:eachMedia completionBlock:^(id object, NSError *error) {
                                                                                               if (error) {
                                                                                                   completionBlock(nil, error);
@@ -955,7 +955,7 @@ static MHAPI *_sharedAPI = nil;
                                                                                           }];
                                                                                       }
                                                                                       
-                                                                                      if (eachMedia.objStatus == objectStatusNew || eachMedia.objStatus == objectStatusModified) {
+                                                                                      if ([eachMedia.objStatus isEqualToString:objectStatusNew] || [eachMedia.objStatus isEqualToString:objectStatusModified]) {
                                                                                           [self createMedia:eachMedia completionBlock:^(id object, NSError *error) {
                                                                                               if (error) {
                                                                                                   completionBlock(nil, error);
@@ -1122,7 +1122,7 @@ static MHAPI *_sharedAPI = nil;
                                                                                                       completionBlock(nil, error);
                                                                                                   }else {
                                                                                                       for (MHMedia *mediaToUpdate in upToDateItem.media) {
-                                                                                                          if (mediaToUpdate.objStatus == objectStatusModified) {
+                                                                                                          if ([mediaToUpdate.objStatus isEqualToString:objectStatusModified]) {
                                                                                                               [self updateMedia:mediaToUpdate completionBlock:^(id object, NSError *error) {
                                                                                                                   if (error) {
                                                                                                                       completionBlock(nil, error);
@@ -1145,7 +1145,7 @@ static MHAPI *_sharedAPI = nil;
                                                                                                       completionBlock(nil,error);
                                                                                                   }else {
                                                                                                       for (MHMedia *mediaToSend in itemToSend.media) {
-                                                                                                          if (mediaToSend.objStatus == objectStatusModified) {
+                                                                                                          if ([mediaToSend.objStatus isEqualToString: objectStatusModified]) {
                                                                                                               [self updateMedia:mediaToSend completionBlock:^(id object, NSError *error) {
                                                                                                                   if (error) {
                                                                                                                       completionBlock(nil, error);
