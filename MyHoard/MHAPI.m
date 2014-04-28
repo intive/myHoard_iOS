@@ -943,6 +943,28 @@ static MHAPI *_sharedAPI = nil;
                                                                               }
                                                                           }else if ([coreDataItems count] != 0 && [responseObject count] != 0){
                                                                               
+                                                                              for (MHItem *eachItem in coreDataItems) {
+                                                                                  for (MHMedia *eachMedia in eachItem.media) {
+                                                                                      if (eachMedia.objStatus == objectStatusDeleted) {
+                                                                                          [self deleteMedia:eachMedia completionBlock:^(id object, NSError *error) {
+                                                                                              if (error) {
+                                                                                                  completionBlock(nil, error);
+                                                                                              }else {
+                                                                                                  [eachItem removeMediaObject:eachMedia];
+                                                                                              }
+                                                                                          }];
+                                                                                      }
+                                                                                      
+                                                                                      if (eachMedia.objStatus == objectStatusNew || eachMedia.objStatus == objectStatusModified) {
+                                                                                          [self createMedia:eachMedia completionBlock:^(id object, NSError *error) {
+                                                                                              if (error) {
+                                                                                                  completionBlock(nil, error);
+                                                                                              }
+                                                                                          }];
+                                                                                      }
+                                                                                  }
+                                                                              }
+                                                                              
                                                                               predicate = [NSPredicate predicateWithFormat:@"objStatus == %@", objectStatusNew];
                                                                               NSArray *objStatusNew = [coreDataItems filteredArrayUsingPredicate:predicate];
                                                                               
