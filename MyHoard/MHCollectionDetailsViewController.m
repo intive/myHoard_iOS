@@ -184,7 +184,9 @@ typedef NS_ENUM(NSInteger, ItemSortMode) {
         UINavigationController* nc = segue.destinationViewController;
         MHAddItemViewController *vc = (MHAddItemViewController *)nc.visibleViewController;
         vc.selectedCollection = self.collection;
-        vc.selectedImage = sender;
+        NSDictionary* d = sender;
+        vc.selectedImage = d[kMHImagePickerInfoImage];
+        vc.selectedLocation = d[kMHImagePickerInfoLocation];
     } else if ([segue.identifier isEqualToString:@"ChangeCollectionSettingsSegue"])
     {
         UINavigationController *nc = segue.destinationViewController;
@@ -313,7 +315,12 @@ typedef NS_ENUM(NSInteger, ItemSortMode) {
     MHImagePickerViewController *imagePickerController = [[MHImagePickerViewController alloc] init];
     imagePickerController.modalPresentationStyle = UIModalPresentationCurrentContext;
     imagePickerController.sourceType = sourceType;
-    imagePickerController.delegate = self;
+    imagePickerController.completionBlock = ^(NSDictionary* info) {
+        [self dismissViewControllerAnimated:YES completion:^{
+            [self performSegueWithIdentifier:@"AddItemSegue" sender:info];
+        }];
+        
+    };
     
     [self presentViewController:imagePickerController animated:YES completion:nil];
 }
@@ -330,16 +337,6 @@ typedef NS_ENUM(NSInteger, ItemSortMode) {
             [self showImagePickerForSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
             break;
     }
-}
-
-
-#pragma mark image picker delegate
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
-{
-    UIImage *image = [info valueForKey:UIImagePickerControllerOriginalImage];
-    [self dismissViewControllerAnimated:YES completion:^{
-        [self performSegueWithIdentifier:@"AddItemSegue" sender:image];
-    }];
 }
 
 

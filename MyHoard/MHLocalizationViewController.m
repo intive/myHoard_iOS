@@ -135,14 +135,18 @@
     if ([_localizations[indexPath.row] isKindOfClass:[Address class]]) {
             Address *address = [_localizations objectAtIndex:indexPath.row];
             [self.delegate selectedLocationName:[address title]];
-            [self.delegate selectedLocationCoordinate:address.coordinate];
+        
+            CLLocation* l = [[CLLocation alloc] initWithLatitude:address.coordinate.latitude
+                                                       longitude:address.coordinate.longitude];
+        
+            [self.delegate selectedLocationCoordinate:l];
             [self.navigationController setNavigationBarHidden:NO];
             [self.navigationController popViewControllerAnimated:YES];
         }else{
             CLPlacemark *placemark = _localizations[indexPath.row];
 #warning using description in this place is not the best idea. The address should be composed using data in placemark.addressDictionary
             [self.delegate selectedLocationName:placemark.description];
-            [self.delegate selectedLocationCoordinate:placemark.location.coordinate];
+            [self.delegate selectedLocationCoordinate:placemark.location];
             [self.navigationController setNavigationBarHidden:NO];
             [self.navigationController popViewControllerAnimated:YES];
         }

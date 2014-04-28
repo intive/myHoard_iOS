@@ -6,14 +6,19 @@
 //  Copyright (c) 2014 BLStream. All rights reserved.
 //
 
+#import <AssetsLibrary/AssetsLibrary.h>
+
 #import "MHImagePickerViewController.h"
 #import "MHMedia.h"
 #import "MHDatabaseManager.h"
 #import "MHRoundButton.h"
+#import "MHLocation.h"
+
+const NSString* const kMHImagePickerInfoImage = @"kMHImagePickerInfoImage";
+const NSString* const kMHImagePickerInfoLocation = @"kMHImagePickerInfoLocation";
 
 @interface MHImagePickerViewController ()
 {
-    id<UINavigationControllerDelegate,UIImagePickerControllerDelegate> _realDelegate;
     NSDictionary* _mediaInfo;
 }
 
@@ -25,6 +30,10 @@
 {
     [super viewDidLoad];
 
+    [[MHLocation sharedInstance] startGettingLocation];
+
+    self.delegate = self;
+    
     if (self.sourceType == UIImagePickerControllerSourceTypeCamera) {
         [[NSBundle mainBundle] loadNibNamed:@"CameraOverlayView" owner:self options:nil];
         
@@ -68,9 +77,6 @@
 }
 
 - (IBAction)cancelButtonPressed:(id)sender {
-    if ([_realDelegate respondsToSelector:@selector(imagePickerControllerDidCancel:)]) {
-		[_realDelegate performSelector:@selector(imagePickerControllerDidCancel:) withObject:self];
-	}
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -81,6 +87,24 @@
     _overlayView.bottomView.hidden = NO;
 }
 
+- (NSDictionary*)infoDictionaryWithImage:(UIImage *)image andLocation:(CLLocation *)location {
+ 
+    NSMutableDictionary* d = [NSMutableDictionary dictionary];
+    if (image) {
+        d[kMHImagePickerInfoImage] = image;
+    }
+    
+    if (location) {
+        d[kMHImagePickerInfoLocation] = location;
+    }
+
+    return d;
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+    [[MHLocation sharedInstance] stopGettingLocation];
+}
+
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     
     _mediaInfo = info;
@@ -88,18 +112,29 @@
     _overlayView.imageView.hidden = NO;
     _overlayView.topView.hidden = YES;
     _overlayView.bottomView.hidden = YES;
-}
+    
+    __block UIImage* image = info[UIImagePickerControllerOriginalImage];
 
-- (void)setDelegate:(id<UINavigationControllerDelegate,UIImagePickerControllerDelegate>)delegate {
-//    if (self.sourceType == UIImagePickerControllerSourceTypeCamera) {
-//        if ([delegate isEqual:self]) {
-//            [super setDelegate:delegate];
-//        } else {
-//            _realDelegate = delegate;
-//        }
-//    } else {
-        [super setDelegate:delegate];
-//    }
+    if (self.sourceType == UIImagePickerControllerSourceTypePhotoLibrary) {
+        
+        ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+        [library assetForURL:info[UIImagePickerControllerReferenceURL]
+                 resultBlock:^(ALAsset *asset) {
+                     CLLocation *location = [asset valueForProperty:ALAssetPropertyLocation];
+                     
+                     _completionBlock([self infoDictionaryWithImage:image andLocation:location]);
+                 }
+         
+                failureBlock:^(NSError *error) {
+                    _completionBlock([self infoDictionaryWithImage:image andLocation:nil]);
+                }];
+    } else {
+        
+        _completionBlock([self infoDictionaryWithImage:image andLocation:[MHLocation sharedInstance].currentLocation]);
+        
+    }
+    
+    [[MHLocation sharedInstance] stopGettingLocation];
 }
 
 @end

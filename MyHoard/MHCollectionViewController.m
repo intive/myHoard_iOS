@@ -228,7 +228,9 @@ typedef NS_ENUM(NSInteger, CollectionSortMode) {
     } else if ([segue.identifier isEqualToString:@"AddItemSegue"]) {
         UINavigationController* nc = segue.destinationViewController;
         MHAddItemViewController *vc = (MHAddItemViewController *)nc.visibleViewController;
-        vc.selectedImage = sender;
+        NSDictionary* info = sender;
+        vc.selectedImage = info[kMHImagePickerInfoImage];
+        vc.selectedLocation = info[kMHImagePickerInfoLocation];
     }
 }
 
@@ -526,7 +528,13 @@ newIndexPath:(NSIndexPath *)newIndexPath
     MHImagePickerViewController *imagePickerController = [[MHImagePickerViewController alloc] init];
     imagePickerController.modalPresentationStyle = UIModalPresentationCurrentContext;
     imagePickerController.sourceType = sourceType;
-    imagePickerController.delegate = self;
+    imagePickerController.completionBlock = ^(NSDictionary *info) {
+        
+        [self dismissViewControllerAnimated:YES completion:^{
+            [self performSegueWithIdentifier:@"AddItemSegue" sender:info];
+        }];
+
+    };
 
     [self presentViewController:imagePickerController animated:YES completion:nil];
 }
@@ -545,15 +553,6 @@ newIndexPath:(NSIndexPath *)newIndexPath
     }
 }
 
-
-#pragma mark image picker delegate
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
-{
-    UIImage *image = [info valueForKey:UIImagePickerControllerOriginalImage];
-    [self dismissViewControllerAnimated:YES completion:^{
-        [self performSegueWithIdentifier:@"AddItemSegue" sender:image];
-    }];
-}
 
 #pragma mark scroll view
 

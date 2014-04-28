@@ -13,7 +13,7 @@
 @protocol LocationSelectorDelegate <NSObject>
 
 - (void)selectedLocationName:(NSString *)name;
-- (void)selectedLocationCoordinate:(CLLocationCoordinate2D)coordinate;
+- (void)selectedLocationCoordinate:(CLLocation*)location;
 
 @end
 

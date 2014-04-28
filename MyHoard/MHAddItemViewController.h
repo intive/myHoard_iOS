@@ -21,8 +21,8 @@
 
 @property (nonatomic,strong) MHLocalizationViewController *VCL;
 @property (nonatomic,strong) MHCollection* selectedCollection;
+@property (nonatomic,strong) CLLocation* selectedLocation;
 @property (nonatomic,strong) NSString *locationNameString;
-@property (nonatomic) CLLocationCoordinate2D locationCoordinatePassed;
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (weak, nonatomic) IBOutlet UIView *titleBackground;

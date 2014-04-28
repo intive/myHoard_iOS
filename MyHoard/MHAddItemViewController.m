@@ -63,38 +63,33 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 200;
     _commentaryTextView.backgroundColor = [UIColor clearColor];
     _commentaryTextView.textColor = [UIColor lighterYellow];
     [_shareSwitch setOn:1];
-#warning - get location!
     self.imageView.image = self.selectedImage;
-//    if (self.mediaId){
-//        [UIImage imageForAssetPath:self.mediaId completion:^(UIImage *image, CLLocationCoordinate2D coordinate) {
-//            self.imageView.image = image;
-//            _locationCoordinatePassed=coordinate;
-//            CLGeocoder *geo = [[CLGeocoder alloc]init];
-//            CLLocation *loc = [[CLLocation alloc]initWithLatitude:coordinate.latitude longitude:coordinate.longitude];
-//            [geo reverseGeocodeLocation: loc completionHandler:
-//             ^(NSArray *placemarks, NSError *error) {
-//                 if (placemarks.count && !error){
-//                 CLPlacemark *placemark = [placemarks objectAtIndex:0];
-//                 NSMutableString *tmp = [[NSMutableString alloc]init];
-//                 if (placemark.thoroughfare != nil){
-//                     [tmp appendFormat:@"%@",placemark.thoroughfare];
-//                 }
-//                 if (placemark.thoroughfare != nil && placemark.locality != nil){
-//                     [tmp appendFormat:@", "];
-//                 }
-//                 if (placemark.locality != nil){
-//                     [tmp appendFormat:@"%@", placemark.locality];
-//                 }
-//                 _locationNameString=tmp;
-//                 if (tmp.length) {
-//                     self.localizationNoneLabel.text=_locationNameString;
-//                 }
-//                 }else{
-//                     NSLog(@"error when geting name from location located in photo");
-//                 }
-//             }];
-//        }];
-//    }
+    if (self.selectedLocation) {
+
+        CLGeocoder *geo = [[CLGeocoder alloc] init];
+        [geo reverseGeocodeLocation: self.selectedLocation completionHandler:
+         ^(NSArray *placemarks, NSError *error) {
+             if (placemarks.count && !error){
+                 CLPlacemark *placemark = [placemarks objectAtIndex:0];
+                 NSMutableString *tmp = [[NSMutableString alloc]init];
+                 if (placemark.thoroughfare != nil){
+                     [tmp appendFormat:@"%@",placemark.thoroughfare];
+                 }
+                 if (placemark.thoroughfare != nil && placemark.locality != nil){
+                     [tmp appendFormat:@", "];
+                 }
+                 if (placemark.locality != nil){
+                     [tmp appendFormat:@"%@", placemark.locality];
+                 }
+                 _locationNameString=tmp;
+                 if (tmp.length) {
+                     self.localizationNoneLabel.text=_locationNameString;
+                 }
+             }else{
+                 NSLog(@"error when geting name from location located in photo");
+             }
+         }];
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -304,11 +299,10 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 200;
             __weak typeof(self) weakself = self;
         [_controller setCompletionHandler:^(NSString *activityType, BOOL completed) {
             if(completed){
-            CLLocation* loc = [[CLLocation alloc] initWithLatitude:_locationCoordinatePassed.latitude longitude:_locationCoordinatePassed.longitude];
             MHItem* item = [MHDatabaseManager insertItemWithObjName:weakself.titleTextField.text
                                                      objDescription:weakself.commentaryTextView.text
                                                             objTags:nil
-                                                        objLocation:loc
+                                                        objLocation:weakself.selectedLocation
                                                      objCreatedDate:[NSDate date]
                                                     objModifiedDate:nil
                                                          collection:weakself.selectedCollection
@@ -379,11 +373,10 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 200;
             }
         }];
     } else {
-        CLLocation* loc = [[CLLocation alloc] initWithLatitude:_locationCoordinatePassed.latitude longitude:_locationCoordinatePassed.longitude];
         MHItem* item = [MHDatabaseManager insertItemWithObjName:self.titleTextField.text
                                                  objDescription:self.commentaryTextView.text
                                                         objTags:nil
-                                                    objLocation:loc
+                                                    objLocation:self.selectedLocation
                                                  objCreatedDate:[NSDate date]
                                                 objModifiedDate:nil
                                                      collection:self.selectedCollection
@@ -474,8 +467,8 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 200;
     _locationNameString = name;
 }
 
-- (void)selectedLocationCoordinate:(CLLocationCoordinate2D)coordinate {
-    _locationCoordinatePassed = coordinate;
+- (void)selectedLocationCoordinate:(CLLocation*)location {
+    _selectedLocation = location;
 }
 
 
