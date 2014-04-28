@@ -508,7 +508,7 @@ static MHAPI *_sharedAPI = nil;
                                                                               }
                                                                           }else if ([coreDataCollections count] > 0 && [responseObject count] == 0) {
                                                                               for (MHCollection *eachCollection in coreDataCollections) {
-                                                                                  if (eachCollection.objStatus != collectionTypeOffline) {
+                                                                                  if (![eachCollection.objStatus isEqualToString:collectionTypeOffline]) {
                                                                                       [self createCollection:eachCollection completionBlock:^(id object, NSError *error) {
                                                                                           if (error) {
                                                                                               completionBlock(nil, error);
