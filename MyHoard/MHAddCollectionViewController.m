@@ -137,11 +137,26 @@
     _last=[_items indexOfObject: _typeLabel.text];
     if (self.collection){
         if (self.type==2){
+            self.collection.objType = collectionTypeOffline;
             UIAlertView *alert5 = [[UIAlertView alloc]initWithTitle:nil message:@"Do you want to remove the collection from server? The collection will be stored in this device." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
             [alert5 show];
         }
-        if (self.type==1)
+        else if (self.type==1)
         {
+            self.collection.objType = collectionTypePrivate;
+            [waitDialog show];
+            [[MHAPI getInstance]createCollection:self.collection completionBlock:^(id object, NSError *error){
+                if (error){
+                    [waitDialog dismiss];
+                    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Error" message:error.localizedDescription delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                    [alert show];
+                }
+                else
+                    [waitDialog dismiss];
+            }];
+        }
+        else {
+            self.collection.objType = collectionTypePublic;
             [waitDialog show];
             [[MHAPI getInstance]createCollection:self.collection completionBlock:^(id object, NSError *error){
                 if (error){
