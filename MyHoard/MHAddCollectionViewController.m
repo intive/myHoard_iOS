@@ -230,12 +230,11 @@
                                                                        objCreatedDate:[NSDate date]
                                                                       objModifiedDate:nil
                                                           objOwnerNilAddLogedUserCode:nil
-                                                                            objStatus:@"new"
+                                                                            objStatus:objectStatusNew
                                         objType:colllectionType];
         
             if ([[MHAPI getInstance]activeSession] == YES) {
-                NSLog(@"Yes you are logged in");
-                if (![_typeLabel.text isEqualToString:@"Offline"]) {
+                if (![_typeLabel.text isEqualToString:collectionTypeOffline]) {
                     __block MHWaitDialog* wait = [[MHWaitDialog alloc] init];
                     [wait show];
                     [[MHAPI getInstance] createCollection:collection completionBlock:^(id object, NSError *error) {
@@ -268,7 +267,7 @@
     switch (buttonIndex) {
         case 1:
             [waitDialog show];
-            self.collection.objStatus = @"deleted";
+            self.collection.objStatus = objectStatusDeleted;
             self.collection.objType = collectionTypeOffline;
             [[MHAPI getInstance] deleteCollection:self.collection completionBlock:^(id object, NSError *error){
                 if (error)

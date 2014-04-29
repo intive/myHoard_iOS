@@ -306,7 +306,7 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 200;
                                                      objCreatedDate:[NSDate date]
                                                     objModifiedDate:nil
                                                          collection:weakself.selectedCollection
-                                                          objStatus:@"new"];
+                                                          objStatus:objectStatusNew];
             
             if (weakself.selectedImage) {
                 NSString *key = [[MHImageCache sharedInstance] cacheImage:weakself.selectedImage];
@@ -314,7 +314,7 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 200;
                 MHMedia* media = [MHDatabaseManager insertMediaWithCreatedDate:[NSDate date]
                                                                         objKey:key
                                                                           item:item
-                                                                     objStatus:@"new"];
+                                                                     objStatus:objectStatusNew];
                 
                 if ([[MHAPI getInstance]activeSession] == YES) {
                     __block MHWaitDialog* wait = [[MHWaitDialog alloc] init];
@@ -380,7 +380,7 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 200;
                                                  objCreatedDate:[NSDate date]
                                                 objModifiedDate:nil
                                                      collection:self.selectedCollection
-                                                      objStatus:@"new"];
+                                                      objStatus:objectStatusNew];
         
         if (self.selectedImage) {
             NSString *key = [[MHImageCache sharedInstance] cacheImage:self.selectedImage];
@@ -388,7 +388,7 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 200;
             MHMedia* media = [MHDatabaseManager insertMediaWithCreatedDate:[NSDate date]
                                                                     objKey:key
                                                                       item:item
-                                                                 objStatus:@"new"];
+                                                                 objStatus:objectStatusNew];
             
             if ([[MHAPI getInstance]activeSession] == YES) {
                 if (![self.selectedCollection.objType isEqualToString:collectionTypeOffline]) {
