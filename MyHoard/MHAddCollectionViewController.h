@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "MHCollection.h"
+#import "MHWaitDialog.h"
 
-@interface MHAddCollectionViewController : MHBaseViewController<UITextFieldDelegate,UIPickerViewDelegate>
+@interface MHAddCollectionViewController : MHBaseViewController<UITextFieldDelegate,UIPickerViewDelegate,UIAlertViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *nameBackgroundView;
 @property (weak, nonatomic) IBOutlet UIView *tagsBackgroundView;
@@ -34,6 +35,7 @@
 @property (nonatomic, strong) MHCollection *collection;
 @property (weak, nonatomic) IBOutlet UIView *deleteCollectionView;
 @property (weak, nonatomic) IBOutlet UIButton *deleteCollectionButton;
+@property (weak, nonatomic) IBOutlet UIButton *typeButtonO;
 
 
 - (IBAction)deleteCollection:(id)sender;

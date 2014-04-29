@@ -68,6 +68,10 @@
         _deleteCollectionView.hidden = YES;
         _deleteCollectionButton.enabled = NO;
     }
+    
+    if(![[MHAPI getInstance]userId]){
+        self.typeButtonO.hidden = YES;
+        self.typeLabel.text = @"Offline";}
 }
 
 - (void)loadCollectionSettings
@@ -80,6 +84,19 @@
     _tagsTextField.text = tags;
     _descriptionTextField.text = _collection.objDescription;
     _screenTitle.title = @"Edit Collection";
+    
+    if ([self.collection.objType isEqualToString:collectionTypePublic]){
+        self.typeLabel.text = @"Public";
+        [self.pickerView selectRow:0 inComponent:0 animated:YES];
+    }
+    if ([self.collection.objType isEqualToString:collectionTypePrivate]){
+        self.typeLabel.text = @"Private";
+        [self.pickerView selectRow:1 inComponent:0 animated:YES];
+    }
+    if ([self.collection.objType isEqualToString:collectionTypeOffline]){
+        self.typeLabel.text = @"Offline";
+        [self.pickerView selectRow:2 inComponent:0 animated:YES];
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -110,12 +127,33 @@
 }
 
 - (IBAction)pickerSave:(id)sender {
+    __block MHWaitDialog *waitDialog = [[MHWaitDialog alloc]init];
+    
     [UIView animateWithDuration:1.0 animations:^{
         self.pickerHidingView.alpha=1.0;
         self.typeLabel.textColor=[UIColor lighterYellow];
         self.typeTitleLAbel.textColor=[UIColor lighterYellow];
     }];
     _last=[_items indexOfObject: _typeLabel.text];
+    if (self.collection){
+        if (self.type==2){
+            UIAlertView *alert5 = [[UIAlertView alloc]initWithTitle:nil message:@"Do you want to remove the collection from server? The collection will be stored in this device." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+            [alert5 show];
+        }
+        if (self.type==1)
+        {
+            [waitDialog show];
+            [[MHAPI getInstance]createCollection:self.collection completionBlock:^(id object, NSError *error){
+                if (error){
+                    [waitDialog dismiss];
+                    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Error" message:error.localizedDescription delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                    [alert show];
+                }
+                else
+                    [waitDialog dismiss];
+            }];
+        }
+    }
 }
 
 - (IBAction)deleteCollection:(id)sender {
@@ -222,6 +260,27 @@
                 [self dismissViewControllerAnimated:YES completion:nil];
             }
         }
+    }
+}
+
+- (void) alertView:(UIAlertView *)alert5 clickedButtonAtIndex:(NSInteger)buttonIndex{
+    __block MHWaitDialog *waitDialog = [[MHWaitDialog alloc]init];
+    switch (buttonIndex) {
+        case 1:
+            [waitDialog show];
+            self.collection.objStatus = @"deleted";
+            self.collection.objType = collectionTypeOffline;
+            [[MHAPI getInstance] deleteCollection:self.collection completionBlock:^(id object, NSError *error){
+                if (error)
+                {
+                    [waitDialog dismiss];
+                    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Error" message:error.localizedDescription delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                    [alert show];
+                }
+                else
+                    [waitDialog dismiss];
+            }];
+            break;
     }
 }
 

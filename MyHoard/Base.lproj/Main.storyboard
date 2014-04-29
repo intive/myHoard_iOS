@@ -1104,6 +1104,7 @@
                         <outlet property="screenTitle" destination="Psv-xS-6GK" id="KhO-5g-62B"/>
                         <outlet property="tagsBackgroundView" destination="M46-sn-KFe" id="PhI-8N-JcU"/>
                         <outlet property="tagsTextField" destination="Sbl-LU-1Gr" id="HvF-fC-u95"/>
+                        <outlet property="typeButtonO" destination="gLg-Zq-cnb" id="mDP-os-oXr"/>
                         <outlet property="typeLabel" destination="jpI-62-Fdd" id="9bj-78-VIk"/>
                         <outlet property="typeTitleLAbel" destination="zUO-7D-5Dp" id="Sam-gX-aH9"/>
                     </connections>
