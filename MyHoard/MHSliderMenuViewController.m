@@ -119,8 +119,12 @@
 	
 	controller = [storyboard instantiateViewControllerWithIdentifier:@"MHSearchViewController"];
 	[self addViewControllerToLastSection:controller tagged:1 withTitle:@"Search" andIcon:@"search_y"];
-	controller = [storyboard instantiateViewControllerWithIdentifier:@"MHAccountViewController"];
-	[self addViewControllerToLastSection:controller tagged:2 withTitle:@"Profile" andIcon:@"profile_y"];
+    
+    if ([[MHAPI getInstance]activeSession]) {
+        controller = [storyboard instantiateViewControllerWithIdentifier:@"MHAccountViewController"];
+        [self addViewControllerToLastSection:controller tagged:2 withTitle:@"Profile" andIcon:@"profile_y"];
+    }
+    
 	controller = [storyboard instantiateViewControllerWithIdentifier:@"MHCollectionViewController"];
 	[self addViewControllerToLastSection:controller tagged:3 withTitle:@"Collections" andIcon:@"collection_y"];
 	controller = [storyboard instantiateViewControllerWithIdentifier:@"MHFriendsViewController"];
