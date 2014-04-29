@@ -157,6 +157,21 @@
 }
 
 - (IBAction)deleteCollection:(id)sender {
+    [[[MHCoreDataContext getInstance] managedObjectContext] deleteObject:_collection];
+    if ([[MHAPI getInstance]activeSession] == YES && _collection.objStatus && ![_typeLabel.text isEqualToString:@"Offline"]) {
+        __block MHWaitDialog *waitDialog = [[MHWaitDialog alloc]init];
+        [[MHAPI getInstance] deleteCollection:_collection completionBlock:^(id object, NSError *error){
+            if (error)
+            {
+                [waitDialog dismiss];
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Error" message:error.localizedDescription delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                [alert show];
+            }
+            else
+                [waitDialog dismiss];
+        }];
+    }
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)cancel:(id)sender {
@@ -173,7 +188,7 @@
     }else if([self.nameTextField.text length]>64){
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"error" message:@"Name is to long(max64)" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
         [alert show];
-    }else if([MHDatabaseManager collectionWithObjName:self.nameTextField.text]!= nil){
+    }else if([MHDatabaseManager collectionWithObjName:self.nameTextField.text]!= nil && _collection == nil) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"error" message:@"Collection of that name exists." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
         [alert show];
     } else {

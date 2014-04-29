@@ -784,7 +784,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M4V-vx-C5w" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-24" y="-728"/>
+            <point key="canvasLocation" x="-736" y="-728"/>
         </scene>
         <!--Item Details View Controller - Title-->
         <scene sceneID="ZYI-XA-VUS">
@@ -798,11 +798,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="rL3-Dx-1Wi">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="rL3-Dx-1Wi">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="473"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             </mapView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4cj-ad-f3B">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4cj-ad-f3B">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="473"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <gestureRecognizers/>
@@ -867,7 +867,11 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                         <constraints>
+                            <constraint firstItem="xM2-7e-X78" firstAttribute="top" secondItem="4cj-ad-f3B" secondAttribute="bottom" constant="95" id="7xY-xJ-Unh"/>
+                            <constraint firstItem="4cj-ad-f3B" firstAttribute="top" secondItem="y9M-HN-gwx" secondAttribute="bottom" constant="-20" id="KGK-sj-in3"/>
+                            <constraint firstItem="xM2-7e-X78" firstAttribute="top" secondItem="rL3-Dx-1Wi" secondAttribute="bottom" constant="95" id="NLd-92-Y4B"/>
                             <constraint firstItem="UWp-Sz-MmU" firstAttribute="top" secondItem="xM2-7e-X78" secondAttribute="bottom" constant="-95" id="Ycd-EX-dzS"/>
+                            <constraint firstItem="rL3-Dx-1Wi" firstAttribute="top" secondItem="y9M-HN-gwx" secondAttribute="bottom" constant="-20" id="l8b-Tb-7Jg"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="pSm-AF-Jtc" userLabel="Navigation Item"/>
@@ -882,6 +886,7 @@
                         <outlet property="itemTitle" destination="pSm-AF-Jtc" id="zLZ-WT-hIh"/>
                         <outlet property="itemTitleLabel" destination="TYC-0P-fks" id="Mvc-il-qRo"/>
                         <outlet property="locationButton" destination="1ox-gG-oow" id="x6Y-qD-IsH"/>
+                        <segue destination="cF2-Sm-u7f" kind="modal" identifier="ChangeItemSettingsSegue" id="5B8-fj-Ve2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3Z2-NE-j1x" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -892,7 +897,7 @@
                     </connections>
                 </panGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="819" y="-1526"/>
+            <point key="canvasLocation" x="-207" y="-1662"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="A3J-Rx-2NW">
@@ -1680,8 +1685,8 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="3wb-xF-lsE"/>
-        <segue reference="7Aw-hx-44V"/>
+        <segue reference="5B8-fj-Ve2"/>
+        <segue reference="WHP-yM-ON6"/>
         <segue reference="AJS-nz-tvm"/>
     </inferredMetricsTieBreakers>
 </document>

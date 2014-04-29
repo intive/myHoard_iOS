@@ -11,7 +11,7 @@
 #import "MHMedia.h"
 #import <MapKit/MapKit.h>
 
-@interface MHItemDetailsViewController : MHBaseViewController <MKMapViewDelegate>
+@interface MHItemDetailsViewController : MHBaseViewController <MKMapViewDelegate, UITextViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *frontImage;
 @property (weak, nonatomic) IBOutlet UINavigationItem *itemTitle;

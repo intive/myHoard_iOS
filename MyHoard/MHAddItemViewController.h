@@ -23,6 +23,7 @@
 @property (nonatomic,strong) MHCollection* selectedCollection;
 @property (nonatomic,strong) CLLocation* selectedLocation;
 @property (nonatomic,strong) NSString *locationNameString;
+@property (nonatomic, strong) MHItem *item;
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (weak, nonatomic) IBOutlet UIView *titleBackground;
@@ -44,7 +45,7 @@
 - (IBAction)localizationButton:(id)sender;
 - (IBAction)backButton:(id)sender;
 - (IBAction)doneButton:(id)sender;
-
+- (void)updateItem;
 
 
 @end

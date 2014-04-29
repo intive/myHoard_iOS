@@ -90,6 +90,12 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 200;
              }
          }];
     }
+    if (_item) {
+        _selectedCollection = _item.collection;
+        _titleTextField.text = _item.objName;
+        _commentaryTextView.text = _item.objDescription;
+        
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -271,7 +277,11 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 200;
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"error" message:@"Collection is not set properly" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
         [alert show];
     }
-    else{
+    else if(_item != nil) {
+        [self updateItem];
+        return;
+    }
+    else {
         if (_shareSwitch.isOn) {
             NSMutableString *text = [[NSMutableString alloc] initWithString: @"I've just added"];
             [text appendFormat:@" %@ to my collection of %@!",_titleTextField.text, _collectionLabel.text];
@@ -380,7 +390,7 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 200;
                                                  objCreatedDate:[NSDate date]
                                                 objModifiedDate:nil
                                                      collection:self.selectedCollection
-                                                      objStatus:objectStatusNew];
+                                                      objStatus:@"new"];
         
         if (self.selectedImage) {
             NSString *key = [[MHImageCache sharedInstance] cacheImage:self.selectedImage];
@@ -388,7 +398,7 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 200;
             MHMedia* media = [MHDatabaseManager insertMediaWithCreatedDate:[NSDate date]
                                                                     objKey:key
                                                                       item:item
-                                                                 objStatus:objectStatusNew];
+                                                                 objStatus:@"new"];
             
             if ([[MHAPI getInstance]activeSession] == YES) {
                 if (![self.selectedCollection.objType isEqualToString:collectionTypeOffline]) {
@@ -454,6 +464,43 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 200;
             }
         }
     }
+    }
+}
+
+- (void)updateItem {
+    if(_shareSwitch.isOn) {
+        NSMutableString *text = [[NSMutableString alloc] initWithString: @"I've just updated"];
+        [text appendFormat:@" %@ to my collection of %@!",_titleTextField.text, _collectionLabel.text];
+        NSArray *activityItems = [NSArray alloc];
+        _controller = [UIActivityViewController alloc];
+        if(_selectedImage){
+            activityItems =  @[text,_selectedImage];
+        }
+        else {
+            activityItems =  @[text];
+        }
+        [_controller initWithActivityItems:activityItems applicationActivities:nil];
+        _controller.excludedActivityTypes = @[UIActivityTypePostToWeibo,
+                                              UIActivityTypeMail,
+                                              UIActivityTypePrint,
+                                              UIActivityTypeCopyToPasteboard,
+                                              UIActivityTypeAssignToContact,
+                                              UIActivityTypeSaveToCameraRoll,
+                                              UIActivityTypeAddToReadingList,
+                                              UIActivityTypePostToFlickr,
+                                              UIActivityTypePostToVimeo,
+                                              UIActivityTypePostToTencentWeibo,
+                                              UIActivityTypeAirDrop];
+        [[self parentViewController] presentViewController:_controller animated:YES completion:nil];
+        __weak typeof(self) weakself = self;
+        [_controller setCompletionHandler:^(NSString *activityType, BOOL completed) {
+            if(completed){
+                
+                //no api
+            }
+        }];
+    } else {
+        
     }
 }
 

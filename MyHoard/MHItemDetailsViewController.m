@@ -8,6 +8,7 @@
 
 #import "MHItemDetailsViewController.h"
 #import "MHImageCache.h"
+#import "MHAddItemViewController.h"
 
 #define BOTTOM_VIEW_COLLAPSED_HEIGHT 90
 #define METERS_PER_MILE 1609.344
@@ -25,7 +26,6 @@
 
 - (void)viewDidLoad
 {
-    
     [super viewDidLoad];
     
     _mapViewEnabled = NO;
@@ -35,6 +35,9 @@
     
     _alphaBackgroundView.backgroundColor = [UIColor collectionThumbnailOutlineColor];
     _alphaBackgroundView.alpha = 0.7f;
+    
+    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"edit"] style:UIBarButtonItemStylePlain target:self action:@selector(doneButton:)];
+    self.navigationItem.rightBarButtonItem = doneButton;
     
     _itemCommentLabel.text = _item.objDescription;
     _itemCommentLabel.textColor = [UIColor lightGrayColor];
@@ -151,5 +154,17 @@
         _frontImage.hidden = YES;
     }
     
+}
+
+-(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"ChangeItemSettingsSegue"]) {
+        UINavigationController *nc = segue.destinationViewController;
+        MHItemDetailsViewController *vc = (MHItemDetailsViewController *)nc.visibleViewController;
+        vc.item = _item;
+    }
+}
+
+- (IBAction)doneButton:(id)sender {
+    [self performSegueWithIdentifier:@"ChangeItemSettingsSegue" sender:_item];
 }
 @end
