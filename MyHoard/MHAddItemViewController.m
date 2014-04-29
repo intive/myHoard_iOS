@@ -11,6 +11,7 @@
 #import "MHAPI.h"
 #import "MHWaitDialog.h"
 #import "MHImageCache.h"
+#import "MHCoreDataContext.h"
 
 static const CGFloat KEYBOARD_ANIMATION_DURATION = 0.3;
 static const CGFloat MINIMUM_SCROLL_FRACTION = 0.01;
@@ -282,6 +283,14 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 200;
         return;
     }
     else {
+        if (_item != nil) {
+            MHItem *roboItem = [MHDatabaseManager itemWithObjName:_item.objName inCollection:_item.collection];
+            roboItem.objName = _titleTextField.text;
+            roboItem.objDescription = _commentaryTextView.text;
+            roboItem.collection.objModifiedDate = [NSDate date];
+            [[MHCoreDataContext getInstance] saveContext];
+            return;
+        }
         if (_shareSwitch.isOn) {
             NSMutableString *text = [[NSMutableString alloc] initWithString: @"I've just added"];
             [text appendFormat:@" %@ to my collection of %@!",_titleTextField.text, _collectionLabel.text];
@@ -467,42 +476,6 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 200;
     }
 }
 
-- (void)updateItem {
-    if(_shareSwitch.isOn) {
-        NSMutableString *text = [[NSMutableString alloc] initWithString: @"I've just updated"];
-        [text appendFormat:@" %@ to my collection of %@!",_titleTextField.text, _collectionLabel.text];
-        NSArray *activityItems = [NSArray alloc];
-        _controller = [UIActivityViewController alloc];
-        if(_selectedImage){
-            activityItems =  @[text,_selectedImage];
-        }
-        else {
-            activityItems =  @[text];
-        }
-        [_controller initWithActivityItems:activityItems applicationActivities:nil];
-        _controller.excludedActivityTypes = @[UIActivityTypePostToWeibo,
-                                              UIActivityTypeMail,
-                                              UIActivityTypePrint,
-                                              UIActivityTypeCopyToPasteboard,
-                                              UIActivityTypeAssignToContact,
-                                              UIActivityTypeSaveToCameraRoll,
-                                              UIActivityTypeAddToReadingList,
-                                              UIActivityTypePostToFlickr,
-                                              UIActivityTypePostToVimeo,
-                                              UIActivityTypePostToTencentWeibo,
-                                              UIActivityTypeAirDrop];
-        [[self parentViewController] presentViewController:_controller animated:YES completion:nil];
-        __weak typeof(self) weakself = self;
-        [_controller setCompletionHandler:^(NSString *activityType, BOOL completed) {
-            if(completed){
-                
-                //no api
-            }
-        }];
-    } else {
-        
-    }
-}
 
 #pragma mark CollectionSelectorDelegate
 - (void)collectionSelected:(MHCollection *)collection {
