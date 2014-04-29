@@ -580,12 +580,14 @@
                     </navigationItem>
                     <connections>
                         <outlet property="collectionBackground" destination="fPW-t8-bw3" id="mLS-fW-YQz"/>
+                        <outlet property="collectionButton" destination="N1u-jc-vtv" id="9Fv-5t-XlR"/>
                         <outlet property="collectionLabel" destination="StJ-u4-gsi" id="hPv-n3-cFl"/>
                         <outlet property="collectionNoneLabel" destination="gpb-1e-bw8" id="wNN-3d-Jzo"/>
                         <outlet property="comentaryBackground" destination="Lap-n7-pRm" id="vtX-pr-WiV"/>
                         <outlet property="commentaryTextView" destination="wOc-ZW-Kfe" id="2wC-PJ-Gs8"/>
                         <outlet property="defaultLabel" destination="gd8-Rc-1MS" id="pEb-5t-E5S"/>
                         <outlet property="imageView" destination="1N9-HF-VQ9" id="5xR-6k-ZGC"/>
+                        <outlet property="localisationButton" destination="krU-Ti-U0c" id="AEc-3x-0sz"/>
                         <outlet property="localizationBackground" destination="cvt-KS-f0P" id="7Ro-gb-AOC"/>
                         <outlet property="localizationLabel" destination="yoC-15-B3T" id="Jpu-lg-Vuw"/>
                         <outlet property="localizationNoneLabel" destination="fdb-o0-og2" id="UvY-yi-FtH"/>

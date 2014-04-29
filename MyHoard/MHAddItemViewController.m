@@ -95,7 +95,8 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 200;
         _selectedCollection = _item.collection;
         _titleTextField.text = _item.objName;
         _commentaryTextView.text = _item.objDescription;
-        
+        _collectionButton.enabled = NO;
+        _localisationButton.enabled = NO;
     }
 }
 

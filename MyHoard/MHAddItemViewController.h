@@ -40,6 +40,8 @@
 @property (weak, nonatomic) IBOutlet UISwitch *shareSwitch;
 @property (weak, nonatomic) IBOutlet UILabel *shareLabel;
 @property (weak, nonatomic) IBOutlet UIView *shareView;
+@property (weak, nonatomic) IBOutlet UIButton *localisationButton;
+@property (weak, nonatomic) IBOutlet UIButton *collectionButton;
 
 - (IBAction)collectionButton:(id)sender;
 - (IBAction)localizationButton:(id)sender;
