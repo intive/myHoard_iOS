@@ -261,9 +261,11 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 200;
 
 - (IBAction)doneButton:(id)sender {
     NSString *result = [self.titleTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSString *trimmedString = [self.titleTextField.text stringByTrimmingCharactersInSet:
+                               [NSCharacterSet whitespaceCharacterSet]];
     
     BOOL duplicate = NO;
-    NSArray *objects = [MHDatabaseManager allItemsWithObjName:self.titleTextField.text inCollection:self.selectedCollection];
+    NSArray *objects = [MHDatabaseManager allItemsWithObjName:trimmedString inCollection:self.selectedCollection];
     if ([objects count]) duplicate = YES;
     
     if([result length]<2){
@@ -285,8 +287,8 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 200;
     }
     else {
         if (_item != nil) {
-            MHItem *roboItem = [MHDatabaseManager itemWithObjName:_item.objName inCollection:_item.collection];
-            roboItem.objName = _titleTextField.text;
+            MHItem *roboItem = [MHDatabaseManager itemWithObjName:trimmedString inCollection:_item.collection];
+            roboItem.objName = trimmedString;
             roboItem.objDescription = _commentaryTextView.text;
             roboItem.collection.objModifiedDate = [NSDate date];
             [[MHCoreDataContext getInstance] saveContext];
@@ -319,7 +321,7 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 200;
             __weak typeof(self) weakself = self;
         [_controller setCompletionHandler:^(NSString *activityType, BOOL completed) {
             if(completed){
-            MHItem* item = [MHDatabaseManager insertItemWithObjName:weakself.titleTextField.text
+            MHItem* item = [MHDatabaseManager insertItemWithObjName:trimmedString
                                                      objDescription:weakself.commentaryTextView.text
                                                             objTags:nil
                                                         objLocation:weakself.selectedLocation
@@ -393,7 +395,7 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 200;
             }
         }];
     } else {
-        MHItem* item = [MHDatabaseManager insertItemWithObjName:self.titleTextField.text
+        MHItem* item = [MHDatabaseManager insertItemWithObjName:trimmedString
                                                  objDescription:self.commentaryTextView.text
                                                         objTags:nil
                                                     objLocation:self.selectedLocation
