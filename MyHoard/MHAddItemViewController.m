@@ -281,17 +281,9 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 200;
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"error" message:@"Collection is not set properly" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
         [alert show];
     }
-    else if(_item != nil) {
-        [self updateItem];
-        return;
-    }
     else {
         if (_item != nil) {
-            MHItem *roboItem = [MHDatabaseManager itemWithObjName:trimmedString inCollection:_item.collection];
-            roboItem.objName = trimmedString;
-            roboItem.objDescription = _commentaryTextView.text;
-            roboItem.collection.objModifiedDate = [NSDate date];
-            [[MHCoreDataContext getInstance] saveContext];
+            [self updateItem:trimmedString];
             return;
         }
         if (_shareSwitch.isOn) {
@@ -477,6 +469,15 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 200;
         }
     }
     }
+}
+
+- (void)updateItem:(NSString *)trimmedString {
+    MHItem *roboItem = [MHDatabaseManager itemWithObjName:trimmedString inCollection:_item.collection];
+    roboItem.objName = trimmedString;
+    roboItem.objDescription = _commentaryTextView.text;
+    roboItem.collection.objModifiedDate = [NSDate date];
+    [[MHCoreDataContext getInstance] saveContext];
+    return;
 }
 
 
