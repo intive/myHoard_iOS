@@ -188,7 +188,7 @@
 
 - (void)changeUsersPassword {
     
-    [[MHAPI getInstance] readUserWithCompletionBlock:^(id object, NSError *error) {
+    [[MHAPI getInstance] readUserWithCompletionBlock:^(MHUserProfile *object, NSError *error) {
         if (error) {
             UIAlertView *alert = [[UIAlertView alloc]
                                   initWithTitle:@"Error"
@@ -198,26 +198,23 @@
                                   otherButtonTitles:nil];
             [alert show];
         }else {
-            _profile.email = object[@"email"];
-            _profile.username = object[@"username"];
+            
+            [[MHAPI getInstance] updateUser:object.username withPassword:_changePasswordTextField.text andEmail:object.email completionBlock:^(id object, NSError *error) {
+                if (error) {
+                    UIAlertView *alert = [[UIAlertView alloc]
+                                          initWithTitle:@"Error"
+                                          message:error.localizedDescription
+                                          delegate:nil
+                                          cancelButtonTitle:@"OK"
+                                          otherButtonTitles:nil];
+                    [alert show];
+                } else {
+                    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+                }
+            }];
         }
     }];
     
-    if ([_profile.email length] && [_profile.email length]) {
-        [[MHAPI getInstance] updateUser:_profile.username withPassword:_changePasswordTextField.text andEmail:_profile.email completionBlock:^(id object, NSError *error) {
-            if (error) {
-                UIAlertView *alert = [[UIAlertView alloc]
-                                  initWithTitle:@"Error"
-                                  message:error.localizedDescription
-                                  delegate:nil
-                                  cancelButtonTitle:@"OK"
-                                  otherButtonTitles:nil];
-                [alert show];
-            } else {
-                [self.navigationController dismissViewControllerAnimated:YES completion:nil];
-            }
-        }];
-    }
 }
 
 
