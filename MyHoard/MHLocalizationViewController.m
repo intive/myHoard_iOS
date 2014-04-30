@@ -11,6 +11,7 @@
 #import "Address.h"
 
 @interface MHLocalizationViewController ()
+@property (readwrite) NSString *loc;
 @end
 
 @implementation MHLocalizationViewController
@@ -69,13 +70,17 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:simpleTableIdentifier];
     }
+    
+    cell.textLabel.font=[UIFont systemFontOfSize:12];
+    cell.imageView.image=[UIImage imageNamed:@"search.png"];
+    cell.textLabel.textColor = [UIColor whiteColor];
+    cell.detailTextLabel.textColor = [UIColor whiteColor];
+    cell.backgroundColor = [UIColor clearColor];
+    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+
+    
     if ([[_localizations objectAtIndex:indexPath.row] isKindOfClass:[Address class]]) {
         Address *address = [_localizations objectAtIndex:indexPath.row];
-        cell.imageView.image=[UIImage imageNamed:@"search.png"];
-        cell.textLabel.textColor = [UIColor whiteColor];
-        cell.detailTextLabel.textColor = [UIColor whiteColor];
-        cell.backgroundColor = [UIColor clearColor];
-        [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
         if([address title]){
             cell.textLabel.text = [address title];
         }else{
@@ -84,11 +89,6 @@
         cell.detailTextLabel.text = [address subtitle];
     }else{
         CLPlacemark *placemark = _localizations[indexPath.row];
-        cell.imageView.image=[UIImage imageNamed:@"search.png"];
-        cell.textLabel.textColor = [UIColor whiteColor];
-        cell.detailTextLabel.textColor = [UIColor whiteColor];
-        cell.backgroundColor = [UIColor clearColor];
-        [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
         NSMutableString *sub=[[NSMutableString  alloc]init];
         
         if (placemark.thoroughfare.length)
@@ -119,7 +119,7 @@
         {
             [sub appendFormat:@"%@", placemark.country];
         }
-        
+        _loc=sub;
         if (placemark.areasOfInterest.firstObject!=NULL) {
             cell.textLabel.text = [NSString stringWithFormat:@"%@", placemark.areasOfInterest.firstObject];
             cell.detailTextLabel.text = sub;
@@ -144,8 +144,7 @@
             [self.navigationController popViewControllerAnimated:YES];
         }else{
             CLPlacemark *placemark = _localizations[indexPath.row];
-#warning using description in this place is not the best idea. The address should be composed using data in placemark.addressDictionary
-            [self.delegate selectedLocationName:placemark.description];
+            [self.delegate selectedLocationName:_loc];
             [self.delegate selectedLocationCoordinate:placemark.location];
             [self.navigationController setNavigationBarHidden:NO];
             [self.navigationController popViewControllerAnimated:YES];
