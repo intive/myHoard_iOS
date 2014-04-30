@@ -854,6 +854,7 @@
                                         <state key="normal" image="pin_y">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <state key="selected" image="pin"/>
                                         <connections>
                                             <action selector="switchLocationImageViews:" destination="fW1-8f-0eN" eventType="touchUpInside" id="Gbq-gN-Hp3"/>
                                         </connections>
@@ -1675,6 +1676,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="pin" width="22" height="22"/>
         <image name="pin_y" width="22" height="22"/>
         <image name="plus_y" width="30" height="30"/>
         <image name="startLogo" width="125" height="125"/>

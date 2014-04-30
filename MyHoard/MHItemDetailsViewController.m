@@ -145,11 +145,11 @@
 - (IBAction)switchLocationImageViews:(id)sender {
    
     if (!_itemMapView.hidden) {
-        [_locationButton setImage:[UIImage imageNamed:@"pin_y"] forState:UIControlStateNormal];
-        _itemMapView.hidden = YES;
+        _locationButton.selected = NO;
         _frontImage.hidden = NO;
+        _itemMapView.hidden = YES;
     } else {
-        [_locationButton setImage:[UIImage imageNamed:@"pin"] forState:UIControlStateNormal];
+        _locationButton.selected = YES;
         _itemMapView.hidden = NO;
         _frontImage.hidden = YES;
     }
