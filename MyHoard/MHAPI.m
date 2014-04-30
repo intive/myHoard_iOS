@@ -158,7 +158,12 @@ static MHAPI *_sharedAPI = nil;
     
     AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
                                                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                                                          completionBlock(responseObject, nil);
+                                                                          MHUserProfile *userProfile = [[MHUserProfile alloc]init];
+                                                                          
+                                                                          userProfile.username = [responseObject valueForKeyPath:@"username"];
+                                                                          userProfile.email = [responseObject valueForKeyPath:@"email"];
+                                                                          
+                                                                          completionBlock(userProfile, nil);
                                                                       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                                                           [self localizedDescriptionForErrorCode:error];
                                                                           completionBlock(nil, error);

@@ -115,12 +115,13 @@
 
 
 - (void)loginLabelTitle {
-
+    
     [[MHAPI getInstance]readUserWithCompletionBlock:^(MHUserProfile *object, NSError *error) {
         if (!error) {
-            _loginLabel.text = object.email;
+            NSArray *sub = [object.email componentsSeparatedByString:@"@"];
+            NSString *substring = [sub objectAtIndex:0];
+            _loginLabel.text = substring;
         }else {
-            NSLog(@"%@", error);
             UIAlertView *alert = [[UIAlertView alloc]
                                   initWithTitle:@"Error"
                                   message:error.localizedDescription

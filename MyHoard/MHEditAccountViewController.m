@@ -100,7 +100,9 @@
         
             [alert show];
         }else {
-            _loginLabel.text = object.username;
+            NSArray *sub = [object.email componentsSeparatedByString:@"@"];
+            NSString *substring = [sub objectAtIndex:0];
+            _loginLabel.text = substring;
             _emailLabel.text = object.email;
         }
     }];
