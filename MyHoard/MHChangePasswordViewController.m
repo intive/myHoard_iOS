@@ -43,8 +43,8 @@
     _labelBackgroundViewThree.backgroundColor = [UIColor darkerGray];
     
     _passwordTextField.attributedPlaceholder = [[NSAttributedString alloc]initWithString:@"mystery field" attributes:@{NSForegroundColorAttributeName: [UIColor darkerYellow]}];
-    _confirmNewPasswordTextField.attributedPlaceholder = [[NSAttributedString alloc]initWithString:@"new password" attributes:@{NSForegroundColorAttributeName: [UIColor darkerYellow]}];
-    _changePasswordTextField.attributedPlaceholder = [[NSAttributedString alloc]initWithString:@"confirm password" attributes:@{NSForegroundColorAttributeName: [UIColor darkerYellow]}];
+    _confirmNewPasswordTextField.attributedPlaceholder = [[NSAttributedString alloc]initWithString:@"confirm password" attributes:@{NSForegroundColorAttributeName: [UIColor darkerYellow]}];
+    _changePasswordTextField.attributedPlaceholder = [[NSAttributedString alloc]initWithString:@"new password" attributes:@{NSForegroundColorAttributeName: [UIColor darkerYellow]}];
     
     _passwordTextField.delegate = self;
     _confirmNewPasswordTextField.delegate = self;
