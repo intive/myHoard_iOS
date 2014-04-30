@@ -92,6 +92,10 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 200;
          }];
     }
     if (_item) {
+    for(MHMedia *media in _item.media) {
+        _imageView.image = [[MHImageCache sharedInstance] imageForKey:media.objKey];
+        break; //just read first item
+    }
         _selectedCollection = _item.collection;
         _titleTextField.text = _item.objName;
         _commentaryTextView.text = _item.objDescription;
