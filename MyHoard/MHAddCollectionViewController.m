@@ -136,14 +136,12 @@
     }];
     _last=[_items indexOfObject: _typeLabel.text];
     if (self.collection){
-        if (self.type==2){
-            self.collection.objType = collectionTypeOffline;
+        if (_collection.objType == collectionTypeOffline){
             UIAlertView *alert5 = [[UIAlertView alloc]initWithTitle:nil message:@"Do you want to remove the collection from server? The collection will be stored in this device." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
             [alert5 show];
         }
-        else if (self.type==1)
+        else if (_collection.objType == collectionTypePrivate)
         {
-            self.collection.objType = collectionTypePrivate;
             [waitDialog show];
             [[MHAPI getInstance]createCollection:self.collection completionBlock:^(id object, NSError *error){
                 if (error){
@@ -156,7 +154,6 @@
             }];
         }
         else {
-            self.collection.objType = collectionTypePublic;
             [waitDialog show];
             [[MHAPI getInstance]createCollection:self.collection completionBlock:^(id object, NSError *error){
                 if (error){
@@ -212,7 +209,7 @@
             colllectionType = collectionTypePublic;
         } else if (_type==1){
             colllectionType = collectionTypePrivate;
-        } else {
+        } else if (_type == 2){
             colllectionType = collectionTypeOffline;
         }
         if (_collection) {
@@ -264,7 +261,7 @@
                                         objType:colllectionType];
         
             if ([[MHAPI getInstance]activeSession] == YES) {
-                if (![_typeLabel.text isEqualToString:collectionTypeOffline]) {
+                if (![colllectionType isEqualToString:collectionTypeOffline]) {
                     __block MHWaitDialog* wait = [[MHWaitDialog alloc] init];
                     [wait show];
                     [[MHAPI getInstance] createCollection:collection completionBlock:^(id object, NSError *error) {
