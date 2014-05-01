@@ -761,7 +761,7 @@ static MHAPI *_sharedAPI = nil;
     
     AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
                                                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                                                          NSMutableArray *responseArray = responseObject;
+                                                                          NSArray *responseArray = responseObject;
                                                                           completionBlock(responseArray, nil);
                                                                       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                                                           completionBlock(nil, error);
