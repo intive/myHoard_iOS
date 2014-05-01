@@ -292,12 +292,18 @@ static MHAPI *_sharedAPI = nil;
         objType = @NO;
     }
     
+    
     NSMutableDictionary* params = [NSMutableDictionary dictionaryWithDictionary:@{@"name": collection.objName,
-                                                                                  @"tags":collection.objTags,
                                                                                   @"public":objType}];
+    
+    if ([collection.objTags count]) {
+        params[@"tags"] = collection.objTags;
+    }
+    
     if (collection.objDescription) {
         params[@"description"] = collection.objDescription;
     }
+    
     NSMutableURLRequest *request = [jsonSerializer requestWithMethod:@"POST"
                                                            URLString:[self urlWithPath:@"collections"]
                                                           parameters:params
@@ -586,12 +592,20 @@ static MHAPI *_sharedAPI = nil;
         objType = @NO;
     }
     
+    NSMutableDictionary* params = [NSMutableDictionary dictionaryWithDictionary:@{@"name": collection.objName,
+                                                                                  @"public":objType}];
+    
+    if ([collection.objTags count]) {
+        params[@"tags"] = collection.objTags;
+    }
+    
+    if (collection.objDescription) {
+        params[@"description"] = collection.objDescription;
+    }
+
     NSMutableURLRequest *request = [jsonRequest requestWithMethod:@"PUT"
                                                         URLString:[NSString stringWithFormat:@"%@%@",[self urlWithPath:@"collections"],collection.objId]
-                                                       parameters:@{@"name": collection.objName,
-                                                                    @"description": collection.objDescription,
-                                                                    @"tags":collection.objTags,
-                                                                    @"public":objType}
+                                                       parameters:params
                                                             error:&error];
     __block MHCollection *c = collection;
     AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
@@ -805,28 +819,23 @@ static MHAPI *_sharedAPI = nil;
     [jsonSerializer setValue:_accessToken forHTTPHeaderField:@"Authorization"];
     
     NSMutableArray* mediaIds = [[NSMutableArray alloc] init];
-    NSMutableDictionary* params = [[NSMutableDictionary alloc]init];
-    
+    NSMutableDictionary* params = [NSMutableDictionary dictionaryWithDictionary:@{@"name": item.objName,
+                                                                                  @"collection": item.collection.objId}];
     if ([item.media count] > 0) {
         for (MHMedia* media in item.media) {
-            if (!media.objId) {
-                params = [NSMutableDictionary dictionaryWithDictionary:@{@"name": item.objName,
-                                                                         @"description": item.objDescription,
-                                                                         @"collection": item.collection.objId}];
-                
-            }else {
+            if (media.objId) {
                 [mediaIds addObject:media.objId];
+                params[@"media"] = mediaIds;
             }
         }
-        params = [NSMutableDictionary dictionaryWithDictionary:@{@"name": item.objName,
-                                                                 @"description": item.objDescription,
-                                                                 @"media": mediaIds,
-                                                                 @"collection": item.collection.objId}];
-    }else {
-        
-        params = [NSMutableDictionary dictionaryWithDictionary:@{@"name": item.objName,
-                                                                 @"description": item.objDescription,
-                                                                 @"collection": item.collection.objId}];
+    }
+    
+    if ([item.objTags count]) {
+        params[@"tags"] = item.objTags;
+    }
+    
+    if (item.objDescription) {
+        params[@"description"] = item.objDescription;
     }
     
     CLLocation *l = item.objLocation;
@@ -1188,13 +1197,24 @@ static MHAPI *_sharedAPI = nil;
     [jsonSerializer setValue:_accessToken forHTTPHeaderField:@"Authorization"];
     
     NSMutableArray* mediaIds = [[NSMutableArray alloc] init];
-    for (MHMedia* media in item.media) {
-        [mediaIds addObject:media.objId];
-    }
     NSMutableDictionary* params = [NSMutableDictionary dictionaryWithDictionary:@{@"name": item.objName,
-                                                                                  @"description": item.objDescription,
-                                                                                  @"media": mediaIds,
                                                                                   @"collection": item.collection.objId}];
+    if ([item.media count] > 0) {
+        for (MHMedia* media in item.media) {
+            if (media.objId) {
+                [mediaIds addObject:media.objId];
+                params[@"media"] = mediaIds;
+            }
+        }
+    }
+    
+    if ([item.objTags count]) {
+        params[@"tags"] = item.objTags;
+    }
+    
+    if (item.objDescription) {
+        params[@"description"] = item.objDescription;
+    }
     
     CLLocation *l = item.objLocation;
     if (l) {
