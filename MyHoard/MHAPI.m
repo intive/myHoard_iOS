@@ -314,10 +314,8 @@ static MHAPI *_sharedAPI = nil;
     AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
                                                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
                                                                           
-                                                                          NSString* date = responseObject[@"created_date"];
-                                                                          c.objCreatedDate = [date dateFromRFC3339String];
-                                                                          date = responseObject[@"modified_date"];
-                                                                          c.objModifiedDate = [date dateFromRFC3339String];
+                                                                          c.objCreatedDate = [MHCollection createdDateFromString:responseObject[@"created_date"]];
+                                                                          [c modifiedDateFromString:responseObject[@"modified_date"]];
                                                                           c.objOwner = responseObject[@"owner"];
                                                                           c.objId = responseObject[@"id"];
                                                                           [c typeFromBoolValue:responseObject[@"public"]];
@@ -565,6 +563,7 @@ static MHAPI *_sharedAPI = nil;
                                                                           [c modifiedDateFromString:responseObject[@"modified_date"]];
                                                                           [[MHCoreDataContext getInstance]saveContext];
                                                                           
+                                                                          completionBlock(c, nil);
                                                                       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                                                           completionBlock(nil, error);
                                                                       }];
@@ -610,8 +609,16 @@ static MHAPI *_sharedAPI = nil;
     __block MHCollection *c = collection;
     AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
                                                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                                                          c.objCreatedDate = [MHCollection createdDateFromString:responseObject[@"created_date"]];
+                                                                          [c modifiedDateFromString:responseObject[@"modified_date"]];
+                                                                          c.objOwner = responseObject[@"owner"];
+                                                                          c.objId = responseObject[@"id"];
+                                                                          [c typeFromBoolValue:responseObject[@"public"]];
                                                                           c.objStatus = objectStatusOk;
-                                                                          completionBlock(nil, nil);
+
+                                                                          [[MHCoreDataContext getInstance] saveContext];
+                                                                          
+                                                                          completionBlock(c, error);
                                                                       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                                                           [self localizedDescriptionForErrorCode:error];
                                                                           completionBlock(nil, error);
@@ -641,7 +648,7 @@ static MHAPI *_sharedAPI = nil;
     
     AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
                                                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                                                          completionBlock(nil, nil);
+                                                                          completionBlock(collection, nil);
                                                                       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                                                           [self localizedDescriptionForErrorCode:error];
                                                                           completionBlock(nil, error);
@@ -671,7 +678,7 @@ static MHAPI *_sharedAPI = nil;
     } success:^(AFHTTPRequestOperation *operation, id responseObject) {
         m.objId = responseObject[@"id"];
         m.objStatus = objectStatusOk;
-        completionBlock(nil, nil);
+        completionBlock(m, nil);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         completionBlock(nil, error);
     }];
@@ -701,7 +708,7 @@ static MHAPI *_sharedAPI = nil;
                                                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
                                                                           [[MHImageCache sharedInstance] cacheImage:responseObject forKey:media.objId];
                                                                           tmpMedia.objKey = media.objId;
-                                                                          completionBlock(nil, nil);
+                                                                          completionBlock(tmpMedia, nil);
                                                                       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                                                           completionBlock(nil, error);
                                                                       }];
@@ -725,8 +732,9 @@ static MHAPI *_sharedAPI = nil;
     [manager POST:[NSString stringWithFormat:@"%@%@/",[self urlWithPath:@"media"],media.objId] parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         [formData appendPartWithFileData:assetData name:@"image" fileName:media.objKey mimeType:@"image/*"];
     } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        tmpMedia.objId = responseObject[@"id"];
         tmpMedia.objStatus = objectStatusOk;
-        completionBlock(nil, nil);
+        completionBlock(tmpMedia, nil);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         completionBlock(nil, error);
     }];
@@ -863,7 +871,7 @@ static MHAPI *_sharedAPI = nil;
                                                                           i.objStatus = objectStatusOk;
                                                                           
                                                                           [[MHCoreDataContext getInstance] saveContext];
-                                                                          completionBlock(i, error);
+                                                                          completionBlock(i, nil);
                                                                       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                                                           completionBlock(nil, error);
                                                                       }];
@@ -902,7 +910,7 @@ static MHAPI *_sharedAPI = nil;
                                                                           [i locationParser:responseObject[@"location"]];
                                                                           [i modifiedDateFromString:responseObject[@"modified_date"]];
                                                                           [[MHCoreDataContext getInstance] saveContext];
-                                                                          completionBlock(i, error);
+                                                                          completionBlock(i, nil);
                                                                       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                                                           completionBlock(nil, error);
                                                                       }];
@@ -1230,8 +1238,16 @@ static MHAPI *_sharedAPI = nil;
     
     AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
                                                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                                                          i.objId = responseObject[@"id"];
+                                                                          i.objName = responseObject[@"name"];
+                                                                          i.objDescription = responseObject[@"description"];
+                                                                          i.objCreatedDate = [MHItem createdDateFromString:responseObject[@"created_date"]];
+                                                                          i.objOwner = responseObject[@"owner"];
+                                                                          [i locationParser:responseObject[@"location"]];
+                                                                          [i modifiedDateFromString:responseObject[@"modified_date"]];
                                                                           i.objStatus = objectStatusOk;
-                                                                          completionBlock(nil, error);
+                                                                          [[MHCoreDataContext getInstance] saveContext];
+                                                                          completionBlock(i, nil);
                                                                       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                                                           completionBlock(nil, error);
                                                                       }];
@@ -1260,7 +1276,7 @@ static MHAPI *_sharedAPI = nil;
     
     AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
                                                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                                                          completionBlock(nil, nil);
+                                                                          completionBlock(item, nil);
                                                                       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                                                           [self localizedDescriptionForErrorCode:error];
                                                                           completionBlock(nil, error);
