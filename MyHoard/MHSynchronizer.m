@@ -54,7 +54,7 @@
                 if (!didFinishSync) {
                     [self finish:error];
                 }else {
-                    NSArray *coreDataCollections = [MHDatabaseManager allCollections];
+                    NSArray *coreDataCollections = [self ruleOutOfflineCollections];
                     if (coreDataCollections.count) {
                         for (NSInteger i = 0; i < coreDataCollections.count; i++) {
                             __block MHCollection* c = coreDataCollections[i];
@@ -91,22 +91,7 @@
     
     if ([coreDataCollections count] == 0 && [responseObject count] > 0) {
         for (NSDictionary *responseDictionary in responseObject) {
-            
-            MHCollection *createdCollection = [MHDatabaseManager insertCollectionWithObjName:responseDictionary[@"name"]
-                                                                              objDescription:responseDictionary[@"description"]
-                                                                                     objTags:responseDictionary[@"tags"]
-                                                                              objCreatedDate:[MHCollection createdDateFromString:responseDictionary[@"created_date"]]
-                                               
-                                                                             objModifiedDate:nil
-                                                                 objOwnerNilAddLogedUserCode:responseDictionary[@"owner"]
-                                                                                   objStatus:objectStatusOk
-                                                                                     objType:nil];
-            
-            createdCollection.objId = responseDictionary[@"id"];
-            [createdCollection typeFromBoolValue:responseDictionary[@"public"]];
-            [createdCollection modifiedDateFromString:responseDictionary[@"modified_date"]];
-            
-            [[MHCoreDataContext getInstance] saveContext];
+            [self createCollectionFromServerResponse:responseDictionary];
         }
     }else if ([coreDataCollections count] > 0 && [responseObject count] > 0){
         
@@ -161,20 +146,7 @@
             predicationResult = [coreDataCollections filteredArrayUsingPredicate:predicate];
             
             if ([predicationResult count] == 0) {
-                MHCollection *createdCollection = [MHDatabaseManager insertCollectionWithObjName:responseDictionary[@"name"]
-                                                                                  objDescription:responseDictionary[@"description"]
-                                                                                         objTags:responseDictionary[@"tags"]
-                                                                                  objCreatedDate:[MHCollection createdDateFromString:responseDictionary[@"created_date"]]
-                                                                                 objModifiedDate:nil
-                                                                     objOwnerNilAddLogedUserCode:responseDictionary[@"owner"]
-                                                                                       objStatus:objectStatusOk
-                                                                                         objType:nil];
-                
-                createdCollection.objId = responseDictionary[@"id"];
-                [createdCollection typeFromBoolValue:responseDictionary[@"public"]];
-                [createdCollection modifiedDateFromString:responseDictionary[@"modified_date"]];
-                
-                [[MHCoreDataContext getInstance] saveContext];
+                [self createCollectionFromServerResponse:responseDictionary];
             }else {
                 
                 predicate = [NSPredicate predicateWithFormat:@"objStatus == %@", objectStatusDeleted];
@@ -277,23 +249,11 @@
     
     if ([coreDataItems count] == 0 && [responseObject count] != 0) {
         for (NSDictionary *responseDictionary in responseObject) {
-            
-            MHItem *i = [MHDatabaseManager insertItemWithObjName:responseDictionary[@"name"] objDescription:responseDictionary[@"description"] objTags:nil objLocation:nil objCreatedDate:[MHItem createdDateFromString:responseDictionary[@"created_date"]] objModifiedDate:nil collection:collection objStatus:objectStatusOk];
-            i.objId = responseDictionary[@"id"];
-            [i modifiedDateFromString:responseDictionary[@"modified_date"]];
-            [i locationParser:responseDictionary[@"location"]];
-            
-            for (NSDictionary *d in responseDictionary[@"media"]) {
-                MHMedia *m = [MHDatabaseManager insertMediaWithCreatedDate:[NSDate date] objKey:d[@"id"] item:i objStatus:objectStatusOk];
-                m.objId = d[@"id"];
-                [[MHAPI getInstance] readMedia:m completionBlock:^(id object, NSError *error) {
-                    if (error) {
-                        completionBlock(NO, error);
-                    }
-                }];
-            }
-            
-            [[MHCoreDataContext getInstance] saveContext];
+            [self createItemAndMediaFromServerResponse:responseDictionary forCollection:collection withCompletionBlock:^(BOOL didFinishSync, NSError *error) {
+                if (error) {
+                    completionBlock(NO, error);
+                }
+            }];
         }
     }else if ([coreDataItems count] != 0 && [responseObject count] != 0){
         
@@ -387,23 +347,11 @@
             predicationResult = [coreDataItems filteredArrayUsingPredicate:predicate];
             
             if ([predicationResult count] == 0) {
-                MHItem *i = [MHDatabaseManager insertItemWithObjName:responseDictionary[@"name"] objDescription:responseDictionary[@"description"] objTags:nil objLocation:nil objCreatedDate:[MHItem createdDateFromString:responseDictionary[@"created_date"]] objModifiedDate:nil collection:collection objStatus:objectStatusOk];
-                i.objId = responseDictionary[@"id"];
-                [i modifiedDateFromString:responseDictionary[@"modified_date"]];
-                [i locationParser:responseDictionary[@"location"]];
-                
-                for (NSDictionary *d in responseDictionary[@"media"]) {
-                    MHMedia *m = [MHDatabaseManager insertMediaWithCreatedDate:[NSDate date] objKey:d[@"id"] item:i objStatus:objectStatusOk];
-                    m.objId = d[@"id"];
-                    [[MHAPI getInstance] readMedia:m completionBlock:^(id object, NSError *error) {
-                        if (error) {
-                            completionBlock(NO, error);
-                        }
-                    }];
-                }
-                
-                [[MHCoreDataContext getInstance] saveContext];
-                
+                [self createItemAndMediaFromServerResponse:responseDictionary forCollection:collection withCompletionBlock:^(BOOL didFinishSync, NSError *error) {
+                    if (error) {
+                        completionBlock(NO, error);
+                    }
+                }];
             }else {
                 
                 predicate = [NSPredicate predicateWithFormat:@"objStatus == %@", objectStatusDeleted];
@@ -516,6 +464,57 @@
     }
     
     completionBlock(YES, nil);
+}
+
+- (void)createCollectionFromServerResponse:(NSDictionary *)responseDictionary {
+    
+    MHCollection *createdCollection = [MHDatabaseManager insertCollectionWithObjName:responseDictionary[@"name"]
+                                                                      objDescription:responseDictionary[@"description"]
+                                                                             objTags:responseDictionary[@"tags"]
+                                                                      objCreatedDate:[MHCollection createdDateFromString:responseDictionary[@"created_date"]]
+                                                                     objModifiedDate:nil
+                                                         objOwnerNilAddLogedUserCode:responseDictionary[@"owner"]
+                                                                           objStatus:objectStatusOk
+                                                                             objType:nil];
+    
+    createdCollection.objId = responseDictionary[@"id"];
+    [createdCollection typeFromBoolValue:responseDictionary[@"public"]];
+    [createdCollection modifiedDateFromString:responseDictionary[@"modified_date"]];
+    
+    [[MHCoreDataContext getInstance] saveContext];
+}
+
+- (void)createItemAndMediaFromServerResponse:(NSDictionary *)responseDictionary forCollection:(MHCollection *)collection withCompletionBlock:(MHCoreDataSyncCompletionBlock)completionBlock {
+    
+    MHItem *i = [MHDatabaseManager insertItemWithObjName:responseDictionary[@"name"] objDescription:responseDictionary[@"description"] objTags:nil objLocation:nil objCreatedDate:[MHItem createdDateFromString:responseDictionary[@"created_date"]] objModifiedDate:nil collection:collection objStatus:objectStatusOk];
+    i.objId = responseDictionary[@"id"];
+    [i modifiedDateFromString:responseDictionary[@"modified_date"]];
+    [i locationParser:responseDictionary[@"location"]];
+    
+    for (NSDictionary *d in responseDictionary[@"media"]) {
+        MHMedia *m = [MHDatabaseManager insertMediaWithCreatedDate:[NSDate date] objKey:d[@"id"] item:i objStatus:objectStatusOk];
+        m.objId = d[@"id"];
+        [[MHAPI getInstance] readMedia:m completionBlock:^(id object, NSError *error) {
+            if (error) {
+                completionBlock(NO, error);
+            }
+        }];
+    }
+    
+    [[MHCoreDataContext getInstance] saveContext];
+}
+
+- (NSArray *)ruleOutOfflineCollections {
+    
+    NSMutableArray *allCollections = [NSMutableArray arrayWithArray:[MHDatabaseManager allCollections]];
+    
+    [allCollections enumerateObjectsUsingBlock:^(MHCollection *collection, NSUInteger idx, BOOL *stop) {
+        if ([collection.objType isEqualToString:collectionTypeOffline]) {
+            [allCollections removeObjectAtIndex:idx];
+        }
+    }];
+    
+    return allCollections;
 }
 
 @end
