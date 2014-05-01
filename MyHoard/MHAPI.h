@@ -70,16 +70,30 @@ typedef void (^MHAPICompletionBlock)(id object, NSError *error);
 - (AFHTTPRequestOperation *)updateMedia:(MHMedia *)media
                         completionBlock:(MHAPICompletionBlock)completionBlock;
 
+- (AFHTTPRequestOperation *)readMedia:(MHMedia *)media
+                      completionBlock:(MHAPICompletionBlock)completionBlock;
+
+- (AFHTTPRequestOperation *)deleteMedia:(MHMedia *)media
+                        completionBlock:(MHAPICompletionBlock)completionBlock;
+
 - (AFHTTPRequestOperation *)createItem:(MHItem *)item
                        completionBlock:(MHAPICompletionBlock)completionBlock;
 
 - (AFHTTPRequestOperation *)updateItem:(MHItem *)item
                        completionBlock:(MHAPICompletionBlock)completionBlock;
 
+- (AFHTTPRequestOperation *)readItem:(MHItem *)item
+                     completionBlock:(MHAPICompletionBlock)completionBlock;
+
 - (AFHTTPRequestOperation *)readAllItemsOfCollection:(MHCollection *)collection
                                      completionBlock:(MHAPICompletionBlock)completionBlock;
+
+- (AFHTTPRequestOperation *)deleteItemWithId:(MHItem *)item
+                             completionBlock:(MHAPICompletionBlock)completionBlock;
 
 - (AFHTTPRequestOperation *)deleteCollection:(MHCollection *)collection
                              completionBlock:(MHAPICompletionBlock)completionBlock;
 
+- (AFHTTPRequestOperation *)readUserCollection:(MHCollection *)collection
+                               completionBlock:(MHAPICompletionBlock)completionBlock;
 @end

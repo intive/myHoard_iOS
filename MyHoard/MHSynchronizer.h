@@ -10,6 +10,7 @@
 #import "MHAPI.h"
 
 typedef void(^MHSynchronizeCompletionBlock)(NSError* error);
+typedef void(^MHCoreDataSyncCompletionBlock)(BOOL didFinishSync, NSError *error);
 
 @interface MHSynchronizer : NSObject
 
