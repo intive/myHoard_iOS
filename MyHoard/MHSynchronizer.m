@@ -145,8 +145,7 @@
                 NSArray *objStatusDeleted = [self predicateArray:predicationResult byObjectStatus:objectStatusDeleted];
                 
                 if (objStatusDeleted.count) {
-                    predicate = [NSPredicate predicateWithFormat:@"objModifiedDate < %@",[MHCollection createdDateFromString:responseDictionary[@"modified_date"]]];
-                    NSArray *collectionsPredicatedWithModifiedDate = [objStatusDeleted filteredArrayUsingPredicate:predicate];
+                    NSArray *collectionsPredicatedWithModifiedDate = [self predicateArray:objStatusDeleted bySmallerModifiedDate:[MHCollection createdDateFromString:responseDictionary[@"modified_date"]]];
                     
                     for (MHCollection *outdatedCollection in collectionsPredicatedWithModifiedDate) {
                         
@@ -157,8 +156,7 @@
                         }];
                     }
                     
-                    predicate = [NSPredicate predicateWithFormat:@"objModifiedDate > %@",[MHCollection createdDateFromString:responseDictionary[@"modified_date"]]];
-                    collectionsPredicatedWithModifiedDate = [objStatusDeleted filteredArrayUsingPredicate:predicate];
+                    collectionsPredicatedWithModifiedDate = [self predicateArray:objStatusDeleted byLargerModifiedDate:[MHCollection createdDateFromString:responseDictionary[@"modified_date"]]];
                     
                     for (MHCollection *upToDateCollection in collectionsPredicatedWithModifiedDate) {
                         
@@ -178,8 +176,7 @@
                 
                 if (objStatusOkOrModified.count) {
                     
-                    predicate = [NSPredicate predicateWithFormat:@"objModifiedDate < %@",[MHCollection createdDateFromString:responseDictionary[@"modified_date"]]];
-                    NSArray *collectionsPredicatedWithModifiedDate = [predicationResult filteredArrayUsingPredicate:predicate];
+                    NSArray *collectionsPredicatedWithModifiedDate = [self predicateArray:predicationResult bySmallerModifiedDate:[MHCollection createdDateFromString:responseDictionary[@"modified_date"]]];
                     
                     for (MHCollection *outdatedCollection in collectionsPredicatedWithModifiedDate) {
                         
@@ -190,8 +187,7 @@
                         }];
                     }
                     
-                    predicate = [NSPredicate predicateWithFormat:@"objModifiedDate > %@", [MHCollection createdDateFromString:responseDictionary[@"modified_date"]]];
-                    collectionsPredicatedWithModifiedDate = [predicationResult filteredArrayUsingPredicate:predicate];
+                    collectionsPredicatedWithModifiedDate = [self predicateArray:predicationResult byLargerModifiedDate:[MHCollection createdDateFromString:responseDictionary[@"modified_date"]]];
                     
                     for (MHCollection *upToDateCollection in collectionsPredicatedWithModifiedDate) {
                         [[MHAPI getInstance] updateCollection:upToDateCollection completionBlock:^(id object, NSError *error)   {
@@ -230,7 +226,7 @@
     [[MHCoreDataContext getInstance] saveContext];
     
     completionBlock(YES, nil);
-
+    
 }
 
 - (void)parseSynchronizationItemsAndMediaData:(id)responseObject fromCollection:(MHCollection *)collection withCompletionBlock:(MHCoreDataSyncCompletionBlock)completionBlock {
@@ -342,8 +338,7 @@
                 NSArray *objStatusDeleted = [self predicateArray:predicationResult byObjectStatus:objectStatusDeleted];
                 
                 if (objStatusDeleted.count) {
-                    predicate = [NSPredicate predicateWithFormat:@"objModifiedDate < %@",[MHItem createdDateFromString:responseDictionary[@"modified_date"]]];
-                    NSArray *itemsPredicatedWithModifiedDate = [objStatusDeleted filteredArrayUsingPredicate:predicate];
+                    NSArray *itemsPredicatedWithModifiedDate = [self predicateArray:objStatusDeleted bySmallerModifiedDate:[MHItem createdDateFromString:responseDictionary[@"modified_date"]]];
                     
                     for (MHItem *outdatedItem in itemsPredicatedWithModifiedDate) {
                         [[MHAPI getInstance] readItem:outdatedItem completionBlock:^(id object, NSError *error) {
@@ -361,8 +356,7 @@
                         }];
                     }
                     
-                    predicate = [NSPredicate predicateWithFormat:@"objModifiedDate > %@",[MHItem createdDateFromString:responseDictionary[@"modified_date"]]];
-                    itemsPredicatedWithModifiedDate = [objStatusDeleted filteredArrayUsingPredicate:predicate];
+                    itemsPredicatedWithModifiedDate = [self predicateArray:objStatusDeleted byLargerModifiedDate:[MHItem createdDateFromString:responseDictionary[@"modified_date"]]];
                     
                     for (MHItem *upToDateItem in itemsPredicatedWithModifiedDate) {
                         [[MHAPI getInstance] deleteItemWithId:upToDateItem completionBlock:^(id object, NSError *error) {
@@ -380,8 +374,7 @@
                 NSArray *objStatusOkOrModified = [predicationResult filteredArrayUsingPredicate:predicate];
                 
                 if (objStatusOkOrModified.count) {
-                    predicate = [NSPredicate predicateWithFormat:@"objModifiedDate < %@",[MHItem createdDateFromString:responseDictionary[@"modified_date"]]];
-                    NSArray *itemsPredicatedWithModifiedDate = [predicationResult filteredArrayUsingPredicate:predicate];
+                    NSArray *itemsPredicatedWithModifiedDate = [self predicateArray:predicationResult bySmallerModifiedDate:[MHItem createdDateFromString:responseDictionary[@"modified_date"]]];
                     
                     for (MHItem *outdatedItem in itemsPredicatedWithModifiedDate) {
                         [[MHAPI getInstance] readItem:outdatedItem completionBlock:^(id object, NSError *error) {
@@ -399,8 +392,7 @@
                         }];
                     }
                     
-                    predicate = [NSPredicate predicateWithFormat:@"objModifiedDate > %@", [MHItem createdDateFromString:responseDictionary[@"modified_date"]]];
-                    itemsPredicatedWithModifiedDate = [predicationResult filteredArrayUsingPredicate:predicate];
+                    itemsPredicatedWithModifiedDate = [self predicateArray:predicationResult byLargerModifiedDate:[MHItem createdDateFromString:responseDictionary[@"modified_date"]]];
                     
                     for (MHItem *upToDateItem in itemsPredicatedWithModifiedDate) {
                         [[MHAPI getInstance] updateItem:upToDateItem completionBlock:^(id object, NSError *error) {
@@ -538,4 +530,19 @@
     return predicationResultArray;
 }
 
+- (NSArray *)predicateArray:(NSArray *)arrayToPredicate bySmallerModifiedDate:(NSDate *)modifiedDate {
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"objModifiedDate < %@", modifiedDate];
+    NSArray *predicationResultArray = [arrayToPredicate filteredArrayUsingPredicate:predicate];
+    
+    return predicationResultArray;
+}
+
+- (NSArray *)predicateArray:(NSArray *)arrayToPredicate byLargerModifiedDate:(NSDate *)modifiedDate {
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"objModifiedDate > %@", modifiedDate];
+    NSArray *predicationResultArray = [arrayToPredicate filteredArrayUsingPredicate:predicate];
+    
+    return predicationResultArray;
+}
 @end
