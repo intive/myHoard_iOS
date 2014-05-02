@@ -95,12 +95,10 @@
         }
     }else if ([coreDataCollections count] > 0 && [responseObject count] > 0){
         
-        predicate = [NSPredicate predicateWithFormat:@"objStatus == %@", objectStatusNew];
-        NSArray *objStatusNew = [coreDataCollections filteredArrayUsingPredicate:predicate];
+        NSArray *objStatusNew = [self predicateArray:coreDataCollections byObjectStatus:objectStatusNew];
         
         for (MHCollection *collectionWithNewStatus in objStatusNew) {
-            predicate = [NSPredicate predicateWithFormat:@"objType == %@", collectionTypeOffline];
-            NSArray *collectionsByType = [objStatusNew filteredArrayUsingPredicate:predicate];
+            NSArray *collectionsByType = [self predicateArray:objStatusNew byObjectType:collectionTypeOffline];
             
             if (!collectionsByType.count) {
                 [[MHAPI getInstance] createCollection:collectionWithNewStatus completionBlock:^(id object, NSError *error) {
@@ -111,12 +109,10 @@
             }
         }
         
-        predicate = [NSPredicate predicateWithFormat:@"objStatus == %@", objectStatusModified];
-        NSArray *objStatusModified = [coreDataCollections filteredArrayUsingPredicate:predicate];
+        NSArray *objStatusModified = [self predicateArray:coreDataCollections byObjectStatus:objectStatusModified];
         
         for (MHCollection *collectionWithModifiedStatus in objStatusModified) {
-            predicate = [NSPredicate predicateWithFormat:@"id == %@", collectionWithModifiedStatus.objId];
-            NSArray *collectionsById = [responseObject filteredArrayUsingPredicate:predicate];
+            NSArray *collectionsById = [self predicateArray:responseObject byServerId:collectionWithModifiedStatus.objId];
             
             if (!collectionsById.count) {
                 collectionWithModifiedStatus.objStatus = objectStatusNew;
@@ -128,12 +124,10 @@
             }
         }
         
-        predicate = [NSPredicate predicateWithFormat:@"objStatus == %@", objectStatusOk];
-        NSArray *objStatusOk = [coreDataCollections filteredArrayUsingPredicate:predicate];
+        NSArray *objStatusOk = [self predicateArray:coreDataCollections byObjectStatus:objectStatusOk];
         
         for (MHCollection *collectionWithOkStatus in objStatusOk) {
-            predicate = [NSPredicate predicateWithFormat:@"id == %@", collectionWithOkStatus.objId];
-            NSArray *collectionsById = [responseObject filteredArrayUsingPredicate:predicate];
+            NSArray *collectionsById = [self predicateArray:responseObject byServerId:collectionWithOkStatus.objId];
             
             if (!collectionsById.count) {
                 [[MHCoreDataContext getInstance].managedObjectContext deleteObject:collectionWithOkStatus];
@@ -142,15 +136,13 @@
         }
         
         for (NSDictionary *responseDictionary in responseObject) {
-            predicate = [NSPredicate predicateWithFormat:@"objId == %@", responseDictionary[@"id"]];
-            predicationResult = [coreDataCollections filteredArrayUsingPredicate:predicate];
+            predicationResult = [self predicateArray:coreDataCollections byObjectId:responseDictionary[@"id"]];
             
             if ([predicationResult count] == 0) {
                 [self createCollectionFromServerResponse:responseDictionary];
             }else {
                 
-                predicate = [NSPredicate predicateWithFormat:@"objStatus == %@", objectStatusDeleted];
-                NSArray *objStatusDeleted = [predicationResult filteredArrayUsingPredicate:predicate];
+                NSArray *objStatusDeleted = [self predicateArray:predicationResult byObjectStatus:objectStatusDeleted];
                 
                 if (objStatusDeleted.count) {
                     predicate = [NSPredicate predicateWithFormat:@"objModifiedDate < %@",[MHCollection createdDateFromString:responseDictionary[@"modified_date"]]];
@@ -484,6 +476,8 @@
     [[MHCoreDataContext getInstance] saveContext];
 }
 
+#pragma mark - utility methods
+
 - (void)createItemAndMediaFromServerResponse:(NSDictionary *)responseDictionary forCollection:(MHCollection *)collection withCompletionBlock:(MHCoreDataSyncCompletionBlock)completionBlock {
     
     MHItem *i = [MHDatabaseManager insertItemWithObjName:responseDictionary[@"name"] objDescription:responseDictionary[@"description"] objTags:nil objLocation:nil objCreatedDate:[MHItem createdDateFromString:responseDictionary[@"created_date"]] objModifiedDate:nil collection:collection objStatus:objectStatusOk];
@@ -504,6 +498,7 @@
     [[MHCoreDataContext getInstance] saveContext];
 }
 
+
 - (NSArray *)ruleOutOfflineCollections {
     
     NSMutableArray *allCollections = [NSMutableArray arrayWithArray:[MHDatabaseManager allCollections]];
@@ -515,6 +510,40 @@
     }];
     
     return allCollections;
+}
+
+#pragma mark - predication helpers
+
+- (NSArray *)predicateArray:(NSArray *)arrayToPredicate byObjectId:(NSString *)objectId {
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"objId == %@", objectId];
+    NSArray *predicationResultArray = [arrayToPredicate filteredArrayUsingPredicate:predicate];
+    
+    return predicationResultArray;
+}
+
+- (NSArray *)predicateArray:(NSArray *)arrayToPredicate byServerId:(NSString *)objectId {
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"id == %@", objectId];
+    NSArray *predicationResultArray = [arrayToPredicate filteredArrayUsingPredicate:predicate];
+    
+    return predicationResultArray;
+}
+
+- (NSArray *)predicateArray:(NSArray *)arrayToPredicate byObjectStatus:(NSString *)objectStatus {
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"objStatus == %@", objectStatus];
+    NSArray *predicationResultArray = [arrayToPredicate filteredArrayUsingPredicate:predicate];
+    
+    return predicationResultArray;
+}
+
+- (NSArray *)predicateArray:(NSArray *)arrayToPredicate byObjectType:(NSString *)objectType {
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"objType == %@", objectType];
+    NSArray *predicationResultArray = [arrayToPredicate filteredArrayUsingPredicate:predicate];
+    
+    return predicationResultArray;
 }
 
 @end
