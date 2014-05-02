@@ -271,12 +271,10 @@
             }
         }
         
-        predicate = [NSPredicate predicateWithFormat:@"objStatus == %@", objectStatusNew];
-        NSArray *objStatusNew = [coreDataItems filteredArrayUsingPredicate:predicate];
+        NSArray *objStatusNew = [self predicateArray:coreDataItems byObjectStatus:objectStatusNew];
         
         for (MHItem *itemWithNewStatus in objStatusNew) {
-            predicate = [NSPredicate predicateWithFormat:@"id == %@", itemWithNewStatus.objId];
-            NSArray *itemsById = [responseObject filteredArrayUsingPredicate:predicate];
+            NSArray *itemsById = [self predicateArray:responseObject byServerId:itemWithNewStatus.objId];
             
             if (!itemsById.count) {
                 [[MHAPI getInstance] createItem:itemWithNewStatus completionBlock:^(id object, NSError *error) {
@@ -295,12 +293,10 @@
             }
         }
         
-        predicate = [NSPredicate predicateWithFormat:@"(objStatus == %@)", objectStatusModified];
-        NSArray *objStatusModified = [coreDataItems filteredArrayUsingPredicate:predicate];
+        NSArray *objStatusModified = [self predicateArray:coreDataItems byObjectStatus:objectStatusModified];
         
         for (MHItem *itemWithModifiedStatus in objStatusModified) {
-            predicate = [NSPredicate predicateWithFormat:@"id == %@", itemWithModifiedStatus.objId];
-            NSArray *itemsById = [responseObject filteredArrayUsingPredicate:predicate];
+            NSArray *itemsById = [self predicateArray:responseObject byServerId:itemWithModifiedStatus.objId];
             
             if (!itemsById.count) {
                 itemWithModifiedStatus.objStatus = objectStatusNew;
@@ -320,12 +316,10 @@
             }
         }
         
-        predicate = [NSPredicate predicateWithFormat:@"(objStatus == %@)", objectStatusOk];
-        NSArray *objStatusOk = [coreDataItems filteredArrayUsingPredicate:predicate];
+        NSArray *objStatusOk = [self predicateArray:coreDataItems byObjectStatus:objectStatusOk];
         
         for (MHItem *itemsWithOkStatus in objStatusOk) {
-            predicate = [NSPredicate predicateWithFormat:@"id == %@", itemsWithOkStatus.objId];
-            NSArray *itemsById = [responseObject filteredArrayUsingPredicate:predicate];
+            NSArray *itemsById = [self predicateArray:responseObject byServerId:itemsWithOkStatus.objId];
             
             if (!itemsById.count) {
                 [itemsWithOkStatus removeMedia:itemsWithOkStatus.media];
@@ -335,8 +329,7 @@
         
         for (NSDictionary *responseDictionary in responseObject) {
             
-            predicate = [NSPredicate predicateWithFormat:@"objId == %@", responseDictionary[@"id"]];
-            predicationResult = [coreDataItems filteredArrayUsingPredicate:predicate];
+            predicationResult = [self predicateArray:coreDataItems byObjectId:responseDictionary[@"id"]];
             
             if ([predicationResult count] == 0) {
                 [self createItemAndMediaFromServerResponse:responseDictionary forCollection:collection withCompletionBlock:^(BOOL didFinishSync, NSError *error) {
@@ -346,8 +339,7 @@
                 }];
             }else {
                 
-                predicate = [NSPredicate predicateWithFormat:@"objStatus == %@", objectStatusDeleted];
-                NSArray *objStatusDeleted = [predicationResult filteredArrayUsingPredicate:predicate];
+                NSArray *objStatusDeleted = [self predicateArray:predicationResult byObjectStatus:objectStatusDeleted];
                 
                 if (objStatusDeleted.count) {
                     predicate = [NSPredicate predicateWithFormat:@"objModifiedDate < %@",[MHItem createdDateFromString:responseDictionary[@"modified_date"]]];
