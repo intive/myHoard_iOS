@@ -442,6 +442,8 @@
     completionBlock(YES, nil);
 }
 
+#pragma mark - utility methods
+
 - (void)createCollectionFromServerResponse:(NSDictionary *)responseDictionary {
     
     MHCollection *createdCollection = [MHDatabaseManager insertCollectionWithObjName:responseDictionary[@"name"]
@@ -460,7 +462,6 @@
     [[MHCoreDataContext getInstance] saveContext];
 }
 
-#pragma mark - utility methods
 
 - (void)createItemAndMediaFromServerResponse:(NSDictionary *)responseDictionary forCollection:(MHCollection *)collection withCompletionBlock:(MHCoreDataSyncCompletionBlock)completionBlock {
     
