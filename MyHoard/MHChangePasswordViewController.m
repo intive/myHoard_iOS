@@ -209,7 +209,13 @@
                                           otherButtonTitles:nil];
                     [alert show];
                 } else {
-                    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+                    UIAlertView *alert = [[UIAlertView alloc]
+                                          initWithTitle:@"Success"
+                                          message:@"Your password is now updated"
+                                          delegate:self
+                                          cancelButtonTitle:@"OK"
+                                          otherButtonTitles:nil];
+                    [alert show];
                 }
             }];
         }
@@ -225,6 +231,10 @@
         [self dismissKeyboard];
         [self changeUsersPassword];
     }
+}
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

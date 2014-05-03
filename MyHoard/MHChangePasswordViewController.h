@@ -11,7 +11,7 @@
 #import "MHAPI.h"
 #import "MHUserProfile.h"
 
-@interface MHChangePasswordViewController : MHBaseViewController <UITextFieldDelegate>
+@interface MHChangePasswordViewController : MHBaseViewController <UITextFieldDelegate, UIAlertViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
 @property (weak, nonatomic) IBOutlet UITextField *changePasswordTextField;
