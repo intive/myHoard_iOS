@@ -63,12 +63,10 @@
 
 - (void)refreshImageData {
     
-    NSString* imagePath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"/libraryProfilePhoto.png"];
-    
-    if (![imagePath length]) {
-        _profilePictureView.image = [UIImage imageNamed:@"profile.png"];
+    if ([self retrieveProfilePictureFromCache]) {
+        _profilePictureView.image = [self retrieveProfilePictureFromCache];
     }else {
-        _profilePictureView.image = [UIImage imageWithContentsOfFile:imagePath];
+        _profilePictureView.image = [UIImage imageNamed:@"profile.png"];
     }
 }
 
@@ -151,8 +149,11 @@
     }
 }
 
-
-
+- (UIImage *)retrieveProfilePictureFromCache {
+    
+    NSString* imagePath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"profilePicture"];
+    return [UIImage imageWithContentsOfFile:imagePath];
+}
 /*
 #pragma mark - Navigation
 

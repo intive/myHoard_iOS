@@ -66,12 +66,10 @@
 
 - (void)refreshImageData {
     
-    NSString* imagePath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"/libraryProfilePhoto.png"];
-    
-    if (![imagePath length]) {
-        _profilePicture.image = [UIImage imageNamed:@"profile.png"];
+    if ([self retrieveProfilePictureFromCache]) {
+        _profilePicture.image = [self retrieveProfilePictureFromCache];
     }else {
-        _profilePicture.image = [UIImage imageWithContentsOfFile:imagePath];
+        _profilePicture.image = [UIImage imageNamed:@"profile.png"];
     }
 }
 
@@ -158,9 +156,39 @@
         case 2:
             [self showImagePickerForSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
             break;
-        case 3:
+        case 3: [self facebookProfilePicture];
             break;
     }
+}
+
+- (void)facebookProfilePicture {
+    
+    NSString *profile = @"mateusz.fidos";
+    NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat: @"https://graph.facebook.com/%@/picture", profile]];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:requestUrl];
+    NSURLResponse *response;
+    NSError *error = nil;
+    
+    NSData *profilePictureData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+    
+    if (error) {
+            UIAlertView *alert = [[UIAlertView alloc]
+                                  initWithTitle:@"Error"
+                                  message:@"Something went wrong while retrieving your profile picture"
+                                  delegate:nil
+                                  cancelButtonTitle:@"OK"
+                                  otherButtonTitles:nil];
+            
+            [alert show];
+    }else {
+        if (profilePictureData) {
+            
+            [self clearProfilePictureCache];
+            [self profilePictureCache:profilePictureData];
+            _profilePicture.image = [self retrieveProfilePictureFromCache];
+        }
+    }
+    
 }
 
 - (void)showImagePickerForSourceType:(UIImagePickerControllerSourceType)sourceType {
@@ -177,14 +205,14 @@
 #pragma mark image picker delegate
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
+    [self clearProfilePictureCache];
     UIImage *image = [info valueForKey:UIImagePickerControllerOriginalImage];
+    NSData *dataImageRepresentation = UIImageJPEGRepresentation(image, 1.0);
     
-    NSData* imageData = UIImagePNGRepresentation(image);
-    NSString* imagePath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"/libraryProfilePhoto.png"];
-    [imageData writeToFile:imagePath atomically:YES];
+    [self profilePictureCache:dataImageRepresentation];
     
     [self dismissViewControllerAnimated:YES completion:^{
-        _profilePicture.image = image;
+        _profilePicture.image = [self retrieveProfilePictureFromCache];
     }];
 }
 
@@ -204,12 +232,26 @@
     [self.view endEditing:YES];
 }
 
-- (void)deletePhoto {
+#pragma mark - profile picture helper methods
+
+- (UIImage *)retrieveProfilePictureFromCache {
+    
+    NSString* imagePath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"profilePicture"];
+    return [UIImage imageWithContentsOfFile:imagePath];
+}
+
+- (void)profilePictureCache:(NSData *)imageData {
+    
+    NSString* imagePath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"profilePicture"];
+    if (imageData) {
+        [imageData writeToFile:imagePath atomically:YES];
+    }
+}
+
+- (void)clearProfilePictureCache {
     
     NSFileManager *mgr = [[NSFileManager alloc]init];
-    
-    NSString* imagePath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"/libraryProfilePhoto.png"];
-    
+    NSString* imagePath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"profilePicture"];
     NSError *error = nil;
     
     if ([mgr fileExistsAtPath:imagePath]) {
@@ -217,29 +259,20 @@
         if (error) {
             UIAlertView *alert = [[UIAlertView alloc]
                                   initWithTitle:@"Error"
-                                  message:@"No such file exist"
+                                  message:@"Something went wrong while deleting your profile picture"
                                   delegate:nil
                                   cancelButtonTitle:@"OK"
                                   otherButtonTitles:nil];
             
             [alert show];
-
-        }else {
-            UIAlertView *alert = [[UIAlertView alloc]
-                                  initWithTitle:@"Success"
-                                  message:@"Picture deleted"
-                                  delegate:nil
-                                  cancelButtonTitle:@"OK"
-                                  otherButtonTitles:nil];
-            
-            [alert show];
-            
-            [self refreshImageData];
         }
     }
+}
+
+- (void)deletePhoto {
     
-    
-    
+    [self clearProfilePictureCache];
+    [self refreshImageData];
 }
 
 @end
