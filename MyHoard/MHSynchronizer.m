@@ -316,7 +316,7 @@
         for (MHItem *itemsWithOkStatus in objStatusOk) {
             NSArray *itemsById = [self predicateArray:responseObject byServerId:itemsWithOkStatus.objId];
             
-            if (!itemsById.count) {
+            if (itemsById.count) {
                 [itemsWithOkStatus removeMedia:itemsWithOkStatus.media];
                 [collection removeItemsObject:itemsWithOkStatus];
             }
