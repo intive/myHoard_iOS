@@ -125,11 +125,11 @@
         }
         
         NSArray *objStatusOk = [self predicateArray:coreDataCollections byObjectStatus:objectStatusOk];
-        
+
         for (MHCollection *collectionWithOkStatus in objStatusOk) {
             NSArray *collectionsById = [self predicateArray:responseObject byServerId:collectionWithOkStatus.objId];
             
-            if (!collectionsById.count) {
+            if (collectionsById.count) {
                 [[MHCoreDataContext getInstance].managedObjectContext deleteObject:collectionWithOkStatus];
                 [[MHCoreDataContext getInstance]saveContext];
             }
@@ -137,7 +137,6 @@
         
         for (NSDictionary *responseDictionary in responseObject) {
             predicationResult = [self predicateArray:coreDataCollections byObjectId:responseDictionary[@"id"]];
-            
             if ([predicationResult count] == 0) {
                 [self createCollectionFromServerResponse:responseDictionary];
             }else {
