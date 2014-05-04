@@ -7,6 +7,7 @@
 //
 
 #import "MHEditAccountViewController.h"
+#import <AFNetworking/UIImageView+AFNetworking.h>
 
 @interface MHEditAccountViewController ()
 
@@ -166,29 +167,26 @@
     NSString *profile = @"mateusz.fidos";
     NSURL *requestUrl = [NSURL URLWithString:[NSString stringWithFormat: @"https://graph.facebook.com/%@/picture", profile]];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:requestUrl];
-    NSURLResponse *response;
-    NSError *error = nil;
     
-    NSData *profilePictureData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-    
-    if (error) {
+    [_profilePicture setImageWithURLRequest:request placeholderImage:[UIImage imageNamed:@"profile.png"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+        if (image) {
+            NSData *profilePictureData = UIImageJPEGRepresentation(image, 1.0);
+            [self clearProfilePictureCache];
+            [self profilePictureCache:profilePictureData];
+            _profilePicture.image = [self retrieveProfilePictureFromCache];
+        }
+    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+        if (error) {
             UIAlertView *alert = [[UIAlertView alloc]
                                   initWithTitle:@"Error"
                                   message:@"Something went wrong while retrieving your profile picture"
                                   delegate:nil
                                   cancelButtonTitle:@"OK"
                                   otherButtonTitles:nil];
-            
+        
             [alert show];
-    }else {
-        if (profilePictureData) {
-            
-            [self clearProfilePictureCache];
-            [self profilePictureCache:profilePictureData];
-            _profilePicture.image = [self retrieveProfilePictureFromCache];
         }
-    }
-    
+    }];
 }
 
 - (void)showImagePickerForSourceType:(UIImagePickerControllerSourceType)sourceType {
@@ -236,22 +234,26 @@
 
 - (UIImage *)retrieveProfilePictureFromCache {
     
-    NSString* imagePath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"profilePicture"];
+    NSString* imagePath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@", [[MHAPI getInstance] activeSessionUserId]]];
     return [UIImage imageWithContentsOfFile:imagePath];
 }
 
 - (void)profilePictureCache:(NSData *)imageData {
     
-    NSString* imagePath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"profilePicture"];
-    if (imageData) {
-        [imageData writeToFile:imagePath atomically:YES];
+    NSString* imagePath;
+    
+    if ([[MHAPI getInstance]activeSessionUserId]) {
+        imagePath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@", [[MHAPI getInstance] activeSessionUserId]]];
+        if (imageData) {
+            [imageData writeToFile:imagePath atomically:YES];
+        }
     }
 }
 
 - (void)clearProfilePictureCache {
     
     NSFileManager *mgr = [[NSFileManager alloc]init];
-    NSString* imagePath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"profilePicture"];
+    NSString* imagePath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@", [[MHAPI getInstance] activeSessionUserId]]];
     NSError *error = nil;
     
     if ([mgr fileExistsAtPath:imagePath]) {

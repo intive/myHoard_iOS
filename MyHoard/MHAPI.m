@@ -77,7 +77,15 @@ static MHAPI *_sharedAPI = nil;
     }else {
         return NO;
     }
+}
+
+- (NSString *)activeSessionUserId {
     
+    NSString *uid;    
+    if ([self activeSession]) {
+        uid = _userId;
+    }
+    return uid;
 }
 
 - (AFHTTPRequestOperation *)createUser:(NSString *)email

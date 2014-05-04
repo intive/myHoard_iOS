@@ -151,7 +151,7 @@
 
 - (UIImage *)retrieveProfilePictureFromCache {
     
-    NSString* imagePath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"profilePicture"];
+    NSString* imagePath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@", [[MHAPI getInstance] activeSessionUserId]]];
     return [UIImage imageWithContentsOfFile:imagePath];
 }
 /*
