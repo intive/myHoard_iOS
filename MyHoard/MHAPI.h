@@ -45,8 +45,6 @@ typedef void (^MHAPICompletionBlock)(id object, NSError *error);
 
 - (BOOL)activeSession;
 
-- (NSString *)activeSessionUserId;
-
 - (AFHTTPRequestOperation *)updateUser:(NSString *)username
                           withPassword:(NSString *)password
                               andEmail:(NSString *)email

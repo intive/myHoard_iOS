@@ -234,16 +234,14 @@
 
 - (UIImage *)retrieveProfilePictureFromCache {
     
-    NSString* imagePath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@", [[MHAPI getInstance] activeSessionUserId]]];
+    NSString* imagePath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:[MHAPI getInstance].userId];
     return [UIImage imageWithContentsOfFile:imagePath];
 }
 
 - (void)profilePictureCache:(NSData *)imageData {
-    
-    NSString* imagePath;
-    
-    if ([[MHAPI getInstance]activeSessionUserId]) {
-        imagePath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@", [[MHAPI getInstance] activeSessionUserId]]];
+        
+    if ([MHAPI getInstance].userId) {
+       NSString *imagePath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:[MHAPI getInstance].userId];
         if (imageData) {
             [imageData writeToFile:imagePath atomically:YES];
         }
@@ -253,7 +251,7 @@
 - (void)clearProfilePictureCache {
     
     NSFileManager *mgr = [[NSFileManager alloc]init];
-    NSString* imagePath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@", [[MHAPI getInstance] activeSessionUserId]]];
+    NSString* imagePath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:[MHAPI getInstance].userId];
     NSError *error = nil;
     
     if ([mgr fileExistsAtPath:imagePath]) {
