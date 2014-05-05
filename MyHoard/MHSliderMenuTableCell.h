@@ -10,4 +10,6 @@
 
 @interface MHSliderMenuTableCell : AMSlideTableCell
 
+@property (nonatomic, readwrite)BOOL separatorVisible;
+
 @end

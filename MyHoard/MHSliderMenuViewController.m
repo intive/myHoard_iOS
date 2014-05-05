@@ -7,6 +7,7 @@
 //
 
 #import "MHSliderMenuViewController.h"
+#import "MHSliderMenuTableCell.h"
 #import "MHAPI.h"
 #import "MHWaitDialog.h"
 #import "MHSynchronizer.h"
@@ -37,6 +38,9 @@
     CGFloat menuSlideValue = 270;
     CGFloat headerPadding = (menuSlideValue / 2) - ([menu sizeWithFont:headerFont].width / 2);
     
+    MHSliderMenuTableCell *cell = [[MHSliderMenuTableCell alloc]init];
+    cell.separatorVisible = NO;
+    
     NSDictionary *options = @{
                               AMOptionsTableOffsetY : @(-20),
                               AMOptionsTableInsetX : @(0),
@@ -65,8 +69,8 @@
                               AMOptionsHeaderSeparatorLower : [UIColor clearColor],
                               AMOptionsCellFont : [UIFont systemFontOfSize:14],
                               AMOptionsCellBadgeFont : [UIFont systemFontOfSize:14],
-                              AMOptionsCellFontColor : [UIColor lighterYellow],
-                              AMOptionsCellBackground : [UIColor clearColor],
+                              AMOptionsCellFontColor : [UIColor lighterGray],
+                              AMOptionsCellBackground : [UIColor lighterYellow],
                               AMOptionsCellSeparatorUpper : [UIColor clearColor],
                               AMOptionsCellSeparatorLower : [UIColor clearColor],
                               AMOptionsCellShadowColor : [UIColor clearColor],
@@ -103,7 +107,6 @@
                               AMOptionsNavBarImage : [NSNull null],
                               };
     
-    
     [self setSlideoutOptions:options];
 
     [super loadView];
@@ -118,17 +121,17 @@
 	[self addSectionWithTitle:@"Menu"];
 	
 	controller = [storyboard instantiateViewControllerWithIdentifier:@"MHSearchViewController"];
-	[self addViewControllerToLastSection:controller tagged:1 withTitle:@"Search" andIcon:@"search_y"];
+	[self addViewControllerToLastSection:controller tagged:1 withTitle:@"Search" andIcon:@"search"];
     
     if ([[MHAPI getInstance]activeSession]) {
         controller = [storyboard instantiateViewControllerWithIdentifier:@"MHAccountViewController"];
-        [self addViewControllerToLastSection:controller tagged:2 withTitle:@"Profile" andIcon:@"profile_y"];
+        [self addViewControllerToLastSection:controller tagged:2 withTitle:@"Profile" andIcon:@"profile"];
     }
     
 	controller = [storyboard instantiateViewControllerWithIdentifier:@"MHCollectionViewController"];
-	[self addViewControllerToLastSection:controller tagged:3 withTitle:@"Collections" andIcon:@"collection_y"];
+	[self addViewControllerToLastSection:controller tagged:3 withTitle:@"Collections" andIcon:@"collection"];
 	controller = [storyboard instantiateViewControllerWithIdentifier:@"MHFriendsViewController"];
-	[self addViewControllerToLastSection:controller tagged:4 withTitle:@"Friends" andIcon:@"friends_y"];
+	[self addViewControllerToLastSection:controller tagged:4 withTitle:@"Friends" andIcon:@"friends"];
     
     __block UINavigationController* nc = self.navigationController;
     __block MHWaitDialog *waitDialog = [[MHWaitDialog alloc]init];
@@ -162,7 +165,7 @@
                        withTitle:@"Logout"
                          andIcon:@""];
     
-    self.view.backgroundColor = [UIColor appBackgroundColor];
+    self.view.backgroundColor = [UIColor lighterYellow];
     [self setStartingControllerTag:3];
     
     [super viewDidLoad];

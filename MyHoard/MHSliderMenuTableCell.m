@@ -18,7 +18,7 @@
 
 - (UIView *) cellSeparatorView {
     
-    if (!_cellSeparatorView) {
+    if (_separatorVisible) {
         _cellSeparatorView = [[UIView alloc] initWithFrame:CGRectMake(12, self.bounds.size.height - 1, self.bounds.size.width - 12, 0.5)];
         _cellSeparatorView.backgroundColor = [UIColor blackColor];
     }
@@ -32,6 +32,14 @@
 {
     [super layoutSubviews];
     [self addSubview:self.cellSeparatorView];
+}
+
+- (void)setSeparatorVisible:(BOOL)separatorVisible {
+    if (separatorVisible) {
+        _cellSeparatorView.hidden = NO;
+    }else {
+        _cellSeparatorView.hidden = YES;
+    }
 }
 
 @end
