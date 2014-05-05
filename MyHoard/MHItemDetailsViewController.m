@@ -75,7 +75,14 @@
         CLLocation *myLoc = _item.objLocation;
         MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(myLoc.coordinate, 0.5*METERS_PER_MILE, 0.5*METERS_PER_MILE);
         [_itemMapView setRegion:viewRegion animated:YES];
-    } // dodać else i zablokować button na szarym
+        
+
+        MKPointAnnotation *annotation = [[MKPointAnnotation alloc] init];
+        [annotation setCoordinate:myLoc.coordinate];
+        [_itemMapView addAnnotation:annotation];
+    } else {
+        _locationButton.hidden = YES;
+    }
 }
 
 - (void)didReceiveMemoryWarning
