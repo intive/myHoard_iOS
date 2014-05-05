@@ -16,11 +16,10 @@
 static const CGFloat KEYBOARD_ANIMATION_DURATION = 0.3;
 static const CGFloat MINIMUM_SCROLL_FRACTION = 0.01;
 static const CGFloat MAXIMUM_SCROLL_FRACTION = 0.8;
-static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 200;
+static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 220;
 
 @interface MHAddItemViewController ()
 @property (readwrite) CGFloat animatedDistance;
-@property (nonatomic, retain) UIActivityViewController* controller;
 @end
 
 @implementation MHAddItemViewController
@@ -280,29 +279,30 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 200;
         [alert show];
     }else if (duplicate == YES){
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"error" message:@"Item of that title exists." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
-            [alert show];
+        [alert show];
     }else if(self.selectedCollection==nil){
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"error" message:@"Collection is not set properly" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
         [alert show];
-    }
-    else {
+    }else
+    {
         if (_item != nil) {
             [self updateItem:trimmedString];
             return;
         }
-        if (_shareSwitch.isOn) {
+        if (_shareSwitch.isOn)
+        {
             NSMutableString *text = [[NSMutableString alloc] initWithString: @"I've just added"];
-            [text appendFormat:@" %@ to my collection of %@!",_titleTextField.text, _collectionLabel.text];
+            [text appendFormat:@" %@ to my collection of %@!",_titleTextField.text, _collectionNoneLabel.text];
             NSArray *activityItems = [NSArray alloc];
-            _controller = [UIActivityViewController alloc];
-            if(_selectedImage){
+            if(_selectedImage)
+            {
                 activityItems =  @[text,_selectedImage];
-            }
-            else {
+            } else
+            {
                 activityItems =  @[text];
             }
-            [_controller initWithActivityItems:activityItems applicationActivities:nil];
-            _controller.excludedActivityTypes = @[UIActivityTypePostToWeibo,
+            UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:nil];
+            controller.excludedActivityTypes = @[UIActivityTypePostToWeibo,
                                                  UIActivityTypeMail,
                                                  UIActivityTypePrint,
                                                  UIActivityTypeCopyToPasteboard,
@@ -313,108 +313,52 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 200;
                                                  UIActivityTypePostToVimeo,
                                                  UIActivityTypePostToTencentWeibo,
                                                  UIActivityTypeAirDrop];
-            [[self parentViewController] presentViewController:_controller animated:YES completion:nil];
+            [[self parentViewController] presentViewController:controller animated:YES completion:nil];
             __weak typeof(self) weakself = self;
-        [_controller setCompletionHandler:^(NSString *activityType, BOOL completed) {
-            if(completed){
-            MHItem* item = [MHDatabaseManager insertItemWithObjName:trimmedString
-                                                     objDescription:weakself.commentaryTextView.text
-                                                            objTags:nil
-                                                        objLocation:weakself.selectedLocation
-                                                     objCreatedDate:[NSDate date]
-                                                    objModifiedDate:nil
-                                                         collection:weakself.selectedCollection
-                                                          objStatus:objectStatusNew];
-            
-            if (weakself.selectedImage) {
-                NSString *key = [[MHImageCache sharedInstance] cacheImage:weakself.selectedImage];
-                
-                MHMedia* media = [MHDatabaseManager insertMediaWithCreatedDate:[NSDate date]
-                                                                        objKey:key
-                                                                          item:item
-                                                                     objStatus:objectStatusNew];
-                
-                if ([[MHAPI getInstance]activeSession] == YES) {
-                    __block MHWaitDialog* wait = [[MHWaitDialog alloc] init];
-                    [wait show];
-                    [[MHAPI getInstance]createMedia:media completionBlock:^(id object, NSError *error) {
-                        if (error) {
-                            [wait dismiss];
-                            UIAlertView *alert = [[UIAlertView alloc]
-                                                  initWithTitle:@"Error"
-                                                  message:error.localizedDescription
-                                                  delegate:weakself
-                                                  cancelButtonTitle:@"Ok"
-                                                  otherButtonTitles:nil];
-                            [alert show];
-                        }else {
-                            [[MHAPI getInstance]createItem:item completionBlock:^(id object, NSError *error) {
-                                [wait dismiss];
-                                if (error) {
-                                    UIAlertView *alert = [[UIAlertView alloc]
-                                                          initWithTitle:@"Error"
-                                                          message:error.localizedDescription
-                                                          delegate:weakself
-                                                          cancelButtonTitle:@"Ok"
-                                                          otherButtonTitles:nil];
-                                    [alert show];
-                                }else {
-                                    [weakself dismissViewControllerAnimated:YES completion:nil];
-                                }
-                            }];
-                        }
-                    }];
-                } else {
-                    [weakself dismissViewControllerAnimated:YES completion:nil];
+            [controller setCompletionHandler:^(NSString *activityType, BOOL completed)
+            {
+                if(completed)
+                {
+                    [weakself addMediaAndItemToDatabase];
                 }
-            } else {
-                if ([[MHAPI getInstance]activeSession] == YES) {
-                    __block MHWaitDialog* wait = [[MHWaitDialog alloc] init];
-                    [wait show];
-                    [[MHAPI getInstance] createItem:item completionBlock:^(id object, NSError *error) {
-                        [wait dismiss];
-                        if (error) {
-                            UIAlertView *alert = [[UIAlertView alloc]
-                                                  initWithTitle:@"Error"
-                                                  message:error.localizedDescription
-                                                  delegate:weakself
-                                                  cancelButtonTitle:@"Ok"
-                                                  otherButtonTitles:nil];
-                            [alert show];
-                        }
-                        [weakself dismissViewControllerAnimated:YES completion:nil];
-                    }];
-                } else {
-                    [weakself dismissViewControllerAnimated:YES completion:nil];
-                }
-            }
-            }
-        }];
-    } else {
-        MHItem* item = [MHDatabaseManager insertItemWithObjName:trimmedString
-                                                 objDescription:self.commentaryTextView.text
-                                                        objTags:nil
-                                                    objLocation:self.selectedLocation
-                                                 objCreatedDate:[NSDate date]
-                                                objModifiedDate:nil
-                                                     collection:self.selectedCollection
-                                                      objStatus:@"new"];
+            }];
+        } else {
+            [self addMediaAndItemToDatabase];
+        }
+    }
+}
+
+- (void) addMediaAndItemToDatabase{
+    NSString *trimmedString = [self.titleTextField.text stringByTrimmingCharactersInSet:
+                               [NSCharacterSet whitespaceCharacterSet]];
+    MHItem* item = [MHDatabaseManager insertItemWithObjName:trimmedString
+                                             objDescription:self.commentaryTextView.text
+                                                    objTags:nil
+                                                objLocation:self.selectedLocation
+                                             objCreatedDate:[NSDate date]
+                                            objModifiedDate:nil
+                                                 collection:self.selectedCollection
+                                                  objStatus:objectStatusNew];
+    
+    if (self.selectedImage)
+    {
+        NSString *key = [[MHImageCache sharedInstance] cacheImage:self.selectedImage];
+        MHMedia* media = [MHDatabaseManager insertMediaWithCreatedDate:[NSDate date]
+                                                                objKey:key
+                                                                  item:item
+                                                             objStatus:objectStatusNew];
         
-        if (self.selectedImage) {
-            NSString *key = [[MHImageCache sharedInstance] cacheImage:self.selectedImage];
-            
-            MHMedia* media = [MHDatabaseManager insertMediaWithCreatedDate:[NSDate date]
-                                                                    objKey:key
-                                                                      item:item
-                                                                 objStatus:@"new"];
-            
-            if ([[MHAPI getInstance]activeSession] == YES) {
-                if (![self.selectedCollection.objType isEqualToString:collectionTypeOffline]) {
+        if ([[MHAPI getInstance]activeSession] == YES)
+        {
+            if (![self.selectedCollection.objType isEqualToString:collectionTypeOffline])
+            {
                 __block MHWaitDialog* wait = [[MHWaitDialog alloc] init];
                 [wait show];
-                [[MHAPI getInstance]createMedia:media completionBlock:^(id object, NSError *error) {
-                    if (error) {
-                        [wait dismiss];
+                [[MHAPI getInstance]createMedia:media completionBlock:^(id object, NSError *error)
+                {
+                    [wait dismiss];
+                    if (error)
+                    {
                         UIAlertView *alert = [[UIAlertView alloc]
                                               initWithTitle:@"Error"
                                               message:error.localizedDescription
@@ -422,10 +366,12 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 200;
                                               cancelButtonTitle:@"Ok"
                                               otherButtonTitles:nil];
                         [alert show];
-                    }else {
-                        [[MHAPI getInstance]createItem:item completionBlock:^(id object, NSError *error) {
-                            [wait dismiss];
-                            if (error) {
+                    }else
+                    {
+                        [[MHAPI getInstance]createItem:item completionBlock:^(id object, NSError *error)
+                        {
+                            if (error)
+                            {
                                 UIAlertView *alert = [[UIAlertView alloc]
                                                       initWithTitle:@"Error"
                                                       message:error.localizedDescription
@@ -433,46 +379,37 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 200;
                                                       cancelButtonTitle:@"Ok"
                                                       otherButtonTitles:nil];
                                 [alert show];
-                            }else {
-                                [self dismissViewControllerAnimated:YES completion:nil];
                             }
                         }];
                     }
                 }];
-                    
-                }else {
-                    [self dismissViewControllerAnimated:YES completion:nil];
-                }
-            } else {
-                [self dismissViewControllerAnimated:YES completion:nil];
             }
-        } else {
-            if ([[MHAPI getInstance]activeSession] == YES) {
-                if (![self.selectedCollection.objType isEqualToString:collectionTypeOffline]) {
+        }
+    } else
+    {
+        if ([[MHAPI getInstance]activeSession] == YES)
+        {
+            if (![self.selectedCollection.objType isEqualToString:collectionTypeOffline])
+            {
                 __block MHWaitDialog* wait = [[MHWaitDialog alloc] init];
                 [wait show];
-                [[MHAPI getInstance] createItem:item completionBlock:^(id object, NSError *error) {
-                    [wait dismiss];
-                    if (error) {
-                        UIAlertView *alert = [[UIAlertView alloc]
-                                              initWithTitle:@"Error"
-                                              message:error.localizedDescription
-                                              delegate:self
-                                              cancelButtonTitle:@"Ok"
-                                              otherButtonTitles:nil];
-                        [alert show];
-                    }
-                    [self dismissViewControllerAnimated:YES completion:nil];
-                }];
-                }else {
-                    [self dismissViewControllerAnimated:YES completion:nil];
-                }
-            }else {
-                [self dismissViewControllerAnimated:YES completion:nil];
+                [[MHAPI getInstance] createItem:item completionBlock:^(id object, NSError *error)
+                 {
+                     [wait dismiss];
+                     if (error) {
+                         UIAlertView *alert = [[UIAlertView alloc]
+                                               initWithTitle:@"Error"
+                                               message:error.localizedDescription
+                                               delegate:self
+                                               cancelButtonTitle:@"Ok"
+                                               otherButtonTitles:nil];
+                         [alert show];
+                     }
+                 }];
             }
         }
     }
-    }
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)updateItem:(NSString *)trimmedString {
