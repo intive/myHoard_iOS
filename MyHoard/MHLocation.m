@@ -31,6 +31,7 @@ static MHLocation *sharedInstance;
 -(id) init {
     if (self = [super init]) {
         _currentLocation = [[CLLocation alloc] init];
+        _currentLocation = nil;
         locationManager = [[CLLocationManager alloc] init];
         geocoder = [[CLGeocoder alloc] init];
         locationManager.delegate = self;
