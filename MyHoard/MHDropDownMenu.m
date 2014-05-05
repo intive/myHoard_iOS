@@ -126,6 +126,8 @@
             [item setBackgroundColor:backgroundColor forState:UIControlStateNormal];
             [item setBackgroundColor:[backgroundColor colorWithAlphaComponent:0.45] forState:UIControlStateHighlighted];
             [item setTitleColor:textColor forState:UIControlStateNormal];
+            [item setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+            [item setContentEdgeInsets:UIEdgeInsetsMake(0, 25, 0, 0)];
             
         } else {
             view.frame = CGRectMake(0, 0, width, height);
