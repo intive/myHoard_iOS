@@ -180,7 +180,6 @@
 
 - (void)placesFinder:(MJPlacesFinder *)placesFinder didFailWithError:(NSError *)error{
     _places=nil; 
-    _localizations=nil;
     NSLog(@"no placmarks from google");
 }
 

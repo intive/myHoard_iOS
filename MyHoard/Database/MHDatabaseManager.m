@@ -162,6 +162,9 @@ NSString* const objectStatusNew = @"new";
         item.objModifiedDate = objModifiedDate;
     }
     
+    if (objLocation){
+        item.objLocation=objLocation;
+    }
     //objOwner don't need to be set becouse we are getting items only for collection, so situation where we take items from different owner then owner of a collection couldn't happen.
     
     if (objStatus.length){
