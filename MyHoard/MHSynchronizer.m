@@ -127,9 +127,10 @@
         NSArray *objStatusOk = [self predicateArray:coreDataCollections byObjectStatus:objectStatusOk];
 
         for (MHCollection *collectionWithOkStatus in objStatusOk) {
-            NSArray *collectionsById = [self predicateArray:responseObject byServerId:collectionWithOkStatus.objId];
             
-            if (collectionsById.count) {
+            NSArray *collectionsById = [self predicateArray:objStatusOk byObjectId:collectionWithOkStatus.objId];
+            
+            if ([collectionsById count] > 1) {
                 [[MHCoreDataContext getInstance].managedObjectContext deleteObject:collectionWithOkStatus];
                 [[MHCoreDataContext getInstance]saveContext];
             }
@@ -314,9 +315,9 @@
         NSArray *objStatusOk = [self predicateArray:coreDataItems byObjectStatus:objectStatusOk];
         
         for (MHItem *itemsWithOkStatus in objStatusOk) {
-            NSArray *itemsById = [self predicateArray:responseObject byServerId:itemsWithOkStatus.objId];
+            NSArray *itemsById = [self predicateArray:objStatusOk byObjectId:itemsWithOkStatus.objId];
             
-            if (itemsById.count) {
+            if ([itemsById count] > 1) {
                 [itemsWithOkStatus removeMedia:itemsWithOkStatus.media];
                 [collection removeItemsObject:itemsWithOkStatus];
             }
