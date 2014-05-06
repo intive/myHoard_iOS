@@ -424,7 +424,7 @@ static MHAPI *_sharedAPI = nil;
     }
 
     NSMutableURLRequest *request = [jsonRequest requestWithMethod:@"PUT"
-                                                        URLString:[NSString stringWithFormat:@"%@%@",[self urlWithPath:@"collections"],collection.objId]
+                                                        URLString:[NSString stringWithFormat:@"%@%@/",[self urlWithPath:@"collections"],collection.objId]
                                                        parameters:params
                                                             error:&error];
     __block MHCollection *c = collection;

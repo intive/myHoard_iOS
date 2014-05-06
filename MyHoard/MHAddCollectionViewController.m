@@ -220,11 +220,9 @@
             collection.objModifiedDate = [NSDate date];
             collection.objTags = [_tagsTextField.text tags];
             [[MHCoreDataContext getInstance] saveContext];
-            /*
+            
             if ([[MHAPI getInstance]activeSession] == YES) {
-                NSLog(@"Yes you are logged in");
-                
-                if (![_typeLabel.text isEqualToString:@"Offline"]) {
+                if (![_collection.objType isEqualToString:collectionTypeOffline]) {
                     __block MHWaitDialog* wait = [[MHWaitDialog alloc] init];
                     [wait show];
                     [[MHAPI getInstance] updateCollection:_collection completionBlock:^(id object, NSError *error) {
@@ -248,8 +246,7 @@
              
             } else {
                 [self dismissViewControllerAnimated:YES completion:nil];
-            }*/
-            [self dismissViewControllerAnimated:YES completion:nil];
+            }
         } else {
             MHCollection* collection = [MHDatabaseManager insertCollectionWithObjName:trimmedString
                                                                        objDescription:self.descriptionTextField.text
