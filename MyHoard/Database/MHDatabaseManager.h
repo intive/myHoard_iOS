@@ -46,11 +46,16 @@ extern NSString* const objectStatusNew;
 
 + (MHItem*) itemWithObjName:(NSString*)objName inCollection:(MHCollection *)collection;
 + (NSArray*) allItemsWithObjName: (NSString*)objName inCollection:(MHCollection*)collection;
++ (void)removeItemWithObjName:(NSString*)objName inCollection:(MHCollection*)collection;
 
 #pragma mark - Media
 + (MHMedia*)insertMediaWithCreatedDate:(NSDate*)objCreatedDate
                                 objKey:(NSString*)objKey
                                   item:(MHItem *)item
                              objStatus:(NSString*)objStatus;
+
++ (NSArray*)allMediaInItem:(MHItem*)item;
+
++ (void)removeMediaInItem:(MHItem*)item;
 
 @end

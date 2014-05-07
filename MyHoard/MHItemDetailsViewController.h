@@ -10,8 +10,13 @@
 #import "MHItem.h"
 #import "MHMedia.h"
 #import <MapKit/MapKit.h>
+#import <UIKit/UIKit.h>
+#import "MHWaitDialog.h"
+#import "MHAPI.h"
+#import "MHDatabaseManager.h"
+#import "MHCollection.h"
 
-@interface MHItemDetailsViewController : MHBaseViewController <MKMapViewDelegate, UITextViewDelegate>
+@interface MHItemDetailsViewController : MHBaseViewController <MKMapViewDelegate, UITextViewDelegate, UIActionSheetDelegate, UIAlertViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *frontImage;
 @property (weak, nonatomic) IBOutlet UINavigationItem *itemTitle;

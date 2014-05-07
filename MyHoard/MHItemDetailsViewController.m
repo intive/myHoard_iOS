@@ -172,6 +172,119 @@
 }
 
 - (IBAction)doneButton:(id)sender {
-    [self performSegueWithIdentifier:@"ChangeItemSettingsSegue" sender:_item];
+    UIActionSheet *actionSheet = [[UIActionSheet alloc]initWithTitle:nil
+                                                            delegate:self
+                                                   cancelButtonTitle:@"Cancel"
+                                              destructiveButtonTitle:nil
+                                                   otherButtonTitles:@"Edit item", @"Delete item", nil];
+    [actionSheet showInView:self.view];
+
 }
+
+-(void) actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil
+                                                   message:@"Do you want to delete the item?"
+                                                  delegate:self
+                                         cancelButtonTitle:@"Cancel"
+                                         otherButtonTitles:@"OK", nil];
+
+    switch (buttonIndex) {
+        case 0:
+            [self performSegueWithIdentifier:@"ChangeItemSettingsSegue" sender:_item];
+            break;
+        case 1:
+            [alert show];
+            break;
+        default:
+            break;
+    }
+}
+
+- (void) alertView:(UIAlertView *)alert clickedButtonAtIndex:(NSInteger)buttonIndex{
+    __block MHWaitDialog *waitDialog = [[MHWaitDialog alloc]init];
+    switch (buttonIndex) {
+        case 1:
+            [waitDialog show];
+            if ([[MHAPI getInstance]userId]&&([self.item.collection.objType isEqualToString:collectionTypePrivate] || [self.item.collection.objType isEqualToString:collectionTypePublic])){
+                MHCollection *acollection = self.item.collection;
+                self.item.collection = nil;
+                self.item.objStatus = @"deleted";
+                NSArray *itemMedia = [MHDatabaseManager allMediaInItem:self.item];
+                [MHDatabaseManager removeMediaInItem:self.item];
+                for (int i=0; i<[itemMedia count]; i++){
+                    MHMedia *media = [itemMedia objectAtIndex:i];
+                    [[MHImageCache sharedInstance]cacheImage:nil forKey:media.objKey];
+                }
+                [MHDatabaseManager removeItemWithObjName:self.item.objName inCollection:acollection];
+                [[MHAPI getInstance] deleteItemWithId: self.item completionBlock:^(id object, NSError *error){
+                    if (error){
+                        [waitDialog dismiss];
+                        UIAlertView *err = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                                      message:error.localizedDescription
+                                                                     delegate:nil
+                                                            cancelButtonTitle:@"OK"
+                                                            otherButtonTitles:nil];
+                        [err show];
+                        [self.navigationController popViewControllerAnimated:YES];
+                    }
+                    else
+                    {
+                        for (int i=0; i<[itemMedia count]; i++){
+                            MHMedia *media = [itemMedia objectAtIndex:i];
+                            [[MHAPI getInstance]deleteMedia:media completionBlock:^(id object, NSError *error){
+                                if (error){
+                                    [waitDialog dismiss];
+                                    UIAlertView *err = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                                                  message:error.localizedDescription
+                                                                                 delegate:nil
+                                                                        cancelButtonTitle:@"OK"
+                                                                        otherButtonTitles:nil];
+                                    [err show];
+                                    [self.navigationController popViewControllerAnimated:YES];
+                                }
+                                else
+                                    [waitDialog dismiss];
+                            }];
+                        }
+                        
+                        [[MHAPI getInstance]updateCollection:acollection completionBlock:^(id object, NSError *error){
+                            if (error){
+                                [waitDialog dismiss];
+                                UIAlertView *err = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                                              message:error.localizedDescription
+                                                                             delegate:nil
+                                                                    cancelButtonTitle:@"OK"
+                                                                    otherButtonTitles:nil];
+                                [err show];
+                                [self.navigationController popViewControllerAnimated:YES];
+                            }
+                            else
+                                [waitDialog dismiss];
+                        }];
+                        [waitDialog dismiss];
+                        [self.navigationController popViewControllerAnimated:YES];
+                    };
+                    
+                }];
+                
+            }
+            else
+            {
+                MHCollection *acollection = self.item.collection;
+                self.item.collection = nil;
+                NSArray *itemMedia = [MHDatabaseManager allMediaInItem:self.item];
+                [MHDatabaseManager removeMediaInItem:self.item];
+                for (int i=0; i<[itemMedia count]; i++){
+                    MHMedia *media = [itemMedia objectAtIndex:i];
+                    [[MHImageCache sharedInstance]cacheImage:nil forKey:media.objKey];
+                }
+                [MHDatabaseManager removeItemWithObjName:self.item.objName inCollection:acollection];
+                [waitDialog dismiss];
+                [self.navigationController popViewControllerAnimated:YES];
+            }
+            break;
+            
+    }
+}
+
 @end

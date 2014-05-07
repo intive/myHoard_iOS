@@ -207,6 +207,30 @@ NSString* const objectStatusNew = @"new";
     return fetchedObjects;
 }
 
++ (void)removeItemWithObjName:(NSString *)objName inCollection:(MHCollection *)collection
+{
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"MHItem" inManagedObjectContext:[MHCoreDataContext getInstance].managedObjectContext];
+    [fetchRequest setEntity:entity];
+    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"objName==%@ AND collection = %@", objName, collection]];
+    
+    NSError *error = nil;
+    
+    NSArray *fetchedObjects = [[MHCoreDataContext getInstance].managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    
+    if (fetchedObjects != nil && error == nil) {
+        for (NSManagedObject *object in fetchedObjects) {
+            [[MHCoreDataContext getInstance].managedObjectContext deleteObject:object];
+        }
+    }else {
+        NSLog(@"Unresolved error: %@, %@", error, [error userInfo]);
+    }
+    
+    [[MHCoreDataContext getInstance] saveContext];
+    
+}
+
 #pragma mark - Media
 + (MHMedia*)insertMediaWithCreatedDate:(NSDate*)objCreatedDate
                                 objKey:(NSString*)objKey
@@ -240,6 +264,52 @@ NSString* const objectStatusNew = @"new";
     
     [[MHCoreDataContext getInstance] saveContext];
     return media;
+}
+
++ (NSArray*)allMediaInItem:(MHItem *)item
+{
+    NSFetchRequest *fetch = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"MHMedia" inManagedObjectContext: [MHCoreDataContext getInstance].managedObjectContext];
+    [fetch setEntity:entityDescription];
+    [fetch setPredicate:[NSPredicate predicateWithFormat:@"item = %@", item]];
+    NSError *error = nil;
+    NSArray *fetchedObjects = [[MHCoreDataContext getInstance].managedObjectContext executeFetchRequest:fetch error:&error];
+    if(error==nil){
+        if([fetchedObjects count])
+        {
+            return fetchedObjects;
+        }
+    }
+    else{
+        NSLog(@"Unresolved error: %@, %@", error, [error userInfo]);
+    }
+    
+    return nil;
+}
+
+
++ (void)removeMediaInItem:(MHItem *)item
+{
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"MHMedia" inManagedObjectContext:[MHCoreDataContext getInstance].managedObjectContext];
+    [fetchRequest setEntity:entity];
+    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"item = %@", item]];
+    NSError *error = nil;
+    NSArray *fetchedObjects = [[MHCoreDataContext getInstance].managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    
+    if (fetchedObjects != nil && error == nil)
+    {
+        for (NSManagedObject *objects in fetchedObjects)
+        {
+            [[MHCoreDataContext getInstance].managedObjectContext deleteObject:objects];
+        }
+    }
+    else
+    {
+        NSLog(@"Unresolved error: %@, %@", error, [error userInfo]);
+    }
+    
+    [[MHCoreDataContext getInstance] saveContext];
 }
 
 @end
