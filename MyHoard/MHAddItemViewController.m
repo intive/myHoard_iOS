@@ -12,6 +12,8 @@
 #import "MHWaitDialog.h"
 #import "MHImageCache.h"
 #import "MHCoreDataContext.h"
+#import "MHImagePickerViewController.h"
+#import "UIActionSheet+ButtonState.h"
 
 static const CGFloat KEYBOARD_ANIMATION_DURATION = 0.3;
 static const CGFloat MINIMUM_SCROLL_FRACTION = 0.01;
@@ -20,6 +22,7 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 220;
 
 @interface MHAddItemViewController ()
 @property (readwrite) CGFloat animatedDistance;
+@property (readwrite) int objectToRemove;
 @end
 
 @implementation MHAddItemViewController
@@ -41,7 +44,6 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 220;
                                    action:@selector(dismissKeyboard)];
     
     [self.view addGestureRecognizer:tap];
-
     UIBarButtonItem *closeButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"cancel"] style:UIBarButtonItemStylePlain target:self action:@selector(backButton:)];
     self.navigationItem.leftBarButtonItem = closeButton;
     UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"check"] style:UIBarButtonItemStylePlain target:self action:@selector(doneButton:)];
@@ -58,12 +60,16 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 220;
     self.localizationNoneLabel.textColor = [UIColor darkerYellow];
     self.titleTextField.textColor = [UIColor lighterYellow];
     self.shareLabel.textColor = [UIColor lighterYellow];
+    self.collectionView.backgroundColor = [UIColor darkerGray];
     _titleTextField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Title" attributes:@{NSForegroundColorAttributeName: [UIColor darkerYellow]}];
     _defaultLabel.textColor = [UIColor darkerYellow];
     _commentaryTextView.backgroundColor = [UIColor clearColor];
     _commentaryTextView.textColor = [UIColor lighterYellow];
     [_shareSwitch setOn:1];
-    self.imageView.image = self.selectedImage;
+    _array = [[NSMutableArray alloc] init];
+    if(self.selectedImage){
+        [_array addObject: self.selectedImage];
+    }
     if (self.selectedLocation) {
 
         CLGeocoder *geo = [[CLGeocoder alloc] init];
@@ -92,8 +98,7 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 220;
     }
     if (_item) {
     for(MHMedia *media in _item.media) {
-        _imageView.image = [[MHImageCache sharedInstance] imageForKey:media.objKey];
-        break; //just read first item
+        [_array addObject:[[MHImageCache sharedInstance] imageForKey:media.objKey]];
     }
         _selectedCollection = _item.collection;
         _titleTextField.text = _item.objName;
@@ -294,9 +299,9 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 220;
             NSMutableString *text = [[NSMutableString alloc] initWithString: @"I've just added"];
             [text appendFormat:@" %@ to my collection of %@!",_titleTextField.text, _collectionNoneLabel.text];
             NSArray *activityItems = [NSArray alloc];
-            if(_selectedImage)
+            if([_array firstObject])
             {
-                activityItems =  @[text,_selectedImage];
+                activityItems =  @[text,[_array firstObject]];
             } else
             {
                 activityItems =  @[text];
@@ -340,49 +345,51 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 220;
                                                  collection:self.selectedCollection
                                                   objStatus:objectStatusNew];
     
-    if (self.selectedImage)
-    {
-        NSString *key = [[MHImageCache sharedInstance] cacheImage:self.selectedImage];
-        MHMedia* media = [MHDatabaseManager insertMediaWithCreatedDate:[NSDate date]
-                                                                objKey:key
-                                                                  item:item
-                                                             objStatus:objectStatusNew];
-        
-        if ([[MHAPI getInstance]activeSession] == YES)
+    if ([_array firstObject]){
+        for (int i=0; i<[_array count]; i++)
         {
-            if (![self.selectedCollection.objType isEqualToString:collectionTypeOffline])
+            NSString *key = [[MHImageCache sharedInstance] cacheImage:[_array objectAtIndex:i]];
+            MHMedia* media = [MHDatabaseManager insertMediaWithCreatedDate:[NSDate date]
+                                                                    objKey:key
+                                                                      item:item
+                                                                 objStatus:objectStatusNew];
+            
+            if ([[MHAPI getInstance]activeSession] == YES)
             {
-                __block MHWaitDialog* wait = [[MHWaitDialog alloc] init];
-                [wait show];
-                [[MHAPI getInstance]createMedia:media completionBlock:^(id object, NSError *error)
+                if (![self.selectedCollection.objType isEqualToString:collectionTypeOffline])
                 {
-                    [wait dismiss];
-                    if (error)
+                    __block MHWaitDialog* wait = [[MHWaitDialog alloc] init];
+                    [wait show];
+                    [[MHAPI getInstance]createMedia:media completionBlock:^(id object, NSError *error)
                     {
-                        UIAlertView *alert = [[UIAlertView alloc]
-                                              initWithTitle:@"Error"
-                                              message:error.localizedDescription
-                                              delegate:self
-                                              cancelButtonTitle:@"Ok"
-                                              otherButtonTitles:nil];
-                        [alert show];
-                    }else
-                    {
-                        [[MHAPI getInstance]createItem:item completionBlock:^(id object, NSError *error)
+                        [wait dismiss];
+                        if (error)
                         {
-                            if (error)
+                            UIAlertView *alert = [[UIAlertView alloc]
+                                                  initWithTitle:@"Error"
+                                                  message:error.localizedDescription
+                                                  delegate:self
+                                                  cancelButtonTitle:@"Ok"
+                                                  otherButtonTitles:nil];
+                            [alert show];
+                        }else
+                        {
+                            [[MHAPI getInstance]createItem:item completionBlock:^(id object, NSError *error)
                             {
-                                UIAlertView *alert = [[UIAlertView alloc]
-                                                      initWithTitle:@"Error"
-                                                      message:error.localizedDescription
-                                                      delegate:self
-                                                      cancelButtonTitle:@"Ok"
-                                                      otherButtonTitles:nil];
-                                [alert show];
-                            }
-                        }];
-                    }
-                }];
+                                if (error)
+                                {
+                                    UIAlertView *alert = [[UIAlertView alloc]
+                                                          initWithTitle:@"Error"
+                                                          message:error.localizedDescription
+                                                          delegate:self
+                                                          cancelButtonTitle:@"Ok"
+                                                          otherButtonTitles:nil];
+                                    [alert show];
+                                }
+                            }];
+                        }
+                    }];
+                }
             }
         }
     } else
@@ -443,6 +450,98 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 220;
         [self.commentaryTextView setText:@""];
     }
     self.defaultLabel.hidden = ([txtView.text length] > 0);
+}
+
+#pragma mark Collection View
+-(NSInteger )numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+    
+    return 1;
+}
+
+-(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    
+    return [_array count]+1;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
+    UIView* subview;
+    while ((subview = [[cell subviews] lastObject]) != nil)
+        [subview removeFromSuperview];
+    if(indexPath.row==[_array count]) {
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        [button setFrame:CGRectMake(0, 0, 80, 80)];
+        [button setImage:[UIImage imageNamed:@"camera_y"] forState:UIControlStateNormal];
+        [button addTarget:self
+              action:@selector(showAddMenu:)
+        forControlEvents:UIControlEventTouchUpInside];
+        [cell addSubview:button];
+        cell.backgroundColor=[UIColor blackColor];
+    }else{
+        UIImageView *img = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 80, 80)];
+        [cell addSubview:img];
+        img.image=[_array objectAtIndex:indexPath.row];
+    }
+    return cell;
+}
+
+-(void)showAddMenu:(id)sender {
+    UIActionSheet *alert = [[UIActionSheet alloc]initWithTitle:nil
+                                                      delegate:self
+                                             cancelButtonTitle:@"Cancel"
+                                        destructiveButtonTitle:nil
+                                             otherButtonTitles:@"Take a photo", @"Choose from library", nil];
+    [alert showInView:self.view];
+    if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]){
+        [alert setButton:0 toState:NO];
+    }
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.row!=[_array count]) {
+        _objectToRemove=indexPath.row;
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"Do you want to remove this object?"
+                                                      delegate:self
+                                             cancelButtonTitle:@"cancel"
+                                             otherButtonTitles:@"ok", nil];
+        [alert show];
+    }
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex==1) {
+        [_array removeObjectAtIndex:_objectToRemove];
+        [self.collectionView reloadData];
+    }
+}
+
+- (void)showImagePickerForSourceType:(UIImagePickerControllerSourceType)sourceType {
+    
+    MHImagePickerViewController *imagePickerController = [[MHImagePickerViewController alloc] init];
+    imagePickerController.modalPresentationStyle = UIModalPresentationCurrentContext;
+    imagePickerController.sourceType = sourceType;
+    imagePickerController.completionBlock = ^(NSDictionary *info) {
+        
+        [self dismissViewControllerAnimated:YES completion:^{
+            [_array insertObject:info[kMHImagePickerInfoImage] atIndex:[_array count]];
+            [self.collectionView reloadData];
+        }];
+        
+    };
+    
+    [self presentViewController:imagePickerController animated:YES completion:nil];
+}
+
+-(void)actionSheet:(UIActionSheet *)alert clickedButtonAtIndex:(NSInteger)buttonIndex {
+    switch (buttonIndex){
+        case 0:
+            [self showImagePickerForSourceType:UIImagePickerControllerSourceTypeCamera];
+            break;
+        case 1:
+            [self showImagePickerForSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+            break;
+    }
 }
 
 @end

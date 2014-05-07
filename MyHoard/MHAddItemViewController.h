@@ -15,9 +15,10 @@
 #import "MHItem.h"
 #import "MHCollection.h"
 
-@interface MHAddItemViewController : MHBaseViewController <UITextViewDelegate, CollectionSelectorDelegate, LocationSelectorDelegate>
+@interface MHAddItemViewController : MHBaseViewController <UITextViewDelegate, CollectionSelectorDelegate, LocationSelectorDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UIActionSheetDelegate, UIAlertViewDelegate>
 
 @property (nonatomic, strong) UIImage* selectedImage;
+@property (nonatomic, strong) NSMutableArray *array;
 
 @property (nonatomic,strong) MHLocalizationViewController *VCL;
 @property (nonatomic,strong) MHCollection* selectedCollection;
@@ -25,7 +26,7 @@
 @property (nonatomic,strong) NSString *locationNameString;
 @property (nonatomic, strong) MHItem *item;
 
-@property (weak, nonatomic) IBOutlet UIImageView *imageView;
+@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UIView *titleBackground;
 @property (weak, nonatomic) IBOutlet UIView *collectionBackground;
 @property (weak, nonatomic) IBOutlet UIView *localizationBackground;
