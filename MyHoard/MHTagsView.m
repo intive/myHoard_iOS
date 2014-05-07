@@ -92,13 +92,14 @@
 }
 
 - (void)setLabelsTexts {
+    if ([self.tagList count]){
     [self setTag:_tagList[_tagIndex] inLabel:[self currentLabel]];
     _tagIndex++;
     if (_tagIndex == _tagList.count) {
         _tagIndex = 0;
     }
     [self setTag:_tagList[_tagIndex] inLabel:[self nextLabel]];
-}
+    }}
 
 - (void)startAnimating {
     [self stopTimer];
