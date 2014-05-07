@@ -38,9 +38,6 @@
     CGFloat menuSlideValue = 270;
     CGFloat headerPadding = (menuSlideValue / 2) - ([menu sizeWithFont:headerFont].width / 2);
     
-    MHSliderMenuTableCell *cell = [[MHSliderMenuTableCell alloc]init];
-    cell.separatorVisible = NO;
-    
     NSDictionary *options = @{
                               AMOptionsTableOffsetY : @(-20),
                               AMOptionsTableInsetX : @(0),
