@@ -100,6 +100,7 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 220;
     for(MHMedia *media in _item.media) {
         [_array addObject:[[MHImageCache sharedInstance] imageForKey:media.objKey]];
     }
+        _topNavigationItem.title = @"Edit item";
         _selectedCollection = _item.collection;
         _titleTextField.text = _item.objName;
         _commentaryTextView.text = _item.objDescription;

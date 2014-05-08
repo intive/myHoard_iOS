@@ -43,6 +43,7 @@
 @property (weak, nonatomic) IBOutlet UIView *shareView;
 @property (weak, nonatomic) IBOutlet UIButton *localisationButton;
 @property (weak, nonatomic) IBOutlet UIButton *collectionButton;
+@property (weak, nonatomic) IBOutlet UINavigationItem *topNavigationItem;
 
 - (IBAction)collectionButton:(id)sender;
 - (IBAction)localizationButton:(id)sender;

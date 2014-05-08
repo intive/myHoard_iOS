@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="iwF-FO-On1">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="iwF-FO-On1">
     <dependencies>
         <deployment defaultVersion="1536" identifier="iOS"/>
         <development version="5000" identifier="xcode"/>
@@ -648,6 +648,7 @@
                         <outlet property="shareView" destination="6lX-cx-pmF" id="8sR-Xl-jN8"/>
                         <outlet property="titleBackground" destination="SSg-LA-70Z" id="TWU-tc-FtH"/>
                         <outlet property="titleTextField" destination="g3N-DY-y5f" id="Cc9-ep-rPZ"/>
+                        <outlet property="topNavigationItem" destination="NRU-TM-15n" id="J53-EL-GXL"/>
                         <segue destination="q6y-Bc-6aO" kind="push" identifier="segueToChooseCollection" id="9hV-ZM-Irt"/>
                         <segue destination="3M4-Oc-VTX" kind="push" identifier="segueToChooseLocation" id="eNm-dq-GWi"/>
                     </connections>
