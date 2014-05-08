@@ -153,13 +153,13 @@
                 MHCollection *acollection = self.item.collection;
                 self.item.collection = nil;
                 self.item.objStatus = @"deleted";
-                NSArray *itemMedia = [MHDatabaseManager allMediaInItem:self.item];
-                [MHDatabaseManager removeMediaInItem:self.item];
+                NSArray *itemMedia = [self.item.media allObjects];
                 for (int i=0; i<[itemMedia count]; i++){
                     MHMedia *media = [itemMedia objectAtIndex:i];
-                    [[MHImageCache sharedInstance]cacheImage:nil forKey:media.objKey];
+                    [[MHCoreDataContext getInstance].managedObjectContext deleteObject:media];
+                    [[MHImageCache sharedInstance] removeDataForKey:media.objKey];
                 }
-                [MHDatabaseManager removeItemWithObjName:self.item.objName inCollection:acollection];
+                [[MHCoreDataContext getInstance].managedObjectContext deleteObject:self.item];
                 [[MHAPI getInstance] deleteItemWithId: self.item completionBlock:^(id object, NSError *error){
                     if (error){
                         [waitDialog dismiss];
@@ -214,15 +214,14 @@
             }
             else
             {
-                MHCollection *acollection = self.item.collection;
                 self.item.collection = nil;
-                NSArray *itemMedia = [MHDatabaseManager allMediaInItem:self.item];
-                [MHDatabaseManager removeMediaInItem:self.item];
+                NSArray *itemMedia = [self.item.media allObjects];
                 for (int i=0; i<[itemMedia count]; i++){
                     MHMedia *media = [itemMedia objectAtIndex:i];
-                    [[MHImageCache sharedInstance]cacheImage:nil forKey:media.objKey];
+                    [[MHCoreDataContext getInstance].managedObjectContext deleteObject:media];
+                    [[MHImageCache sharedInstance] removeDataForKey:media.objKey];
                 }
-                [MHDatabaseManager removeItemWithObjName:self.item.objName inCollection:acollection];
+                [[MHCoreDataContext getInstance].managedObjectContext deleteObject:self.item];
                 [waitDialog dismiss];
                 [self.navigationController popViewControllerAnimated:YES];
             }

@@ -54,8 +54,4 @@ extern NSString* const objectStatusNew;
                                   item:(MHItem *)item
                              objStatus:(NSString*)objStatus;
 
-+ (NSArray*)allMediaInItem:(MHItem*)item;
-
-+ (void)removeMediaInItem:(MHItem*)item;
-
 @end

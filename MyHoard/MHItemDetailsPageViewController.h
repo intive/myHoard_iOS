@@ -12,6 +12,8 @@
 #import "MHMedia.h"
 #import "MHDatabaseManager.h"
 #import "MHCollection.h"
+#import "MHCoreDataContext.h"
+#import "MHImageCache.h"
 
 @interface MHItemDetailsPageViewController : UIViewController<UIPageViewControllerDataSource,UIActionSheetDelegate, UIAlertViewDelegate>
 
