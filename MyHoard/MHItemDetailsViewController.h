@@ -19,6 +19,7 @@
 @interface MHItemDetailsViewController : MHBaseViewController <MKMapViewDelegate, UITextViewDelegate, UIActionSheetDelegate, UIAlertViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *frontImage;
+@property (nonatomic, strong) UIImage *img;
 @property (weak, nonatomic) IBOutlet UINavigationItem *itemTitle;
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
 @property (weak, nonatomic) IBOutlet UIButton *dragTopButton;
@@ -28,7 +29,7 @@
 @property (weak, nonatomic) IBOutlet MKMapView *itemMapView;
 @property (weak, nonatomic) IBOutlet UIButton *locationButton;
 @property (weak, nonatomic) IBOutlet UIView *borderView;
-
+@property NSUInteger pageIndex;
 
 - (IBAction)switchLocationImageViews:(id)sender;
 

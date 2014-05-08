@@ -835,9 +835,9 @@
                     <connections>
                         <outlet property="collectionName" destination="bJD-IS-1l0" id="twV-qS-KhL"/>
                         <outlet property="collectionView" destination="5dp-fo-Hmy" id="Hgo-60-dL6"/>
-                        <segue destination="fW1-8f-0eN" kind="push" identifier="ShowItemDetails" id="1lU-XD-Edz"/>
                         <segue destination="cF2-Sm-u7f" kind="modal" identifier="AddItemSegue" id="cHI-6z-e6b"/>
                         <segue destination="5Jx-7R-kxH" kind="modal" identifier="ChangeCollectionSettingsSegue" id="WHP-yM-ON6"/>
+                        <segue destination="Q9g-Z7-HUe" kind="push" identifier="ShowItemDetails" id="lvt-os-90g"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M4V-vx-C5w" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -847,7 +847,7 @@
         <!--Item Details View Controller - Title-->
         <scene sceneID="ZYI-XA-VUS">
             <objects>
-                <viewController id="fW1-8f-0eN" customClass="MHItemDetailsViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PageContentViewController" id="fW1-8f-0eN" customClass="MHItemDetailsViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y9M-HN-gwx"/>
                         <viewControllerLayoutGuide type="bottom" id="xM2-7e-X78"/>
@@ -963,7 +963,39 @@
                     </connections>
                 </panGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-207" y="-1662"/>
+            <point key="canvasLocation" x="215" y="-1394"/>
+        </scene>
+        <!--Item Details Page View Controller-->
+        <scene sceneID="aSy-Yv-fYq">
+            <objects>
+                <viewController id="Q9g-Z7-HUe" customClass="MHItemDetailsPageViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="vq7-qU-jSd"/>
+                        <viewControllerLayoutGuide type="bottom" id="AA0-qs-Hvb"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="SJ2-ZQ-BBS">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="LUu-E6-E7r"/>
+                    <connections>
+                        <segue destination="cF2-Sm-u7f" kind="modal" identifier="ChangeItemSettingsSegue" id="9uw-BN-Up4"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="egp-ls-1yV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-626" y="-1394"/>
+        </scene>
+        <!--Page View Controller-->
+        <scene sceneID="oGn-gM-iw2">
+            <objects>
+                <pageViewController storyboardIdentifier="PageViewController" autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="WoA-Eo-lqw" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="drh-3v-xIU"/>
+                </pageViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="m4A-9d-CEx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-218" y="-1394"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="A3J-Rx-2NW">
@@ -1792,7 +1824,7 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="5B8-fj-Ve2"/>
+        <segue reference="9uw-BN-Up4"/>
         <segue reference="WHP-yM-ON6"/>
         <segue reference="AJS-nz-tvm"/>
     </inferredMetricsTieBreakers>

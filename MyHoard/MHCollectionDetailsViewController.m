@@ -11,6 +11,7 @@
 #import "MHImageCache.h"
 #import "MHImagePickerViewController.h"
 #import "MHAddCollectionViewController.h"
+#import "MHItemDetailsPageViewController.h"
 
 typedef NS_ENUM(NSInteger, ItemSortMode) {
     ItemSortModeByName = 0,
@@ -178,7 +179,7 @@ typedef NS_ENUM(NSInteger, ItemSortMode) {
 
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"ShowItemDetails"]) {
-        MHItemDetailsViewController * vc = [segue destinationViewController];
+        MHItemDetailsPageViewController * vc = [segue destinationViewController];
         vc.item = sender;
     } else if ([segue.identifier isEqualToString:@"AddItemSegue"]) {
         UINavigationController* nc = segue.destinationViewController;
