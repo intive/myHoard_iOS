@@ -10,7 +10,7 @@
 #import "MHImageCache.h"
 #import "MHAddItemViewController.h"
 
-#define BOTTOM_VIEW_COLLAPSED_HEIGHT 90
+#define BOTTOM_VIEW_COLLAPSED_HEIGHT 95
 #define METERS_PER_MILE 1609.344
 
 
@@ -46,20 +46,8 @@
     _itemTitleLabel.textColor = [UIColor collectionNameFrontColor];
     _itemTitleLabel.backgroundColor = [UIColor clearColor];
     _itemTitleLabel.clipsToBounds = YES;
+
     
-    CALayer *bottomBorder = [CALayer layer];
-    bottomBorder.borderColor = [UIColor darkGrayColor].CGColor;
-    bottomBorder.borderWidth = 0.75f;
-    bottomBorder.frame = CGRectMake(0, 0, CGRectGetWidth(_borderView.frame)+2, CGRectGetHeight(_borderView.frame));
-    
-    CALayer *topBorder = [CALayer layer];
-    topBorder.borderColor = [UIColor darkGrayColor].CGColor;
-    topBorder.borderWidth = 0.75f;
-    topBorder.frame = CGRectMake(0, 1, CGRectGetWidth(_borderView.frame)+2, CGRectGetHeight(_borderView.frame));
-    
-    
-    [_borderView.layer addSublayer:topBorder];
-    [_borderView.layer addSublayer:bottomBorder];
     
     _borderView.backgroundColor = [UIColor clearColor];
     _borderView.layer.borderColor = (__bridge CGColorRef)([UIColor grayColor]);

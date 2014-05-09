@@ -100,12 +100,12 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 220;
     for(MHMedia *media in _item.media) {
         [_array addObject:[[MHImageCache sharedInstance] imageForKey:media.objKey]];
     }
-        _topNavigationItem.title = @"Edit item";
+        self.title = @"Edit item";
         _selectedCollection = _item.collection;
         _titleTextField.text = _item.objName;
         _commentaryTextView.text = _item.objDescription;
         _collectionButton.enabled = NO;
-        _localisationButton.enabled = NO;
+        self.defaultLabel.hidden = ([_commentaryTextView.text length] > 0);
     }
 }
 
@@ -283,7 +283,7 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 220;
     }else if([self.titleTextField.text length]>64){
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"error" message:@"Title is to long(max64)" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
         [alert show];
-    }else if (duplicate == YES){
+    }else if (duplicate == YES && _item == nil){
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"error" message:@"Item of that title exists." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
         [alert show];
     }else if(self.selectedCollection==nil){
@@ -293,7 +293,7 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 220;
     {
         if (_item != nil) {
             [self updateItem:trimmedString];
-            return;
+            [self dismissViewControllerAnimated:YES completion:nil];
         }
         if (_shareSwitch.isOn)
         {
@@ -425,8 +425,8 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 220;
     roboItem.objName = trimmedString;
     roboItem.objDescription = _commentaryTextView.text;
     roboItem.collection.objModifiedDate = [NSDate date];
+    roboItem.objLocation = self.selectedCollection;
     [[MHCoreDataContext getInstance] saveContext];
-    return;
 }
 
 
