@@ -26,6 +26,7 @@ NSString *const scopeTypeDescription = @"Description";
 
 @property (nonatomic, strong) NSArray *coreDataCollections;
 @property (nonatomic, strong) NSArray *coreDataSearchResults;
+@property (nonatomic, strong) UISegmentedControl *segmentedControl;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 
@@ -52,28 +53,39 @@ NSString *const scopeTypeDescription = @"Description";
     
     _searchBar.barTintColor = [UIColor lighterGray];
     [[UILabel appearanceWhenContainedIn:[UISearchBar class], nil] setTextColor:[UIColor lightLoginAndRegistrationTextFieldTextColor]];
+    [[UIBarButtonItem appearanceWhenContainedIn:[UISearchBar class], nil] setTitleTextAttributes:@{UITextAttributeTextColor: [UIColor lightLoginAndRegistrationTextFieldTextColor]} forState:UIControlStateNormal];
     [_searchBar setSearchFieldBackgroundImage:[UIImage imageWithColor:[UIColor appBackgroundColor] size:CGSizeMake(320, 30)] forState:UIControlStateNormal];
     
     _headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0 - HEADER_HEIGHT, self.view.frame.size.width, HEADER_HEIGHT)];
     _headerView.backgroundColor = [UIColor blackColor];
     
     NSArray *itemArray = [NSArray arrayWithObjects: @"All", @"Name", @"Description", nil];
-    UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:itemArray];
-    segmentedControl.frame = CGRectMake(8, 8, _headerView.frame.size.width - 16, _headerView.frame.size.height - 16);
-    segmentedControl.segmentedControlStyle = UISegmentedControlStylePlain;
-    segmentedControl.selectedSegmentIndex = 0;
-    segmentedControl.layer.borderColor = [UIColor lighterYellow].CGColor;
-    segmentedControl.layer.borderWidth = 1.0;
-    segmentedControl.layer.cornerRadius = 6.0;
-    segmentedControl.tintColor = [UIColor lighterYellow];
+    _segmentedControl = [[UISegmentedControl alloc] initWithItems:itemArray];
+    _segmentedControl.frame = CGRectMake(8, 8, _headerView.frame.size.width - 16, _headerView.frame.size.height - 16);
+    _segmentedControl.segmentedControlStyle = UISegmentedControlStylePlain;
+    _segmentedControl.selectedSegmentIndex = 0;
+    _segmentedControl.layer.borderColor = [UIColor lighterYellow].CGColor;
+    _segmentedControl.layer.borderWidth = 1.0;
+    _segmentedControl.layer.cornerRadius = 6.0;
+    _segmentedControl.tintColor = [UIColor lighterYellow];
     
-    [segmentedControl addTarget:self
+    [_segmentedControl addTarget:self
                          action:@selector(segmentedControlValueChanged:)
                forControlEvents:UIControlEventValueChanged];
     
-    [_headerView addSubview:segmentedControl];
+    [_headerView addSubview:_segmentedControl];
     [_tableView addSubview:_headerView];
     _tableView.alwaysBounceVertical = YES;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardDidShow:)
+                                                 name:UIKeyboardDidShowNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardDidHide:)
+                                                 name:UIKeyboardDidHideNotification
+                                               object:nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -227,6 +239,49 @@ NSString *const scopeTypeDescription = @"Description";
             }];
         }
     }
+}
+
+#pragma mark - search bar custom animations
+
+-(void)searchDisplayControllerWillBeginSearch:(UISearchDisplayController *)controller {
+    
+    _segmentedControl.hidden = YES;
+    
+    CGRect statusBarFrame =  [[UIApplication sharedApplication] statusBarFrame];
+    [UIView animateWithDuration:0.25 animations:^{
+        for (UIView *subview in self.view.subviews) {
+            subview.transform = CGAffineTransformMakeTranslation(0, statusBarFrame.size.height + 20);
+        }
+    }];
+}
+
+-(void)searchDisplayControllerWillEndSearch:(UISearchDisplayController *)controller {
+    
+    [UIView animateWithDuration:0.25 animations:^{
+        for (UIView *subview in self.view.subviews) {
+            subview.transform = CGAffineTransformIdentity;
+        }
+    } completion:^(BOOL finished) {
+        if (finished) {
+            _segmentedControl.hidden = NO;
+        }
+    }];
+}
+
+#pragma mark - keyboard observers
+
+- (void)keyboardDidShow: (NSNotification *) notif{
+    
+    [UIView animateWithDuration:0.25 animations:^{
+        _tableView.frame = CGRectOffset(_tableView.frame, 0, -20);
+    }];
+}
+
+- (void)keyboardDidHide: (NSNotification *) notif{
+    
+    [UIView animateWithDuration:0.25 animations:^{
+        _tableView.frame = CGRectOffset(_tableView.frame, 0, 0);
+    }];
 }
 
 @end

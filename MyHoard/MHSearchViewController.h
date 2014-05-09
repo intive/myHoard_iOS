@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MHSearchViewController : MHBaseViewController <UITableViewDelegate, UITableViewDataSource, UISearchDisplayDelegate>
+@interface MHSearchViewController : MHBaseViewController <UITableViewDelegate, UITableViewDataSource, UISearchDisplayDelegate, UISearchBarDelegate>
 
 @end
