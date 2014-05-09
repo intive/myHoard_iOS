@@ -81,6 +81,7 @@
 		CE28669618DB2A9D003AC446 /* MHKenBurns.m in Sources */ = {isa = PBXBuildFile; fileRef = CE28669418DB2A9D003AC446 /* MHKenBurns.m */; };
 		CE529A7E18D8687B00A020E9 /* MHUserSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = CE529A7C18D8687B00A020E9 /* MHUserSettings.m */; };
 		CE529A8018D8688F00A020E9 /* MHUserSettingsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CE529A7F18D8688F00A020E9 /* MHUserSettingsTest.m */; };
+		CE6BAE33191D1E4100178E68 /* MHSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6BAE32191D1E4100178E68 /* MHSearchViewController.m */; };
 		CE6C31BC18B1422100983736 /* MHCollectionDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6C31BB18B1422100983736 /* MHCollectionDetailsViewController.m */; };
 		CE92CB5818C321EF005038D9 /* MHImagePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE92CB5618C321EF005038D9 /* MHImagePickerViewController.m */; };
 		CE92CB5918C321EF005038D9 /* CameraOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE92CB5718C321EF005038D9 /* CameraOverlayView.xib */; };
@@ -241,6 +242,8 @@
 		CE529A7B18D8687B00A020E9 /* MHUserSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHUserSettings.h; sourceTree = "<group>"; };
 		CE529A7C18D8687B00A020E9 /* MHUserSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHUserSettings.m; sourceTree = "<group>"; };
 		CE529A7F18D8688F00A020E9 /* MHUserSettingsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHUserSettingsTest.m; sourceTree = "<group>"; };
+		CE6BAE31191D1E4100178E68 /* MHSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHSearchViewController.h; sourceTree = "<group>"; };
+		CE6BAE32191D1E4100178E68 /* MHSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHSearchViewController.m; sourceTree = "<group>"; };
 		CE6C31BA18B1422100983736 /* MHCollectionDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHCollectionDetailsViewController.h; sourceTree = "<group>"; };
 		CE6C31BB18B1422100983736 /* MHCollectionDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHCollectionDetailsViewController.m; sourceTree = "<group>"; };
 		CE92CB5518C321EF005038D9 /* MHImagePickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHImagePickerViewController.h; sourceTree = "<group>"; };
@@ -515,6 +518,8 @@
 				93A341A518FAD42300830047 /* MHItemDetailsViewController.m */,
 				23A799071909896000230165 /* MHFriendsViewController.h */,
 				23A799081909896000230165 /* MHFriendsViewController.m */,
+				CE6BAE31191D1E4100178E68 /* MHSearchViewController.h */,
+				CE6BAE32191D1E4100178E68 /* MHSearchViewController.m */,
 				A76BDE4518E3810100214095 /* Images.xcassets */,
 				23D321A7184BBFFA002FC13A /* Supporting Files */,
 				CED4B03418C892A300A84155 /* Settings.bundle */,
@@ -874,6 +879,7 @@
 				23CD276319012FE5005203C2 /* MHMedia.m in Sources */,
 				1A29F6B418EF324C00BCFB11 /* MHLocalizationViewController.m in Sources */,
 				23CD276619012FE5005203C2 /* MHCollection.m in Sources */,
+				CE6BAE33191D1E4100178E68 /* MHSearchViewController.m in Sources */,
 				1A135786190500BB0060DD31 /* Address.m in Sources */,
 				23FB2BCF18D23DDF009EFDE7 /* UIColor+customColors.m in Sources */,
 				CEFF60F5190C201100298E2C /* MHCollection+MHAPIUtilities.m in Sources */,

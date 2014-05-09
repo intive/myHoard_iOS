@@ -229,10 +229,10 @@
             </objects>
             <point key="canvasLocation" x="-3869" y="995"/>
         </scene>
-        <!--View Controller-->
+        <!--Search View Controller-->
         <scene sceneID="O4D-oB-QDD">
             <objects>
-                <viewController storyboardIdentifier="MHSearchViewController" id="LJh-HS-kcD" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MHSearchViewController" id="LJh-HS-kcD" customClass="MHSearchViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="YYR-yc-aQt"/>
                         <viewControllerLayoutGuide type="bottom" id="YHD-RQ-tOQ"/>
@@ -240,8 +240,23 @@
                     <view key="view" contentMode="scaleToFill" id="Fit-gT-zvX">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Cvv-nh-PpG">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="LJh-HS-kcD" id="HF6-Uh-Wao"/>
+                                    <outlet property="delegate" destination="LJh-HS-kcD" id="HY2-Mk-RCl"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <outlet property="tableView" destination="Cvv-nh-PpG" id="g98-3c-qmi"/>
+                        <segue destination="Pao-hk-0A0" kind="push" identifier="collectionDetails" id="48L-ok-62D"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uxK-hd-nmm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1824,7 +1839,8 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="9uw-BN-Up4"/>
+        <segue reference="48L-ok-62D"/>
+        <segue reference="cHI-6z-e6b"/>
         <segue reference="WHP-yM-ON6"/>
         <segue reference="AJS-nz-tvm"/>
     </inferredMetricsTieBreakers>
