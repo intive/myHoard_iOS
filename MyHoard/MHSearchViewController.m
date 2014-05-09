@@ -11,7 +11,17 @@
 #import "MHCollection.h"
 #import "MHCollectionDetailsViewController.h"
 
-@interface MHSearchViewController ()
+#define HEADER_HEIGHT 44
+
+NSString *const scopeTypeAll = @"All";
+NSString *const scopeTypeName = @"Name";
+NSString *const scopeTypeDescription = @"Description";
+
+@interface MHSearchViewController () {
+    UIView* _headerView;
+    NSString * _scope;
+    BOOL _isVisible, _isDragging;
+}
 
 @property (nonatomic, strong) NSArray *coreDataCollections;
 @property (nonatomic, strong) NSArray *coreDataSearchResults;
@@ -34,9 +44,30 @@
 {
     [super viewDidLoad];
     
-    [self.navigationController setNavigationBarHidden:YES];    
+    [self.navigationController setNavigationBarHidden:NO]; // so menu would be available for user
     _tableView.backgroundColor = [UIColor appBackgroundColor];
     _coreDataSearchResults = [[NSArray alloc]init];
+    
+    _headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0 - HEADER_HEIGHT, self.view.frame.size.width, HEADER_HEIGHT)];
+    _headerView.backgroundColor = [UIColor blackColor];
+    
+    NSArray *itemArray = [NSArray arrayWithObjects: @"All", @"Name", @"Description", nil];
+    UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:itemArray];
+    segmentedControl.frame = CGRectMake(8, 8, _headerView.frame.size.width - 16, _headerView.frame.size.height - 16);
+    segmentedControl.segmentedControlStyle = UISegmentedControlStylePlain;
+    segmentedControl.selectedSegmentIndex = 0;
+    segmentedControl.layer.borderColor = [UIColor lighterYellow].CGColor;
+    segmentedControl.layer.borderWidth = 1.0;
+    segmentedControl.layer.cornerRadius = 6.0;
+    segmentedControl.tintColor = [UIColor lighterYellow];
+    
+    [segmentedControl addTarget:self
+                         action:@selector(segmentedControlValueChanged:)
+               forControlEvents:UIControlEventValueChanged];
+    
+    [_headerView addSubview:segmentedControl];
+    [_tableView addSubview:_headerView];
+    _tableView.alwaysBounceVertical = YES;
 }
 
 - (void)didReceiveMemoryWarning
@@ -114,11 +145,12 @@
 - (void)filterContentForSearchText:(NSString *)searchText scope:(NSString *)scope {
     
     NSPredicate *predicate;
+    scope = _scope;
     
-    if ([scope isEqualToString:@"Name"]) {
-         predicate = [NSPredicate predicateWithFormat:@"SELF.objName beginswith[c] %@", searchText];
+    if ([scope isEqualToString:scopeTypeName]) {
+        predicate = [NSPredicate predicateWithFormat:@"SELF.objName beginswith[c] %@", searchText];
         _coreDataSearchResults = [_coreDataCollections filteredArrayUsingPredicate:predicate];
-    }else if ([scope isEqualToString:@"Description"]) {
+    }else if ([scope isEqualToString:scopeTypeDescription]) {
         predicate = [NSPredicate predicateWithFormat:@"SELF.objDescription beginswith[c] %@", searchText];
         _coreDataSearchResults = [_coreDataCollections filteredArrayUsingPredicate:predicate];
     }else {
@@ -131,4 +163,64 @@
     [self filterContentForSearchText:searchString scope:[[self.searchDisplayController.searchBar scopeButtonTitles] objectAtIndex:[self.searchDisplayController.searchBar selectedScopeButtonIndex]]];
     return YES;
 }
+
+#pragma mark segmented control
+
+- (void)segmentedControlValueChanged:(UISegmentedControl *)sender {
+    NSInteger index = [sender selectedSegmentIndex];
+    switch (index) {
+        case 0:
+            _scope = scopeTypeAll;
+            break;
+        case 1:
+            _scope = scopeTypeName;
+            break;
+        case 2:
+            _scope = scopeTypeDescription;
+            break;
+        default:
+            _scope = scopeTypeAll;
+            break;
+    }
+    [_tableView reloadData];
+}
+
+#pragma mark scroll view
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    if (_isVisible) return;
+    _isDragging = YES;
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (_isVisible) {
+        // Update the content inset, good for section headers
+        if (scrollView.contentOffset.y > 0)
+            _tableView.contentInset = UIEdgeInsetsZero;
+        else if (scrollView.contentOffset.y >= -HEADER_HEIGHT)
+            _tableView.contentInset = UIEdgeInsetsMake(-scrollView.contentOffset.y, 0, 0, 0);
+    } else if (_isDragging && scrollView.contentOffset.y < 0) {
+    }
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    _isDragging = NO;
+    
+    if (_isVisible) {
+        if (scrollView.contentOffset.y < 0) {
+            _isVisible = NO;
+            [UIView animateWithDuration:0.3 animations:^{
+                _tableView.contentInset = UIEdgeInsetsZero;
+            }];
+        }
+    } else {
+        if (scrollView.contentOffset.y <= -HEADER_HEIGHT) {
+            _isVisible = YES;
+            [UIView animateWithDuration:0.3 animations:^{
+                _tableView.contentInset = UIEdgeInsetsMake(HEADER_HEIGHT, 0, 0, 0);
+            }];
+        }
+    }
+}
+
 @end
