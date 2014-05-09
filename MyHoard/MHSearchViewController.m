@@ -14,6 +14,7 @@
 @interface MHSearchViewController ()
 
 @property (nonatomic, strong) NSArray *coreDataCollections;
+@property (nonatomic, strong) NSArray *coreDataSearchResults;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
@@ -33,7 +34,9 @@
 {
     [super viewDidLoad];
     
+    [self.navigationController setNavigationBarHidden:YES];    
     _tableView.backgroundColor = [UIColor appBackgroundColor];
+    _coreDataSearchResults = [[NSArray alloc]init];
 }
 
 - (void)didReceiveMemoryWarning
@@ -50,6 +53,7 @@
 
 - (void)update {
     _coreDataCollections = [MHDatabaseManager allCollections];
+    _coreDataSearchResults = [[NSArray alloc]init];
     [_tableView reloadData];
 }
 
@@ -57,7 +61,11 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [_coreDataCollections count];
+    if (tableView == self.searchDisplayController.searchResultsTableView) {
+        return [_coreDataSearchResults count];
+    }else {
+        return [_coreDataCollections count];
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -69,8 +77,13 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
     }
     
-    MHCollection *collection = [_coreDataCollections objectAtIndex:indexPath.row];
-    cell.textLabel.text = collection.objName;
+    if (tableView == self.searchDisplayController.searchResultsTableView) {
+        MHCollection *collection = [_coreDataSearchResults objectAtIndex:indexPath.row];
+        cell.textLabel.text = collection.objName;
+    }else {
+        MHCollection *collection = [_coreDataCollections objectAtIndex:indexPath.row];
+        cell.textLabel.text = collection.objName;
+    }
     cell.textLabel.textColor = [UIColor collectionNameFrontColor];
     cell.backgroundColor = [UIColor appBackgroundColor];
     
@@ -96,4 +109,26 @@
     }
 }
 
+#pragma mark - search delegate methods
+
+- (void)filterContentForSearchText:(NSString *)searchText scope:(NSString *)scope {
+    
+    NSPredicate *predicate;
+    
+    if ([scope isEqualToString:@"Name"]) {
+         predicate = [NSPredicate predicateWithFormat:@"SELF.objName beginswith[c] %@", searchText];
+        _coreDataSearchResults = [_coreDataCollections filteredArrayUsingPredicate:predicate];
+    }else if ([scope isEqualToString:@"Description"]) {
+        predicate = [NSPredicate predicateWithFormat:@"SELF.objDescription beginswith[c] %@", searchText];
+        _coreDataSearchResults = [_coreDataCollections filteredArrayUsingPredicate:predicate];
+    }else {
+        predicate = [NSPredicate predicateWithFormat:@"SELF.objName beginswith[c] %@", searchText];
+        _coreDataSearchResults = [_coreDataCollections filteredArrayUsingPredicate:predicate];
+    }
+}
+
+- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
+    [self filterContentForSearchText:searchString scope:[[self.searchDisplayController.searchBar scopeButtonTitles] objectAtIndex:[self.searchDisplayController.searchBar selectedScopeButtonIndex]]];
+    return YES;
+}
 @end
