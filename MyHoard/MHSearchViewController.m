@@ -245,7 +245,9 @@ NSString *const scopeTypeDescription = @"Description";
 
 -(void)searchDisplayControllerWillBeginSearch:(UISearchDisplayController *)controller {
     
-    _segmentedControl.hidden = YES;
+    if (!_isVisible) {
+        _segmentedControl.hidden = YES;
+    }
     
     CGRect statusBarFrame =  [[UIApplication sharedApplication] statusBarFrame];
     [UIView animateWithDuration:0.25 animations:^{
