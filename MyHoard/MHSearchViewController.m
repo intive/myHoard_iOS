@@ -55,6 +55,7 @@ NSString *const scopeTypeDescription = @"Description";
     [[UILabel appearanceWhenContainedIn:[UISearchBar class], nil] setTextColor:[UIColor lightLoginAndRegistrationTextFieldTextColor]];
     [[UIBarButtonItem appearanceWhenContainedIn:[UISearchBar class], nil] setTitleTextAttributes:@{UITextAttributeTextColor: [UIColor lightLoginAndRegistrationTextFieldTextColor]} forState:UIControlStateNormal];
     [_searchBar setSearchFieldBackgroundImage:[UIImage imageWithColor:[UIColor appBackgroundColor] size:CGSizeMake(320, 30)] forState:UIControlStateNormal];
+    [_searchBar becomeFirstResponder];
     
     _headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0 - HEADER_HEIGHT, self.view.frame.size.width, HEADER_HEIGHT)];
     _headerView.backgroundColor = [UIColor blackColor];
@@ -164,21 +165,34 @@ NSString *const scopeTypeDescription = @"Description";
     
     NSPredicate *predicate;
     scope = _scope;
+    _coreDataSearchResults = nil;
     
-    if ([scope isEqualToString:scopeTypeName]) {
-        predicate = [NSPredicate predicateWithFormat:@"SELF.objName beginswith[c] %@", searchText];
-        _coreDataSearchResults = [_coreDataCollections filteredArrayUsingPredicate:predicate];
-    }else if ([scope isEqualToString:scopeTypeDescription]) {
-        predicate = [NSPredicate predicateWithFormat:@"SELF.objDescription beginswith[c] %@", searchText];
-        _coreDataSearchResults = [_coreDataCollections filteredArrayUsingPredicate:predicate];
+    if (searchText.length < 3) {
+        _coreDataSearchResults = _coreDataCollections;
     }else {
-        predicate = [NSPredicate predicateWithFormat:@"SELF.objName beginswith[c] %@", searchText];
-        _coreDataSearchResults = [_coreDataCollections filteredArrayUsingPredicate:predicate];
+        if ([scope isEqualToString:scopeTypeName]) {
+            predicate = [NSPredicate predicateWithFormat:@"SELF.objName beginswith[c] %@", searchText];
+            _coreDataSearchResults = [_coreDataCollections filteredArrayUsingPredicate:predicate];
+        }else if ([scope isEqualToString:scopeTypeDescription]) {
+            predicate = [NSPredicate predicateWithFormat:@"SELF.objDescription beginswith[c] %@", searchText];
+            _coreDataSearchResults = [_coreDataCollections filteredArrayUsingPredicate:predicate];
+        }else {
+            predicate = [NSPredicate predicateWithFormat:@"SELF.objName beginswith[c] %@", searchText];
+            _coreDataSearchResults = [_coreDataCollections filteredArrayUsingPredicate:predicate];
+        }
+    }
+    
+    if (searchText.length > 12) {
+        [_searchBar resignFirstResponder];
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Search fraze can be no longer than 12 characters" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
     }
 }
 
 - (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
+    
     [self filterContentForSearchText:searchString scope:[[self.searchDisplayController.searchBar scopeButtonTitles] objectAtIndex:[self.searchDisplayController.searchBar selectedScopeButtonIndex]]];
+    
     return YES;
 }
 
@@ -241,9 +255,9 @@ NSString *const scopeTypeDescription = @"Description";
     }
 }
 
-#pragma mark - search bar custom animations
+#pragma mark - search bar utility methods
 
--(void)searchDisplayControllerWillBeginSearch:(UISearchDisplayController *)controller {
+- (void)searchDisplayControllerWillBeginSearch:(UISearchDisplayController *)controller {
     
     if (!_isVisible) {
         _segmentedControl.hidden = YES;
@@ -257,7 +271,7 @@ NSString *const scopeTypeDescription = @"Description";
     }];
 }
 
--(void)searchDisplayControllerWillEndSearch:(UISearchDisplayController *)controller {
+- (void)searchDisplayControllerWillEndSearch:(UISearchDisplayController *)controller {
     
     [UIView animateWithDuration:0.25 animations:^{
         for (UIView *subview in self.view.subviews) {
@@ -268,6 +282,11 @@ NSString *const scopeTypeDescription = @"Description";
             _segmentedControl.hidden = NO;
         }
     }];
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
+    _coreDataSearchResults = nil;
+    [_tableView reloadData];
 }
 
 #pragma mark - keyboard observers
