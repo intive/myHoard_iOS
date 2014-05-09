@@ -10,6 +10,7 @@
 #import "MHDatabaseManager.h"
 #import "MHCollection.h"
 #import "MHCollectionDetailsViewController.h"
+#import "UIImage+customImage.h"
 
 #define HEADER_HEIGHT 44
 
@@ -26,6 +27,7 @@ NSString *const scopeTypeDescription = @"Description";
 @property (nonatomic, strong) NSArray *coreDataCollections;
 @property (nonatomic, strong) NSArray *coreDataSearchResults;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 
 @end
 
@@ -47,6 +49,10 @@ NSString *const scopeTypeDescription = @"Description";
     [self.navigationController setNavigationBarHidden:NO]; // so menu would be available for user
     _tableView.backgroundColor = [UIColor appBackgroundColor];
     _coreDataSearchResults = [[NSArray alloc]init];
+    
+    _searchBar.barTintColor = [UIColor lighterGray];
+    [[UILabel appearanceWhenContainedIn:[UISearchBar class], nil] setTextColor:[UIColor lightLoginAndRegistrationTextFieldTextColor]];
+    [_searchBar setSearchFieldBackgroundImage:[UIImage imageWithColor:[UIColor appBackgroundColor] size:CGSizeMake(320, 30)] forState:UIControlStateNormal];
     
     _headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0 - HEADER_HEIGHT, self.view.frame.size.width, HEADER_HEIGHT)];
     _headerView.backgroundColor = [UIColor blackColor];

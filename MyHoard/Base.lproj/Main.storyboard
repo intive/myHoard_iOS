@@ -262,6 +262,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <connections>
+                        <outlet property="searchBar" destination="3U2-rS-Ewo" id="bat-z1-zh2"/>
                         <outlet property="searchDisplayController" destination="BRA-Xe-xY2" id="Eal-3h-Blc"/>
                         <outlet property="tableView" destination="Cvv-nh-PpG" id="g98-3c-qmi"/>
                         <segue destination="Pao-hk-0A0" kind="push" identifier="collectionDetails" id="48L-ok-62D"/>
