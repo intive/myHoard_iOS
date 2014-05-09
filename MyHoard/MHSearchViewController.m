@@ -21,7 +21,7 @@ NSString *const scopeTypeDescription = @"Description";
 @interface MHSearchViewController () {
     UIView* _headerView;
     NSString * _scope;
-    BOOL _isVisible, _isDragging;
+    BOOL _isVisible, _isDragging, _noResults;
 }
 
 @property (nonatomic, strong) NSArray *coreDataCollections;
@@ -113,7 +113,13 @@ NSString *const scopeTypeDescription = @"Description";
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (tableView == self.searchDisplayController.searchResultsTableView) {
-        return [_coreDataSearchResults count];
+        if ([_coreDataSearchResults count] == 0) {
+            _noResults = YES;
+            return 1;
+        }else {
+            _noResults = NO;
+            return [_coreDataSearchResults count];
+        }
     }else {
         return [_coreDataCollections count];
     }
@@ -121,6 +127,23 @@ NSString *const scopeTypeDescription = @"Description";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
+    if (tableView == self.searchDisplayController.searchResultsTableView && _noResults) {
+        
+        tableView.backgroundColor = [UIColor appBackgroundColor];
+
+        static NSString *cellId = @"emptyCell";
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+        
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+            cell.userInteractionEnabled = NO;
+            cell.backgroundColor = [UIColor appBackgroundColor];
+        }
+        
+        return cell;
+    }
+    
     static NSString *cellId = @"searchCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
     
