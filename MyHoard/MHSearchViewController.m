@@ -123,18 +123,34 @@ NSString *const scopeTypeDescription = @"Description";
 
 #pragma mark - table view delegate methods
 
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    if (section == 0) {
+        return @"Collections";
+    }else {
+        return @"Items";
+    }
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 2;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (tableView == self.searchDisplayController.searchResultsTableView) {
-        if ([_coreDataSearchResults count] == 0) {
-            _noResults = YES;
-            return 1;
+    if (section == 0) {
+        if (tableView == self.searchDisplayController.searchResultsTableView) {
+            if ([_coreDataSearchResults count] == 0) {
+                _noResults = YES;
+                return 1;
+            }else {
+                _noResults = NO;
+                return [_coreDataSearchResults count];
+            }
         }else {
-            _noResults = NO;
-            return [_coreDataSearchResults count];
+            return [_coreDataCollections count];
         }
     }else {
-        return [_coreDataCollections count];
+        return [_coreDataItems count];
     }
 }
 
