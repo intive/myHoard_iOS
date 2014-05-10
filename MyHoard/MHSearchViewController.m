@@ -27,7 +27,7 @@ NSString *const scopeTypeDescription = @"Description";
 
 @property (nonatomic, strong) NSArray *coreDataCollections;
 @property (nonatomic, strong) NSArray *coreDataSearchResults;
-@property (nonatomic, strong) NSArray *coreDataItems;
+@property (nonatomic, strong) NSMutableArray *coreDataItems;
 @property (nonatomic, strong) NSArray *coredataItemsSearchResult;
 @property (nonatomic, strong) UISegmentedControl *segmentedControl;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -92,6 +92,8 @@ NSString *const scopeTypeDescription = @"Description";
                                              selector:@selector(keyboardDidHide:)
                                                  name:UIKeyboardDidHideNotification
                                                object:nil];
+    
+    [self update];
 }
 
 - (void)didReceiveMemoryWarning
@@ -114,12 +116,14 @@ NSString *const scopeTypeDescription = @"Description";
     [_tableView reloadData];
 }
 
-- (NSArray *)allItems {
+- (NSMutableArray *)allItems {
+    
+    _coreDataItems = [[NSMutableArray alloc]init];
     
     if ([_coreDataCollections count]) {
         for (MHCollection *collection in _coreDataCollections) {
             for (MHItem *item in collection.items) {
-                _coreDataItems = [[NSArray alloc]initWithObjects:item, nil];
+                [_coreDataItems addObject:item];
             }
         }
     }
