@@ -27,9 +27,11 @@ NSString *const scopeTypeDescription = @"Description";
 
 @property (nonatomic, strong) NSArray *coreDataCollections;
 @property (nonatomic, strong) NSArray *coreDataSearchResults;
-@property (nonatomic, strong) NSMutableArray *coreDataItems;
+@property (nonatomic, strong) NSArray *coreDataItems;
 @property (nonatomic, strong) NSArray *coredataItemsSearchResult;
 @property (nonatomic, strong) UISegmentedControl *segmentedControl;
+@property (nonatomic, strong) NSFetchedResultsController *frc;
+
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 
@@ -92,8 +94,7 @@ NSString *const scopeTypeDescription = @"Description";
                                              selector:@selector(keyboardDidHide:)
                                                  name:UIKeyboardDidHideNotification
                                                object:nil];
-    
-    [self update];
+    [self fetchAllItems];
 }
 
 - (void)didReceiveMemoryWarning
@@ -110,24 +111,10 @@ NSString *const scopeTypeDescription = @"Description";
 
 - (void)update {
     _coreDataCollections = [MHDatabaseManager allCollections];
-    _coreDataSearchResults = [[NSArray alloc]init];
+    _coreDataSearchResults = nil;
     _coredataItemsSearchResult = nil;
-    _coreDataItems = [self allItems];
+    [self fetchAllItems];
     [_tableView reloadData];
-}
-
-- (NSMutableArray *)allItems {
-    
-    _coreDataItems = [[NSMutableArray alloc]init];
-    
-    if ([_coreDataCollections count]) {
-        for (MHCollection *collection in _coreDataCollections) {
-            for (MHItem *item in collection.items) {
-                [_coreDataItems addObject:item];
-            }
-        }
-    }
-    return _coreDataItems;
 }
 
 #pragma mark - table view delegate methods
@@ -407,6 +394,37 @@ NSString *const scopeTypeDescription = @"Description";
     [UIView animateWithDuration:0.25 animations:^{
         _tableView.frame = CGRectOffset(_tableView.frame, 0, 0);
     }];
+}
+
+#pragma mark - FRC
+
+- (void)fetchAllItems {
+    
+    [NSFetchedResultsController deleteCacheWithName:@"Root"];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc]init];
+    
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"MHItem" inManagedObjectContext:[MHCoreDataContext getInstance].managedObjectContext];
+    [fetchRequest setEntity:entity];
+    NSSortDescriptor *sort = [[NSSortDescriptor alloc] initWithKey:@"objName" ascending:YES selector:@selector(localizedStandardCompare:)];
+    [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
+    
+    _frc = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:[MHCoreDataContext getInstance].managedObjectContext sectionNameKeyPath:nil cacheName:@"Root"];
+    
+    NSError *error = nil;
+    [_frc performFetch:&error];
+    
+    if (!error) {
+        _coreDataItems = [_frc fetchedObjects];
+    }
+}
+
+- (NSFetchedResultsController *)fetchedResultsController
+{
+    if (_frc != nil) {
+        return _frc;
+    }
+    _frc.delegate = self;
+    return _frc;
 }
 
 @end
