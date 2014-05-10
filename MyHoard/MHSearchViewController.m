@@ -11,6 +11,7 @@
 #import "MHCollection.h"
 #import "MHCollectionDetailsViewController.h"
 #import "UIImage+customImage.h"
+#import "MHItemDetailsViewController.h"
 
 #define HEADER_HEIGHT 44
 
@@ -27,6 +28,7 @@ NSString *const scopeTypeDescription = @"Description";
 @property (nonatomic, strong) NSArray *coreDataCollections;
 @property (nonatomic, strong) NSArray *coreDataSearchResults;
 @property (nonatomic, strong) NSArray *coreDataItems;
+@property (nonatomic, strong) NSArray *coredataItemsSearchResult;
 @property (nonatomic, strong) UISegmentedControl *segmentedControl;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
@@ -51,6 +53,7 @@ NSString *const scopeTypeDescription = @"Description";
     [self.navigationController setNavigationBarHidden:NO]; // so menu would be available for user
     _tableView.backgroundColor = [UIColor appBackgroundColor];
     _coreDataSearchResults = [[NSArray alloc]init];
+    _coredataItemsSearchResult = [[NSArray alloc]init];
     
     _searchBar.barTintColor = [UIColor lighterGray];
     [[UITextField appearanceWhenContainedIn:[UISearchBar class], nil] setTextColor:[UIColor lightLoginAndRegistrationTextFieldTextColor]];
@@ -106,16 +109,18 @@ NSString *const scopeTypeDescription = @"Description";
 - (void)update {
     _coreDataCollections = [MHDatabaseManager allCollections];
     _coreDataSearchResults = [[NSArray alloc]init];
+    _coredataItemsSearchResult = nil;
     _coreDataItems = [self allItems];
     [_tableView reloadData];
 }
 
 - (NSArray *)allItems {
     
-    _coreDataItems = nil;
     if ([_coreDataCollections count]) {
         for (MHCollection *collection in _coreDataCollections) {
-            _coreDataItems = [[NSArray alloc]initWithObjects:collection.items, nil];
+            for (MHItem *item in collection.items) {
+                _coreDataItems = [[NSArray alloc]initWithObjects:item, nil];
+            }
         }
     }
     return _coreDataItems;
@@ -150,7 +155,17 @@ NSString *const scopeTypeDescription = @"Description";
             return [_coreDataCollections count];
         }
     }else {
-        return [_coreDataItems count];
+        if (tableView == self.searchDisplayController.searchResultsTableView) {
+            if ([_coreDataItems count] == 0) {
+                _noResults = YES;
+                return 1;
+            }else {
+                _noResults = NO;
+                return [_coredataItemsSearchResult count];
+            }
+        }else {
+            return [_coreDataItems count];
+        }
     }
 }
 
@@ -180,12 +195,22 @@ NSString *const scopeTypeDescription = @"Description";
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
     }
     
-    if (tableView == self.searchDisplayController.searchResultsTableView) {
-        MHCollection *collection = [_coreDataSearchResults objectAtIndex:indexPath.row];
-        cell.textLabel.text = collection.objName;
+    if ([indexPath section] == 0) {
+        if (tableView == self.searchDisplayController.searchResultsTableView) {
+            MHCollection *collection = [_coreDataSearchResults objectAtIndex:indexPath.row];
+            cell.textLabel.text = collection.objName;
+        }else {
+            MHCollection *collection = [_coreDataCollections objectAtIndex:indexPath.row];
+            cell.textLabel.text = collection.objName;
+        }
     }else {
-        MHCollection *collection = [_coreDataCollections objectAtIndex:indexPath.row];
-        cell.textLabel.text = collection.objName;
+        if (tableView == self.searchDisplayController.searchResultsTableView) {
+            MHItem *item = [_coredataItemsSearchResult objectAtIndex:indexPath.row];
+            cell.textLabel.text = item.objName;
+        }else {
+            MHItem *item = [_coreDataItems objectAtIndex:indexPath.row];
+            cell.textLabel.text = item.objName;
+        }
     }
     cell.textLabel.textColor = [UIColor collectionNameFrontColor];
     cell.backgroundColor = [UIColor appBackgroundColor];
@@ -194,8 +219,24 @@ NSString *const scopeTypeDescription = @"Description";
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    MHCollection *collection = [_coreDataCollections objectAtIndex:indexPath.row];
-    [self performSegueWithIdentifier:@"collectionDetails" sender:collection];
+    
+    if ([indexPath section] == 0) {
+        if (_tableView == self.searchDisplayController.searchResultsTableView) {
+            MHCollection *collection = [_coreDataSearchResults objectAtIndex:indexPath.row];
+            [self performSegueWithIdentifier:@"collectionDetails" sender:collection];
+        }else {
+            MHCollection *collection = [_coreDataCollections objectAtIndex:indexPath.row];
+            [self performSegueWithIdentifier:@"collectionDetails" sender:collection];
+        }
+    }else {
+        if (_tableView == self.searchDisplayController.searchResultsTableView) {
+            MHItem *item = [_coredataItemsSearchResult objectAtIndex:indexPath.row];
+            [self performSegueWithIdentifier:@"itemDetails" sender:item];
+        }else {
+            MHItem *item = [_coreDataItems objectAtIndex:indexPath.row];
+            [self performSegueWithIdentifier:@"itemDetails" sender:item];
+        }
+    }
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
@@ -207,8 +248,10 @@ NSString *const scopeTypeDescription = @"Description";
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"collectionDetails"]) {
         MHCollectionDetailsViewController * vc = [segue destinationViewController];
-        NSIndexPath *indexPath = [_tableView indexPathForSelectedRow];
-        vc.collection = [_coreDataCollections objectAtIndex:indexPath.row];
+        vc.collection = sender;
+    }else if ([segue.identifier isEqualToString:@"itemDetails"]) {
+        MHItemDetailsViewController * vc = [segue destinationViewController];
+        vc.item = sender;
     }
 }
 
@@ -222,16 +265,20 @@ NSString *const scopeTypeDescription = @"Description";
     
     if (searchText.length < 3) {
         _coreDataSearchResults = _coreDataCollections;
+        _coredataItemsSearchResult = _coreDataItems;
     }else {
         if ([scope isEqualToString:scopeTypeName]) {
             predicate = [NSPredicate predicateWithFormat:@"SELF.objName beginswith[c] %@", searchText];
             _coreDataSearchResults = [_coreDataCollections filteredArrayUsingPredicate:predicate];
+            _coredataItemsSearchResult = [_coreDataItems filteredArrayUsingPredicate:predicate];
         }else if ([scope isEqualToString:scopeTypeDescription]) {
             predicate = [NSPredicate predicateWithFormat:@"SELF.objDescription beginswith[c] %@", searchText];
             _coreDataSearchResults = [_coreDataCollections filteredArrayUsingPredicate:predicate];
+            _coredataItemsSearchResult = [_coreDataItems filteredArrayUsingPredicate:predicate];
         }else {
             predicate = [NSPredicate predicateWithFormat:@"SELF.objName beginswith[c] %@", searchText];
             _coreDataSearchResults = [_coreDataCollections filteredArrayUsingPredicate:predicate];
+            _coredataItemsSearchResult = [_coreDataItems filteredArrayUsingPredicate:predicate];
         }
     }
     

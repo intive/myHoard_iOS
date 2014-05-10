@@ -266,6 +266,7 @@
                         <outlet property="searchDisplayController" destination="BRA-Xe-xY2" id="Eal-3h-Blc"/>
                         <outlet property="tableView" destination="Cvv-nh-PpG" id="g98-3c-qmi"/>
                         <segue destination="Pao-hk-0A0" kind="push" identifier="collectionDetails" id="48L-ok-62D"/>
+                        <segue destination="fW1-8f-0eN" kind="push" identifier="itemDetails" id="EGI-r2-8Nw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uxK-hd-nmm" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -996,7 +997,7 @@
                     </connections>
                 </panGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="215" y="-1394"/>
+            <point key="canvasLocation" x="207" y="-1384"/>
         </scene>
         <!--Item Details Page View Controller-->
         <scene sceneID="aSy-Yv-fYq">
@@ -1857,9 +1858,9 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="7Aw-hx-44V"/>
-        <segue reference="3wb-xF-lsE"/>
-        <segue reference="kvS-Cz-huN"/>
         <segue reference="AJS-nz-tvm"/>
+        <segue reference="48L-ok-62D"/>
+        <segue reference="5B8-fj-Ve2"/>
+        <segue reference="uZQ-yX-J1c"/>
     </inferredMetricsTieBreakers>
 </document>
