@@ -26,6 +26,7 @@ NSString *const scopeTypeDescription = @"Description";
 
 @property (nonatomic, strong) NSArray *coreDataCollections;
 @property (nonatomic, strong) NSArray *coreDataSearchResults;
+@property (nonatomic, strong) NSArray *coreDataItems;
 @property (nonatomic, strong) UISegmentedControl *segmentedControl;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
@@ -105,7 +106,19 @@ NSString *const scopeTypeDescription = @"Description";
 - (void)update {
     _coreDataCollections = [MHDatabaseManager allCollections];
     _coreDataSearchResults = [[NSArray alloc]init];
+    _coreDataItems = [self allItems];
     [_tableView reloadData];
+}
+
+- (NSArray *)allItems {
+    
+    _coreDataItems = nil;
+    if ([_coreDataCollections count]) {
+        for (MHCollection *collection in _coreDataCollections) {
+            _coreDataItems = [[NSArray alloc]initWithObjects:collection.items, nil];
+        }
+    }
+    return _coreDataItems;
 }
 
 #pragma mark - table view delegate methods

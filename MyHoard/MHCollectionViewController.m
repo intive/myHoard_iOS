@@ -228,9 +228,11 @@ typedef NS_ENUM(NSInteger, CollectionSortMode) {
     } else if ([segue.identifier isEqualToString:@"AddItemSegue"]) {
         UINavigationController* nc = segue.destinationViewController;
         MHAddItemViewController *vc = (MHAddItemViewController *)nc.visibleViewController;
-        NSDictionary* info = sender;
-        vc.selectedImage = info[kMHImagePickerInfoImage];
-        vc.selectedLocation = info[kMHImagePickerInfoLocation];
+        if (sender != nil) {
+            NSDictionary* info = sender;
+            vc.selectedImage = info[kMHImagePickerInfoImage];
+            vc.selectedLocation = info[kMHImagePickerInfoLocation];
+        }
     }
 }
 

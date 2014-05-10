@@ -682,7 +682,6 @@
                         <outlet property="shareView" destination="6lX-cx-pmF" id="8sR-Xl-jN8"/>
                         <outlet property="titleBackground" destination="SSg-LA-70Z" id="TWU-tc-FtH"/>
                         <outlet property="titleTextField" destination="g3N-DY-y5f" id="Cc9-ep-rPZ"/>
-                        <outlet property="topNavigationItem" destination="NRU-TM-15n" id="J53-EL-GXL"/>
                         <segue destination="q6y-Bc-6aO" kind="push" identifier="segueToChooseCollection" id="9hV-ZM-Irt"/>
                         <segue destination="3M4-Oc-VTX" kind="push" identifier="segueToChooseLocation" id="eNm-dq-GWi"/>
                     </connections>
@@ -1858,9 +1857,9 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="48L-ok-62D"/>
-        <segue reference="cHI-6z-e6b"/>
-        <segue reference="WHP-yM-ON6"/>
+        <segue reference="7Aw-hx-44V"/>
+        <segue reference="3wb-xF-lsE"/>
+        <segue reference="kvS-Cz-huN"/>
         <segue reference="AJS-nz-tvm"/>
     </inferredMetricsTieBreakers>
 </document>
