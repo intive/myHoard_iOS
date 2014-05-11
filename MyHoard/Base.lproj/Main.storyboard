@@ -266,7 +266,7 @@
                         <outlet property="searchDisplayController" destination="BRA-Xe-xY2" id="Eal-3h-Blc"/>
                         <outlet property="tableView" destination="Cvv-nh-PpG" id="g98-3c-qmi"/>
                         <segue destination="Pao-hk-0A0" kind="push" identifier="collectionDetails" id="48L-ok-62D"/>
-                        <segue destination="fW1-8f-0eN" kind="push" identifier="itemDetails" id="EGI-r2-8Nw"/>
+                        <segue destination="Q9g-Z7-HUe" kind="push" identifier="itemDetails" id="DwQ-fO-Reo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uxK-hd-nmm" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1858,9 +1858,10 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="AJS-nz-tvm"/>
+        <segue reference="DwQ-fO-Reo"/>
         <segue reference="48L-ok-62D"/>
-        <segue reference="5B8-fj-Ve2"/>
+        <segue reference="9uw-BN-Up4"/>
         <segue reference="uZQ-yX-J1c"/>
+        <segue reference="AJS-nz-tvm"/>
     </inferredMetricsTieBreakers>
 </document>
