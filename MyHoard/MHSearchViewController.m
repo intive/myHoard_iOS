@@ -109,7 +109,6 @@ NSString *const scopeTypeDescription = @"Description";
 }
 
 - (void)update {
-    _coreDataCollections = [MHDatabaseManager allCollections];
     [_tableView reloadData];
 }
 
@@ -139,7 +138,8 @@ NSString *const scopeTypeDescription = @"Description";
                 return [_coreDataSearchResults count];
             }
         }else {
-            return [_coreDataCollections count];
+            _noResults = YES;
+            return 1;
         }
     }else {
         if (tableView == self.searchDisplayController.searchResultsTableView) {
@@ -179,14 +179,9 @@ NSString *const scopeTypeDescription = @"Description";
                 _tableCell.userInteractionEnabled = NO;
             }
         }else {
-            if ([_coreDataCollections count]) {
-                MHCollection *collection = [_coreDataCollections objectAtIndex:indexPath.row];
-                _tableCell.textLabel.text = collection.objName;
-                _tableCell.userInteractionEnabled = YES;
-            }else {
-                _tableCell.textLabel.text = @"";
-                _tableCell.userInteractionEnabled = NO;
-            }
+            _tableCell.textLabel.text = @"Search for collection";
+            _tableCell.textLabel.textAlignment = NSTextAlignmentCenter;
+            _tableCell.userInteractionEnabled = NO;
         }
     }else {
         if (tableView == self.searchDisplayController.searchResultsTableView) {
@@ -199,7 +194,8 @@ NSString *const scopeTypeDescription = @"Description";
                 _tableCell.userInteractionEnabled = NO;
             }
         }else {
-            _tableCell.textLabel.text = @"";
+            _tableCell.textLabel.text = @"Search for item";
+            _tableCell.textLabel.textAlignment = NSTextAlignmentCenter;
             _tableCell.userInteractionEnabled = NO;
         }
     }
@@ -214,9 +210,6 @@ NSString *const scopeTypeDescription = @"Description";
     if ([indexPath section] == 0) {
         if (tableView == self.searchDisplayController.searchResultsTableView) {
             MHCollection *collection = [_coreDataSearchResults objectAtIndex:indexPath.row];
-            [self performSegueWithIdentifier:@"collectionDetails" sender:collection];
-        }else {
-            MHCollection *collection = [_coreDataCollections objectAtIndex:indexPath.row];
             [self performSegueWithIdentifier:@"collectionDetails" sender:collection];
         }
     }else {
@@ -249,23 +242,22 @@ NSString *const scopeTypeDescription = @"Description";
     
     NSPredicate *predicate;
     scope = _scope;
-    _coreDataSearchResults = nil;
     
     if (searchText.length < 3) {
-        _coreDataSearchResults = _coreDataCollections;
+        _coreDataSearchResults = nil;
         _coredataItemsSearchResult = nil;
     }else {
         if ([scope isEqualToString:scopeTypeName]) {
             predicate = [NSPredicate predicateWithFormat:@"SELF.objName beginswith[c] %@", searchText];
-            _coreDataSearchResults = [_coreDataCollections filteredArrayUsingPredicate:predicate];
+            [self fetchAllCollectionsWithPredicate:predicate];
             [self fetchAllItemsWithPredicate:predicate];
         }else if ([scope isEqualToString:scopeTypeDescription]) {
             predicate = [NSPredicate predicateWithFormat:@"SELF.objDescription beginswith[c] %@", searchText];
-            _coreDataSearchResults = [_coreDataCollections filteredArrayUsingPredicate:predicate];
+            [self fetchAllCollectionsWithPredicate:predicate];
             [self fetchAllItemsWithPredicate:predicate];
         }else {
             predicate = [NSPredicate predicateWithFormat:@"SELF.objName beginswith[c] %@", searchText];
-            _coreDataSearchResults = [_coreDataCollections filteredArrayUsingPredicate:predicate];
+            [self fetchAllCollectionsWithPredicate:predicate];
             [self fetchAllItemsWithPredicate:predicate];
         }
     }
@@ -416,6 +408,27 @@ NSString *const scopeTypeDescription = @"Description";
     
     if (!error) {
         _coredataItemsSearchResult = [_frc fetchedObjects];
+    }
+}
+
+- (void)fetchAllCollectionsWithPredicate:(NSPredicate *)predicate {
+    
+    [NSFetchedResultsController deleteCacheWithName:@"Root"];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc]init];
+    
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"MHCollection" inManagedObjectContext:[MHCoreDataContext getInstance].managedObjectContext];
+    [fetchRequest setEntity:entity];
+    [fetchRequest setPredicate:predicate];
+    NSSortDescriptor *sort = [[NSSortDescriptor alloc] initWithKey:@"objName" ascending:YES selector:@selector(localizedStandardCompare:)];
+    [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
+    
+    _frc = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:[MHCoreDataContext getInstance].managedObjectContext sectionNameKeyPath:nil cacheName:@"Root"];
+    
+    NSError *error = nil;
+    [_frc performFetch:&error];
+    
+    if (!error) {
+        _coreDataSearchResults = [_frc fetchedObjects];
     }
 }
 
