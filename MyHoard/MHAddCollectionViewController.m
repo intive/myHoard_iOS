@@ -12,6 +12,7 @@
 #import "MHAPI.h"
 #import "MHWaitDialog.h"
 #import "MHCoreDataContext.h"
+#import "MHItem.h"
 
 @interface MHAddCollectionViewController ()
 @property (readwrite) NSUInteger last;
@@ -169,20 +170,63 @@
 }
 
 - (IBAction)deleteCollection:(id)sender {
-    [[[MHCoreDataContext getInstance] managedObjectContext] deleteObject:_collection];
+    
     if ([[MHAPI getInstance]activeSession] == YES && _collection.objStatus && ![_typeLabel.text isEqualToString:@"Offline"]) {
         __block MHWaitDialog *waitDialog = [[MHWaitDialog alloc]init];
-        [[MHAPI getInstance] deleteCollection:_collection completionBlock:^(id object, NSError *error){
-            if (error)
-            {
-                [waitDialog dismiss];
-                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Error" message:error.localizedDescription delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                [alert show];
+        
+        if ([_collection.items count] > 0) {
+            for (MHItem *item in _collection.items) {
+                [[MHAPI getInstance] deleteItemWithId:item completionBlock:^(id object, NSError *error) {
+                    if (error) {
+                        NSLog(@"%@", error);
+                    }else {
+                        if ([item.media count]) {
+                            [item removeMedia:item.media];
+                            [_collection removeItemsObject:item];
+                        }else {
+                            [_collection removeItemsObject:item];
+                        }
+                        
+                        if ([_collection.items count] == 0) {
+                            [[MHAPI getInstance] deleteCollection:_collection completionBlock:^(id object, NSError *error){
+                                if (error)
+                                {
+                                    [waitDialog dismiss];
+                                    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Error" message:error.localizedDescription delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                                    [alert show];
+                                    NSLog(@"%@", object);
+                                }
+                                else {
+                                    [[[MHCoreDataContext getInstance] managedObjectContext] deleteObject:_collection];
+                                    [[MHCoreDataContext getInstance]saveContext];
+                                    [waitDialog dismiss];
+                                }
+                            }];
+                        }
+                    }
+                }];
             }
-            else
-                [waitDialog dismiss];
-        }];
+        }else {
+            [[MHAPI getInstance] deleteCollection:_collection completionBlock:^(id object, NSError *error){
+                if (error)
+                {
+                    [waitDialog dismiss];
+                    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Error" message:error.localizedDescription delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                    [alert show];
+                    NSLog(@"%@", object);
+                }
+                else {
+                    [[[MHCoreDataContext getInstance] managedObjectContext] deleteObject:_collection];
+                    [[MHCoreDataContext getInstance]saveContext];
+                    [waitDialog dismiss];
+                }
+            }];
+        }
+    }else {
+        [[[MHCoreDataContext getInstance] managedObjectContext] deleteObject:_collection];
+        [[MHCoreDataContext getInstance]saveContext];
     }
+    
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
