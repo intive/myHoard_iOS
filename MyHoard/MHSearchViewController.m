@@ -27,7 +27,6 @@ NSString *const scopeTypeDescription = @"Description";
 
 @property (nonatomic, strong) NSArray *coreDataCollections;
 @property (nonatomic, strong) NSArray *coreDataSearchResults;
-@property (nonatomic, strong) NSArray *coreDataItems;
 @property (nonatomic, strong) NSArray *coredataItemsSearchResult;
 @property (nonatomic, strong) UISegmentedControl *segmentedControl;
 @property (nonatomic, strong) NSFetchedResultsController *frc;
@@ -95,7 +94,6 @@ NSString *const scopeTypeDescription = @"Description";
                                              selector:@selector(keyboardDidHide:)
                                                  name:UIKeyboardDidHideNotification
                                                object:nil];
-    [self fetchAllItems];
 }
 
 - (void)didReceiveMemoryWarning
@@ -112,7 +110,6 @@ NSString *const scopeTypeDescription = @"Description";
 
 - (void)update {
     _coreDataCollections = [MHDatabaseManager allCollections];
-    [self fetchAllItems];
     [_tableView reloadData];
 }
 
@@ -146,7 +143,7 @@ NSString *const scopeTypeDescription = @"Description";
         }
     }else {
         if (tableView == self.searchDisplayController.searchResultsTableView) {
-            if ([_coreDataItems count] == 0) {
+            if ([_coredataItemsSearchResult count] == 0) {
                 _noResults = YES;
                 return 1;
             }else {
@@ -154,7 +151,8 @@ NSString *const scopeTypeDescription = @"Description";
                 return [_coredataItemsSearchResult count];
             }
         }else {
-            return [_coreDataItems count];
+            _noResults = YES;
+            return 1;
         }
     }
 }
@@ -201,14 +199,8 @@ NSString *const scopeTypeDescription = @"Description";
                 _tableCell.userInteractionEnabled = NO;
             }
         }else {
-            if ([_coreDataItems count]) {
-                MHItem *item = [_coreDataItems objectAtIndex:indexPath.row];
-                _tableCell.textLabel.text = item.objName;
-                _tableCell.userInteractionEnabled = YES;
-            }else {
-                _tableCell.textLabel.text = @"";
-                _tableCell.userInteractionEnabled = NO;
-            }
+            _tableCell.textLabel.text = @"";
+            _tableCell.userInteractionEnabled = NO;
         }
     }
     _tableCell.textLabel.textColor = [UIColor collectionNameFrontColor];
@@ -230,9 +222,6 @@ NSString *const scopeTypeDescription = @"Description";
     }else {
         if (tableView == self.searchDisplayController.searchResultsTableView) {
             MHItem *item = [_coredataItemsSearchResult objectAtIndex:indexPath.row];
-            [self performSegueWithIdentifier:@"itemDetails" sender:item];
-        }else {
-            MHItem *item = [_coreDataItems objectAtIndex:indexPath.row];
             [self performSegueWithIdentifier:@"itemDetails" sender:item];
         }
     }
@@ -264,20 +253,20 @@ NSString *const scopeTypeDescription = @"Description";
     
     if (searchText.length < 3) {
         _coreDataSearchResults = _coreDataCollections;
-        _coredataItemsSearchResult = _coreDataItems;
+        _coredataItemsSearchResult = nil;
     }else {
         if ([scope isEqualToString:scopeTypeName]) {
             predicate = [NSPredicate predicateWithFormat:@"SELF.objName beginswith[c] %@", searchText];
             _coreDataSearchResults = [_coreDataCollections filteredArrayUsingPredicate:predicate];
-            _coredataItemsSearchResult = [_coreDataItems filteredArrayUsingPredicate:predicate];
+            [self fetchAllItemsWithPredicate:predicate];
         }else if ([scope isEqualToString:scopeTypeDescription]) {
             predicate = [NSPredicate predicateWithFormat:@"SELF.objDescription beginswith[c] %@", searchText];
             _coreDataSearchResults = [_coreDataCollections filteredArrayUsingPredicate:predicate];
-            _coredataItemsSearchResult = [_coreDataItems filteredArrayUsingPredicate:predicate];
+            [self fetchAllItemsWithPredicate:predicate];
         }else {
             predicate = [NSPredicate predicateWithFormat:@"SELF.objName beginswith[c] %@", searchText];
             _coreDataSearchResults = [_coreDataCollections filteredArrayUsingPredicate:predicate];
-            _coredataItemsSearchResult = [_coreDataItems filteredArrayUsingPredicate:predicate];
+            [self fetchAllItemsWithPredicate:predicate];
         }
     }
     
@@ -409,13 +398,14 @@ NSString *const scopeTypeDescription = @"Description";
 
 #pragma mark - FRC
 
-- (void)fetchAllItems {
+- (void)fetchAllItemsWithPredicate:(NSPredicate *)predicate {
     
     [NSFetchedResultsController deleteCacheWithName:@"Root"];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc]init];
     
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"MHItem" inManagedObjectContext:[MHCoreDataContext getInstance].managedObjectContext];
     [fetchRequest setEntity:entity];
+    [fetchRequest setPredicate:predicate];
     NSSortDescriptor *sort = [[NSSortDescriptor alloc] initWithKey:@"objName" ascending:YES selector:@selector(localizedStandardCompare:)];
     [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
     
@@ -425,7 +415,7 @@ NSString *const scopeTypeDescription = @"Description";
     [_frc performFetch:&error];
     
     if (!error) {
-        _coreDataItems = [_frc fetchedObjects];
+        _coredataItemsSearchResult = [_frc fetchedObjects];
     }
 }
 
