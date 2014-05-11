@@ -31,6 +31,7 @@ NSString *const scopeTypeDescription = @"Description";
 @property (nonatomic, strong) NSArray *coredataItemsSearchResult;
 @property (nonatomic, strong) UISegmentedControl *segmentedControl;
 @property (nonatomic, strong) NSFetchedResultsController *frc;
+@property (nonatomic, strong) UITableViewCell *tableCell;
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
@@ -111,8 +112,6 @@ NSString *const scopeTypeDescription = @"Description";
 
 - (void)update {
     _coreDataCollections = [MHDatabaseManager allCollections];
-    _coreDataSearchResults = nil;
-    _coredataItemsSearchResult = nil;
     [self fetchAllItems];
     [_tableView reloadData];
 }
@@ -165,57 +164,57 @@ NSString *const scopeTypeDescription = @"Description";
     tableView.backgroundColor = [UIColor appBackgroundColor];
     
     static NSString *cellId = @"searchCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+    _tableCell = [tableView dequeueReusableCellWithIdentifier:cellId];
     
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+    if (_tableCell == nil) {
+        _tableCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
     }
     
     if ([indexPath section] == 0) {
         if (tableView == self.searchDisplayController.searchResultsTableView) {
             if ([_coreDataSearchResults count]) {
                 MHCollection *collection = [_coreDataSearchResults objectAtIndex:indexPath.row];
-                cell.textLabel.text = collection.objName;
-                cell.userInteractionEnabled = YES;
+                _tableCell.textLabel.text = collection.objName;
+                _tableCell.userInteractionEnabled = YES;
             }else {
-                cell.textLabel.text = @"";
-                cell.userInteractionEnabled = NO;
+                _tableCell.textLabel.text = @"";
+                _tableCell.userInteractionEnabled = NO;
             }
         }else {
             if ([_coreDataCollections count]) {
                 MHCollection *collection = [_coreDataCollections objectAtIndex:indexPath.row];
-                cell.textLabel.text = collection.objName;
-                cell.userInteractionEnabled = YES;
+                _tableCell.textLabel.text = collection.objName;
+                _tableCell.userInteractionEnabled = YES;
             }else {
-                cell.textLabel.text = @"";
-                cell.userInteractionEnabled = NO;
+                _tableCell.textLabel.text = @"";
+                _tableCell.userInteractionEnabled = NO;
             }
         }
     }else {
         if (tableView == self.searchDisplayController.searchResultsTableView) {
             if ([_coredataItemsSearchResult count]) {
                 MHItem *item = [_coredataItemsSearchResult objectAtIndex:indexPath.row];
-                cell.textLabel.text = item.objName;
-                cell.userInteractionEnabled = YES;
+                _tableCell.textLabel.text = item.objName;
+                _tableCell.userInteractionEnabled = YES;
             }else {
-                cell.textLabel.text = @"";
-                cell.userInteractionEnabled = NO;
+                _tableCell.textLabel.text = @"";
+                _tableCell.userInteractionEnabled = NO;
             }
         }else {
             if ([_coreDataItems count]) {
                 MHItem *item = [_coreDataItems objectAtIndex:indexPath.row];
-                cell.textLabel.text = item.objName;
-                cell.userInteractionEnabled = YES;
+                _tableCell.textLabel.text = item.objName;
+                _tableCell.userInteractionEnabled = YES;
             }else {
-                cell.textLabel.text = @"";
-                cell.userInteractionEnabled = NO;
+                _tableCell.textLabel.text = @"";
+                _tableCell.userInteractionEnabled = NO;
             }
         }
     }
-    cell.textLabel.textColor = [UIColor collectionNameFrontColor];
-    cell.backgroundColor = [UIColor appBackgroundColor];
+    _tableCell.textLabel.textColor = [UIColor collectionNameFrontColor];
+    _tableCell.backgroundColor = [UIColor appBackgroundColor];
     
-    return cell;
+    return _tableCell;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -388,6 +387,7 @@ NSString *const scopeTypeDescription = @"Description";
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
     _coreDataSearchResults = nil;
+    _coredataItemsSearchResult = nil;
     [_tableView reloadData];
 }
 
