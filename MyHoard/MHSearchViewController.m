@@ -162,22 +162,7 @@ NSString *const scopeTypeDescription = @"Description";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
-    if (tableView == self.searchDisplayController.searchResultsTableView && _noResults) {
-        
-        tableView.backgroundColor = [UIColor appBackgroundColor];
-
-        static NSString *cellId = @"emptyCell";
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
-        
-        if (cell == nil) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
-            cell.userInteractionEnabled = NO;
-            cell.backgroundColor = [UIColor appBackgroundColor];
-        }
-        
-        return cell;
-    }
+    tableView.backgroundColor = [UIColor appBackgroundColor];
     
     static NSString *cellId = @"searchCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
@@ -188,19 +173,43 @@ NSString *const scopeTypeDescription = @"Description";
     
     if ([indexPath section] == 0) {
         if (tableView == self.searchDisplayController.searchResultsTableView) {
-            MHCollection *collection = [_coreDataSearchResults objectAtIndex:indexPath.row];
-            cell.textLabel.text = collection.objName;
+            if ([_coreDataSearchResults count]) {
+                MHCollection *collection = [_coreDataSearchResults objectAtIndex:indexPath.row];
+                cell.textLabel.text = collection.objName;
+                cell.userInteractionEnabled = YES;
+            }else {
+                cell.textLabel.text = @"";
+                cell.userInteractionEnabled = NO;
+            }
         }else {
-            MHCollection *collection = [_coreDataCollections objectAtIndex:indexPath.row];
-            cell.textLabel.text = collection.objName;
+            if ([_coreDataCollections count]) {
+                MHCollection *collection = [_coreDataCollections objectAtIndex:indexPath.row];
+                cell.textLabel.text = collection.objName;
+                cell.userInteractionEnabled = YES;
+            }else {
+                cell.textLabel.text = @"";
+                cell.userInteractionEnabled = NO;
+            }
         }
     }else {
         if (tableView == self.searchDisplayController.searchResultsTableView) {
-            MHItem *item = [_coredataItemsSearchResult objectAtIndex:indexPath.row];
-            cell.textLabel.text = item.objName;
+            if ([_coredataItemsSearchResult count]) {
+                MHItem *item = [_coredataItemsSearchResult objectAtIndex:indexPath.row];
+                cell.textLabel.text = item.objName;
+                cell.userInteractionEnabled = YES;
+            }else {
+                cell.textLabel.text = @"";
+                cell.userInteractionEnabled = NO;
+            }
         }else {
-            MHItem *item = [_coreDataItems objectAtIndex:indexPath.row];
-            cell.textLabel.text = item.objName;
+            if ([_coreDataItems count]) {
+                MHItem *item = [_coreDataItems objectAtIndex:indexPath.row];
+                cell.textLabel.text = item.objName;
+                cell.userInteractionEnabled = YES;
+            }else {
+                cell.textLabel.text = @"";
+                cell.userInteractionEnabled = NO;
+            }
         }
     }
     cell.textLabel.textColor = [UIColor collectionNameFrontColor];
@@ -212,7 +221,7 @@ NSString *const scopeTypeDescription = @"Description";
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if ([indexPath section] == 0) {
-        if (_tableView == self.searchDisplayController.searchResultsTableView) {
+        if (tableView == self.searchDisplayController.searchResultsTableView) {
             MHCollection *collection = [_coreDataSearchResults objectAtIndex:indexPath.row];
             [self performSegueWithIdentifier:@"collectionDetails" sender:collection];
         }else {
@@ -220,7 +229,7 @@ NSString *const scopeTypeDescription = @"Description";
             [self performSegueWithIdentifier:@"collectionDetails" sender:collection];
         }
     }else {
-        if (_tableView == self.searchDisplayController.searchResultsTableView) {
+        if (tableView == self.searchDisplayController.searchResultsTableView) {
             MHItem *item = [_coredataItemsSearchResult objectAtIndex:indexPath.row];
             [self performSegueWithIdentifier:@"itemDetails" sender:item];
         }else {
@@ -278,6 +287,8 @@ NSString *const scopeTypeDescription = @"Description";
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Search fraze can be no longer than 12 characters" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alert show];
     }
+    
+    [_tableView reloadData];
 }
 
 - (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
