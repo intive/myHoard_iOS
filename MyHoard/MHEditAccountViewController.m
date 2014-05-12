@@ -304,7 +304,7 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (buttonIndex == 1) {
         if ([[alertView textFieldAtIndex:0].text isEqualToString:[MHAPI getInstance].userPassword]) {
-            [[MHAPI getInstance]updateUser:_emailTextField.text withPassword:[MHAPI getInstance].userPassword andEmail:_emailTextField.text completionBlock:^(id object, NSError *error) {
+            [[MHAPI getInstance]updateUser:_loginTexField.text withPassword:[MHAPI getInstance].userPassword andEmail:_emailTextField.text completionBlock:^(MHUserProfile *object, NSError *error) {
                 if (error) {
                     UIAlertView *alert = [[UIAlertView alloc]
                                           initWithTitle:@"Error"
