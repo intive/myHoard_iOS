@@ -24,6 +24,7 @@ typedef void (^MHAPICompletionBlock)(id object, NSError *error);
 @interface MHAPI : AFHTTPRequestOperationManager
 
 @property(nonatomic, readonly) NSString *userId;
+@property(nonatomic, readonly) NSString *userPassword;
 
 + (instancetype)getInstance;
 

@@ -11,6 +11,8 @@
 
 @interface MHEditAccountViewController ()
 
+@property (nonatomic, strong)UIBarButtonItem *save;
+
 @end
 
 @implementation MHEditAccountViewController
@@ -53,6 +55,10 @@
     
     _lineOne.backgroundColor = [UIColor lightGrayColor];
     _lineTwo.backgroundColor = [UIColor lightGrayColor];
+    
+    [_loginTexField addTarget:self action:@selector(showSaveButton) forControlEvents:UIControlEventEditingChanged];
+    [_emailTextField addTarget:self action:@selector(showSaveButton) forControlEvents:UIControlEventEditingChanged];
+
 }
 
 - (void)profilePictureViewShape {
@@ -274,6 +280,55 @@
     
     [self clearProfilePictureCache];
     [self refreshImageData];
+}
+
+#pragma mark - started editing profile
+
+- (void)showSaveButton {
+    _save = [[UIBarButtonItem alloc]initWithTitle:@"Save" style:UIBarButtonItemStyleBordered target:self action:@selector(passwordRequired)];
+    self.navigationItem.rightBarButtonItem = _save;
+}
+
+- (void)hideSaveButton {
+    self.navigationItem.rightBarButtonItem = nil;
+}
+
+- (void)passwordRequired {
+    
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Confirm your password" message:@"To save changes you need to confirm your password" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Confirm", nil];
+    alert.alertViewStyle = UIAlertViewStyleSecureTextInput;
+    [alert textFieldAtIndex:0].delegate = self;
+    [alert show];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 1) {
+        if ([[alertView textFieldAtIndex:0].text isEqualToString:[MHAPI getInstance].userPassword]) {
+            [[MHAPI getInstance]updateUser:_emailTextField.text withPassword:[MHAPI getInstance].userPassword andEmail:_emailTextField.text completionBlock:^(id object, NSError *error) {
+                if (error) {
+                    UIAlertView *alert = [[UIAlertView alloc]
+                                          initWithTitle:@"Error"
+                                          message:error.localizedDescription
+                                          delegate:nil
+                                          cancelButtonTitle:@"OK"
+                                          otherButtonTitles:nil];
+                    
+                    [alert show];
+                }else {
+                    [self hideSaveButton];
+                }
+            }];
+        }else {
+            UIAlertView *alert = [[UIAlertView alloc]
+                                  initWithTitle:@"Error"
+                                  message:@"Wrong password"
+                                  delegate:nil
+                                  cancelButtonTitle:@"OK"
+                                  otherButtonTitles:nil];
+            
+            [alert show];
+        }
+    }
 }
 
 @end

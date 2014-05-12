@@ -67,6 +67,7 @@ static MHAPI *_sharedAPI = nil;
     _accessToken = nil;
     _refreshToken = nil;
     _userId = nil;
+    _userPassword = nil;
     completionBlock(nil, nil);
 }
 
@@ -254,12 +255,13 @@ static MHAPI *_sharedAPI = nil;
                                                                     @"password": password,
                                                                     @"grant_type": @"password"}
                                                             error:&error];
-    
+
     AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
                                                                       success:^(AFHTTPRequestOperation *operation, id responseObject) {
                                                                           _accessToken = [responseObject valueForKeyPath:@"access_token"];
                                                                           _refreshToken = [responseObject valueForKeyPath:@"refresh_token"];
                                                                           _userId = [responseObject valueForKeyPath:@"user_id"];
+                                                                          _userPassword = password;
                                                                           completionBlock(nil, nil);
                                                                       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                                                           [self localizedDescriptionForErrorCode:error];
