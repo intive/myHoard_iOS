@@ -132,6 +132,7 @@ typedef NS_ENUM(NSInteger, CollectionSortMode) {
     cell.tagsView.backgroundColor = [UIColor clearColor];
 
     if ([self numberOfCollectionsInDatabaseForSection:indexPath.section] == 0) { //special case for + element
+        [cell.kenBurnsView removeAllImages];
         cell.collectionTitle.text = @"Name";
         cell.badgeView.hidden = YES;
         cell.tagsView.tagList = @[@"Tags"];
