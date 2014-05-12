@@ -15,17 +15,15 @@
 @interface MHEditAccountViewController : MHBaseViewController <UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *profilePicture;
-@property (weak, nonatomic) IBOutlet UILabel *loginLabel;
-@property (weak, nonatomic) IBOutlet UILabel *emailLabel;
+@property (weak, nonatomic) IBOutlet UITextField *loginTexField;
+@property (weak, nonatomic) IBOutlet UITextField *emailTextField;
+
 @property (weak, nonatomic) IBOutlet UIButton *editPictureButton;
-@property (weak, nonatomic) IBOutlet UIButton *saveButton;
 @property (weak, nonatomic) IBOutlet UIButton *changePasswordButton;
 @property (weak, nonatomic) IBOutlet UIView *backgroundView;
 @property (weak, nonatomic) IBOutlet UIView *passwordBackgroundView;
 @property (weak, nonatomic) IBOutlet UILabel *lineOne;
 @property (weak, nonatomic) IBOutlet UILabel *lineTwo;
-
-@property (weak, nonatomic) IBOutlet UITextField *passwordtextField;
 
 
 - (IBAction)editPictureMenu:(id)sender;

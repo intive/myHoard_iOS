@@ -33,20 +33,21 @@
     
     [self setLabelTitle];
     
-    _loginLabel.textColor = [UIColor collectionNameFrontColor];
-    _emailLabel.textColor = [UIColor collectionNameFrontColor];
+    _loginTexField.textColor = [UIColor collectionNameFrontColor];
+    _emailTextField.textColor = [UIColor collectionNameFrontColor];
+    _loginTexField.attributedPlaceholder = [[NSAttributedString alloc]initWithString:@"Login" attributes:@{NSForegroundColorAttributeName: [UIColor darkerYellow]}];
+    _emailTextField.attributedPlaceholder = [[NSAttributedString alloc]initWithString:@"Email" attributes:@{NSForegroundColorAttributeName: [UIColor darkerYellow]}];
+    
+    _loginTexField.backgroundColor = [UIColor appBackgroundColor];
+    _emailTextField.backgroundColor = [UIColor appBackgroundColor];
+    
+    _loginTexField.delegate = self;
+    _emailTextField.delegate = self;
+    
     [_editPictureButton setTitleColor:[UIColor collectionNameFrontColor] forState:UIControlStateSelected];
     [_editPictureButton setTitleColor:[UIColor collectionNameFrontColor] forState:UIControlStateNormal];
-    
-    _passwordtextField.textColor = [UIColor lightGrayColor];
-    _passwordtextField.backgroundColor = [UIColor appBackgroundColor];
-    
-    _passwordtextField.attributedPlaceholder = [[NSAttributedString alloc]initWithString:@"Password" attributes:@{NSForegroundColorAttributeName: [UIColor darkerYellow]}];
-    
-    _passwordtextField.delegate = self;
 
     _passwordBackgroundView.backgroundColor = [UIColor lighterGray];
-    _saveButton.layer.cornerRadius = 17.0;
     [_changePasswordButton setTitleColor:[UIColor collectionNameFrontColor] forState:UIControlStateSelected];
     [_changePasswordButton setTitleColor:[UIColor collectionNameFrontColor] forState:UIControlStateNormal];
     
@@ -101,8 +102,8 @@
         }else {
             NSArray *sub = [object.email componentsSeparatedByString:@"@"];
             NSString *substring = [sub objectAtIndex:0];
-            _loginLabel.text = substring;
-            _emailLabel.text = object.email;
+            _loginTexField.text = substring;
+            _emailTextField.text = object.email;
         }
     }];
 }
