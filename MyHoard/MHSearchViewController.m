@@ -265,9 +265,9 @@ NSString *const scopeTypeDescription = @"Description";
         }
     }
     
-    if (searchText.length > 12) {
+    if (searchText.length > 20) {
         [_searchBar resignFirstResponder];
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Search fraze can be no longer than 12 characters" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Search fraze can be no longer than 20 characters" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alert show];
     }
     
