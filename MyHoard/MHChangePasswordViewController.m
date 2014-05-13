@@ -42,9 +42,9 @@
     _labelBackgroundViewTwo.backgroundColor = [UIColor darkerGray];
     _labelBackgroundViewThree.backgroundColor = [UIColor darkerGray];
     
-    _passwordTextField.attributedPlaceholder = [[NSAttributedString alloc]initWithString:@"mystery field" attributes:@{NSForegroundColorAttributeName: [UIColor darkerYellow]}];
-    _confirmNewPasswordTextField.attributedPlaceholder = [[NSAttributedString alloc]initWithString:@"confirm password" attributes:@{NSForegroundColorAttributeName: [UIColor darkerYellow]}];
-    _changePasswordTextField.attributedPlaceholder = [[NSAttributedString alloc]initWithString:@"new password" attributes:@{NSForegroundColorAttributeName: [UIColor darkerYellow]}];
+    _passwordTextField.attributedPlaceholder = [[NSAttributedString alloc]initWithString:@"Your current password" attributes:@{NSForegroundColorAttributeName: [UIColor darkerYellow]}];
+    _confirmNewPasswordTextField.attributedPlaceholder = [[NSAttributedString alloc]initWithString:@"Confirm password" attributes:@{NSForegroundColorAttributeName: [UIColor darkerYellow]}];
+    _changePasswordTextField.attributedPlaceholder = [[NSAttributedString alloc]initWithString:@"New password" attributes:@{NSForegroundColorAttributeName: [UIColor darkerYellow]}];
     
     _passwordTextField.delegate = self;
     _confirmNewPasswordTextField.delegate = self;
@@ -174,6 +174,20 @@
         UIAlertView *alert = [[UIAlertView alloc]
                               initWithTitle:@"Alert"
                               message:@"Password must be at least 5 characters long"
+                              delegate:nil
+                              cancelButtonTitle:@"OK"
+                              otherButtonTitles:nil];
+        
+        [alert show];
+        
+        return NO;
+    }
+    
+    if (![_passwordTextField.text isEqualToString:[MHAPI getInstance].userPassword]) {
+        
+        UIAlertView *alert = [[UIAlertView alloc]
+                              initWithTitle:@"Alert"
+                              message:@"To change password you must provide your old password"
                               delegate:nil
                               cancelButtonTitle:@"OK"
                               otherButtonTitles:nil];
