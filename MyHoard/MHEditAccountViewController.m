@@ -44,7 +44,7 @@
     _emailTextField.backgroundColor = [UIColor appBackgroundColor];
     
     _loginTexField.delegate = self;
-    _emailTextField.delegate = self;
+    _emailTextField.userInteractionEnabled = NO;
     
     [_editPictureButton setTitleColor:[UIColor collectionNameFrontColor] forState:UIControlStateSelected];
     [_editPictureButton setTitleColor:[UIColor collectionNameFrontColor] forState:UIControlStateNormal];
