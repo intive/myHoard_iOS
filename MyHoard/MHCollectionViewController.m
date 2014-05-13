@@ -45,7 +45,7 @@ typedef NS_ENUM(NSInteger, CollectionSortMode) {
 - (void)viewWillAppear:(BOOL)animated {
     [_selectedCell.kenBurnsView stopAnimation];
     _selectedCell = nil;
-
+    
     [_collectionView reloadData];
     
     [super viewWillAppear:animated];
@@ -136,6 +136,7 @@ typedef NS_ENUM(NSInteger, CollectionSortMode) {
         cell.collectionTitle.text = @"Name";
         cell.badgeView.hidden = YES;
         cell.tagsView.tagList = @[@"Tags"];
+        cell.plusSignImageView.image = [UIImage imageNamed:@"plus_y.png"];
         cell.plusSignImageView.hidden = NO;
     } else {
         MHCollection *object = [self.fetchedResultsController objectAtIndexPath:indexPath];
@@ -158,9 +159,20 @@ typedef NS_ENUM(NSInteger, CollectionSortMode) {
     
     if (collection.items.count == 0) {
         cell.badgeView.hidden = YES;
+        cell.plusSignImageView.image = [UIImage imageNamed:@"karton.png"];
+        cell.plusSignImageView.hidden = NO;
     }else {
         cell.badgeView.badgeValue = @(collection.items.count);
         cell.badgeView.hidden = NO;
+        for (MHItem *item in collection.items) {
+            if (![item.media count]) {
+                cell.plusSignImageView.image = [UIImage imageNamed:@"sheets.png"];
+                cell.plusSignImageView.hidden = NO;
+            }else {
+                cell.plusSignImageView.image = nil;
+                cell.plusSignImageView.hidden = YES;
+            }
+        }
     }
     
     cell.tagsView.tagList = collection.objTags;

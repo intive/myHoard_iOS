@@ -160,7 +160,7 @@
 	}
                           tagged:6
                        withTitle:@"Logout"
-                         andIcon:@""];
+                         andIcon:@"logout.png"];
     
     self.view.backgroundColor = [UIColor lighterYellow];
     [self setStartingControllerTag:3];
