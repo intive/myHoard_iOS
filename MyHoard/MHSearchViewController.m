@@ -12,6 +12,7 @@
 #import "MHCollectionDetailsViewController.h"
 #import "UIImage+customImage.h"
 #import "MHItemDetailsPageViewController.h"
+#import "MHAPI.h"
 
 #define HEADER_HEIGHT 44
 
@@ -248,17 +249,19 @@ NSString *const scopeTypeDescription = @"Description";
         _coredataItemsSearchResult = nil;
     }else {
         if ([scope isEqualToString:scopeTypeName]) {
-            predicate = [NSPredicate predicateWithFormat:@"SELF.objName beginswith[c] %@", searchText];
-            [self fetchAllCollectionsWithPredicate:predicate];
-            [self fetchAllItemsWithPredicate:predicate];
+            [self checkForActiveSessionAndSetPredicate:predicate withSearchText:searchText];
         }else if ([scope isEqualToString:scopeTypeDescription]) {
-            predicate = [NSPredicate predicateWithFormat:@"SELF.objDescription beginswith[c] %@", searchText];
-            [self fetchAllCollectionsWithPredicate:predicate];
-            [self fetchAllItemsWithPredicate:predicate];
+            if ([MHAPI getInstance].userId) {
+                predicate = [NSPredicate predicateWithFormat:@"SELF.objDescription beginswith[c] %@ AND SELF.objOwner == %@", searchText, [MHAPI getInstance].userId];
+                [self fetchAllCollectionsWithPredicate:predicate];
+                [self fetchAllItemsWithPredicate:predicate];
+            }else {
+                predicate = [NSPredicate predicateWithFormat:@"SELF.objDescription beginswith[c] %@ AND SELF.objOwner == %@", searchText, nil];
+                [self fetchAllCollectionsWithPredicate:predicate];
+                [self fetchAllItemsWithPredicate:predicate];
+            }
         }else {
-            predicate = [NSPredicate predicateWithFormat:@"SELF.objName beginswith[c] %@", searchText];
-            [self fetchAllCollectionsWithPredicate:predicate];
-            [self fetchAllItemsWithPredicate:predicate];
+            [self checkForActiveSessionAndSetPredicate:predicate withSearchText:searchText];
         }
     }
     
@@ -269,6 +272,18 @@ NSString *const scopeTypeDescription = @"Description";
     }
     
     [_tableView reloadData];
+}
+
+- (void)checkForActiveSessionAndSetPredicate:(NSPredicate *)predicate withSearchText:(NSString *)searchText {
+    if ([MHAPI getInstance].userId) {
+        predicate = [NSPredicate predicateWithFormat:@"SELF.objName beginswith[c] %@ AND SELF.objOwner == %@", searchText, [MHAPI getInstance].userId];
+        [self fetchAllCollectionsWithPredicate:predicate];
+        [self fetchAllItemsWithPredicate:predicate];
+    }else {
+        predicate = [NSPredicate predicateWithFormat:@"SELF.objName beginswith[c] %@ AND SELF.objOwner == %@", searchText, nil];
+        [self fetchAllCollectionsWithPredicate:predicate];
+        [self fetchAllItemsWithPredicate:predicate];
+    }
 }
 
 - (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
