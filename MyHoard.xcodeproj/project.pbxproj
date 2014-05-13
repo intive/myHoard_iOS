@@ -77,6 +77,7 @@
 		A7E4B51418C90BB40042EAC9 /* AlternativeDesign.json in Resources */ = {isa = PBXBuildFile; fileRef = A7E4B51318C90BB40042EAC9 /* AlternativeDesign.json */; };
 		B02743679DB841A98A3C2D60 /* libPods-MyHoardTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A54F99CDCE2468DACC4FBD3 /* libPods-MyHoardTests.a */; };
 		B8F16086EB65413C89F6F7BB /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F724743366084FAC90257055 /* libPods.a */; };
+		CE022AC01922B80700D68A4C /* MHProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE022ABF1922B80700D68A4C /* MHProgressView.m */; };
 		CE09D99318F2CAE5007E8885 /* MHUserProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = CE09D99218F2CAE5007E8885 /* MHUserProfile.m */; };
 		CE28669618DB2A9D003AC446 /* MHKenBurns.m in Sources */ = {isa = PBXBuildFile; fileRef = CE28669418DB2A9D003AC446 /* MHKenBurns.m */; };
 		CE529A7E18D8687B00A020E9 /* MHUserSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = CE529A7C18D8687B00A020E9 /* MHUserSettings.m */; };
@@ -236,6 +237,8 @@
 		A7A348F218C881B600FA1B6C /* libPods-MyHoardTests-TSMessages.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-MyHoardTests-TSMessages.a"; path = "Pods/build/Debug-iphoneos/libPods-MyHoardTests-TSMessages.a"; sourceTree = "<group>"; };
 		A7A348F418C88F2900FA1B6C /* libPods-TSMessages.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-TSMessages.a"; path = "Pods/build/Debug-iphoneos/libPods-TSMessages.a"; sourceTree = "<group>"; };
 		A7E4B51318C90BB40042EAC9 /* AlternativeDesign.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = AlternativeDesign.json; sourceTree = "<group>"; };
+		CE022ABE1922B80700D68A4C /* MHProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHProgressView.h; sourceTree = "<group>"; };
+		CE022ABF1922B80700D68A4C /* MHProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHProgressView.m; sourceTree = "<group>"; };
 		CE09D99118F2CAE5007E8885 /* MHUserProfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHUserProfile.h; sourceTree = "<group>"; };
 		CE09D99218F2CAE5007E8885 /* MHUserProfile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHUserProfile.m; sourceTree = "<group>"; };
 		CE28669318DB2A9D003AC446 /* MHKenBurns.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHKenBurns.h; sourceTree = "<group>"; };
@@ -421,6 +424,8 @@
 				23F64D6418E4CBBE003420E3 /* MHRoundButton.m */,
 				23D02F0118EF38C600114941 /* MHWaitDialog.h */,
 				23D02F0218EF38C600114941 /* MHWaitDialog.m */,
+				CE022ABE1922B80700D68A4C /* MHProgressView.h */,
+				CE022ABF1922B80700D68A4C /* MHProgressView.m */,
 			);
 			name = CustomViews;
 			sourceTree = "<group>";
@@ -874,6 +879,7 @@
 				1A13578C190500BB0060DD31 /* MJGeocoder.m in Sources */,
 				53062B5418F48F8E006FC69C /* NSString+Tags.m in Sources */,
 				1A059F3818D200B700ECC6D0 /* MHAddCollectionViewController.m in Sources */,
+				CE022AC01922B80700D68A4C /* MHProgressView.m in Sources */,
 				23B0A70E18F862D900FA806C /* MHSliderMenuTableCell.m in Sources */,
 				1A059F3518D200B700ECC6D0 /* MHAddItemViewController.m in Sources */,
 				CEF82A0518F0383F00058BB8 /* MHAccountViewController.m in Sources */,
