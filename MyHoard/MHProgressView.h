@@ -10,7 +10,7 @@
 
 @interface MHProgressView : UIView
 
-- (void)show;
+- (void)showWithProgress:(NSNumber *)progress;
 - (void)dismiss;
 
 @end

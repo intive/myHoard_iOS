@@ -25,6 +25,7 @@ typedef void (^MHAPICompletionBlock)(id object, NSError *error);
 
 @property(nonatomic, readonly) NSString *userId;
 @property(nonatomic, readonly) NSString *userPassword;
+@property(nonatomic, readonly) __block NSNumber *progress;
 
 + (instancetype)getInstance;
 

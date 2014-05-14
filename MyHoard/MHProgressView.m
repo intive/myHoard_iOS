@@ -24,7 +24,6 @@
     [self addSubview:_backgroundView];
     
     _progressView = [[UIProgressView alloc]initWithProgressViewStyle:UIProgressViewStyleBar];
-    _progressView.progress = 0.5;
     [self addSubview:_progressView];
     
     self.hidden = YES;
@@ -40,7 +39,9 @@
     return self;
 }
 
-- (void)show {
+- (void)showWithProgress:(NSNumber *)progress {
+    
+    _progressView.progress = [progress floatValue];
     
     UIWindow* window = [[[UIApplication sharedApplication] delegate] window];
     

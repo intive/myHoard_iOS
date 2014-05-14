@@ -506,6 +506,7 @@ static MHAPI *_sharedAPI = nil;
         completionBlock(nil, error);
     }];
     
+    
     [manager.responseSerializer setAcceptableContentTypes:[NSSet setWithObjects:@"application/json", nil]];
     
     return nil;
@@ -535,6 +536,11 @@ static MHAPI *_sharedAPI = nil;
                                                                       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                                                           completionBlock(nil, error);
                                                                       }];
+    
+    [operation setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
+        _progress = [NSNumber numberWithFloat:totalBytesRead/totalBytesExpectedToRead];
+    }];
+    
     operation.responseSerializer = [AFImageResponseSerializer serializer];
     [self.operationQueue addOperation:operation];
     
