@@ -111,8 +111,8 @@
     UIActionSheet *actionSheet = [[UIActionSheet alloc]initWithTitle:nil
                                                             delegate:self
                                                    cancelButtonTitle:@"Cancel"
-                                              destructiveButtonTitle:nil
-                                                   otherButtonTitles:@"Edit item", @"Delete item", nil];
+                                              destructiveButtonTitle:@"Delete item"
+                                                   otherButtonTitles:@"Edit item", nil];
     [actionSheet showInView:self.view];
     
 }
@@ -126,10 +126,10 @@
     
     switch (buttonIndex) {
         case 0:
-            [self performSegueWithIdentifier:@"ChangeItemSettingsSegue" sender:_item];
+            [alert show];
             break;
         case 1:
-            [alert show];
+            [self performSegueWithIdentifier:@"ChangeItemSettingsSegue" sender:_item];
             break;
         default:
             break;

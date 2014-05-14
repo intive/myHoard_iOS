@@ -103,6 +103,7 @@ const NSString* const kMHImagePickerInfoLocation = @"kMHImagePickerInfoLocation"
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
     [[MHLocation sharedInstance] stopGettingLocation];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
