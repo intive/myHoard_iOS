@@ -156,8 +156,8 @@
                 NSArray *itemMedia = [self.item.media allObjects];
                 for (int i=0; i<[itemMedia count]; i++){
                     MHMedia *media = [itemMedia objectAtIndex:i];
-                    [[MHCoreDataContext getInstance].managedObjectContext deleteObject:media];
                     [[MHImageCache sharedInstance] removeDataForKey:media.objKey];
+                    [[MHCoreDataContext getInstance].managedObjectContext deleteObject:media];
                 }
                 [[MHCoreDataContext getInstance].managedObjectContext deleteObject:self.item];
                 [[MHAPI getInstance] deleteItemWithId: self.item completionBlock:^(id object, NSError *error){
@@ -218,8 +218,8 @@
                 NSArray *itemMedia = [self.item.media allObjects];
                 for (int i=0; i<[itemMedia count]; i++){
                     MHMedia *media = [itemMedia objectAtIndex:i];
-                    [[MHCoreDataContext getInstance].managedObjectContext deleteObject:media];
                     [[MHImageCache sharedInstance] removeDataForKey:media.objKey];
+                    [[MHCoreDataContext getInstance].managedObjectContext deleteObject:media];
                 }
                 [[MHCoreDataContext getInstance].managedObjectContext deleteObject:self.item];
                 [waitDialog dismiss];

@@ -137,25 +137,23 @@
     }];
     _last=[_items indexOfObject: _typeLabel.text];
     if (self.collection){
+        
+        if (_type==0) {
+            self.collection.objType = collectionTypePublic;
+        } else if (_type==1){
+            self.collection.objType = collectionTypePrivate;
+        } else if (_type == 2){
+            self.collection.objType = collectionTypeOffline;
+        }
+        
         if (_collection.objType == collectionTypeOffline){
             UIAlertView *alert5 = [[UIAlertView alloc]initWithTitle:nil message:@"Do you want to remove the collection from server? The collection will be stored in this device." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
             [alert5 show];
         }
-        else if (_collection.objType == collectionTypePrivate)
+        else if (_collection.objType == collectionTypePrivate || self.collection.objType == collectionTypePublic)
         {
             [waitDialog show];
-            [[MHAPI getInstance]createCollection:self.collection completionBlock:^(id object, NSError *error){
-                if (error){
-                    [waitDialog dismiss];
-                    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Error" message:error.localizedDescription delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                    [alert show];
-                }
-                else
-                    [waitDialog dismiss];
-            }];
-        }
-        else {
-            [waitDialog show];
+            self.collection.objStatus = objectStatusNew;
             [[MHAPI getInstance]createCollection:self.collection completionBlock:^(id object, NSError *error){
                 if (error){
                     [waitDialog dismiss];
