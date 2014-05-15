@@ -11,11 +11,12 @@
 
 typedef void(^MHSynchronizeCompletionBlock)(NSError* error);
 typedef void(^MHCoreDataSyncCompletionBlock)(BOOL didFinishSync, NSError *error);
+typedef void (^MHProgressBlock)(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead);
 
 @interface MHSynchronizer : NSObject
 
 - (id)initWithAPI:(MHAPI *)api;
 
-- (void)synchronize:(MHSynchronizeCompletionBlock)completionBlock;
+- (void)synchronize:(MHSynchronizeCompletionBlock)completionBlock withProgress:(MHProgressBlock)progressBlock;
 
 @end

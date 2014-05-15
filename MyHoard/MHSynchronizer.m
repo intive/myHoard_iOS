@@ -11,6 +11,7 @@
 #import "MHCoreDataContext.h"
 #import "MHItem+UtilityMethods.h"
 #import "MHCollection+MHAPIUtilities.h"
+#import "MHProgressView.h"
 
 @interface MHSynchronizer()
 {
@@ -36,11 +37,12 @@
     if (_completionBlock) {
         _completionBlock(error);
     }
+    
     self.completionBlock = nil;
     _api.operationQueue.maxConcurrentOperationCount = _oldMaxConcurrentOperationCount;
 }
 
-- (void)synchronize:(MHSynchronizeCompletionBlock)completionBlock {
+- (void)synchronize:(MHSynchronizeCompletionBlock)completionBlock withProgress:(MHProgressBlock)progressBlock{
     self.completionBlock = completionBlock;
     
     _oldMaxConcurrentOperationCount = _api.operationQueue.maxConcurrentOperationCount;
@@ -70,7 +72,7 @@
                                                 [self finish:nil];
                                             }
                                         }
-                                    }];
+                                    }andProgress:progressBlock];
                                 }
                             }];
                         }
@@ -229,7 +231,7 @@
     
 }
 
-- (void)parseSynchronizationItemsAndMediaData:(id)responseObject fromCollection:(MHCollection *)collection withCompletionBlock:(MHCoreDataSyncCompletionBlock)completionBlock {
+- (void)parseSynchronizationItemsAndMediaData:(id)responseObject fromCollection:(MHCollection *)collection withCompletionBlock:(MHCoreDataSyncCompletionBlock)completionBlock andProgress:(MHProgressBlock)progressBlock{
     
     NSArray *coreDataItems = [collection.items allObjects];
     NSPredicate *predicate;
@@ -241,7 +243,7 @@
                 if (error) {
                     completionBlock(NO, error);
                 }
-            }];
+            }andProgress:progressBlock];
         }
     }else if ([coreDataItems count] != 0 && [responseObject count] != 0){
         
@@ -332,7 +334,7 @@
                     if (error) {
                         completionBlock(NO, error);
                     }
-                }];
+                }andProgress:progressBlock];
             }else {
                 
                 NSArray *objStatusDeleted = [self predicateArray:predicationResult byObjectStatus:objectStatusDeleted];
@@ -346,11 +348,11 @@
                                 completionBlock(NO, error);
                             }else {
                                 for (MHMedia *outdatedMedia in outdatedItem.media) {
-                                    [[MHAPI getInstance] readMedia:outdatedMedia completionBlock:^(id object, NSError *error) {
+                                    [[MHAPI getInstance]readMedia:outdatedMedia completionBlock:^(id object, NSError *error) {
                                         if (error) {
                                             completionBlock(NO, error);
                                         }
-                                    }];
+                                    } progressBlock:progressBlock];
                                 }
                             }
                         }];
@@ -382,11 +384,11 @@
                                 completionBlock(NO, error);
                             }else {
                                 for (MHMedia *media in outdatedItem.media) {
-                                    [[MHAPI getInstance] readMedia:media completionBlock:^(id object, NSError *error) {
+                                    [[MHAPI getInstance]readMedia:media completionBlock:^(id object, NSError *error) {
                                         if (error) {
                                             completionBlock(NO, error);
                                         }
-                                    }];
+                                    } progressBlock:progressBlock];
                                 }
                             }
                         }];
@@ -463,7 +465,7 @@
 }
 
 
-- (void)createItemAndMediaFromServerResponse:(NSDictionary *)responseDictionary forCollection:(MHCollection *)collection withCompletionBlock:(MHCoreDataSyncCompletionBlock)completionBlock {
+- (void)createItemAndMediaFromServerResponse:(NSDictionary *)responseDictionary forCollection:(MHCollection *)collection withCompletionBlock:(MHCoreDataSyncCompletionBlock)completionBlock andProgress:(MHProgressBlock)progressBlock{
     
     MHItem *i = [MHDatabaseManager insertItemWithObjName:responseDictionary[@"name"] objDescription:responseDictionary[@"description"] objTags:nil objLocation:nil objCreatedDate:[MHItem createdDateFromString:responseDictionary[@"created_date"]] objModifiedDate:nil collection:collection objStatus:objectStatusOk];
     i.objId = responseDictionary[@"id"];
@@ -473,11 +475,11 @@
     for (NSDictionary *d in responseDictionary[@"media"]) {
         MHMedia *m = [MHDatabaseManager insertMediaWithCreatedDate:[NSDate date] objKey:d[@"id"] item:i objStatus:objectStatusOk];
         m.objId = d[@"id"];
-        [[MHAPI getInstance] readMedia:m completionBlock:^(id object, NSError *error) {
+        [[MHAPI getInstance]readMedia:m completionBlock:^(id object, NSError *error) {
             if (error) {
                 completionBlock(NO, error);
             }
-        }];
+        } progressBlock:progressBlock];
     }
     
     [[MHCoreDataContext getInstance] saveContext];

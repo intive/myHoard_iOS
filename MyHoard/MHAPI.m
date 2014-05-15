@@ -515,7 +515,8 @@ static MHAPI *_sharedAPI = nil;
 #pragma mark read media
 
 - (AFHTTPRequestOperation *)readMedia:(MHMedia *)media
-                      completionBlock:(MHAPICompletionBlock)completionBlock {
+                      completionBlock:(MHAPICompletionBlock)completionBlock
+                        progressBlock:(MHProgressBlock)progressBlock{
     
     NSError *error;
     
@@ -537,9 +538,7 @@ static MHAPI *_sharedAPI = nil;
                                                                           completionBlock(nil, error);
                                                                       }];
     
-    [operation setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
-        _progress = [NSNumber numberWithFloat:totalBytesRead/totalBytesExpectedToRead];
-    }];
+    [operation setDownloadProgressBlock:progressBlock];
     
     operation.responseSerializer = [AFImageResponseSerializer serializer];
     [self.operationQueue addOperation:operation];

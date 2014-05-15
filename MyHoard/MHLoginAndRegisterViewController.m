@@ -12,9 +12,11 @@
 #import "MHWaitDialog.h"
 #import "MHDatabaseManager.h"
 #import "MHSynchronizer.h"
+#import "MHProgressView.h"
 
 @interface MHLoginAndRegisterViewController () <UITextFieldDelegate> {
     MHWaitDialog* _waitDialog;
+    MHProgressView *_progress;
 }
 
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField1;
@@ -43,6 +45,7 @@
     [super viewDidLoad];
     
     _waitDialog = [[MHWaitDialog alloc] init];
+    _progress = [[MHProgressView alloc]init];
 
     self.navigationController.navigationBarHidden = NO;
     
@@ -370,11 +373,26 @@
     }];
 }
 
+- (void)showProgress:(NSNumber *)progress {
+    if (progress) {
+        [_progress showWithProgress:progress];
+    }
+}
+
+- (void)dismissProgress {
+    [_progress dismiss];
+}
+
 - (void)synchronize {
     
     MHSynchronizer *sync = [[MHSynchronizer alloc]initWithAPI:[MHAPI getInstance]];
-    [sync synchronize:^(NSError *error){
+    [sync synchronize:^(NSError *error) {
         [self loginDone];
+    } withProgress:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
+        [self showProgress:[NSNumber numberWithFloat:totalBytesRead/totalBytesExpectedToRead]];
+        if (totalBytesRead == totalBytesExpectedToRead) {
+            [self dismissProgress];
+        }
     }];
 }
 

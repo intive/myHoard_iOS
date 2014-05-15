@@ -11,6 +11,13 @@
 #import "MHAPI.h"
 #import "MHWaitDialog.h"
 #import "MHSynchronizer.h"
+#import "MHProgressView.h"
+
+@interface MHSliderMenuViewController()
+
+@property (nonatomic, strong) MHProgressView *progress;
+
+@end
 
 @implementation MHSliderMenuViewController
 
@@ -132,12 +139,13 @@
     
     __block UINavigationController* nc = self.navigationController;
     __block MHWaitDialog *waitDialog = [[MHWaitDialog alloc]init];
+    id progressDelegate = self;
     
     if ([[MHAPI getInstance]activeSession]) {
         [self addActionToLastSection:^{
             [waitDialog show];
             MHSynchronizer *sync = [[MHSynchronizer alloc]initWithAPI:[MHAPI getInstance]];
-            [sync synchronize:^(NSError *error){
+            [sync synchronize:^(NSError *error) {
                 if (error) {
                     UIAlertView *alert = [[UIAlertView alloc]
                                           initWithTitle:@"Error"
@@ -149,6 +157,11 @@
                     [alert show];
                 }
                 [waitDialog dismiss];
+            } withProgress:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
+                [progressDelegate showProgress:[NSNumber numberWithFloat:totalBytesRead/totalBytesExpectedToRead]];
+                if (totalBytesRead == totalBytesExpectedToRead) {
+                    [progressDelegate dismissProgress];
+                }
             }];
         } tagged:5 withTitle:@"Synchronization" andIcon:@""];
     }
@@ -172,6 +185,16 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)showProgress:(NSNumber *)progress {
+    if (progress) {
+        [_progress showWithProgress:progress];
+    }
+}
+
+- (void)dismissProgress {
+    [_progress dismiss];
 }
 
 @end

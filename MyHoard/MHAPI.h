@@ -20,12 +20,12 @@ typedef enum  {
 #import "MHMedia.h"
 
 typedef void (^MHAPICompletionBlock)(id object, NSError *error);
+typedef void (^MHProgressBlock)(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead);
 
 @interface MHAPI : AFHTTPRequestOperationManager
 
 @property(nonatomic, readonly) NSString *userId;
 @property(nonatomic, readonly) NSString *userPassword;
-@property(nonatomic, readonly) __block NSNumber *progress;
 
 + (instancetype)getInstance;
 
@@ -73,7 +73,8 @@ typedef void (^MHAPICompletionBlock)(id object, NSError *error);
                         completionBlock:(MHAPICompletionBlock)completionBlock;
 
 - (AFHTTPRequestOperation *)readMedia:(MHMedia *)media
-                      completionBlock:(MHAPICompletionBlock)completionBlock;
+                      completionBlock:(MHAPICompletionBlock)completionBlock
+                        progressBlock:(MHProgressBlock)progressBlock;
 
 - (AFHTTPRequestOperation *)deleteMedia:(MHMedia *)media
                         completionBlock:(MHAPICompletionBlock)completionBlock;
