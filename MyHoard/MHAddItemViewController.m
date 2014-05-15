@@ -49,6 +49,7 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 220;
     UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"check"] style:UIBarButtonItemStylePlain target:self action:@selector(doneButton:)];
     self.navigationItem.rightBarButtonItem = doneButton;
     self.view.backgroundColor = [UIColor darkerGray];
+    self.addAnotherPhotoView.backgroundColor = [UIColor appBackgroundColor];
     self.titleBackground.backgroundColor = [UIColor appBackgroundColor];
     self.comentaryBackground.backgroundColor = [UIColor appBackgroundColor];
     self.shareView.backgroundColor = [UIColor appBackgroundColor];
@@ -60,15 +61,22 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 220;
     self.localizationNoneLabel.textColor = [UIColor darkerYellow];
     self.titleTextField.textColor = [UIColor lighterYellow];
     self.shareLabel.textColor = [UIColor lighterYellow];
+    [_addAnotherPhotoColor setTitleColor:[UIColor darkerYellow] forState:UIControlStateNormal];
+    [_addAnotherPhotoColor setTitleColor:[UIColor lighterYellow] forState:UIControlStateSelected];
     self.collectionView.backgroundColor = [UIColor darkerGray];
     _titleTextField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Title" attributes:@{NSForegroundColorAttributeName: [UIColor darkerYellow]}];
     _defaultLabel.textColor = [UIColor darkerYellow];
     _commentaryTextView.backgroundColor = [UIColor clearColor];
     _commentaryTextView.textColor = [UIColor lighterYellow];
-    [_shareSwitch setOn:1];
+    _viewHidingCollectionView.backgroundColor=[UIColor darkerGray];
+    [_shareSwitch setOn:0];
     _array = [[NSMutableArray alloc] init];
     if(self.selectedImage){
+        _singleImageView.image=_selectedImage;
         [_array addObject: self.selectedImage];
+    }else{
+        _singleImageView.image=[UIImage imageNamed:@"camera_y@2x"];
+        _singleImageView.contentMode = UIViewContentModeCenter;
     }
     if (self.selectedLocation) {
 
@@ -109,6 +117,21 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 220;
     }
 }
 
+- (void)viewWillAppear:(BOOL)animated{
+    if ([_array count]<2) {
+        _viewHidingCollectionView.alpha=1.0;
+    }else{
+        _viewHidingCollectionView.alpha=0.0;
+    }
+    if ([_array count]==1) {
+        _addAnotherPhotoView.alpha=1.0;
+        _singleImageView.contentMode = UIViewContentModeScaleAspectFit;
+        _singleImageView.image=[_array objectAtIndex:0];
+    }else{
+        _addAnotherPhotoView.alpha=0.0;
+    }
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -131,7 +154,6 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 220;
     }
     return YES;
 }
-
 
 
 -(void)dismissKeyboard {
@@ -245,6 +267,16 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 220;
     }
 }
 
+
+- (IBAction)AddAnotherPhoto:(id)sender {
+    _objectToRemove=0;
+    [self showAddMenu:sender];
+}
+
+- (IBAction)buttonOnTopOfImageView:(id)sender {
+    _objectToRemove=1;
+    [self showAddMenu:sender];
+}
 
 - (IBAction)collectionButton:(id)sender {
     [self dismissKeyboard];
@@ -465,14 +497,13 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 220;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
     UIView* subview;
     while ((subview = [[cell subviews] lastObject]) != nil)
         [subview removeFromSuperview];
     if(indexPath.row==[_array count]) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        [button setFrame:CGRectMake(0, 0, 80, 80)];
+        [button setFrame:CGRectMake(0, 0, 100, 100)];
         [button setImage:[UIImage imageNamed:@"camera_y"] forState:UIControlStateNormal];
         [button addTarget:self
               action:@selector(showAddMenu:)
@@ -480,7 +511,7 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 220;
         [cell addSubview:button];
         cell.backgroundColor=[UIColor blackColor];
     }else{
-        UIImageView *img = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 80, 80)];
+        UIImageView *img = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 100, 100)];
         [cell addSubview:img];
         img.image=[_array objectAtIndex:indexPath.row];
     }
@@ -513,22 +544,46 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 220;
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (buttonIndex==1) {
         [_array removeObjectAtIndex:_objectToRemove];
+        if ([_array count]<2) {
+            _viewHidingCollectionView.alpha=1.0;
+        }else{
+            _viewHidingCollectionView.alpha=0.0;
+        }
+        if ([_array count]==1) {
+            _addAnotherPhotoView.alpha=1.0;
+            _singleImageView.contentMode = UIViewContentModeScaleAspectFit;
+            _singleImageView.image=[_array objectAtIndex:0];
+        }else{
+            _addAnotherPhotoView.alpha=0.0;
+        }
+        
         [self.collectionView reloadData];
     }
 }
 
 - (void)showImagePickerForSourceType:(UIImagePickerControllerSourceType)sourceType {
-    
     MHImagePickerViewController *imagePickerController = [[MHImagePickerViewController alloc] init];
     imagePickerController.modalPresentationStyle = UIModalPresentationCurrentContext;
     imagePickerController.sourceType = sourceType;
     imagePickerController.completionBlock = ^(NSDictionary *info) {
-        
+        if ([_array count]==1 && _objectToRemove==1) {
+            [_array removeObjectAtIndex:0];
+        }
+        [_array insertObject:info[kMHImagePickerInfoImage] atIndex:[_array count]];
+        [self.collectionView reloadData];
         [self dismissViewControllerAnimated:YES completion:^{
-            [_array insertObject:info[kMHImagePickerInfoImage] atIndex:[_array count]];
-            [self.collectionView reloadData];
+            if (self.view.bounds.size.height<500) {
+                if ([_array count]>5) {
+                    CGPoint bottomOffset = CGPointMake(0, self.collectionView.contentSize.height - self.collectionView.bounds.size.height);
+                    [self.collectionView setContentOffset:bottomOffset animated:YES];
+                }
+            }else{
+                if ([_array count]>8) {
+                    CGPoint bottomOffset = CGPointMake(0, self.collectionView.contentSize.height - self.collectionView.bounds.size.height);
+                    [self.collectionView setContentOffset:bottomOffset animated:YES];
+                }
+            }
         }];
-        
     };
     
     [self presentViewController:imagePickerController animated:YES completion:nil];

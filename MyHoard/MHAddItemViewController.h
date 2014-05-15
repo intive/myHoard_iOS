@@ -43,7 +43,13 @@
 @property (weak, nonatomic) IBOutlet UIView *shareView;
 @property (weak, nonatomic) IBOutlet UIButton *localisationButton;
 @property (weak, nonatomic) IBOutlet UIButton *collectionButton;
+@property (weak, nonatomic) IBOutlet UIView *viewHidingCollectionView;
+@property (weak, nonatomic) IBOutlet UIImageView *singleImageView;
+@property (weak, nonatomic) IBOutlet UIView *addAnotherPhotoView;
+@property (weak, nonatomic) IBOutlet UIButton *addAnotherPhotoColor;
 
+- (IBAction)AddAnotherPhoto:(id)sender;
+- (IBAction)buttonOnTopOfImageView:(id)sender;
 - (IBAction)collectionButton:(id)sender;
 - (IBAction)localizationButton:(id)sender;
 - (IBAction)backButton:(id)sender;
