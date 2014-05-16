@@ -244,7 +244,7 @@ NSString *const scopeTypeDescription = @"Description";
     NSPredicate *predicate;
     scope = _scope;
     
-    if (searchText.length < 3) {
+    if (searchText.length < 2) {
         _coreDataSearchResults = nil;
         _coredataItemsSearchResult = nil;
     }else {
