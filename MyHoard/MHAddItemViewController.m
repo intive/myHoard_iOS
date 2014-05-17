@@ -457,7 +457,7 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 220;
     roboItem.objName = trimmedString;
     roboItem.objDescription = _commentaryTextView.text;
     roboItem.collection.objModifiedDate = [NSDate date];
-    roboItem.objLocation = self.selectedCollection;
+    roboItem.objLocation = self.selectedLocation;
     [[MHCoreDataContext getInstance] saveContext];
 }
 
