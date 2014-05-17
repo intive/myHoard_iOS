@@ -180,22 +180,6 @@ NSString* const objectStatusNew = @"new";
     return item;
 }
 
-+ (MHItem*)itemWithObjName:(NSString*)objName inCollection:(MHCollection *)collection{
-    NSFetchRequest *fetch = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"MHItem" inManagedObjectContext: [MHCoreDataContext getInstance].managedObjectContext];
-    [fetch setEntity:entityDescription];
-    [fetch setPredicate:[NSPredicate predicateWithFormat:@"(objName = %@) AND (collection = %@)", objName, collection]];
-    NSError *error = nil;
-    NSArray *fetchedObjects = [[MHCoreDataContext getInstance].managedObjectContext executeFetchRequest:fetch error:&error];
-    if([fetchedObjects count] == 1)
-    {
-        MHItem *item = [fetchedObjects objectAtIndex:0];
-        return item;
-    }
-    else
-        return nil;
-}
-
 + (NSArray*) allItemsWithObjName: (NSString*)objName inCollection:(MHCollection *)collection{
     NSFetchRequest *fetch = [[NSFetchRequest alloc] init];
     NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"MHItem" inManagedObjectContext: [MHCoreDataContext getInstance].managedObjectContext];

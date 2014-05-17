@@ -324,7 +324,7 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 220;
     }else
     {
         if (_item != nil) {
-            [self updateItem:trimmedString];
+            [self updateItem:_item withName:trimmedString];
             [self dismissViewControllerAnimated:YES completion:nil];
         }
         if (_shareSwitch.isOn)
@@ -452,13 +452,11 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 220;
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)updateItem:(NSString *)trimmedString {
-    MHItem *roboItem = [MHDatabaseManager itemWithObjName:trimmedString inCollection:_item.collection];
-    roboItem.objName = trimmedString;
-    roboItem.objDescription = _commentaryTextView.text;
-    roboItem.collection.objModifiedDate = [NSDate date];
-    roboItem.objLocation = self.selectedLocation;
-    [[MHCoreDataContext getInstance] saveContext];
+- (void)updateItem:(MHItem *)item withName:(NSString *)name {
+    item.objName = name;
+    item.objDescription = _commentaryTextView.text;
+    item.collection.objModifiedDate = [NSDate date];
+    item.objLocation = self.selectedLocation;
 }
 
 

@@ -44,7 +44,6 @@ extern NSString* const objectStatusNew;
                       collection:(MHCollection *)collection
                        objStatus:(NSString*)objStatus;
 
-+ (MHItem*) itemWithObjName:(NSString*)objName inCollection:(MHCollection *)collection;
 + (NSArray*) allItemsWithObjName: (NSString*)objName inCollection:(MHCollection*)collection;
 + (void)removeItemWithObjName:(NSString*)objName inCollection:(MHCollection*)collection;
 

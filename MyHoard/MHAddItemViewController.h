@@ -54,7 +54,5 @@
 - (IBAction)localizationButton:(id)sender;
 - (IBAction)backButton:(id)sender;
 - (IBAction)doneButton:(id)sender;
-- (void)updateItem:(NSString *)trimmedString;
-
 
 @end
