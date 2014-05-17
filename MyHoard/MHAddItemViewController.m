@@ -326,41 +326,42 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 220;
         if (_item != nil) {
             [self updateItem:_item withName:trimmedString];
             [self dismissViewControllerAnimated:YES completion:nil];
-        }
-        if (_shareSwitch.isOn)
-        {
-            NSMutableString *text = [[NSMutableString alloc] initWithString: @"I've just added"];
-            [text appendFormat:@" %@ to my collection of %@!",_titleTextField.text, _collectionNoneLabel.text];
-            NSArray *activityItems = [NSArray alloc];
-            if([_array firstObject])
-            {
-                activityItems =  @[text,[_array firstObject]];
-            } else
-            {
-                activityItems =  @[text];
-            }
-            UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:nil];
-            controller.excludedActivityTypes = @[UIActivityTypePostToWeibo,
-                                                 UIActivityTypeMail,
-                                                 UIActivityTypePrint,
-                                                 UIActivityTypeCopyToPasteboard,
-                                                 UIActivityTypeAssignToContact,
-                                                 UIActivityTypeSaveToCameraRoll,
-                                                 UIActivityTypeAddToReadingList,
-                                                 UIActivityTypePostToFlickr,
-                                                 UIActivityTypePostToVimeo,
-                                                 UIActivityTypePostToTencentWeibo,
-                                                 UIActivityTypeAirDrop];
-            [[self parentViewController] presentViewController:controller animated:YES completion:nil];
-            __weak typeof(self) weakself = self;
-            [controller setCompletionHandler:^(NSString *activityType, BOOL completed)
-            {
-                if(completed)
-                {
-                    [weakself addMediaAndItemToDatabase];
-                }
-            }];
         } else {
+            if (_shareSwitch.isOn)
+            {
+                NSMutableString *text = [[NSMutableString alloc] initWithString: @"I've just added"];
+                [text appendFormat:@" %@ to my collection of %@!",_titleTextField.text, _collectionNoneLabel.text];
+                NSArray *activityItems = [NSArray alloc];
+                if([_array firstObject])
+                {
+                    activityItems =  @[text,[_array firstObject]];
+                } else
+                {
+                    activityItems =  @[text];
+                }
+                UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:nil];
+                controller.excludedActivityTypes = @[UIActivityTypePostToWeibo,
+                                                     UIActivityTypeMail,
+                                                     UIActivityTypePrint,
+                                                     UIActivityTypeCopyToPasteboard,
+                                                     UIActivityTypeAssignToContact,
+                                                     UIActivityTypeSaveToCameraRoll,
+                                                     UIActivityTypeAddToReadingList,
+                                                     UIActivityTypePostToFlickr,
+                                                     UIActivityTypePostToVimeo,
+                                                     UIActivityTypePostToTencentWeibo,
+                                                     UIActivityTypeAirDrop];
+                [[self parentViewController] presentViewController:controller animated:YES completion:nil];
+                __weak typeof(self) weakself = self;
+                [controller setCompletionHandler:^(NSString *activityType, BOOL completed)
+                 {
+                     if(completed)
+                     {
+                         [weakself addMediaAndItemToDatabase];
+                     }
+                 }];
+            }
+            
             [self addMediaAndItemToDatabase];
         }
     }
