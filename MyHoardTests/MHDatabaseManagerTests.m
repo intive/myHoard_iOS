@@ -272,17 +272,6 @@ describe(@"MHDatabaseManager Tests", ^{
 
         });
     
-    it(@"Item with object name", ^{
-        
-        MHCollection *col1=[MHDatabaseManager insertCollectionWithObjName:@"name" objDescription:@"1" objTags:@[@"1", @"2", @"3"] objCreatedDate:[NSDate date] objModifiedDate:nil objOwnerNilAddLogedUserCode:@"1" objStatus:@"new" objType:nil];
-        
-        MHItem *item1=[MHDatabaseManager insertItemWithObjName:@"nazwa" objDescription:@"1I" objTags:nil objLocation:nil objCreatedDate:[NSDate date] objModifiedDate:nil collection:col1 objStatus:@"new"];
-        
-        MHItem *item2 = [MHDatabaseManager itemWithObjName:@"nazwa" inCollection:col1];
-        [[item2 shouldNot]beNil];
-        [[item2 should] equal:item1];
-    });
-
    /* it(@"Items with same name in collection, is it possible to get duplicates?", ^{
         
         MHCollection *col1=[MHDatabaseManager insertCollectionWithObjName:@"name" objDescription:@"1" objTags:@[@"1", @"2", @"3"] objCreatedDate:[NSDate date] objModifiedDate:nil objOwnerNilAddLogedUserCode:@"1" objStatus:@"new" objType:nil];
@@ -296,22 +285,6 @@ describe(@"MHDatabaseManager Tests", ^{
         [[[items objectAtIndex:0]should]equal:item2];
     });
     */
-    it(@"Items which equal object names in collections, are they didn't mix? ", ^{
-        
-        MHCollection *col1=[MHDatabaseManager insertCollectionWithObjName:@"name" objDescription:@"1" objTags:@[@"1", @"2", @"3"] objCreatedDate:[NSDate date] objModifiedDate:nil objOwnerNilAddLogedUserCode:@"1" objStatus:@"new" objType:nil];
-        MHCollection *col2=[MHDatabaseManager insertCollectionWithObjName:@"name1" objDescription:@"2" objTags:@[@"1", @"2"] objCreatedDate:[NSDate date] objModifiedDate:nil objOwnerNilAddLogedUserCode:@"1" objStatus:@"new" objType:nil];
-        
-        MHItem *item1=[MHDatabaseManager insertItemWithObjName:@"nazwa" objDescription:@"1I" objTags:nil objLocation:nil objCreatedDate:[NSDate date] objModifiedDate:nil collection:col1 objStatus:nil];
-        MHItem *item2=[MHDatabaseManager insertItemWithObjName:@"nazwa" objDescription:@"2I" objTags:nil objLocation:nil objCreatedDate:[NSDate date] objModifiedDate:nil collection:col2 objStatus:nil];
-        
-        MHItem *item3=[MHDatabaseManager itemWithObjName:@"nazwa" inCollection:col1];
-        [[item3 shouldNot]beNil];
-        [[item3 should] equal:item1];
-        MHItem *item4=[MHDatabaseManager itemWithObjName:@"nazwa" inCollection:col2];
-        [[item4 shouldNot]beNil];
-        [[item4 should] equal:item2];
-    });
-
 });
 
 SPEC_END
