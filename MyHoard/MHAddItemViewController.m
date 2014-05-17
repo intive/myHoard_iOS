@@ -326,6 +326,9 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 220;
         if (_item != nil) {
             [self updateItem:_item withName:trimmedString];
             [self dismissViewControllerAnimated:YES completion:nil];
+            
+#warning send update to the server!
+            
         } else {
             if (_shareSwitch.isOn)
             {
