@@ -209,11 +209,11 @@
             
         }
         
-        if ([_passwordTextField1.text length] < 5) {
+        if ([_passwordTextField1.text length] < 4) {
             
             UIAlertView *alert = [[UIAlertView alloc]
                                   initWithTitle:@"Alert"
-                                  message:@"Password must be at least 5 characters long"
+                                  message:@"Password must be at least 4 characters long"
                                   delegate:nil
                                   cancelButtonTitle:@"OK"
                                   otherButtonTitles:nil];

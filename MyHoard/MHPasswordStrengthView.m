@@ -37,7 +37,7 @@
 
     NSRange range;
     
-    if ([password length] < 5) {
+    if ([password length] < 4) {
         return 0;
     }else if ([password length] <= 10) {
         score += 30;
