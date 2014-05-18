@@ -78,6 +78,9 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 220;
         _singleImageView.image=[UIImage imageNamed:@"camera_y@2x"];
         _singleImageView.contentMode = UIViewContentModeCenter;
     }
+    if(_item.objLocation) {
+        _selectedLocation = _item.objLocation;
+    }
     if (self.selectedLocation) {
 
         CLGeocoder *geo = [[CLGeocoder alloc] init];
@@ -324,11 +327,7 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 220;
     }else
     {
         if (_item != nil) {
-            [self updateItem:_item withName:trimmedString];
-            [self dismissViewControllerAnimated:YES completion:nil];
-            
-#warning send update to the server!
-            
+            [self updateItem:_item withName:trimmedString];                        
         } else {
             if (_shareSwitch.isOn)
             {
@@ -461,6 +460,26 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 220;
     item.objDescription = _commentaryTextView.text;
     item.collection.objModifiedDate = [NSDate date];
     item.objLocation = self.selectedLocation;
+    if([[MHAPI getInstance] activeSession] == YES) {
+        if (![self.selectedCollection.objType isEqualToString:collectionTypeOffline]) {
+            __block MHWaitDialog* wait = [[MHWaitDialog alloc] init];
+            [wait show];
+            [[MHAPI getInstance] updateItem:_item completionBlock:^(id object, NSError *error)
+             {
+                 [wait dismiss];
+                 if (error) {
+                     UIAlertView *alert = [[UIAlertView alloc]
+                                           initWithTitle:@"Error"
+                                           message:error.localizedDescription
+                                           delegate:self
+                                           cancelButtonTitle:@"Ok"
+                                           otherButtonTitles:nil];
+                     [alert show];
+                 }
+             }];
+        }
+    }
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 
