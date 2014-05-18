@@ -460,6 +460,7 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 220;
     item.objDescription = _commentaryTextView.text;
     item.collection.objModifiedDate = [NSDate date];
     item.objLocation = self.selectedLocation;
+    [[MHCoreDataContext getInstance] saveContext];
     if([[MHAPI getInstance] activeSession] == YES) {
         if (![self.selectedCollection.objType isEqualToString:collectionTypeOffline]) {
             __block MHWaitDialog* wait = [[MHWaitDialog alloc] init];

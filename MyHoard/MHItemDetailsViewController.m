@@ -69,6 +69,14 @@
     }
 }
 
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    _itemTitleLabel.text = _item.objName;
+    _itemTitle.title = _item.objName;
+    _itemCommentLabel.text = _item.objDescription;
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
