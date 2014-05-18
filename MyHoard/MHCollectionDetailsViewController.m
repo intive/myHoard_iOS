@@ -33,6 +33,8 @@ typedef NS_ENUM(NSInteger, ItemSortMode) {
     UIView* _headerView;
     BOOL _isDragging;
     BOOL _isVisible;
+    UIButton* _dateButton;
+    UIButton* _nameButton;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -79,6 +81,29 @@ typedef NS_ENUM(NSInteger, ItemSortMode) {
     [self.collectionView reloadData];
 }
 
+- (void)nameButton:(id) sender
+{
+    [self reverseSort];
+}
+
+- (void)dateButton:(id) sender
+{
+    [self reverseSort];
+}
+
+- (void)reverseSort
+{
+    NSArray *oldArray = [NSArray arrayWithArray:_items];
+    NSMutableArray *array = [NSMutableArray arrayWithCapacity:[_items count]];
+    NSEnumerator *enumerator = [oldArray reverseObjectEnumerator];
+    for (id element in enumerator) {
+        [array addObject:element];
+    }
+    _items = array;
+    [self.collectionView reloadData];
+
+}
+
 - (void)viewDidLoad
 {
     
@@ -111,6 +136,20 @@ typedef NS_ENUM(NSInteger, ItemSortMode) {
                forControlEvents:UIControlEventValueChanged];
     
     [_headerView addSubview:segmentedControl];
+    _dateButton = [[UIButton alloc] initWithFrame:CGRectMake(8, 8, segmentedControl.frame.size.width / 2, segmentedControl.frame.size.height)];
+    _nameButton = [[UIButton alloc] initWithFrame:CGRectMake(8 + (segmentedControl.frame.size.width / 2), 8, segmentedControl.frame.size.width / 2, segmentedControl.frame.size.height)];
+    
+    _dateButton.alpha = 1.0f;
+    _nameButton.alpha = 1.0f;
+    
+    _dateButton.hidden = YES;
+    
+    [_dateButton addTarget:self action:@selector(dateButton:) forControlEvents:UIControlEventTouchUpInside];
+    [_nameButton addTarget:self action:@selector(nameButton:) forControlEvents:UIControlEventTouchUpInside];
+    [_headerView addSubview:_dateButton];
+    [_headerView addSubview:_nameButton];
+    
+    
     [self.collectionView addSubview:_headerView];
     self.collectionView.alwaysBounceVertical = YES;
     
@@ -305,8 +344,12 @@ typedef NS_ENUM(NSInteger, ItemSortMode) {
 - (void)segmentedControlValueChanged:(UISegmentedControl *)sender {
     NSInteger index = [sender selectedSegmentIndex];
     if (index == 0) {
+        _dateButton.hidden = NO;
+        _nameButton.hidden = YES;
         [self setSortMode:ItemSortModeByDate];
     } else {
+        _dateButton.hidden = YES;
+        _nameButton.hidden = NO;
         [self setSortMode:ItemSortModeByName];
     }
 }

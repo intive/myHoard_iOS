@@ -18,7 +18,9 @@
 
 typedef NS_ENUM(NSInteger, CollectionSortMode) {
     CollectionSortModeByName = 0,
-    CollectionSortModeByDate
+    CollectionSortModeByDate,
+    CollectionSortModeByReversedName,
+    CollectionSortModeByReversedDate
 };
 
 #define HEADER_HEIGHT 44
@@ -37,6 +39,8 @@ typedef NS_ENUM(NSInteger, CollectionSortMode) {
     NSTimer *_cellSelectionTimer;
     MHCollectionCell *_selectedCell;
     
+    UIButton* _dateButton;
+    UIButton* _nameButton;
     UIView* _headerView;
     BOOL _isDragging;
     BOOL _isVisible;
@@ -95,6 +99,18 @@ typedef NS_ENUM(NSInteger, CollectionSortMode) {
                forControlEvents:UIControlEventValueChanged];
     
     [_headerView addSubview:segmentedControl];
+    _dateButton = [[UIButton alloc] initWithFrame:CGRectMake(8, 8, segmentedControl.frame.size.width / 2, segmentedControl.frame.size.height)];
+    _nameButton = [[UIButton alloc] initWithFrame:CGRectMake(8 + (segmentedControl.frame.size.width / 2), 8, segmentedControl.frame.size.width / 2, segmentedControl.frame.size.height)];
+    
+    _dateButton.alpha = 1.0f;
+    _nameButton.alpha = 1.0f;
+    
+    _dateButton.hidden = YES;
+    
+    [_dateButton addTarget:self action:@selector(dateButton:) forControlEvents:UIControlEventTouchUpInside];
+    [_nameButton addTarget:self action:@selector(nameButton:) forControlEvents:UIControlEventTouchUpInside];
+    [_headerView addSubview:_dateButton];
+    [_headerView addSubview:_nameButton];
     [self.collectionView addSubview:_headerView];
     self.collectionView.alwaysBounceVertical = YES;
 }
@@ -103,6 +119,27 @@ typedef NS_ENUM(NSInteger, CollectionSortMode) {
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+- (void)nameButton:(id) sender
+{
+    if(self.sortMode == CollectionSortModeByReversedName) {
+        self.sortMode = CollectionSortModeByName;
+        [self.collectionView reloadData];
+    } else {
+        self.sortMode = CollectionSortModeByReversedName;
+        [self.collectionView reloadData];
+    }
+}
+
+- (void)dateButton:(id) sender
+{
+    if (self.sortMode == CollectionSortModeByReversedDate) {
+        self.sortMode = CollectionSortModeByDate;
+        [self.collectionView reloadData];
+    } else {
+        self.sortMode = CollectionSortModeByReversedDate;
+        [self.collectionView reloadData];
+    }
 }
 
 
@@ -259,6 +296,10 @@ typedef NS_ENUM(NSInteger, CollectionSortMode) {
 
     if (_sortMode == CollectionSortModeByDate) {
         _fetchedResultsController = [self sortByDate];
+    } else if (_sortMode == CollectionSortModeByReversedDate) {
+        _fetchedResultsController = [self sortByReversedDate];
+    } else if (_sortMode == CollectionSortModeByReversedName) {
+        _fetchedResultsController = [self sortByReversedName];
     } else {
         _fetchedResultsController = [self sortByName];
     }
@@ -449,6 +490,20 @@ newIndexPath:(NSIndexPath *)newIndexPath
     return frc;
 }
 
+- (NSFetchedResultsController*) sortByReversedName{
+    [NSFetchedResultsController deleteCacheWithName:@"Root"];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc]init];
+    
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"MHCollection" inManagedObjectContext:[MHCoreDataContext getInstance].managedObjectContext];
+    [fetchRequest setEntity:entity];
+    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"objOwner = %@", [[MHAPI getInstance]userId]]];
+    NSSortDescriptor *sort = [[NSSortDescriptor alloc] initWithKey:@"objName" ascending:NO selector:@selector(localizedStandardCompare:)];
+    [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
+    [fetchRequest setFetchBatchSize:20];
+    NSFetchedResultsController *frc = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:[MHCoreDataContext getInstance].managedObjectContext sectionNameKeyPath:nil cacheName:@"Root"];
+    return frc;
+}
+
 - (NSFetchedResultsController*) sortByDate{
     [NSFetchedResultsController deleteCacheWithName:@"Root"];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc]init];
@@ -456,6 +511,20 @@ newIndexPath:(NSIndexPath *)newIndexPath
     [fetchRequest setEntity:entity];
     [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"objOwner = %@", [[MHAPI getInstance]userId]]];
     NSSortDescriptor *sort = [[NSSortDescriptor alloc] initWithKey:@"objCreatedDate" ascending:NO];
+    [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
+    [fetchRequest setFetchBatchSize:20];
+    NSFetchedResultsController *frc = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:[MHCoreDataContext getInstance].managedObjectContext sectionNameKeyPath:nil cacheName:@"Root"];
+    return frc;
+}
+
+- (NSFetchedResultsController *) sortByReversedDate
+{
+    [NSFetchedResultsController deleteCacheWithName:@"Root"];
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc]init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"MHCollection" inManagedObjectContext:[MHCoreDataContext getInstance].managedObjectContext];
+    [fetchRequest setEntity:entity];
+    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"objOwner = %@", [[MHAPI getInstance]userId]]];
+    NSSortDescriptor *sort = [[NSSortDescriptor alloc] initWithKey:@"objCreatedDate" ascending:YES];
     [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
     [fetchRequest setFetchBatchSize:20];
     NSFetchedResultsController *frc = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:[MHCoreDataContext getInstance].managedObjectContext sectionNameKeyPath:nil cacheName:@"Root"];
@@ -610,8 +679,12 @@ newIndexPath:(NSIndexPath *)newIndexPath
 - (void)segmentedControlValueChanged:(UISegmentedControl *)sender {
     NSInteger index = [sender selectedSegmentIndex];
     if (index == 0) {
+        _dateButton.hidden = NO;
+        _nameButton.hidden = YES;
         self.sortMode = CollectionSortModeByDate;
     } else {
+        _dateButton.hidden = YES;
+        _nameButton.hidden = NO;
         self.sortMode = CollectionSortModeByName;
     }
     [self.collectionView reloadData];
