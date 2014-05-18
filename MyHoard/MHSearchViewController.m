@@ -79,8 +79,8 @@ NSString *const scopeTypeDescription = @"Description";
     _segmentedControl.tintColor = [UIColor lighterYellow];
     
     [_segmentedControl addTarget:self
-                         action:@selector(segmentedControlValueChanged:)
-               forControlEvents:UIControlEventValueChanged];
+                          action:@selector(segmentedControlValueChanged:)
+                forControlEvents:UIControlEventValueChanged];
     
     [_headerView addSubview:_segmentedControl];
     [_tableView addSubview:_headerView];
@@ -265,13 +265,19 @@ NSString *const scopeTypeDescription = @"Description";
         }
     }
     
-    if (searchText.length > 20) {
-        [_searchBar resignFirstResponder];
+    if (searchText.length > 19) {
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Search fraze can be no longer than 20 characters" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alert show];
     }
     
     [_tableView reloadData];
+}
+
+- (BOOL)searchBar:(UISearchBar *)searchBar shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    if ([searchBar.text length] + [text length] - range.length > 20) {
+        [_searchBar resignFirstResponder];
+    }
+    return YES;
 }
 
 - (void)checkForActiveSessionAndSetPredicate:(NSPredicate *)predicate withSearchText:(NSString *)searchText {
