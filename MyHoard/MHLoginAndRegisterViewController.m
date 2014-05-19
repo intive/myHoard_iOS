@@ -19,7 +19,6 @@
     MHProgressView *_progress;
 }
 
-@property (weak, nonatomic) IBOutlet UITextField *passwordTextField1;
 @property (weak, nonatomic) IBOutlet MHPasswordStrengthView *passwordStrength;
 @property (weak, nonatomic) IBOutlet UILabel *passwordStrengthLabel;
 @property (nonatomic, strong) NSString *errorMessage;
@@ -55,11 +54,10 @@
         
         self.navigationItem.title = @"Login";
         
-        if (!_passwordStrength.hidden && !_passwordStrengthLabel1.hidden && !_passwordTextField1.hidden) {
+        if (!_passwordStrength.hidden && !_passwordStrengthLabel1.hidden) {
             
             _passwordStrength.hidden = YES;
             _passwordStrengthLabel.hidden = YES;
-            _passwordTextField1.hidden = YES;
             
         }
         
@@ -100,19 +98,13 @@
         _passwordTextField.backgroundColor = [UIColor lighterGray];
         _passwordTextField.textColor = [UIColor lightLoginAndRegistrationTextFieldTextColor];
         
-        _passwordTextField1.backgroundColor = [UIColor lighterGray];
-        _passwordTextField1.textColor = [UIColor lightLoginAndRegistrationTextFieldTextColor];
-        
         _emailTextField.attributedPlaceholder = [[NSAttributedString alloc]initWithString:@"E-mail" attributes:@{NSForegroundColorAttributeName: [UIColor darkerYellow]}];
         _passwordTextField.attributedPlaceholder = [[NSAttributedString alloc]initWithString:@"Password" attributes:@{NSForegroundColorAttributeName: [UIColor darkerYellow]}];
-        _passwordTextField1.attributedPlaceholder = [[NSAttributedString alloc]initWithString:@"Confirm password" attributes:@{NSForegroundColorAttributeName: [UIColor darkerYellow]}];
         
         _passwordTextField.secureTextEntry = YES;
-        _passwordTextField1.secureTextEntry = YES;
         
         _emailTextField.delegate = self;
         _passwordTextField.delegate = self;
-        _passwordTextField1.delegate = self;
         
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(keyboardDidShow:)
@@ -148,7 +140,6 @@
 -(void)dismissKeyboard {
     [_emailTextField resignFirstResponder];
     [_passwordTextField resignFirstResponder];
-    [_passwordTextField1 resignFirstResponder];
 }
 
 - (void)slideFrame:(BOOL)yesNo {
@@ -179,7 +170,7 @@
     if (_flowType == MHRegisterFlow) {
         
         
-        if (![_passwordTextField.text length] && ![_passwordTextField1.text length] && ![_emailTextField.text length]) {
+        if (![_passwordTextField.text length] && ![_emailTextField.text length]) {
             
             UIAlertView *alert = [[UIAlertView alloc]
                                   initWithTitle:@"Alert"
@@ -194,22 +185,8 @@
             
         }
         
-        if (![_passwordTextField.text isEqualToString:[NSString stringWithFormat:@"%@", _passwordTextField1.text]]) {
-            
-            UIAlertView *alert = [[UIAlertView alloc]
-                                  initWithTitle:@"Alert"
-                                  message:@"Passwords do not match"
-                                  delegate:nil
-                                  cancelButtonTitle:@"OK"
-                                  otherButtonTitles:nil];
-            
-            [alert show];
-            
-            return NO;
-            
-        }
         
-        if ([_passwordTextField1.text length] < 4) {
+        if ([_passwordTextField.text length] < 4) {
             
             UIAlertView *alert = [[UIAlertView alloc]
                                   initWithTitle:@"Alert"
