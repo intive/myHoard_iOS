@@ -308,11 +308,11 @@ NSString *const scopeTypeDescription = @"Description";
 
 - (void)checkForActiveSessionAndSetPredicate:(NSPredicate *)predicate withSearchText:(NSString *)searchText {
     if ([MHAPI getInstance].userId) {
-        predicate = [NSPredicate predicateWithFormat:@"SELF.objName beginswith[c] %@ AND SELF.objOwner == %@", searchText, [MHAPI getInstance].userId];
+        predicate = [NSPredicate predicateWithFormat:@"SELF.objName contains[c] %@ AND SELF.objOwner == %@", searchText, [MHAPI getInstance].userId];
         [self collectionsFetchResultsControllerWithPredicate:predicate];
         [self itemsFetchResultsControllerWithPredicate:predicate];
     }else {
-        predicate = [NSPredicate predicateWithFormat:@"SELF.objName beginswith[c] %@ AND SELF.objOwner == %@", searchText, nil];
+        predicate = [NSPredicate predicateWithFormat:@"SELF.objName contains[c] %@ AND SELF.objOwner == %@", searchText, nil];
         [self collectionsFetchResultsControllerWithPredicate:predicate];
         [self itemsFetchResultsControllerWithPredicate:predicate];
     }
