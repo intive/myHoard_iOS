@@ -153,8 +153,8 @@
         else if (_collection.objType == collectionTypePrivate || self.collection.objType == collectionTypePublic)
         {
             [waitDialog show];
-            self.collection.objStatus = objectStatusNew;
-            [[MHAPI getInstance]createCollection:self.collection completionBlock:^(id object, NSError *error){
+            self.collection.objStatus = objectStatusModified;
+            [[MHAPI getInstance]updateCollection:self.collection completionBlock:^(id object, NSError *error){
                 if (error){
                     [waitDialog dismiss];
                     UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Error" message:error.localizedDescription delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
