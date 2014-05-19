@@ -31,6 +31,7 @@ NSString *const scopeTypeDescription = @"Description";
 @property (nonatomic, strong) NSArray *coredataItemsSearchResult;
 @property (nonatomic, strong) UISegmentedControl *segmentedControl;
 @property (nonatomic, strong) NSFetchedResultsController *frc;
+@property (nonatomic, strong) NSFetchedResultsController *ifrc;
 @property (nonatomic, strong) UITableViewCell *tableCell;
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -95,6 +96,7 @@ NSString *const scopeTypeDescription = @"Description";
                                              selector:@selector(keyboardDidHide:)
                                                  name:UIKeyboardDidHideNotification
                                                object:nil];
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -103,23 +105,24 @@ NSString *const scopeTypeDescription = @"Description";
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - redresh table view data
-
-- (void)viewWillAppear:(BOOL)animated{
-    [self update];
-}
-
-- (void)update {
-    [_tableView reloadData];
-}
-
 #pragma mark - table view delegate methods
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    
     if (section == 0) {
-        return @"Collections";
+        if (![[_frc fetchedObjects]count]) {
+            return @"";
+        }else {
+            return @"Collections";
+        }
+    }else if (section == 1) {
+        if (![[_ifrc fetchedObjects]count]) {
+            return @"";
+        }else {
+            return @"Items";
+        }
     }else {
-        return @"Items";
+        return nil;
     }
 }
 
@@ -129,33 +132,18 @@ NSString *const scopeTypeDescription = @"Description";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (section == 0) {
-        if (tableView == self.searchDisplayController.searchResultsTableView) {
-            if ([_coreDataSearchResults count] == 0) {
-                _noResults = YES;
-                return 1;
-            }else {
-                _noResults = NO;
-                return [_coreDataSearchResults count];
-            }
-        }else {
-            _noResults = YES;
-            return 1;
-        }
-    }else {
-        if (tableView == self.searchDisplayController.searchResultsTableView) {
-            if ([_coredataItemsSearchResult count] == 0) {
-                _noResults = YES;
-                return 1;
-            }else {
-                _noResults = NO;
-                return [_coredataItemsSearchResult count];
-            }
-        }else {
-            _noResults = YES;
-            return 1;
-        }
+    NSUInteger numberOfRows;
+    
+    switch (section) {
+        case 0:
+            numberOfRows = [[_frc fetchedObjects]count];
+            break;
+        case 1:
+            numberOfRows = [[_ifrc fetchedObjects]count];
+            break;
     }
+    
+    return numberOfRows;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -169,10 +157,43 @@ NSString *const scopeTypeDescription = @"Description";
         _tableCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
     }
     
-    if ([indexPath section] == 0) {
+    if ([[_frc fetchedObjects]count] && [[_ifrc fetchedObjects]count]) {
+        if ([indexPath section] == 0) {
+            if (tableView == self.searchDisplayController.searchResultsTableView) {
+                if (_frc) {
+                    MHCollection *collection = [_frc objectAtIndexPath:indexPath];
+                    _tableCell.textLabel.text = collection.objName;
+                    _tableCell.userInteractionEnabled = YES;
+                }else {
+                    _tableCell.textLabel.text = @"";
+                    _tableCell.userInteractionEnabled = NO;
+                }
+            }else {
+                _tableCell.textLabel.text = @"Search for collection";
+                _tableCell.textLabel.textAlignment = NSTextAlignmentCenter;
+                _tableCell.userInteractionEnabled = NO;
+            }
+        }else if ([indexPath section] == 1) {
+            if (tableView == self.searchDisplayController.searchResultsTableView) {
+                if (_ifrc) {
+                    NSIndexPath *itemIndexPath = [NSIndexPath indexPathForRow:indexPath.row inSection:0];
+                    MHItem *item = [_ifrc objectAtIndexPath:itemIndexPath];
+                    _tableCell.textLabel.text = item.objName;
+                    _tableCell.userInteractionEnabled = YES;
+                }else {
+                    _tableCell.textLabel.text = @"";
+                    _tableCell.userInteractionEnabled = NO;
+                }
+            }else {
+                _tableCell.textLabel.text = @"Search for item";
+                _tableCell.textLabel.textAlignment = NSTextAlignmentCenter;
+                _tableCell.userInteractionEnabled = NO;
+            }
+        }
+    }else if ([[_frc fetchedObjects]count]){
         if (tableView == self.searchDisplayController.searchResultsTableView) {
-            if ([_coreDataSearchResults count]) {
-                MHCollection *collection = [_coreDataSearchResults objectAtIndex:indexPath.row];
+            if (_frc) {
+                MHCollection *collection = [_frc objectAtIndexPath:indexPath];
                 _tableCell.textLabel.text = collection.objName;
                 _tableCell.userInteractionEnabled = YES;
             }else {
@@ -184,10 +205,11 @@ NSString *const scopeTypeDescription = @"Description";
             _tableCell.textLabel.textAlignment = NSTextAlignmentCenter;
             _tableCell.userInteractionEnabled = NO;
         }
-    }else {
+    }else if ([[_ifrc fetchedObjects]count]) {
         if (tableView == self.searchDisplayController.searchResultsTableView) {
-            if ([_coredataItemsSearchResult count]) {
-                MHItem *item = [_coredataItemsSearchResult objectAtIndex:indexPath.row];
+            if (_ifrc) {
+                NSIndexPath *itemIndexPath = [NSIndexPath indexPathForRow:indexPath.row inSection:0];
+                MHItem *item = [_ifrc objectAtIndexPath:itemIndexPath];
                 _tableCell.textLabel.text = item.objName;
                 _tableCell.userInteractionEnabled = YES;
             }else {
@@ -200,6 +222,7 @@ NSString *const scopeTypeDescription = @"Description";
             _tableCell.userInteractionEnabled = NO;
         }
     }
+
     _tableCell.textLabel.textColor = [UIColor collectionNameFrontColor];
     _tableCell.backgroundColor = [UIColor appBackgroundColor];
     
@@ -210,12 +233,13 @@ NSString *const scopeTypeDescription = @"Description";
     
     if ([indexPath section] == 0) {
         if (tableView == self.searchDisplayController.searchResultsTableView) {
-            MHCollection *collection = [_coreDataSearchResults objectAtIndex:indexPath.row];
+            MHCollection *collection = [_frc objectAtIndexPath:indexPath];
             [self performSegueWithIdentifier:@"collectionDetails" sender:collection];
         }
     }else {
         if (tableView == self.searchDisplayController.searchResultsTableView) {
-            MHItem *item = [_coredataItemsSearchResult objectAtIndex:indexPath.row];
+            NSIndexPath *itemIndexPath = [NSIndexPath indexPathForRow:indexPath.row inSection:0];
+            MHItem *item = [_ifrc objectAtIndexPath:itemIndexPath];
             [self performSegueWithIdentifier:@"itemDetails" sender:item];
         }
     }
@@ -245,20 +269,20 @@ NSString *const scopeTypeDescription = @"Description";
     scope = _scope;
     
     if (searchText.length < 2) {
-        _coreDataSearchResults = nil;
-        _coredataItemsSearchResult = nil;
+        _frc = nil;
+        _ifrc = nil;
     }else {
         if ([scope isEqualToString:scopeTypeName]) {
             [self checkForActiveSessionAndSetPredicate:predicate withSearchText:searchText];
         }else if ([scope isEqualToString:scopeTypeDescription]) {
             if ([MHAPI getInstance].userId) {
                 predicate = [NSPredicate predicateWithFormat:@"SELF.objDescription contains[c] %@ AND SELF.objOwner == %@", searchText, [MHAPI getInstance].userId];
-                [self fetchAllCollectionsWithPredicate:predicate];
-                [self fetchAllItemsWithPredicate:predicate];
+                [self collectionsFetchResultsControllerWithPredicate:predicate];
+                [self itemsFetchResultsControllerWithPredicate:predicate];
             }else {
                 predicate = [NSPredicate predicateWithFormat:@"SELF.objDescription contains[c] %@ AND SELF.objOwner == %@", searchText, nil];
-                [self fetchAllCollectionsWithPredicate:predicate];
-                [self fetchAllItemsWithPredicate:predicate];
+                [self collectionsFetchResultsControllerWithPredicate:predicate];
+                [self itemsFetchResultsControllerWithPredicate:predicate];
             }
         }else {
             [self checkForActiveSessionAndSetPredicate:predicate withSearchText:searchText];
@@ -276,6 +300,8 @@ NSString *const scopeTypeDescription = @"Description";
 - (BOOL)searchBar:(UISearchBar *)searchBar shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
     if ([searchBar.text length] + [text length] - range.length > 20) {
         [_searchBar resignFirstResponder];
+        _frc = nil;
+        _ifrc = nil;
     }
     return YES;
 }
@@ -283,12 +309,12 @@ NSString *const scopeTypeDescription = @"Description";
 - (void)checkForActiveSessionAndSetPredicate:(NSPredicate *)predicate withSearchText:(NSString *)searchText {
     if ([MHAPI getInstance].userId) {
         predicate = [NSPredicate predicateWithFormat:@"SELF.objName beginswith[c] %@ AND SELF.objOwner == %@", searchText, [MHAPI getInstance].userId];
-        [self fetchAllCollectionsWithPredicate:predicate];
-        [self fetchAllItemsWithPredicate:predicate];
+        [self collectionsFetchResultsControllerWithPredicate:predicate];
+        [self itemsFetchResultsControllerWithPredicate:predicate];
     }else {
         predicate = [NSPredicate predicateWithFormat:@"SELF.objName beginswith[c] %@ AND SELF.objOwner == %@", searchText, nil];
-        [self fetchAllCollectionsWithPredicate:predicate];
-        [self fetchAllItemsWithPredicate:predicate];
+        [self collectionsFetchResultsControllerWithPredicate:predicate];
+        [self itemsFetchResultsControllerWithPredicate:predicate];
     }
 }
 
@@ -297,6 +323,127 @@ NSString *const scopeTypeDescription = @"Description";
     [self filterContentForSearchText:searchString scope:[[self.searchDisplayController.searchBar scopeButtonTitles] objectAtIndex:[self.searchDisplayController.searchBar selectedScopeButtonIndex]]];
     
     return YES;
+}
+
+#pragma mark - FRC
+
+- (void)collectionsFetchResultsControllerWithPredicate:(NSPredicate *)predicate {
+    NSError *error = nil;
+    [[self fetchAllCollectionsWithPredicate:predicate]performFetch:&error];
+    if (error) {
+        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        exit(-1);
+    }
+}
+
+- (void)itemsFetchResultsControllerWithPredicate:(NSPredicate *)predicate {
+    NSError *error = nil;
+    [[self fetchAllItemsWithPredicate:predicate]performFetch:&error];
+    if (error) {
+        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        exit(-1);
+    }
+}
+
+- (NSFetchedResultsController *)fetchAllItemsWithPredicate:(NSPredicate *)predicate {
+    
+    if (_ifrc == nil) {
+        [NSFetchedResultsController deleteCacheWithName:@"Root"];
+        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc]init];
+        
+        NSEntityDescription *entity = [NSEntityDescription entityForName:@"MHItem" inManagedObjectContext:[MHCoreDataContext getInstance].managedObjectContext];
+        [fetchRequest setEntity:entity];
+        [fetchRequest setPredicate:predicate];
+        NSSortDescriptor *sort = [[NSSortDescriptor alloc] initWithKey:@"objName" ascending:YES selector:@selector(localizedStandardCompare:)];
+        [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
+        
+        NSFetchedResultsController *fetchResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:[MHCoreDataContext getInstance].managedObjectContext sectionNameKeyPath:nil cacheName:@"Root"];
+        fetchResultsController.delegate = self;
+        _ifrc = fetchResultsController;
+    }
+    
+    return _ifrc;
+}
+
+- (NSFetchedResultsController *)fetchAllCollectionsWithPredicate:(NSPredicate *)predicate {
+    
+    if (_frc == nil) {
+        [NSFetchedResultsController deleteCacheWithName:@"Root"];
+        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc]init];
+        
+        NSEntityDescription *entity = [NSEntityDescription entityForName:@"MHCollection" inManagedObjectContext:[MHCoreDataContext getInstance].managedObjectContext];
+        [fetchRequest setEntity:entity];
+        [fetchRequest setPredicate:predicate];
+        NSSortDescriptor *sort = [[NSSortDescriptor alloc] initWithKey:@"objName" ascending:YES selector:@selector(localizedStandardCompare:)];
+        [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
+        [fetchRequest setFetchBatchSize:20];
+        
+        NSFetchedResultsController *fetchResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:[MHCoreDataContext getInstance].managedObjectContext sectionNameKeyPath:nil cacheName:@"Root"];
+        
+        fetchResultsController.delegate = self;
+        self.frc = fetchResultsController;
+    }
+    
+    return _frc;
+}
+
+- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller
+{
+    [self.searchDisplayController.searchResultsTableView beginUpdates];
+}
+
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+    [self.searchDisplayController.searchResultsTableView endUpdates];
+}
+
+//Sample code taken from NSFetchedResultsControllerDelegate Protocol Reference "Typical Use"
+- (void)controller:(NSFetchedResultsController *)controller
+  didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo
+		   atIndex:(NSUInteger)sectionIndex
+	 forChangeType:(NSFetchedResultsChangeType)type
+{
+    switch(type)
+	{
+        case NSFetchedResultsChangeInsert:
+            [self.searchDisplayController.searchResultsTableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+			
+        case NSFetchedResultsChangeDelete:
+            [self.searchDisplayController.searchResultsTableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+    }
+}
+
+
+//Sample code taken from NSFetchedResultsControllerDelegate Protocol Reference "Typical Use"
+- (void)controller:(NSFetchedResultsController *)controller
+   didChangeObject:(id)anObject
+	   atIndexPath:(NSIndexPath *)indexPath
+	 forChangeType:(NSFetchedResultsChangeType)type
+	  newIndexPath:(NSIndexPath *)newIndexPath
+{
+    UITableView *tableView = self.searchDisplayController.searchResultsTableView;
+	
+    switch(type)
+	{
+        case NSFetchedResultsChangeInsert:
+            [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+			
+        case NSFetchedResultsChangeDelete:
+            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+			
+        case NSFetchedResultsChangeUpdate:
+			[tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+			
+        case NSFetchedResultsChangeMove:
+            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+
+            break;
+    }
 }
 
 #pragma mark segmented control
@@ -317,7 +464,6 @@ NSString *const scopeTypeDescription = @"Description";
             _scope = scopeTypeAll;
             break;
     }
-    [_tableView reloadData];
 }
 
 #pragma mark scroll view
@@ -388,8 +534,8 @@ NSString *const scopeTypeDescription = @"Description";
 }
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
-    _coreDataSearchResults = nil;
-    _coredataItemsSearchResult = nil;
+    _frc = nil;
+    _ifrc = nil;
     [_tableView reloadData];
 }
 
@@ -409,57 +555,6 @@ NSString *const scopeTypeDescription = @"Description";
     }];
 }
 
-#pragma mark - FRC
 
-- (void)fetchAllItemsWithPredicate:(NSPredicate *)predicate {
-    
-    [NSFetchedResultsController deleteCacheWithName:@"Root"];
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc]init];
-    
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"MHItem" inManagedObjectContext:[MHCoreDataContext getInstance].managedObjectContext];
-    [fetchRequest setEntity:entity];
-    [fetchRequest setPredicate:predicate];
-    NSSortDescriptor *sort = [[NSSortDescriptor alloc] initWithKey:@"objName" ascending:YES selector:@selector(localizedStandardCompare:)];
-    [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
-    
-    _frc = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:[MHCoreDataContext getInstance].managedObjectContext sectionNameKeyPath:nil cacheName:@"Root"];
-    
-    NSError *error = nil;
-    [_frc performFetch:&error];
-    
-    if (!error) {
-        _coredataItemsSearchResult = [_frc fetchedObjects];
-    }
-}
-
-- (void)fetchAllCollectionsWithPredicate:(NSPredicate *)predicate {
-    
-    [NSFetchedResultsController deleteCacheWithName:@"Root"];
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc]init];
-    
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"MHCollection" inManagedObjectContext:[MHCoreDataContext getInstance].managedObjectContext];
-    [fetchRequest setEntity:entity];
-    [fetchRequest setPredicate:predicate];
-    NSSortDescriptor *sort = [[NSSortDescriptor alloc] initWithKey:@"objName" ascending:YES selector:@selector(localizedStandardCompare:)];
-    [fetchRequest setSortDescriptors:[NSArray arrayWithObject:sort]];
-    
-    _frc = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:[MHCoreDataContext getInstance].managedObjectContext sectionNameKeyPath:nil cacheName:@"Root"];
-    
-    NSError *error = nil;
-    [_frc performFetch:&error];
-    
-    if (!error) {
-        _coreDataSearchResults = [_frc fetchedObjects];
-    }
-}
-
-- (NSFetchedResultsController *)fetchedResultsController
-{
-    if (_frc != nil) {
-        return _frc;
-    }
-    _frc.delegate = self;
-    return _frc;
-}
 
 @end
