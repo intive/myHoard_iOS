@@ -285,7 +285,7 @@ NSString *const scopeTypeDescription = @"Description";
                 [self itemsFetchResultsControllerWithPredicate:predicate];
             }
         }else {
-            [self checkForActiveSessionAndSetPredicate:predicate withSearchText:searchText];
+            [self checkForActiveSessionAndSetPredicateWhenTagsSearch:predicate withSearchText:searchText];
         }
     }
     
@@ -304,6 +304,20 @@ NSString *const scopeTypeDescription = @"Description";
         _ifrc = nil;
     }
     return YES;
+}
+
+- (void)checkForActiveSessionAndSetPredicateWhenTagsSearch:(NSPredicate *)predicate withSearchText:(NSString *)searchText {
+    if ([MHAPI getInstance].userId) {
+        NSPredicate* p1 = [NSPredicate predicateWithFormat:@"objOwner == %@",[[MHAPI getInstance]userId]];
+        NSPredicate* p2 = [NSPredicate predicateWithFormat:@"SUBQUERY(tags,$t,$t.tag contains[c] %@).@count > 0", searchText];
+        NSPredicate* predicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[p1, p2]];
+        [self collectionsFetchResultsControllerWithPredicate:predicate];
+    }else {
+        NSPredicate* p1 = [NSPredicate predicateWithFormat:@"objOwner == %@", nil];
+        NSPredicate* p2 = [NSPredicate predicateWithFormat:@"SUBQUERY(tags,$t,$t.tag contains[c] %@).@count > 0", searchText];
+        NSPredicate* predicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[p1, p2]];
+        [self collectionsFetchResultsControllerWithPredicate:predicate];
+    }
 }
 
 - (void)checkForActiveSessionAndSetPredicate:(NSPredicate *)predicate withSearchText:(NSString *)searchText {
