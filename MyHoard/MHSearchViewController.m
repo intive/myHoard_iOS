@@ -16,7 +16,7 @@
 
 #define HEADER_HEIGHT 44
 
-NSString *const scopeTypeAll = @"All";
+NSString *const scopeTypeTags = @"Tags";
 NSString *const scopeTypeName = @"Name";
 NSString *const scopeTypeDescription = @"Description";
 
@@ -69,7 +69,7 @@ NSString *const scopeTypeDescription = @"Description";
     _headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0 - HEADER_HEIGHT, self.view.frame.size.width, HEADER_HEIGHT)];
     _headerView.backgroundColor = [UIColor blackColor];
     
-    NSArray *itemArray = [NSArray arrayWithObjects: @"All", @"Name", @"Description", nil];
+    NSArray *itemArray = [NSArray arrayWithObjects: @"Tags", @"Name", @"Description", nil];
     _segmentedControl = [[UISegmentedControl alloc] initWithItems:itemArray];
     _segmentedControl.frame = CGRectMake(8, 8, _headerView.frame.size.width - 16, _headerView.frame.size.height - 16);
     _segmentedControl.segmentedControlStyle = UISegmentedControlStylePlain;
@@ -452,7 +452,7 @@ NSString *const scopeTypeDescription = @"Description";
     NSInteger index = [sender selectedSegmentIndex];
     switch (index) {
         case 0:
-            _scope = scopeTypeAll;
+            _scope = scopeTypeTags;
             break;
         case 1:
             _scope = scopeTypeName;
@@ -461,7 +461,7 @@ NSString *const scopeTypeDescription = @"Description";
             _scope = scopeTypeDescription;
             break;
         default:
-            _scope = scopeTypeAll;
+            _scope = scopeTypeName;
             break;
     }
 }
