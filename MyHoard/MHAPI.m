@@ -497,7 +497,7 @@ static MHAPI *_sharedAPI = nil;
     NSData* assetData = [[MHImageCache sharedInstance]dataForKey:media.objKey];
     
     [manager POST:[self urlWithPath:@"media"] parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-        [formData appendPartWithFileData:assetData name:@"image" fileName:m.objKey mimeType:@"image/*"];
+        [formData appendPartWithFileData:assetData name:@"image" fileName:[NSString stringWithFormat:@"%@.jpg", m.objKey] mimeType:@"image/*"];
     } success:^(AFHTTPRequestOperation *operation, id responseObject) {
         m.objId = responseObject[@"id"];
         m.objStatus = objectStatusOk;
