@@ -9,7 +9,9 @@
 #import "MHEditAccountViewController.h"
 #import <AFNetworking/UIImageView+AFNetworking.h>
 
-@interface MHEditAccountViewController ()
+@interface MHEditAccountViewController () {
+    NSInteger kAlertViewOne;
+}
 
 @property (nonatomic, strong)UIBarButtonItem *save;
 
@@ -28,6 +30,8 @@
 
 - (void)viewDidLoad
 {
+    kAlertViewOne = 1;
+    
     [super viewDidLoad];
 
     [self profilePictureViewShape];
@@ -58,7 +62,13 @@
     
     [_loginTexField addTarget:self action:@selector(showSaveButton) forControlEvents:UIControlEventEditingChanged];
     [_emailTextField addTarget:self action:@selector(showSaveButton) forControlEvents:UIControlEventEditingChanged];
+    
+    [self CustomBackButton];
+}
 
+- (void)CustomBackButton {
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"back"] style:UIBarButtonItemStyleBordered target:self action:@selector(confirmBackAction)];
+    [[self navigationItem] setLeftBarButtonItem:backButton];
 }
 
 - (void)profilePictureViewShape {
@@ -302,32 +312,56 @@
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (buttonIndex == 1) {
-        if ([[alertView textFieldAtIndex:0].text isEqualToString:[MHAPI getInstance].userPassword]) {
-            [[MHAPI getInstance]updateUser:_loginTexField.text withPassword:[MHAPI getInstance].userPassword andEmail:_emailTextField.text completionBlock:^(MHUserProfile *object, NSError *error) {
-                if (error) {
-                    UIAlertView *alert = [[UIAlertView alloc]
-                                          initWithTitle:@"Error"
-                                          message:error.localizedDescription
-                                          delegate:nil
-                                          cancelButtonTitle:@"OK"
-                                          otherButtonTitles:nil];
-                    
-                    [alert show];
-                }else {
-                    [self hideSaveButton];
-                }
-            }];
-        }else {
-            UIAlertView *alert = [[UIAlertView alloc]
-                                  initWithTitle:@"Error"
-                                  message:@"Wrong password"
-                                  delegate:nil
-                                  cancelButtonTitle:@"OK"
-                                  otherButtonTitles:nil];
-            
-            [alert show];
+    
+    if (alertView.tag == kAlertViewOne) {
+        if (buttonIndex == 1) {
+            [self.navigationController popViewControllerAnimated:YES];
         }
+    }else {    
+        if (buttonIndex == 1) {
+            if ([[alertView textFieldAtIndex:0].text isEqualToString:[MHAPI getInstance].userPassword]) {
+                [[MHAPI getInstance]updateUser:_loginTexField.text withPassword:[MHAPI getInstance].userPassword andEmail:_emailTextField.text completionBlock:^(MHUserProfile *object, NSError *error) {
+                    if (error) {
+                        UIAlertView *alert = [[UIAlertView alloc]
+                                              initWithTitle:@"Error"
+                                              message:error.localizedDescription
+                                              delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+                        
+                        [alert show];
+                    }else {
+                        [self hideSaveButton];
+                    }
+                }];
+            }else {
+                UIAlertView *alert = [[UIAlertView alloc]
+                                      initWithTitle:@"Error"
+                                      message:@"Wrong password"
+                                      delegate:nil
+                                      cancelButtonTitle:@"OK"
+                                      otherButtonTitles:nil];
+                
+                [alert show];
+            }
+        }
+    }
+}
+
+#pragma mark - confirm back action
+
+- (void)confirmBackAction {
+    if (self.navigationItem.rightBarButtonItem != nil) {
+        UIAlertView *alert = [[UIAlertView alloc]
+                              initWithTitle:@"Alert"
+                              message:@"If you leave. Changes to your profile won't be saved"
+                              delegate:self
+                              cancelButtonTitle:@"Cancel"
+                              otherButtonTitles:@"OK", nil];
+        alert.tag = kAlertViewOne;
+        [alert show];
+    }else {
+        [self.navigationController popViewControllerAnimated:YES];
     }
 }
 

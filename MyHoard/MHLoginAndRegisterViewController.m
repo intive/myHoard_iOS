@@ -368,7 +368,7 @@
 }
 
 - (void)dismissProgress {
-    [_progress dismiss];
+    [_progress removeFromSuperview];
 }
 
 - (void)synchronize {
