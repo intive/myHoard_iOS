@@ -461,19 +461,20 @@ newIndexPath:(NSIndexPath *)newIndexPath
 
 - (void)cellSelectionTimerFired
 {
-    [_selectedCell.kenBurnsView stopAnimation];
-    _selectedCell = nil;
-    
-    NSArray *visibleCells = [self.collectionView indexPathsForVisibleItems];
-    NSIndexPath *cellPath = visibleCells[arc4random() % visibleCells.count];
-    
-    MHCollectionCell *cell = (MHCollectionCell *)[self.collectionView cellForItemAtIndexPath:cellPath];
-    [self.collectionView scrollToItemAtIndexPath:cellPath atScrollPosition:UICollectionViewScrollPositionTop animated:YES];
-
-    MHCollection *object = [self.fetchedResultsController objectAtIndexPath:cellPath];
-    
-    [self configureCell:cell withCollection:object];
-
+    if ([self numberOfCollectionsInDatabaseForSection:0] != 0) {
+        [_selectedCell.kenBurnsView stopAnimation];
+        _selectedCell = nil;
+        
+        NSArray *visibleCells = [self.collectionView indexPathsForVisibleItems];
+        NSIndexPath *cellPath = visibleCells[arc4random() % visibleCells.count];
+        
+        MHCollectionCell *cell = (MHCollectionCell *)[self.collectionView cellForItemAtIndexPath:cellPath];
+        [self.collectionView scrollToItemAtIndexPath:cellPath atScrollPosition:UICollectionViewScrollPositionTop animated:YES];
+        
+        MHCollection *object = [self.fetchedResultsController objectAtIndexPath:cellPath];
+        
+        [self configureCell:cell withCollection:object];
+    }
 }
 
 - (NSFetchedResultsController*) sortByName{
