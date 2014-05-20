@@ -50,18 +50,23 @@ NSString* const objectStatusNew = @"new";
     collection.objName = objName;
     collection.objCreatedDate = objCreatedDate;
 
-    if (objDescription.length)
+    if (objDescription.length) {
         collection.objDescription = objDescription;
+    }
 
-    if (objTags.count)
-        collection.objTags = objTags;
-
-    if (objModifiedDate)
+    if (objTags.count) {
+        for (NSString *tag in objTags) {
+            [MHDatabaseManager insertTag:tag forObject:collection];
+        }
+    }
+    
+    if (objModifiedDate) {
         collection.objModifiedDate = objModifiedDate;
+    }
     
     if (objOwner.length) {
         collection.objOwner=objOwner;
-    }else{
+    } else {
         collection.objOwner = [[MHAPI getInstance]userId];
     }
     
@@ -155,7 +160,9 @@ NSString* const objectStatusNew = @"new";
     }
     
     if (objTags.count) {
-        item.objTags = objTags;
+        for (NSString *tag in objTags) {
+            [MHDatabaseManager insertTag:tag forObject:item];
+        }
     }
     
     if (objModifiedDate) {
@@ -248,6 +255,24 @@ NSString* const objectStatusNew = @"new";
     
     [[MHCoreDataContext getInstance] saveContext];
     return media;
+}
+
+#pragma mark - Tag
++ (MHTag*)insertTag:(NSString *)tag
+          forObject:(NSManagedObject*)object {
+
+    MHTag* tagObject = [NSEntityDescription insertNewObjectForEntityForName:@"MHTag"
+                                                     inManagedObjectContext:[MHCoreDataContext getInstance].managedObjectContext];
+    
+    tagObject.tag = tag;
+    if ([object isKindOfClass:[MHCollection class]]) {
+        tagObject.collection = (MHCollection *)object;
+    } else if ([object isKindOfClass:[MHItem class]]){
+        tagObject.item = (MHItem *)object;
+    }
+    
+    [[MHCoreDataContext getInstance] saveContext];
+    return tagObject;
 }
 
 @end

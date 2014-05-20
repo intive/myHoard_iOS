@@ -212,7 +212,11 @@ typedef NS_ENUM(NSInteger, CollectionSortMode) {
         }
     }
     
-    cell.tagsView.tagList = collection.objTags;
+    NSMutableArray* tags = [NSMutableArray new];
+    for (MHTag* tag in collection.tags) {
+        [tags addObject:tag.tag];
+    }
+    cell.tagsView.tagList = tags;
 
     [cell.kenBurnsView removeAllImages];
     

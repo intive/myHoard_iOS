@@ -1,22 +1,20 @@
 //
-//  MHMedia.m
+//  MHTag.m
 //  MyHoard
 //
 //  Created by Sebastian Jędruszkiewicz on 20/05/14.
 //  Copyright (c) 2014 BLStream. All rights reserved.
 //
 
-#import "MHMedia.h"
+#import "MHTag.h"
+#import "MHCollection.h"
 #import "MHItem.h"
 
 
-@implementation MHMedia
+@implementation MHTag
 
-@dynamic objCreatedDate;
-@dynamic objId;
-@dynamic objKey;
-@dynamic objOwner;
-@dynamic objStatus;
+@dynamic tag;
+@dynamic collection;
 @dynamic item;
 
 @end

@@ -11,7 +11,6 @@
 #import "MHAPI.h"
 #import "MHUserSettings.h"
 #import "MHItem+UtilityMethods.h"
-#import "MHMedia.h"
 #import "MHDatabaseManager.h"
 #import "MHCoreDataContext.h"
 #import "NSString+RFC3339.h"
@@ -297,8 +296,12 @@ static MHAPI *_sharedAPI = nil;
     NSMutableDictionary* params = [NSMutableDictionary dictionaryWithDictionary:@{@"name": collection.objName,
                                                                                   @"public":objType}];
     
-    if ([collection.objTags count]) {
-        params[@"tags"] = collection.objTags;
+    if ([collection.tags count]) {
+        NSMutableArray* tags = [NSMutableArray new];
+        for (MHTag* tag in collection.tags) {
+            [tags addObject:tag.tag];
+        }
+        params[@"tags"] = tags;
     }
     
     if (collection.objDescription) {
@@ -417,8 +420,12 @@ static MHAPI *_sharedAPI = nil;
     NSMutableDictionary* params = [NSMutableDictionary dictionaryWithDictionary:@{@"name": collection.objName,
                                                                                   @"public":objType}];
     
-    if ([collection.objTags count]) {
-        params[@"tags"] = collection.objTags;
+    if ([collection.tags count]) {
+        NSMutableArray* tags = [NSMutableArray new];
+        for (MHTag* tag in collection.tags) {
+            [tags addObject:tag.tag];
+        }
+        params[@"tags"] = tags;
     }
     
     if (collection.objDescription) {
@@ -666,10 +673,14 @@ static MHAPI *_sharedAPI = nil;
         }
     }
     
-    if ([item.objTags count]) {
-        params[@"tags"] = item.objTags;
+    if ([item.tags count]) {
+        NSMutableArray* tags = [NSMutableArray new];
+        for (MHTag* tag in item.tags) {
+            [tags addObject:tag.tag];
+        }
+        params[@"tags"] = tags;
     }
-    
+
     if (item.objDescription) {
         params[@"description"] = item.objDescription;
     }
@@ -802,8 +813,12 @@ static MHAPI *_sharedAPI = nil;
         }
     }
     
-    if ([item.objTags count]) {
-        params[@"tags"] = item.objTags;
+    if ([item.tags count]) {
+        NSMutableArray* tags = [NSMutableArray new];
+        for (MHTag* tag in item.tags) {
+            [tags addObject:tag.tag];
+        }
+        params[@"tags"] = tags;
     }
     
     if (item.objDescription) {

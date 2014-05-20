@@ -53,10 +53,10 @@ describe(@"MHDatabaseManager Tests", ^{
         MHCollection* co = [fetchedObjects objectAtIndex:0];
 
         [[co.objName should] equal:@"name"];
-        NSArray* tags = co.objTags;
-        [[theValue(tags.count) should] equal:theValue(2)];
-        [[co.objTags should] equal:@[@"1", @"2"]];
-        
+        [[theValue(co.tags.count) should] equal:theValue(2)];
+        for (MHTag* tag in co.tags) {
+            [[theValue([tag.tag isEqualToString:@"1" ] || [tag.tag isEqualToString:@"2"]) should] beTrue];
+        }
     });
     
 
@@ -87,10 +87,10 @@ describe(@"MHDatabaseManager Tests", ^{
         MHItem* item = [fetchedObjects objectAtIndex:0];
         
         [[item.objName should] equal:@"name"];
-        NSArray* tags = item.objTags;
-        [[theValue(tags.count) should] equal:theValue(2)];
-        [[item.objTags should] equal:@[@"1", @"2"]];
-
+        [[theValue(item.tags.count) should] equal:theValue(2)];
+        for (MHTag* tag in item.tags) {
+            [[theValue([tag.tag isEqualToString:@"1" ] || [tag.tag isEqualToString:@"2"]) should] beTrue];
+        }
     });
     
     it(@"Take item from DB test", ^{
@@ -101,9 +101,12 @@ describe(@"MHDatabaseManager Tests", ^{
         MHItem* item = [MHDatabaseManager insertItemWithObjName:@"name" objDescription:@"1" objTags:@[@"1", @"2"] objLocation:nil objCreatedDate:itemCreatedDate objModifiedDate:nil collection:collection objStatus:@"new"];
         
         [[item.objName should] equal:@"name"];
-        NSArray* tags = item.objTags;
-        [[theValue(tags.count) should] equal:theValue(2)];
-        [[item.objTags should] equal:@[@"1", @"2"]];
+
+        [[theValue(item.tags.count) should] equal:theValue(2)];
+        for (MHTag* tag in item.tags) {
+            [[theValue([tag.tag isEqualToString:@"1" ] || [tag.tag isEqualToString:@"2"]) should] beTrue];
+        }
+
         [[item.objCreatedDate should ] equal:itemCreatedDate];
     });
     
@@ -232,19 +235,19 @@ describe(@"MHDatabaseManager Tests", ^{
         [[[Mock stub] andReturn:@"1"]userId];
         MHCollection *col = [MHDatabaseManager collectionWithObjName:@"name"];
         [[col.objDescription should] equal:@"1"];
-        [[theValue([col.objTags count]) should]equal:theValue(3)];
+        [[theValue([col.tags count]) should]equal:theValue(3)];
         
         id Mock2 = [OCMockObject partialMockForObject:[MHAPI getInstance]];
         [[[Mock2 stub] andReturn:@"6754"]userId];
         MHCollection *col1 = [MHDatabaseManager collectionWithObjName:@"name"];
         [[col1.objDescription should]beNil];
-        [[theValue([col1.objTags count]) should]equal:theValue(0)];
+        [[theValue([col1.tags count]) should]equal:theValue(0)];
         
         id Mock3 = [OCMockObject partialMockForObject:[MHAPI getInstance]];
         [[[Mock3 stub] andReturn:@"2"]userId];
         MHCollection *col2 = [MHDatabaseManager collectionWithObjName:@"name"];
         [[col2.objDescription should] equal:@"2"];
-        [[theValue([col2.objTags count]) should]equal:theValue(2)];
+        [[theValue([col2.tags count]) should] equal:theValue(2)];
     });
     
     it(@"Get collections for a specyfied owner", ^{

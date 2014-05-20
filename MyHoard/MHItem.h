@@ -2,14 +2,14 @@
 //  MHItem.h
 //  MyHoard
 //
-//  Created by Sebastian Jędruszkiewicz on 18/04/14.
+//  Created by Sebastian Jędruszkiewicz on 20/05/14.
 //  Copyright (c) 2014 BLStream. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class MHCollection, MHMedia;
+@class MHCollection, MHMedia, MHTag;
 
 @interface MHItem : NSManagedObject
 
@@ -20,10 +20,10 @@
 @property (nonatomic, retain) NSDate * objModifiedDate;
 @property (nonatomic, retain) NSString * objName;
 @property (nonatomic, retain) NSString * objOwner;
-@property (nonatomic, retain) id objTags;
+@property (nonatomic, retain) NSString * objStatus;
 @property (nonatomic, retain) MHCollection *collection;
 @property (nonatomic, retain) NSSet *media;
-@property (nonatomic, retain) NSString * objStatus;
+@property (nonatomic, retain) NSSet *tags;
 @end
 
 @interface MHItem (CoreDataGeneratedAccessors)
@@ -32,5 +32,10 @@
 - (void)removeMediaObject:(MHMedia *)value;
 - (void)addMedia:(NSSet *)values;
 - (void)removeMedia:(NSSet *)values;
+
+- (void)addTagsObject:(MHTag *)value;
+- (void)removeTagsObject:(MHTag *)value;
+- (void)addTags:(NSSet *)values;
+- (void)removeTags:(NSSet *)values;
 
 @end

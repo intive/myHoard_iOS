@@ -81,8 +81,8 @@ const NSInteger kAlertViewOne = 1;
 {
     _nameTextField.text = _collection.objName;
     NSString *tags = @"";
-    for (NSString *tag in _collection.objTags) {
-        tags = [NSString stringWithFormat:@"%@%@ ", tags, tag];
+    for (MHTag *tag in _collection.tags) {
+        tags = [NSString stringWithFormat:@"%@%@ ", tags, tag.tag];
     }
     _tagsTextField.text = tags;
     _descriptionTextField.text = _collection.objDescription;
@@ -275,13 +275,20 @@ const NSInteger kAlertViewOne = 1;
         } else if (_type == 2){
             colllectionType = collectionTypeOffline;
         }
+        
         if (_collection) {
             
-            MHCollection *collection = [MHDatabaseManager collectionWithObjName:_collection.objName];
-            collection.objName = trimmedString;
-            collection.objDescription = self.descriptionTextField.text;
-            collection.objModifiedDate = [NSDate date];
-            collection.objTags = [_tagsTextField.text tags];
+            _collection.objName = trimmedString;
+            _collection.objDescription = self.descriptionTextField.text;
+            _collection.objModifiedDate = [NSDate date];
+            //remove all tags
+            [_collection removeTags:_collection.tags];
+
+            //add new tags
+            NSArray* tags = [_tagsTextField.text tags];
+            for (NSString *tag in tags) {
+                [MHDatabaseManager insertTag:tag forObject:_collection];
+            }
             [[MHCoreDataContext getInstance] saveContext];
             
             if ([[MHAPI getInstance]activeSession] == YES) {
@@ -311,6 +318,7 @@ const NSInteger kAlertViewOne = 1;
                 [self dismissViewControllerAnimated:YES completion:nil];
             }
         } else {
+            
             MHCollection* collection = [MHDatabaseManager insertCollectionWithObjName:trimmedString
                                                                        objDescription:self.descriptionTextField.text
                                                                               objTags:[self.tagsTextField.text tags]

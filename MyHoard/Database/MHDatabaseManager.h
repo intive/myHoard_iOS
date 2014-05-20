@@ -8,7 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
-@class MHCollection, MHItem, MHMedia, CLLocation;
+#import "MHMedia.h"
+#import "MHTag.h"
+#import "MHItem.h"
+#import "MHCollection.h"
+
+@class CLLocation;
 
 extern NSString* const collectionTypePrivate;
 extern NSString* const collectionTypePublic;
@@ -52,5 +57,9 @@ extern NSString* const objectStatusNew;
                                 objKey:(NSString*)objKey
                                   item:(MHItem *)item
                              objStatus:(NSString*)objStatus;
+
+#pragma mark - Tag
++ (MHTag*)insertTag:(NSString *)tag
+          forObject:(NSManagedObject*)object;
 
 @end

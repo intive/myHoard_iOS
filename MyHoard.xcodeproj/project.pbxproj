@@ -26,6 +26,10 @@
 		2302787418B4C0A900FCD528 /* GcovTestObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 2302787318B4C0A900FCD528 /* GcovTestObserver.m */; };
 		235EB3C618DDAE3C0032D769 /* MHPasswordStrengthView.m in Sources */ = {isa = PBXBuildFile; fileRef = 235EB3C518DDAE3C0032D769 /* MHPasswordStrengthView.m */; };
 		235EB3C918DDF07E0032D769 /* MHLoginAndRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 235EB3C818DDF07E0032D769 /* MHLoginAndRegisterViewController.m */; };
+		237042D9192B5CB500B0E67A /* MHItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 237042D8192B5CB500B0E67A /* MHItem.m */; };
+		237042DC192B5CB600B0E67A /* MHTag.m in Sources */ = {isa = PBXBuildFile; fileRef = 237042DB192B5CB600B0E67A /* MHTag.m */; };
+		237042DF192B5CB600B0E67A /* MHMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = 237042DE192B5CB600B0E67A /* MHMedia.m */; };
+		237042E2192B5CB600B0E67A /* MHCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 237042E1192B5CB600B0E67A /* MHCollection.m */; };
 		23A3C30A18FEC45E00597337 /* CameraOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A3C30918FEC45E00597337 /* CameraOverlayView.m */; };
 		23A799091909896000230165 /* MHFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A799081909896000230165 /* MHFriendsViewController.m */; };
 		23AF3BA7190A947900F520CD /* MHSynchronizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 23AF3BA6190A947900F520CD /* MHSynchronizer.m */; };
@@ -33,9 +37,6 @@
 		23B0A70E18F862D900FA806C /* MHSliderMenuTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 23B0A70D18F862D900FA806C /* MHSliderMenuTableCell.m */; };
 		23C4E68318FC7542002FB84D /* NSString+RFC3339.m in Sources */ = {isa = PBXBuildFile; fileRef = 23C4E68218FC7542002FB84D /* NSString+RFC3339.m */; };
 		23CD275C19012931005203C2 /* MHImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 23CD275B19012931005203C2 /* MHImageCache.m */; };
-		23CD276019012FE4005203C2 /* MHItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 23CD275F19012FE4005203C2 /* MHItem.m */; };
-		23CD276319012FE5005203C2 /* MHMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = 23CD276219012FE5005203C2 /* MHMedia.m */; };
-		23CD276619012FE5005203C2 /* MHCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 23CD276519012FE5005203C2 /* MHCollection.m */; };
 		23CD283219048761005203C2 /* JBKenBurnsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 23CD283119048761005203C2 /* JBKenBurnsView.m */; };
 		23D02EFB18EEAA0300114941 /* MHAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D02EFA18EEAA0300114941 /* MHAPI.m */; };
 		23D02F0318EF38C600114941 /* MHWaitDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 23D02F0218EF38C600114941 /* MHWaitDialog.m */; };
@@ -151,6 +152,14 @@
 		235EB3C518DDAE3C0032D769 /* MHPasswordStrengthView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHPasswordStrengthView.m; sourceTree = "<group>"; };
 		235EB3C718DDF07E0032D769 /* MHLoginAndRegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHLoginAndRegisterViewController.h; sourceTree = "<group>"; };
 		235EB3C818DDF07E0032D769 /* MHLoginAndRegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHLoginAndRegisterViewController.m; sourceTree = "<group>"; };
+		237042D7192B5CB500B0E67A /* MHItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHItem.h; sourceTree = "<group>"; };
+		237042D8192B5CB500B0E67A /* MHItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHItem.m; sourceTree = "<group>"; };
+		237042DA192B5CB600B0E67A /* MHTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHTag.h; sourceTree = "<group>"; };
+		237042DB192B5CB600B0E67A /* MHTag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHTag.m; sourceTree = "<group>"; };
+		237042DD192B5CB600B0E67A /* MHMedia.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHMedia.h; sourceTree = "<group>"; };
+		237042DE192B5CB600B0E67A /* MHMedia.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHMedia.m; sourceTree = "<group>"; };
+		237042E0192B5CB600B0E67A /* MHCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHCollection.h; sourceTree = "<group>"; };
+		237042E1192B5CB600B0E67A /* MHCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHCollection.m; sourceTree = "<group>"; };
 		23A3C30818FEC45E00597337 /* CameraOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraOverlayView.h; sourceTree = "<group>"; };
 		23A3C30918FEC45E00597337 /* CameraOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraOverlayView.m; sourceTree = "<group>"; };
 		23A799071909896000230165 /* MHFriendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHFriendsViewController.h; sourceTree = "<group>"; };
@@ -165,12 +174,6 @@
 		23C4E68218FC7542002FB84D /* NSString+RFC3339.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+RFC3339.m"; sourceTree = "<group>"; };
 		23CD275A19012931005203C2 /* MHImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHImageCache.h; sourceTree = "<group>"; };
 		23CD275B19012931005203C2 /* MHImageCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHImageCache.m; sourceTree = "<group>"; };
-		23CD275E19012FE4005203C2 /* MHItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHItem.h; sourceTree = "<group>"; };
-		23CD275F19012FE4005203C2 /* MHItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHItem.m; sourceTree = "<group>"; };
-		23CD276119012FE5005203C2 /* MHMedia.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHMedia.h; sourceTree = "<group>"; };
-		23CD276219012FE5005203C2 /* MHMedia.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHMedia.m; sourceTree = "<group>"; };
-		23CD276419012FE5005203C2 /* MHCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHCollection.h; sourceTree = "<group>"; };
-		23CD276519012FE5005203C2 /* MHCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHCollection.m; sourceTree = "<group>"; };
 		23CD283019048761005203C2 /* JBKenBurnsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JBKenBurnsView.h; sourceTree = "<group>"; };
 		23CD283119048761005203C2 /* JBKenBurnsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JBKenBurnsView.m; sourceTree = "<group>"; };
 		23D02EF918EEAA0300114941 /* MHAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHAPI.h; sourceTree = "<group>"; };
@@ -592,17 +595,19 @@
 		537CF82918AD6282008A7E04 /* Database */ = {
 			isa = PBXGroup;
 			children = (
+				237042D7192B5CB500B0E67A /* MHItem.h */,
+				237042D8192B5CB500B0E67A /* MHItem.m */,
+				237042E0192B5CB600B0E67A /* MHCollection.h */,
+				237042E1192B5CB600B0E67A /* MHCollection.m */,
+				237042DD192B5CB600B0E67A /* MHMedia.h */,
+				237042DE192B5CB600B0E67A /* MHMedia.m */,
+				237042DA192B5CB600B0E67A /* MHTag.h */,
+				237042DB192B5CB600B0E67A /* MHTag.m */,
 				537CF82A18AD643D008A7E04 /* MyHoardModel.xcdatamodeld */,
 				537CF83118AD7D6E008A7E04 /* MHCoreDataContext.h */,
 				537CF83218AD7D6E008A7E04 /* MHCoreDataContext.m */,
 				537CF83418AD8FBF008A7E04 /* MHDatabaseManager.h */,
 				537CF83518AD8FBF008A7E04 /* MHDatabaseManager.m */,
-				23CD275E19012FE4005203C2 /* MHItem.h */,
-				23CD275F19012FE4005203C2 /* MHItem.m */,
-				23CD276119012FE5005203C2 /* MHMedia.h */,
-				23CD276219012FE5005203C2 /* MHMedia.m */,
-				23CD276419012FE5005203C2 /* MHCollection.h */,
-				23CD276519012FE5005203C2 /* MHCollection.m */,
 			);
 			name = Database;
 			sourceTree = "<group>";
@@ -848,6 +853,7 @@
 				CE09D99318F2CAE5007E8885 /* MHUserProfile.m in Sources */,
 				23C4E68318FC7542002FB84D /* NSString+RFC3339.m in Sources */,
 				23F27A5518D8E59F00877D30 /* MHDropDownMenuViewController.m in Sources */,
+				237042DC192B5CB600B0E67A /* MHTag.m in Sources */,
 				CEF82A0718F0383F00058BB8 /* MHEditAccountViewController.m in Sources */,
 				93245CA418E0931D008AFE37 /* MHCollectionDetailsCell.m in Sources */,
 				1A13578F190500BB0060DD31 /* Place.m in Sources */,
@@ -857,8 +863,10 @@
 				1A13578D190500BB0060DD31 /* MJPlacesFinder.m in Sources */,
 				CE92CB5818C321EF005038D9 /* MHImagePickerViewController.m in Sources */,
 				CEA8F94518DE024600B75355 /* MHStartScreenViewController.m in Sources */,
+				237042E2192B5CB600B0E67A /* MHCollection.m in Sources */,
 				1A135787190500BB0060DD31 /* NSObject+SBJSON.m in Sources */,
 				23A3C30A18FEC45E00597337 /* CameraOverlayView.m in Sources */,
+				237042D9192B5CB500B0E67A /* MHItem.m in Sources */,
 				1A0D0B6718C7C742004B99BA /* MHLocation.m in Sources */,
 				CE6BAE36191D49E700178E68 /* UIImage+customImage.m in Sources */,
 				CEC22B1118DF6985002E7C76 /* MHBadgeView.m in Sources */,
@@ -885,14 +893,12 @@
 				CEF82A0518F0383F00058BB8 /* MHAccountViewController.m in Sources */,
 				23F64D6518E4CBBE003420E3 /* MHRoundButton.m in Sources */,
 				93C28E4218D1E83B0011E41E /* MHBaseViewController.m in Sources */,
-				23CD276019012FE4005203C2 /* MHItem.m in Sources */,
 				93BFC82F18F30A2B00F4777C /* MHCollectionDetailsHeaderView.m in Sources */,
 				235EB3C618DDAE3C0032D769 /* MHPasswordStrengthView.m in Sources */,
-				23CD276319012FE5005203C2 /* MHMedia.m in Sources */,
 				1A29F6B418EF324C00BCFB11 /* MHLocalizationViewController.m in Sources */,
-				23CD276619012FE5005203C2 /* MHCollection.m in Sources */,
 				CE6BAE33191D1E4100178E68 /* MHSearchViewController.m in Sources */,
 				1A135786190500BB0060DD31 /* Address.m in Sources */,
+				237042DF192B5CB600B0E67A /* MHMedia.m in Sources */,
 				23FB2BCF18D23DDF009EFDE7 /* UIColor+customColors.m in Sources */,
 				CEFF60F5190C201100298E2C /* MHCollection+MHAPIUtilities.m in Sources */,
 				93A341A618FAD42300830047 /* MHItemDetailsViewController.m in Sources */,
