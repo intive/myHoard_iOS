@@ -319,16 +319,27 @@
         } else { //register and then login
             [[MHAPI getInstance] createUser:_emailTextField.text withPassword:_passwordTextField.text completionBlock:^(id object, NSError *error) {
                 if (error) {
-                    [_waitDialog dismiss];
-                    UIAlertView *alert = [[UIAlertView alloc]
-                                          initWithTitle:@"Error"
-                                          message:error.localizedDescription
-                                          delegate:nil
-                                          cancelButtonTitle:@"OK"
-                                          otherButtonTitles:nil];
-                    
-                    [alert show];
-                    NSLog(@"%@", error);
+                    if ([error code] == -1011) {
+                        [_waitDialog dismiss];
+                        UIAlertView *alert = [[UIAlertView alloc]
+                                              initWithTitle:@"Error"
+                                              message:@"Given e-mail is already registered"
+                                              delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+                        
+                        [alert show];
+                    }else {
+                        [_waitDialog dismiss];
+                        UIAlertView *alert = [[UIAlertView alloc]
+                                              initWithTitle:@"Error"
+                                              message:error.localizedDescription
+                                              delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+                        
+                        [alert show];
+                    }
                 } else {
                     [self login];
                 }
