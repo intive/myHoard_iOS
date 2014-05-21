@@ -26,9 +26,6 @@ NSString *const scopeTypeDescription = @"Description";
     BOOL _isVisible, _isDragging, _noResults;
 }
 
-@property (nonatomic, strong) NSArray *coreDataCollections;
-@property (nonatomic, strong) NSArray *coreDataSearchResults;
-@property (nonatomic, strong) NSArray *coredataItemsSearchResult;
 @property (nonatomic, strong) UISegmentedControl *segmentedControl;
 @property (nonatomic, strong) NSFetchedResultsController *frc;
 @property (nonatomic, strong) NSFetchedResultsController *ifrc;
@@ -56,8 +53,7 @@ NSString *const scopeTypeDescription = @"Description";
     
     [self.navigationController setNavigationBarHidden:NO]; // so menu would be available for user
     _tableView.backgroundColor = [UIColor appBackgroundColor];
-    _coreDataSearchResults = [[NSArray alloc]init];
-    _coredataItemsSearchResult = [[NSArray alloc]init];
+    self.searchDisplayController.searchResultsTableView.backgroundColor = [UIColor appBackgroundColor];
     
     _searchBar.barTintColor = [UIColor lighterGray];
     [[UITextField appearanceWhenContainedIn:[UISearchBar class], nil] setTextColor:[UIColor lightLoginAndRegistrationTextFieldTextColor]];
@@ -134,13 +130,19 @@ NSString *const scopeTypeDescription = @"Description";
 {
     NSUInteger numberOfRows;
     
-    switch (section) {
-        case 0:
-            numberOfRows = [[_frc fetchedObjects]count];
-            break;
-        case 1:
-            numberOfRows = [[_ifrc fetchedObjects]count];
-            break;
+    if (![[_frc fetchedObjects]count] && ![[_ifrc fetchedObjects]count]) {
+        _noResults = YES;
+        return 1;
+    }else {
+        _noResults = NO;
+        switch (section) {
+            case 0:
+                numberOfRows = [[_frc fetchedObjects]count];
+                break;
+            case 1:
+                numberOfRows = [[_ifrc fetchedObjects]count];
+                break;
+        }
     }
     
     return numberOfRows;
@@ -148,7 +150,32 @@ NSString *const scopeTypeDescription = @"Description";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    tableView.backgroundColor = [UIColor appBackgroundColor];
+
+    if (tableView == self.searchDisplayController.searchResultsTableView && _noResults) {
+        static NSString *cleanCell = @"cleanCell";
+        UITableViewCell *clean = [tableView dequeueReusableCellWithIdentifier:cleanCell];
+        if (clean == nil) {
+            clean = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cleanCell];
+            clean.userInteractionEnabled = NO;
+            clean.backgroundColor = [UIColor appBackgroundColor];
+            [tableView setSeparatorColor:[UIColor appBackgroundColor]];
+        }
+        
+        return clean;
+    }
+    
+    if (tableView == _tableView && _noResults) {
+        static NSString *cleanCell = @"cleanCell";
+        UITableViewCell *clean = [tableView dequeueReusableCellWithIdentifier:cleanCell];
+        if (clean == nil) {
+            clean = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cleanCell];
+            clean.userInteractionEnabled = NO;
+            clean.backgroundColor = [UIColor appBackgroundColor];
+            [tableView setSeparatorColor:[UIColor appBackgroundColor]];
+        }
+        
+        return clean;
+    }
     
     static NSString *cellId = @"searchCell";
     _tableCell = [tableView dequeueReusableCellWithIdentifier:cellId];
