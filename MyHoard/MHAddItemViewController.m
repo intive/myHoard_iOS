@@ -381,6 +381,31 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 220;
                                                  collection:self.selectedCollection
                                                   objStatus:objectStatusNew];
     
+    
+    if ([[MHAPI getInstance]activeSession]) {
+        if (![self.selectedCollection.objType isEqualToString:collectionTypeOffline]) {
+            [[MHAPI getInstance]createItem:item completionBlock:^(id object, NSError *error) {
+                 if (error) {
+                     
+                     UIAlertView *alert = [[UIAlertView alloc]
+                                           initWithTitle:@"Error"
+                                           message:error.localizedDescription
+                                           delegate:self
+                                           cancelButtonTitle:@"Ok"
+                                           otherButtonTitles:nil];
+                     [alert show];
+                 }else {
+                     [self sendMediaToItem:item];
+                 }
+             }];
+        }
+    }
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)sendMediaToItem:(MHItem *)item {
+    
     if ([_array firstObject]){
         for (int i=0; i<[_array count]; i++)
         {
@@ -397,62 +422,23 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 220;
                     __block MHWaitDialog* wait = [[MHWaitDialog alloc] init];
                     [wait show];
                     [[MHAPI getInstance]createMedia:media completionBlock:^(id object, NSError *error)
-                    {
-                        [wait dismiss];
-                        if (error)
-                        {
-                            UIAlertView *alert = [[UIAlertView alloc]
-                                                  initWithTitle:@"Error"
-                                                  message:error.localizedDescription
-                                                  delegate:self
-                                                  cancelButtonTitle:@"Ok"
-                                                  otherButtonTitles:nil];
-                            [alert show];
-                        }else
-                        {
-                            [[MHAPI getInstance]createItem:item completionBlock:^(id object, NSError *error)
-                            {
-                                if (error)
-                                {
-                                    UIAlertView *alert = [[UIAlertView alloc]
-                                                          initWithTitle:@"Error"
-                                                          message:error.localizedDescription
-                                                          delegate:self
-                                                          cancelButtonTitle:@"Ok"
-                                                          otherButtonTitles:nil];
-                                    [alert show];
-                                }
-                            }];
-                        }
-                    }];
+                     {
+                         [wait dismiss];
+                         if (error)
+                         {
+                             UIAlertView *alert = [[UIAlertView alloc]
+                                                   initWithTitle:@"Error"
+                                                   message:error.localizedDescription
+                                                   delegate:self
+                                                   cancelButtonTitle:@"Ok"
+                                                   otherButtonTitles:nil];
+                             [alert show];
+                         }
+                     }];
                 }
             }
         }
-    } else
-    {
-        if ([[MHAPI getInstance]activeSession] == YES)
-        {
-            if (![self.selectedCollection.objType isEqualToString:collectionTypeOffline])
-            {
-                __block MHWaitDialog* wait = [[MHWaitDialog alloc] init];
-                [wait show];
-                [[MHAPI getInstance] createItem:item completionBlock:^(id object, NSError *error)
-                 {
-                     [wait dismiss];
-                     if (error) {
-                         UIAlertView *alert = [[UIAlertView alloc]
-                                               initWithTitle:@"Error"
-                                               message:error.localizedDescription
-                                               delegate:self
-                                               cancelButtonTitle:@"Ok"
-                                               otherButtonTitles:nil];
-                         [alert show];
-                     }
-                 }];
-            }
-        }
     }
-    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)updateItem:(MHItem *)item withName:(NSString *)name {
