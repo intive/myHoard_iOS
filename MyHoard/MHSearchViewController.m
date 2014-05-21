@@ -129,6 +129,8 @@ NSString *const scopeTypeDescription = @"Description";
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     NSUInteger numberOfRows;
+    id sectionInfo;
+    NSUInteger ifrcSection = 0;
     
     if (![[_frc fetchedObjects]count] && ![[_ifrc fetchedObjects]count]) {
         _noResults = YES;
@@ -137,10 +139,12 @@ NSString *const scopeTypeDescription = @"Description";
         _noResults = NO;
         switch (section) {
             case 0:
-                numberOfRows = [[_frc fetchedObjects]count];
+                sectionInfo = [[_frc sections] objectAtIndex:section];
+                numberOfRows = [sectionInfo numberOfObjects];
                 break;
             case 1:
-                numberOfRows = [[_ifrc fetchedObjects]count];
+                sectionInfo = [[_ifrc sections] objectAtIndex:ifrcSection];
+                numberOfRows = [sectionInfo numberOfObjects];
                 break;
         }
     }
