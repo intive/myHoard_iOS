@@ -278,6 +278,20 @@ const NSInteger kAlertViewOne = 1;
         
         if (_collection) {
             
+            NSArray *collections = [[NSArray alloc] initWithArray:[MHDatabaseManager allCollections]];
+            for (MHCollection *col in collections) {
+                if([col.objName isEqualToString:self.nameTextField.text]) {
+                    if ([col.objCreatedDate isEqualToDate:_collection.objCreatedDate]) {
+                    } else {
+                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"error" message:@"Collection of that name exists." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
+                        [alert show];
+                    }
+                }
+                
+            }
+            
+
+            
             _collection.objName = trimmedString;
             _collection.objDescription = self.descriptionTextField.text;
             _collection.objModifiedDate = [NSDate date];
