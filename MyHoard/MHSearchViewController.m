@@ -69,7 +69,7 @@ NSString *const scopeTypeDescription = @"Description";
     _segmentedControl = [[UISegmentedControl alloc] initWithItems:itemArray];
     _segmentedControl.frame = CGRectMake(8, 8, _headerView.frame.size.width - 16, _headerView.frame.size.height - 16);
     _segmentedControl.segmentedControlStyle = UISegmentedControlStylePlain;
-    _segmentedControl.selectedSegmentIndex = 0;
+    _segmentedControl.selectedSegmentIndex = 1;
     _segmentedControl.layer.borderColor = [UIColor lighterYellow].CGColor;
     _segmentedControl.layer.borderWidth = 1.0;
     _segmentedControl.layer.cornerRadius = 6.0;
@@ -92,6 +92,8 @@ NSString *const scopeTypeDescription = @"Description";
                                              selector:@selector(keyboardDidHide:)
                                                  name:UIKeyboardDidHideNotification
                                                object:nil];
+    
+    _scope = scopeTypeName;
     
 }
 
@@ -134,7 +136,7 @@ NSString *const scopeTypeDescription = @"Description";
     
     if (![[_frc fetchedObjects]count] && ![[_ifrc fetchedObjects]count]) {
         _noResults = YES;
-        return 1;
+        return 0;
     }else {
         _noResults = NO;
         switch (section) {
@@ -156,29 +158,11 @@ NSString *const scopeTypeDescription = @"Description";
 {
 
     if (tableView == self.searchDisplayController.searchResultsTableView && _noResults) {
-        static NSString *cleanCell = @"cleanCell";
-        UITableViewCell *clean = [tableView dequeueReusableCellWithIdentifier:cleanCell];
-        if (clean == nil) {
-            clean = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cleanCell];
-            clean.userInteractionEnabled = NO;
-            clean.backgroundColor = [UIColor appBackgroundColor];
-            [tableView setSeparatorColor:[UIColor appBackgroundColor]];
-        }
-        
-        return clean;
+        [tableView setSeparatorColor:[UIColor appBackgroundColor]];
     }
     
     if (tableView == _tableView && _noResults) {
-        static NSString *cleanCell = @"cleanCell";
-        UITableViewCell *clean = [tableView dequeueReusableCellWithIdentifier:cleanCell];
-        if (clean == nil) {
-            clean = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cleanCell];
-            clean.userInteractionEnabled = NO;
-            clean.backgroundColor = [UIColor appBackgroundColor];
-            [tableView setSeparatorColor:[UIColor appBackgroundColor]];
-        }
-        
-        return clean;
+        [tableView setSeparatorColor:[UIColor appBackgroundColor]];
     }
     
     static NSString *cellId = @"searchCell";
@@ -448,11 +432,11 @@ NSString *const scopeTypeDescription = @"Description";
 	 forChangeType:(NSFetchedResultsChangeType)type
 {
     switch(type)
-	{
+    {
         case NSFetchedResultsChangeInsert:
             [self.searchDisplayController.searchResultsTableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
             break;
-			
+            
         case NSFetchedResultsChangeDelete:
             [self.searchDisplayController.searchResultsTableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
             break;
@@ -469,26 +453,33 @@ NSString *const scopeTypeDescription = @"Description";
 {
     UITableView *tableView = self.searchDisplayController.searchResultsTableView;
 	
-    switch(type)
-	{
-        case NSFetchedResultsChangeInsert:
-            [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-			
-        case NSFetchedResultsChangeDelete:
-            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-			
-        case NSFetchedResultsChangeUpdate:
-			[tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-            break;
-			
-        case NSFetchedResultsChangeMove:
-            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-            [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
-
-            break;
+    if (controller == _ifrc) {
+        indexPath = [NSIndexPath indexPathForRow:indexPath.row inSection:1];
+        if (newIndexPath) {
+            newIndexPath = [NSIndexPath indexPathForRow:newIndexPath.row inSection:1];
+        }
     }
+        switch(type)
+        {
+            case NSFetchedResultsChangeInsert:
+                [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+                break;
+                
+            case NSFetchedResultsChangeDelete:
+                [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+                break;
+                
+            case NSFetchedResultsChangeUpdate:
+                [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+                break;
+                
+            case NSFetchedResultsChangeMove:
+                [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+                [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+
+                break;
+        }
+    
 }
 
 #pragma mark segmented control
