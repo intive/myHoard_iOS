@@ -35,6 +35,8 @@ typedef NS_ENUM(NSInteger, ItemSortMode) {
     BOOL _isVisible;
     UIButton* _dateButton;
     UIButton* _nameButton;
+    UIImageView *_dateSortDirection;
+    UIImageView *_nameSortDirection;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -69,11 +71,21 @@ typedef NS_ENUM(NSInteger, ItemSortMode) {
 
 - (void)nameButton:(id) sender
 {
+    if(_nameSortDirection.image == [UIImage imageNamed:@"up_g"]) {
+        _nameSortDirection.image = [UIImage imageNamed:@"down_g"];
+    } else {
+        _nameSortDirection.image = [UIImage imageNamed:@"up_g"];
+    }
     [self reverseSort];
 }
 
 - (void)dateButton:(id) sender
 {
+    if (_dateSortDirection.image == [UIImage imageNamed:@"up_g"]) {
+        _dateSortDirection.image = [UIImage imageNamed:@"down_g"];
+    } else {
+        _dateSortDirection.image = [UIImage imageNamed:@"up_g"];
+    }
     [self reverseSort];
 }
 
@@ -129,12 +141,18 @@ typedef NS_ENUM(NSInteger, ItemSortMode) {
     _nameButton.alpha = 1.0f;
     
     _dateButton.hidden = YES;
-    
+    _nameSortDirection = [[UIImageView alloc] initWithFrame:CGRectMake(180, 10, 24, 24)];
+    _nameSortDirection.image = [UIImage imageNamed:@"up_g"];
+    _dateSortDirection = [[UIImageView alloc] initWithFrame:CGRectMake(30, 10, 24, 24)];
+    _dateSortDirection.image = [UIImage imageNamed:@"down_g"];
     [_dateButton addTarget:self action:@selector(dateButton:) forControlEvents:UIControlEventTouchUpInside];
     [_nameButton addTarget:self action:@selector(nameButton:) forControlEvents:UIControlEventTouchUpInside];
     [_headerView addSubview:_dateButton];
     [_headerView addSubview:_nameButton];
+    [_headerView addSubview:_nameSortDirection];
+    [_headerView addSubview:_dateSortDirection];
     
+    _dateSortDirection.hidden = YES;
     
     [self.collectionView addSubview:_headerView];
     self.collectionView.alwaysBounceVertical = YES;
@@ -332,8 +350,16 @@ typedef NS_ENUM(NSInteger, ItemSortMode) {
     if (index == 0) {
         _dateButton.hidden = NO;
         _nameButton.hidden = YES;
+        
+        _dateSortDirection.hidden = NO;
+        _dateSortDirection.image = [UIImage imageNamed:@"up_g"];
+        _nameSortDirection.hidden = YES;
+
         [self setSortMode:ItemSortModeByDate];
     } else {
+        _dateSortDirection.hidden = YES;
+        _nameSortDirection.hidden = NO;
+        _nameSortDirection.image = [UIImage imageNamed:@"up_g"];
         _dateButton.hidden = YES;
         _nameButton.hidden = NO;
         [self setSortMode:ItemSortModeByName];
