@@ -32,7 +32,6 @@
     [self loginLabelTitle];
     
     [self profilePictureViewShape];
-    [self friendPictureViewShape];
     _loginLabel.textColor = [UIColor collectionNameFrontColor];
     _collectionsLabel.textColor = [UIColor collectionNameFrontColor];
     _photosLabel.textColor = [UIColor collectionNameFrontColor];
@@ -72,16 +71,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     
     [self refreshImageData];
-}
-
-- (void)friendPictureViewShape {
-    
-    _friendImageView.layer.backgroundColor=[[UIColor clearColor] CGColor];
-    _friendImageView.layer.cornerRadius = 22.0;
-    _friendImageView.layer.borderWidth = 2.0;
-    _friendImageView.layer.masksToBounds = YES;
-    _friendImageView.layer.borderColor=[[UIColor blackColor] CGColor];
-    _friendImageView.image = [UIImage imageNamed:@"friends.png"];
+    [self loginLabelTitle];
 }
 
 - (NSInteger)collectionsNumber {
@@ -115,9 +105,13 @@
     
     [[MHAPI getInstance]readUserWithCompletionBlock:^(MHUserProfile *object, NSError *error) {
         if (!error) {
-            NSArray *sub = [object.email componentsSeparatedByString:@"@"];
-            NSString *substring = [sub objectAtIndex:0];
-            _loginLabel.text = substring;
+            if (object.username) {
+                _loginLabel.text = object.username;
+            }else {
+                NSArray *sub = [object.email componentsSeparatedByString:@"@"];
+                NSString *substring = [sub objectAtIndex:0];
+                _loginLabel.text = substring;
+            }
         }else {
             UIAlertView *alert = [[UIAlertView alloc]
                                   initWithTitle:@"Error"
@@ -153,15 +147,5 @@
     NSString* imagePath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:[MHAPI getInstance].userId];
     return [UIImage imageWithContentsOfFile:imagePath];
 }
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

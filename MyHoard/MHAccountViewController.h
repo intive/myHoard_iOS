@@ -23,7 +23,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *photosLabel;
 @property (weak, nonatomic) IBOutlet UILabel *lineOne;
 @property (weak, nonatomic) IBOutlet UILabel *lineTwo;
-@property (weak, nonatomic) IBOutlet UIImageView *friendImageView;
 
 
 @property (weak, nonatomic) IBOutlet MHBadgeView *numberOfCollections;

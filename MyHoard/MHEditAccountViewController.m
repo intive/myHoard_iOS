@@ -94,6 +94,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     
     [self refreshImageData];
+    [self setLabelTitle];
 }
 
 - (void)didReceiveMemoryWarning
@@ -116,9 +117,13 @@
         
             [alert show];
         }else {
-            NSArray *sub = [object.email componentsSeparatedByString:@"@"];
-            NSString *substring = [sub objectAtIndex:0];
-            _loginTexField.text = substring;
+            if (object.username) {
+                _loginTexField.text = object.username;
+            }else {
+                NSArray *sub = [object.email componentsSeparatedByString:@"@"];
+                NSString *substring = [sub objectAtIndex:0];
+                _loginTexField.text = substring;
+            }
             _emailTextField.text = object.email;
         }
     }];
