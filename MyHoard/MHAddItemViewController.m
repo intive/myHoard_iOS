@@ -399,6 +399,18 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 220;
                  }
              }];
         }
+    }else {
+        if ([_array firstObject]){
+            for (int i=0; i<[_array count]; i++)
+            {
+                NSString *key = [[MHImageCache sharedInstance] cacheImage:[_array objectAtIndex:i]];
+                [MHDatabaseManager insertMediaWithCreatedDate:[NSDate date]
+                                                                        objKey:key
+                                                                          item:item
+                                                                     objStatus:objectStatusNew];
+                
+            }
+        }
     }
     
     [self dismissViewControllerAnimated:YES completion:nil];
