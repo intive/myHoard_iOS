@@ -41,6 +41,8 @@ typedef NS_ENUM(NSInteger, CollectionSortMode) {
     
     UIButton* _dateButton;
     UIButton* _nameButton;
+    UIImageView *_dateSortDirection;
+    UIImageView *_nameSortDirection;
     UIView* _headerView;
     BOOL _isDragging;
     BOOL _isVisible;
@@ -106,11 +108,19 @@ typedef NS_ENUM(NSInteger, CollectionSortMode) {
     _nameButton.alpha = 1.0f;
     
     _dateButton.hidden = YES;
+    _nameSortDirection = [[UIImageView alloc] initWithFrame:CGRectMake(180, 10, 24, 24)];
+    _nameSortDirection.image = [UIImage imageNamed:@"up_g"];
+    _dateSortDirection = [[UIImageView alloc] initWithFrame:CGRectMake(30, 10, 24, 24)];
+    _dateSortDirection.image = [UIImage imageNamed:@"down_g"];
     
     [_dateButton addTarget:self action:@selector(dateButton:) forControlEvents:UIControlEventTouchUpInside];
     [_nameButton addTarget:self action:@selector(nameButton:) forControlEvents:UIControlEventTouchUpInside];
     [_headerView addSubview:_dateButton];
     [_headerView addSubview:_nameButton];
+    [_headerView addSubview:_nameSortDirection];
+    [_headerView addSubview:_dateSortDirection];
+    
+    _dateSortDirection.hidden = YES;
     [self.collectionView addSubview:_headerView];
     self.collectionView.alwaysBounceVertical = YES;
 }
@@ -123,9 +133,11 @@ typedef NS_ENUM(NSInteger, CollectionSortMode) {
 - (void)nameButton:(id) sender
 {
     if(self.sortMode == CollectionSortModeByReversedName) {
+        _nameSortDirection.image = [UIImage imageNamed:@"up_g"];
         self.sortMode = CollectionSortModeByName;
         [self.collectionView reloadData];
     } else {
+        _nameSortDirection.image = [UIImage imageNamed:@"down_g"];
         self.sortMode = CollectionSortModeByReversedName;
         [self.collectionView reloadData];
     }
@@ -134,9 +146,11 @@ typedef NS_ENUM(NSInteger, CollectionSortMode) {
 - (void)dateButton:(id) sender
 {
     if (self.sortMode == CollectionSortModeByReversedDate) {
+        _dateSortDirection.image = [UIImage imageNamed:@"up_g"];
         self.sortMode = CollectionSortModeByDate;
         [self.collectionView reloadData];
     } else {
+        _dateSortDirection.image = [UIImage imageNamed:@"down_g"];
         self.sortMode = CollectionSortModeByReversedDate;
         [self.collectionView reloadData];
     }
@@ -686,11 +700,19 @@ newIndexPath:(NSIndexPath *)newIndexPath
     if (index == 0) {
         _dateButton.hidden = NO;
         _nameButton.hidden = YES;
+        _dateSortDirection.hidden = NO;
+        _dateSortDirection.image = [UIImage imageNamed:@"up_g"];
+        _nameSortDirection.hidden = YES;
+        
+
         self.sortMode = CollectionSortModeByDate;
     } else {
         _dateButton.hidden = YES;
         _nameButton.hidden = NO;
         self.sortMode = CollectionSortModeByName;
+        _dateSortDirection.hidden = YES;
+        _nameSortDirection.hidden = NO;
+        _nameSortDirection.image = [UIImage imageNamed:@"up_g"];
     }
     [self.collectionView reloadData];
 }
