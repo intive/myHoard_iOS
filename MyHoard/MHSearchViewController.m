@@ -50,7 +50,6 @@ NSString *const scopeTypeDescription = @"Description";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
     [self.navigationController setNavigationBarHidden:NO]; // so menu would be available for user
     _tableView.backgroundColor = [UIColor appBackgroundColor];
     self.searchDisplayController.searchResultsTableView.backgroundColor = [UIColor appBackgroundColor];
@@ -61,8 +60,9 @@ NSString *const scopeTypeDescription = @"Description";
     [[UIBarButtonItem appearanceWhenContainedIn:[UISearchBar class], nil] setTitleTextAttributes:@{UITextAttributeTextColor: [UIColor lightLoginAndRegistrationTextFieldTextColor]} forState:UIControlStateNormal];
     [_searchBar setSearchFieldBackgroundImage:[UIImage imageWithColor:[UIColor appBackgroundColor] size:CGSizeMake(320, 30)] forState:UIControlStateNormal];
     [_searchBar becomeFirstResponder];
+    _searchBar.delegate = self;
     
-    _headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0 - HEADER_HEIGHT, self.view.frame.size.width, HEADER_HEIGHT)];
+    _headerView = [[UIView alloc] initWithFrame:CGRectMake(0, HEADER_HEIGHT, self.view.frame.size.width, HEADER_HEIGHT)];
     _headerView.backgroundColor = [UIColor blackColor];
     
     NSArray *itemArray = [NSArray arrayWithObjects: @"Tags", @"Name", @"Description", nil];
@@ -74,14 +74,15 @@ NSString *const scopeTypeDescription = @"Description";
     _segmentedControl.layer.borderWidth = 1.0;
     _segmentedControl.layer.cornerRadius = 6.0;
     _segmentedControl.tintColor = [UIColor lighterYellow];
+    _isVisible = YES;
+    [self tableViewContentOffsetForSegmentedControl:_isVisible];
     
     [_segmentedControl addTarget:self
                           action:@selector(segmentedControlValueChanged:)
                 forControlEvents:UIControlEventValueChanged];
     
     [_headerView addSubview:_segmentedControl];
-    [_tableView addSubview:_headerView];
-    _tableView.alwaysBounceVertical = YES;
+    [self.view addSubview:_headerView];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardDidShow:)
@@ -281,35 +282,28 @@ NSString *const scopeTypeDescription = @"Description";
 - (void)filterContentForSearchText:(NSString *)searchText scope:(NSString *)scope {
     
     NSPredicate *predicate;
-    scope = _scope;
-    
-    if (searchText.length < 2) {
-        _frc = nil;
-        _ifrc = nil;
-    }else {
-        if ([scope isEqualToString:scopeTypeName]) {
+
+        if ([_scope isEqualToString:scopeTypeName]) {
             [self checkForActiveSessionAndSetPredicate:predicate withSearchText:searchText];
-        }else if ([scope isEqualToString:scopeTypeDescription]) {
+        }else if ([_scope isEqualToString:scopeTypeDescription]) {
             if ([MHAPI getInstance].userId) {
-                predicate = [NSPredicate predicateWithFormat:@"SELF.objDescription contains[c] %@ AND SELF.objOwner == %@", searchText, [MHAPI getInstance].userId];
+                predicate = [NSPredicate predicateWithFormat:@"SELF.objDescription matches[c] %@ AND SELF.objOwner == %@", searchText, [MHAPI getInstance].userId];
                 [self collectionsFetchResultsControllerWithPredicate:predicate];
                 [self itemsFetchResultsControllerWithPredicate:predicate];
             }else {
-                predicate = [NSPredicate predicateWithFormat:@"SELF.objDescription contains[c] %@ AND SELF.objOwner == %@", searchText, nil];
+                predicate = [NSPredicate predicateWithFormat:@"SELF.objDescription matches[c] %@ AND SELF.objOwner == %@", searchText, nil];
                 [self collectionsFetchResultsControllerWithPredicate:predicate];
                 [self itemsFetchResultsControllerWithPredicate:predicate];
             }
         }else {
             [self checkForActiveSessionAndSetPredicateWhenTagsSearch:predicate withSearchText:searchText];
         }
-    }
     
     if (searchText.length > 19) {
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Search fraze can be no longer than 20 characters" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alert show];
     }
     
-    [_tableView reloadData];
 }
 
 - (BOOL)searchBar:(UISearchBar *)searchBar shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
@@ -324,24 +318,26 @@ NSString *const scopeTypeDescription = @"Description";
 - (void)checkForActiveSessionAndSetPredicateWhenTagsSearch:(NSPredicate *)predicate withSearchText:(NSString *)searchText {
     if ([MHAPI getInstance].userId) {
         NSPredicate* p1 = [NSPredicate predicateWithFormat:@"objOwner == %@",[[MHAPI getInstance]userId]];
-        NSPredicate* p2 = [NSPredicate predicateWithFormat:@"SUBQUERY(tags,$t,$t.tag contains[c] %@).@count > 0", searchText];
+        NSPredicate* p2 = [NSPredicate predicateWithFormat:@"SUBQUERY(tags,$t,$t.tag ==[c] %@).@count > 0", searchText];
         NSPredicate* predicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[p1, p2]];
         [self collectionsFetchResultsControllerWithPredicate:predicate];
+        [self itemsFetchResultsControllerWithPredicate:predicate];
     }else {
         NSPredicate* p1 = [NSPredicate predicateWithFormat:@"objOwner == %@", nil];
-        NSPredicate* p2 = [NSPredicate predicateWithFormat:@"SUBQUERY(tags,$t,$t.tag contains[c] %@).@count > 0", searchText];
+        NSPredicate* p2 = [NSPredicate predicateWithFormat:@"SUBQUERY(tags,$t,$t.tag ==[c] %@).@count > 0", searchText];
         NSPredicate* predicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[p1, p2]];
         [self collectionsFetchResultsControllerWithPredicate:predicate];
+        [self itemsFetchResultsControllerWithPredicate:predicate];
     }
 }
 
 - (void)checkForActiveSessionAndSetPredicate:(NSPredicate *)predicate withSearchText:(NSString *)searchText {
     if ([MHAPI getInstance].userId) {
-        predicate = [NSPredicate predicateWithFormat:@"SELF.objName contains[c] %@ AND SELF.objOwner == %@", searchText, [MHAPI getInstance].userId];
+        predicate = [NSPredicate predicateWithFormat:@"SELF.objName matches[c] %@ AND SELF.objOwner == %@", searchText, [MHAPI getInstance].userId];
         [self collectionsFetchResultsControllerWithPredicate:predicate];
         [self itemsFetchResultsControllerWithPredicate:predicate];
     }else {
-        predicate = [NSPredicate predicateWithFormat:@"SELF.objName contains[c] %@ AND SELF.objOwner == %@", searchText, nil];
+        predicate = [NSPredicate predicateWithFormat:@"SELF.objName matches[c] %@ AND SELF.objOwner == %@", searchText, nil];
         [self collectionsFetchResultsControllerWithPredicate:predicate];
         [self itemsFetchResultsControllerWithPredicate:predicate];
     }
@@ -349,7 +345,16 @@ NSString *const scopeTypeDescription = @"Description";
 
 - (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
     
-    [self filterContentForSearchText:searchString scope:[[self.searchDisplayController.searchBar scopeButtonTitles] objectAtIndex:[self.searchDisplayController.searchBar selectedScopeButtonIndex]]];
+    if (searchString.length > 1) {
+        [self filterContentForSearchText:searchString scope:[[self.searchDisplayController.searchBar scopeButtonTitles] objectAtIndex:[self.searchDisplayController.searchBar selectedScopeButtonIndex]]];
+    }
+    
+    return YES;
+}
+
+- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchScope:(NSInteger)searchOption {
+    
+    [self filterContentForSearchText:[self.searchDisplayController.searchBar text] scope:[[self.searchDisplayController.searchBar scopeButtonTitles] objectAtIndex:[self.searchDisplayController.searchBar selectedScopeButtonIndex]]];
     
     return YES;
 }
@@ -389,6 +394,15 @@ NSString *const scopeTypeDescription = @"Description";
         NSFetchedResultsController *fetchResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:[MHCoreDataContext getInstance].managedObjectContext sectionNameKeyPath:nil cacheName:@"Root"];
         fetchResultsController.delegate = self;
         _ifrc = fetchResultsController;
+        
+    }else {
+        [_ifrc.fetchRequest setPredicate:predicate];
+        NSError *error = nil;
+        [_ifrc performFetch:&error];
+        if (error) {
+            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            exit(-1);
+        }
     }
     
     return _ifrc;
@@ -411,6 +425,16 @@ NSString *const scopeTypeDescription = @"Description";
         
         fetchResultsController.delegate = self;
         self.frc = fetchResultsController;
+        
+    }else {
+        
+        [_frc.fetchRequest setPredicate:predicate];
+        NSError *error = nil;
+        [_frc performFetch:&error];
+        if (error) {
+            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            exit(-1);
+        }
     }
     
     return _frc;
@@ -502,41 +526,9 @@ NSString *const scopeTypeDescription = @"Description";
     }
 }
 
-#pragma mark scroll view
-
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-    if (_isVisible) return;
-    _isDragging = YES;
-}
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    if (_isVisible) {
-        // Update the content inset, good for section headers
-        if (scrollView.contentOffset.y > 0)
-            _tableView.contentInset = UIEdgeInsetsZero;
-        else if (scrollView.contentOffset.y >= -HEADER_HEIGHT)
-            _tableView.contentInset = UIEdgeInsetsMake(-scrollView.contentOffset.y, 0, 0, 0);
-    } else if (_isDragging && scrollView.contentOffset.y < 0) {
-    }
-}
-
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
-    _isDragging = NO;
-    
-    if (_isVisible) {
-        if (scrollView.contentOffset.y < 0) {
-            _isVisible = NO;
-            [UIView animateWithDuration:0.3 animations:^{
-                _tableView.contentInset = UIEdgeInsetsZero;
-            }];
-        }
-    } else {
-        if (scrollView.contentOffset.y <= -HEADER_HEIGHT) {
-            _isVisible = YES;
-            [UIView animateWithDuration:0.3 animations:^{
-                _tableView.contentInset = UIEdgeInsetsMake(HEADER_HEIGHT, 0, 0, 0);
-            }];
-        }
+- (void)tableViewContentOffsetForSegmentedControl:(BOOL)isVisible {
+    if (isVisible) {
+        _tableView.frame = CGRectOffset(_tableView.frame, 0, 132);
     }
 }
 
@@ -544,10 +536,10 @@ NSString *const scopeTypeDescription = @"Description";
 
 - (void)searchDisplayControllerWillBeginSearch:(UISearchDisplayController *)controller {
     
-    if (!_isVisible) {
-        _segmentedControl.hidden = YES;
-    }
-    
+    [UIView animateWithDuration:0.1 animations:^{
+        _headerView.frame = CGRectOffset(_headerView.frame, 0, -20);
+    }];
+
     CGRect statusBarFrame =  [[UIApplication sharedApplication] statusBarFrame];
     [UIView animateWithDuration:0.25 animations:^{
         for (UIView *subview in self.view.subviews) {
@@ -558,13 +550,13 @@ NSString *const scopeTypeDescription = @"Description";
 
 - (void)searchDisplayControllerWillEndSearch:(UISearchDisplayController *)controller {
     
+    [UIView animateWithDuration:0.1 animations:^{
+        _headerView.frame = CGRectOffset(_headerView.frame, 0, +20);
+    }];
+    
     [UIView animateWithDuration:0.25 animations:^{
         for (UIView *subview in self.view.subviews) {
             subview.transform = CGAffineTransformIdentity;
-        }
-    } completion:^(BOOL finished) {
-        if (finished) {
-            _segmentedControl.hidden = NO;
         }
     }];
 }
