@@ -16,6 +16,7 @@
 
 #define HEADER_HEIGHT 44
 
+NSString *const scopeTypeAll = @"All";
 NSString *const scopeTypeTags = @"Tags";
 NSString *const scopeTypeName = @"Name";
 NSString *const scopeTypeDescription = @"Description";
@@ -23,7 +24,7 @@ NSString *const scopeTypeDescription = @"Description";
 @interface MHSearchViewController () {
     UIView* _headerView;
     NSString * _scope;
-    BOOL _isVisible, _isDragging, _noResults;
+    BOOL _isVisible, _noResults;
 }
 
 @property (nonatomic, strong) UISegmentedControl *segmentedControl;
@@ -65,11 +66,11 @@ NSString *const scopeTypeDescription = @"Description";
     _headerView = [[UIView alloc] initWithFrame:CGRectMake(0, HEADER_HEIGHT, self.view.frame.size.width, HEADER_HEIGHT)];
     _headerView.backgroundColor = [UIColor blackColor];
     
-    NSArray *itemArray = [NSArray arrayWithObjects: @"Tags", @"Name", @"Description", nil];
+    NSArray *itemArray = [NSArray arrayWithObjects: @"All", @"Tags", @"Name", @"Description", nil];
     _segmentedControl = [[UISegmentedControl alloc] initWithItems:itemArray];
     _segmentedControl.frame = CGRectMake(8, 8, _headerView.frame.size.width - 16, _headerView.frame.size.height - 16);
     _segmentedControl.segmentedControlStyle = UISegmentedControlStylePlain;
-    _segmentedControl.selectedSegmentIndex = 1;
+    _segmentedControl.selectedSegmentIndex = 0;
     _segmentedControl.layer.borderColor = [UIColor lighterYellow].CGColor;
     _segmentedControl.layer.borderWidth = 1.0;
     _segmentedControl.layer.cornerRadius = 6.0;
@@ -94,7 +95,7 @@ NSString *const scopeTypeDescription = @"Description";
                                                  name:UIKeyboardDidHideNotification
                                                object:nil];
     
-    _scope = scopeTypeName;
+    _scope = scopeTypeAll;
     
 }
 
@@ -295,8 +296,10 @@ NSString *const scopeTypeDescription = @"Description";
                 [self collectionsFetchResultsControllerWithPredicate:predicate];
                 [self itemsFetchResultsControllerWithPredicate:predicate];
             }
-        }else {
+        }else if ([_scope isEqualToString:scopeTypeTags]){
             [self checkForActiveSessionAndSetPredicateWhenTagsSearch:predicate withSearchText:searchText];
+        }else {
+            [self checkForActiveSessionAndSetPredicateWhenScopeTypeAll:predicate withSearchText:searchText];
         }
     
     if (searchText.length > 19) {
@@ -313,6 +316,28 @@ NSString *const scopeTypeDescription = @"Description";
         _ifrc = nil;
     }
     return YES;
+}
+
+- (void)checkForActiveSessionAndSetPredicateWhenScopeTypeAll:(NSPredicate *)predicate withSearchText:(NSString *)searchText {
+    if ([MHAPI getInstance].userId) {
+        NSPredicate* p1 = [NSPredicate predicateWithFormat:@"SELF.objOwner == %@",[[MHAPI getInstance]userId]];
+        NSPredicate* p2 = [NSPredicate predicateWithFormat:@"SUBQUERY(tags,$t,$t.tag ==[c] %@).@count > 0", searchText];
+        NSPredicate *p3 = [NSPredicate predicateWithFormat:@"SELF.objName matches[c] %@", searchText];
+        NSPredicate *p4 = [NSPredicate predicateWithFormat:@"SELF.objDescription matches[c] %@", searchText];
+        NSPredicate* predicate = [NSCompoundPredicate orPredicateWithSubpredicates:@[p2, p3, p4]];
+        NSPredicate *theAndPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[p1, predicate]];
+        [self collectionsFetchResultsControllerWithPredicate:theAndPredicate];
+        [self itemsFetchResultsControllerWithPredicate:theAndPredicate];
+    }else {
+        NSPredicate* p1 = [NSPredicate predicateWithFormat:@"SELF.objOwner == %@", nil];
+        NSPredicate* p2 = [NSPredicate predicateWithFormat:@"SUBQUERY(tags,$t,$t.tag ==[c] %@).@count > 0", searchText];
+        NSPredicate *p3 = [NSPredicate predicateWithFormat:@"SELF.objName matches[c] %@", searchText];
+        NSPredicate *p4 = [NSPredicate predicateWithFormat:@"SELF.objDescription matches[c] %@", searchText];
+        NSPredicate* predicate = [NSCompoundPredicate orPredicateWithSubpredicates:@[p2, p3, p4]];
+        NSPredicate *theAndPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[p1, predicate]];
+        [self collectionsFetchResultsControllerWithPredicate:theAndPredicate];
+        [self itemsFetchResultsControllerWithPredicate:theAndPredicate];
+    }
 }
 
 - (void)checkForActiveSessionAndSetPredicateWhenTagsSearch:(NSPredicate *)predicate withSearchText:(NSString *)searchText {
@@ -512,16 +537,19 @@ NSString *const scopeTypeDescription = @"Description";
     NSInteger index = [sender selectedSegmentIndex];
     switch (index) {
         case 0:
-            _scope = scopeTypeTags;
+            _scope = scopeTypeAll;
             break;
         case 1:
-            _scope = scopeTypeName;
+            _scope = scopeTypeTags;
             break;
         case 2:
+            _scope = scopeTypeName;
+            break;
+        case 3:
             _scope = scopeTypeDescription;
             break;
         default:
-            _scope = scopeTypeName;
+            _scope = scopeTypeAll;
             break;
     }
 }
