@@ -215,15 +215,20 @@ typedef NS_ENUM(NSInteger, CollectionSortMode) {
     }else {
         cell.badgeView.badgeValue = @(collection.items.count);
         cell.badgeView.hidden = NO;
-        for (MHItem *item in collection.items) {
+        
+        [collection.items enumerateObjectsUsingBlock:^(MHItem *item, BOOL *stop) {
             if (![item.media count]) {
                 cell.plusSignImageView.image = [UIImage imageNamed:@"sheets.png"];
                 cell.plusSignImageView.hidden = NO;
-            }else {
+                *stop = YES;
+                return;
+            }else{
                 cell.plusSignImageView.image = nil;
                 cell.plusSignImageView.hidden = YES;
+                *stop = YES;
+                return;
             }
-        }
+        }];
     }
     
     NSMutableArray* tags = [NSMutableArray new];
