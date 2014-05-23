@@ -216,19 +216,23 @@ typedef NS_ENUM(NSInteger, CollectionSortMode) {
         cell.badgeView.badgeValue = @(collection.items.count);
         cell.badgeView.hidden = NO;
         
+        __block NSInteger mediaCount = 0;
+        
         [collection.items enumerateObjectsUsingBlock:^(MHItem *item, BOOL *stop) {
-            if (![item.media count]) {
-                cell.plusSignImageView.image = [UIImage imageNamed:@"sheets.png"];
-                cell.plusSignImageView.hidden = NO;
-                *stop = YES;
-                return;
-            }else{
+            if ([item.media count]) {
                 cell.plusSignImageView.image = nil;
                 cell.plusSignImageView.hidden = YES;
                 *stop = YES;
                 return;
+            }else {
+                mediaCount += 1;
             }
         }];
+        
+        if (mediaCount == [collection.items count]) {
+            cell.plusSignImageView.image = [UIImage imageNamed:@"sheets"];
+            cell.plusSignImageView.hidden = NO;
+        }
     }
     
     NSMutableArray* tags = [NSMutableArray new];
