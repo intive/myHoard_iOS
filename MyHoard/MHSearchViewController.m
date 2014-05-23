@@ -161,9 +161,9 @@ NSString *const scopeTypeDescription = @"Description";
 
     if (tableView == self.searchDisplayController.searchResultsTableView && _noResults) {
         [tableView setSeparatorColor:[UIColor appBackgroundColor]];
-    }
-    
-    if (tableView == _tableView && _noResults) {
+    }else if (tableView == _tableView && _noResults) {
+        [tableView setSeparatorColor:[UIColor appBackgroundColor]];
+    }else if (tableView == self.searchDisplayController.searchResultsTableView || tableView == _tableView){
         [tableView setSeparatorColor:[UIColor appBackgroundColor]];
     }
     
