@@ -256,8 +256,7 @@ typedef NS_ENUM(NSInteger, CollectionSortMode) {
         
     } else {
 
-        [self addImages:1 from:items toCell:cell];
-        
+        [self addSingleImageFrom:items toCell:cell];
     }
 }
 
@@ -278,6 +277,30 @@ typedef NS_ENUM(NSInteger, CollectionSortMode) {
                 }
             } else {
                 current++;
+            }
+        }
+    }
+}
+
+- (void)addSingleImageFrom:(NSMutableArray *)items toCell:(MHCollectionCell *)cell {
+    NSInteger current = 0;
+    NSInteger numberOfImages = 1;
+    
+    if (items.count) {
+        while (current < numberOfImages) {
+            MHItem* item = items[arc4random() % items.count];
+            [items removeObject:item];
+            if ([item.media count]) {
+                for(MHMedia* media in item.media) {
+                    UIImage* image = [[MHImageCache sharedInstance] thumbnailForKey:media.objKey];
+                    [cell.kenBurnsView addImage:image];
+                    current++;
+                    if (current == numberOfImages) {
+                        [cell.kenBurnsView startAnimation];
+                    }
+                }
+            } else {
+                current = 0;
             }
         }
     }
