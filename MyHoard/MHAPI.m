@@ -346,7 +346,7 @@ static MHAPI *_sharedAPI = nil;
     AFJSONRequestSerializer *jsonSerializer = [AFJSONRequestSerializer serializer];
     [jsonSerializer setValue:_accessToken forHTTPHeaderField:@"Authorization"];
     NSMutableURLRequest *request = [jsonSerializer requestWithMethod:@"GET"
-                                                           URLString:[self urlWithPath:@"collections"]
+                                                           URLString:[self urlWithPath:[NSString stringWithFormat:@"users/%@/collections", _userId]]
                                                           parameters:nil
                                                                error:&error];
     
