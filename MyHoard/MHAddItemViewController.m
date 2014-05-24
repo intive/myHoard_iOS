@@ -384,20 +384,7 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 220;
     
     if ([[MHAPI getInstance]activeSession]) {
         if (![self.selectedCollection.objType isEqualToString:collectionTypeOffline]) {
-            [[MHAPI getInstance]createItem:item completionBlock:^(id object, NSError *error) {
-                 if (error) {
-                     
-                     UIAlertView *alert = [[UIAlertView alloc]
-                                           initWithTitle:@"Error"
-                                           message:error.localizedDescription
-                                           delegate:self
-                                           cancelButtonTitle:@"Ok"
-                                           otherButtonTitles:nil];
-                     [alert show];
-                 }else {
-                     [self sendMediaToItem:item];
-                 }
-             }];
+            [self sendMediaToItem:item];
         }
     }else {
         if ([_array firstObject]){
@@ -445,6 +432,20 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 220;
                                                    cancelButtonTitle:@"Ok"
                                                    otherButtonTitles:nil];
                              [alert show];
+                             
+                         }else {
+                             [[MHAPI getInstance]createItem:item completionBlock:^(id object, NSError *error) {
+                                 if (error) {
+                                     
+                                     UIAlertView *alert = [[UIAlertView alloc]
+                                                           initWithTitle:@"Error"
+                                                           message:error.localizedDescription
+                                                           delegate:self
+                                                           cancelButtonTitle:@"Ok"
+                                                           otherButtonTitles:nil];
+                                     [alert show];
+                                }
+                             }];
                          }
                      }];
                 }
