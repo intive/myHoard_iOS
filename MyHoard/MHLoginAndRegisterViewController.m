@@ -378,8 +378,12 @@
         [self loginDone];
     } withProgress:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
         [self showProgress:[NSNumber numberWithFloat:totalBytesRead/totalBytesExpectedToRead]];
-        if (totalBytesRead == totalBytesExpectedToRead) {
+        if (totalBytesExpectedToRead == -1) {
             [self dismissProgress];
+        }else {
+            if (totalBytesRead == totalBytesExpectedToRead) {
+                [self dismissProgress];
+            }
         }
     }];
 }
