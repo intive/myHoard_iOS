@@ -833,7 +833,7 @@ static MHAPI *_sharedAPI = nil;
     
     __block MHItem* i = item;
     NSMutableURLRequest *request = [jsonSerializer requestWithMethod:@"PUT"
-                                                           URLString:[NSString stringWithFormat:@"%@%@",[self urlWithPath:@"items"],item.objId]
+                                                           URLString:[NSString stringWithFormat:@"%@%@/",[self urlWithPath:@"items"],item.objId]
                                                           parameters:params
                                                                error:&error];
     
