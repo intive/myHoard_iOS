@@ -808,9 +808,9 @@ static MHAPI *_sharedAPI = nil;
         for (MHMedia* media in item.media) {
             if (media.objId) {
                 [mediaIds addObject:media.objId];
-                params[@"media"] = mediaIds;
             }
         }
+        params[@"media"] = mediaIds;
     }
     
     if ([item.tags count]) {
