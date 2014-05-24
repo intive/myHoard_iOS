@@ -434,18 +434,20 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 220;
                              [alert show];
                              
                          }else {
-                             [[MHAPI getInstance]createItem:item completionBlock:^(id object, NSError *error) {
-                                 if (error) {
-                                     
-                                     UIAlertView *alert = [[UIAlertView alloc]
-                                                           initWithTitle:@"Error"
-                                                           message:error.localizedDescription
-                                                           delegate:self
-                                                           cancelButtonTitle:@"Ok"
-                                                           otherButtonTitles:nil];
-                                     [alert show];
-                                }
-                             }];
+                             if (i == [_array count] - 1) {
+                                 [[MHAPI getInstance]createItem:item completionBlock:^(id object, NSError *error) {
+                                     if (error) {
+                                         
+                                         UIAlertView *alert = [[UIAlertView alloc]
+                                                               initWithTitle:@"Error"
+                                                               message:error.localizedDescription
+                                                               delegate:self
+                                                               cancelButtonTitle:@"Ok"
+                                                               otherButtonTitles:nil];
+                                         [alert show];
+                                     }
+                                 }];
+                             }
                          }
                      }];
                 }
