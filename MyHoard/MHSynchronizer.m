@@ -105,6 +105,20 @@
         for (NSDictionary *responseDictionary in responseObject) {
             [self createCollectionFromServerResponse:responseDictionary];
         }
+        
+        NSArray *refreshCoreDataCollections = [MHDatabaseManager allCollections];
+        NSArray *objStatusOk = [self predicateArray:refreshCoreDataCollections byObjectStatus:objectStatusOk];
+        
+        for (MHCollection *collectionWithOkStatus in objStatusOk) {
+            
+            NSArray *collectionsById = [self predicateArray:objStatusOk byObjectId:collectionWithOkStatus.objId];
+            
+            if ([collectionsById count] > 1) {
+                [[MHCoreDataContext getInstance].managedObjectContext deleteObject:collectionWithOkStatus];
+                [[MHCoreDataContext getInstance]saveContext];
+            }
+        }
+        
     }else if ([coreDataCollections count] > 0 && [responseObject count] > 0){
         
         NSArray *objStatusNew = [self predicateArray:coreDataCollections byObjectStatus:objectStatusNew];
@@ -476,6 +490,8 @@
 
 
 - (void)createItemAndMediaFromServerResponse:(NSDictionary *)responseDictionary forCollection:(MHCollection *)collection withCompletionBlock:(MHCoreDataSyncCompletionBlock)completionBlock andProgress:(MHProgressBlock)progressBlock{
+    
+    NSLog(@"%@", responseDictionary);
     
     MHItem *i = [MHDatabaseManager insertItemWithObjName:responseDictionary[@"name"] objDescription:responseDictionary[@"description"] objTags:nil objLocation:nil objCreatedDate:[MHItem createdDateFromString:responseDictionary[@"created_date"]] objModifiedDate:nil collection:collection objStatus:objectStatusOk];
     i.objId = responseDictionary[@"id"];

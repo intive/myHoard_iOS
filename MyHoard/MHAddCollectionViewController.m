@@ -154,16 +154,46 @@ const NSInteger kAlertViewOne = 1;
         }
         else if (_collection.objType == collectionTypePrivate || self.collection.objType == collectionTypePublic)
         {
-            [waitDialog show];
-            self.collection.objStatus = objectStatusModified;
-            [[MHAPI getInstance]updateCollection:self.collection completionBlock:^(id object, NSError *error){
-                if (error){
-                    [waitDialog dismiss];
-                    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Error" message:error.localizedDescription delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                    [alert show];
-                }
-                else
-                    [waitDialog dismiss];
+            __block NSArray *private;
+            __block NSArray *public;
+            __block NSArray *combined;
+            __block NSArray *predicationResult;
+            __block NSPredicate *predicate;
+            
+            [[MHAPI getInstance]readUserCollectionsWithCompletionBlock:^(id object, NSError *error) {
+                public = [object copy];
+                [[MHAPI getInstance]readUserPrivateCollectionsWithCompletionBlock:^(id object, NSError *error) {
+                    private = [object copy];
+                    combined = [public arrayByAddingObjectsFromArray:private];
+                    
+                    predicate = [NSPredicate predicateWithFormat:@"id == %@", _collection.objId];
+                    predicationResult = [combined filteredArrayUsingPredicate:predicate];
+                    
+                    if ([predicationResult count]) {
+                        [waitDialog show];
+                        self.collection.objStatus = objectStatusModified;
+                        [[MHAPI getInstance]updateCollection:self.collection completionBlock:^(id object, NSError *error){
+                            if (error){
+                                [waitDialog dismiss];
+                                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Error" message:error.localizedDescription delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                                [alert show];
+                            }
+                            else
+                                [waitDialog dismiss];
+                        }];
+                    }else {
+                        [waitDialog show];
+                        [[MHAPI getInstance]createCollection:_collection completionBlock:^(id object, NSError *error) {
+                            if (error) {
+                                [waitDialog dismiss];
+                                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Error" message:error.localizedDescription delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                                [alert show];
+                            }else {
+                                [waitDialog dismiss];
+                            }
+                        }];
+                    }
+                }];
             }];
         }
     }
