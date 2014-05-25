@@ -17,6 +17,7 @@
 {
     MHAPI* _api;
     NSInteger _oldMaxConcurrentOperationCount;
+    NSArray *_publicCollections, *_privateCollections, *_combined;
 }
 
 @property (nonatomic, copy) MHSynchronizeCompletionBlock completionBlock;
@@ -52,33 +53,42 @@
         if (error) {
             [self finish:error];
         }else {
-            [self parseSynchronizationCollectionData:object withCompletionBlock:^(BOOL didFinishSync, NSError *error) {
-                if (!didFinishSync) {
+            _publicCollections = [object copy];
+            [_api readUserPrivateCollectionsWithCompletionBlock:^(id object, NSError *error) {
+                if (error) {
                     [self finish:error];
                 }else {
-                    NSArray *coreDataCollections = [self ruleOutOfflineCollections];
-                    if (coreDataCollections.count) {
-                        for (NSInteger i = 0; i < coreDataCollections.count; i++) {
-                            __block MHCollection* c = coreDataCollections[i];
-                            [_api readAllItemsOfCollection:c completionBlock:^(id object, NSError *error) {
-                                if (error) {
-                                    [self finish:error];
-                                }else {
-                                    [self parseSynchronizationItemsAndMediaData:object fromCollection:c withCompletionBlock:^(BOOL didFinishSync, NSError *error) {
-                                        if (!didFinishSync) {
+                    _privateCollections = [object copy];
+                    _combined = [_publicCollections arrayByAddingObjectsFromArray:_privateCollections];
+                    [self parseSynchronizationCollectionData:_combined withCompletionBlock:^(BOOL didFinishSync, NSError *error) {
+                        if (!didFinishSync) {
+                            [self finish:error];
+                        }else {
+                            NSArray *coreDataCollections = [self ruleOutOfflineCollections];
+                            if (coreDataCollections.count) {
+                                for (NSInteger i = 0; i < coreDataCollections.count; i++) {
+                                    __block MHCollection* c = coreDataCollections[i];
+                                    [_api readAllItemsOfCollection:c completionBlock:^(id object, NSError *error) {
+                                        if (error) {
                                             [self finish:error];
                                         }else {
-                                            if (i == (coreDataCollections.count - 1)) {
-                                                [self finish:nil];
-                                            }
+                                            [self parseSynchronizationItemsAndMediaData:object fromCollection:c withCompletionBlock:^(BOOL didFinishSync, NSError *error) {
+                                                if (!didFinishSync) {
+                                                    [self finish:error];
+                                                }else {
+                                                    if (i == (coreDataCollections.count - 1)) {
+                                                        [self finish:nil];
+                                                    }
+                                                }
+                                            }andProgress:progressBlock];
                                         }
-                                    }andProgress:progressBlock];
+                                    }];
                                 }
-                            }];
+                            } else {
+                                [self finish:nil];
+                            }
                         }
-                    } else {
-                        [self finish:nil];
-                    }
+                    }];
                 }
             }];
         }

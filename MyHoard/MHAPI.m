@@ -364,6 +364,33 @@ static MHAPI *_sharedAPI = nil;
     return operation;
 }
 
+#pragma mark reak private user collections
+
+- (AFHTTPRequestOperation *)readUserPrivateCollectionsWithCompletionBlock:(MHAPICompletionBlock)completionBlock {
+    
+    NSError *error;
+    
+    AFJSONRequestSerializer *jsonSerializer = [AFJSONRequestSerializer serializer];
+    [jsonSerializer setValue:_accessToken forHTTPHeaderField:@"Authorization"];
+    NSMutableURLRequest *request = [jsonSerializer requestWithMethod:@"GET"
+                                                           URLString:[self urlWithPath:[NSString stringWithFormat:@"collections"]]
+                                                          parameters:nil
+                                                               error:&error];
+    
+    AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
+                                                                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                                                          NSArray *responseArray = responseObject;
+                                                                          completionBlock(responseArray, nil);
+                                                                      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                                                          completionBlock(nil, error);
+                                                                      }];
+    operation.responseSerializer = [AFJSONResponseSerializer serializer];
+    operation.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", nil];
+    [self.operationQueue addOperation:operation];
+    
+    return operation;
+}
+
 #pragma mark read specified user collection
 
 - (AFHTTPRequestOperation *)readUserCollection:(MHCollection *)collection
@@ -411,7 +438,7 @@ static MHAPI *_sharedAPI = nil;
     
     NSNumber *objType;
     
-    if ([collection.objType isEqualToString:@"public"]) {
+    if ([collection.objType isEqualToString:collectionTypePublic]) {
         objType = @YES;
     }else {
         objType = @NO;

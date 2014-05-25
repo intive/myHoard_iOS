@@ -99,4 +99,7 @@ typedef void (^MHProgressBlock)(NSUInteger bytesRead, long long totalBytesRead, 
 
 - (AFHTTPRequestOperation *)readUserCollection:(MHCollection *)collection
                                completionBlock:(MHAPICompletionBlock)completionBlock;
+
+- (AFHTTPRequestOperation *)readUserPrivateCollectionsWithCompletionBlock:(MHAPICompletionBlock)completionBlock;
+
 @end
