@@ -490,9 +490,7 @@
 
 
 - (void)createItemAndMediaFromServerResponse:(NSDictionary *)responseDictionary forCollection:(MHCollection *)collection withCompletionBlock:(MHCoreDataSyncCompletionBlock)completionBlock andProgress:(MHProgressBlock)progressBlock{
-    
-    NSLog(@"%@", responseDictionary);
-    
+        
     MHItem *i = [MHDatabaseManager insertItemWithObjName:responseDictionary[@"name"] objDescription:responseDictionary[@"description"] objTags:nil objLocation:nil objCreatedDate:[MHItem createdDateFromString:responseDictionary[@"created_date"]] objModifiedDate:nil collection:collection objStatus:objectStatusOk];
     i.objId = responseDictionary[@"id"];
     [i modifiedDateFromString:responseDictionary[@"modified_date"]];
