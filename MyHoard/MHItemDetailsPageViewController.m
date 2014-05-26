@@ -149,7 +149,7 @@
     switch (buttonIndex) {
         case 1:
             [waitDialog show];
-            if ([[MHAPI getInstance]userId]&&([self.item.collection.objType isEqualToString:collectionTypePrivate] || [self.item.collection.objType isEqualToString:collectionTypePublic])){
+            if ([[MHAPI getInstance]userId]&&([self.item.collection.objType isEqualToString:collectionTypePrivate] || [self.item.collection.objType isEqualToString:collectionTypePublic]) && ![_item.objStatus isEqualToString:objectStatusNew]){
                 MHCollection *acollection = self.item.collection;
                 self.item.collection = nil;
                 self.item.objStatus = @"deleted";

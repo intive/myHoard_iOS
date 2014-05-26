@@ -248,7 +248,7 @@ const NSInteger kAlertViewOne = 1;
     __block MHWaitDialog *waitDialog = [[MHWaitDialog alloc]init];
 
     if ([[MHAPI getInstance]activeSession]) {
-        if (![_collection.objType isEqualToString:collectionTypeOffline]) {
+        if (![_collection.objType isEqualToString:collectionTypeOffline] && ![_collection.objStatus isEqualToString:objectStatusNew]) {
             if ([_collection.items count]) {
                 for (MHItem *item in _collection.items) {
                     for (MHMedia *media in item.media) {
