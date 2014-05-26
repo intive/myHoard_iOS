@@ -189,7 +189,7 @@ const NSInteger kAlertViewOne = 1;
                                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Error" message:error.localizedDescription delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
                                 [alert show];
                             }else {
-                                [waitDialog dismiss];
+                                [self createItemsAndMediaOnServer:waitDialog];
                             }
                         }];
                     }
@@ -197,6 +197,52 @@ const NSInteger kAlertViewOne = 1;
             }];
         }
     }
+}
+
+- (void)createItemsAndMediaOnServer:(MHWaitDialog *)waitDialog {
+    
+    NSArray *items;
+    if ([_collection.items count] > 0) {
+        items = [_collection.items allObjects];
+    }
+    
+    [items enumerateObjectsUsingBlock:^(MHItem *item, NSUInteger idx, BOOL *stop) {
+        NSArray *allMedia;
+        if ([item.media count] > 0) {
+            allMedia = [item.media allObjects];
+            [allMedia enumerateObjectsUsingBlock:^(MHMedia *media, NSUInteger idx, BOOL *stop) {
+                [[MHAPI getInstance]createMedia:media completionBlock:^(id object, NSError *error) {
+                    if (error) {
+                        [waitDialog dismiss];
+                        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Error" message:error.localizedDescription delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                        [alert show];
+                    }else {
+                        if (media == [allMedia lastObject]) {
+                            [[MHAPI getInstance]createItem:item completionBlock:^(id object, NSError *error) {
+                                if (error) {
+                                    [waitDialog dismiss];
+                                    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Error" message:error.localizedDescription delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                                    [alert show];
+                                }else {
+                                    [waitDialog dismiss];
+                                }
+                            }];
+                        }
+                    }
+                }];
+            }];
+        }else {
+            [[MHAPI getInstance]createItem:item completionBlock:^(id object, NSError *error) {
+                if (error) {
+                    [waitDialog dismiss];
+                    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Error" message:error.localizedDescription delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                    [alert show];
+                }else {
+                    [waitDialog dismiss];
+                }
+            }];
+        }
+    }];
 }
 
 - (IBAction)deleteCollection:(id)sender {
