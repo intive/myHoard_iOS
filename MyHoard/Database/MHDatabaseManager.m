@@ -50,10 +50,8 @@ NSString* const objectStatusNew = @"new";
     collection.objName = objName;
     collection.objCreatedDate = objCreatedDate;
 
-    if (![objDescription isEqual:[NSNull null]]) {
-        if (objDescription.length) {
-            collection.objDescription = objDescription;
-        }
+    if (![objDescription isEqual:[NSNull null]] && objDescription.length) {
+        collection.objDescription = objDescription;
     }
 
     if (objTags.count) {
