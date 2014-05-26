@@ -244,6 +244,13 @@ typedef NS_ENUM(NSInteger, CollectionSortMode) {
     [cell.kenBurnsView removeAllImages];
     
     NSMutableArray* items = [NSMutableArray arrayWithArray:collection.items.allObjects];
+    NSMutableArray *itemsWithMedia = [[NSMutableArray alloc]init];
+    
+    for (MHItem *item in items) {
+        if ([item.media count]) {
+            [itemsWithMedia addObject:item];
+        }
+    }
 
     if (_selectedCell == nil) {
         _selectedCell = cell;
@@ -256,7 +263,7 @@ typedef NS_ENUM(NSInteger, CollectionSortMode) {
         
     } else {
 
-        [self addSingleImageFrom:items toCell:cell];
+        [self addSingleImageFrom:itemsWithMedia toCell:cell];
     }
 }
 
@@ -299,9 +306,7 @@ typedef NS_ENUM(NSInteger, CollectionSortMode) {
                         [cell.kenBurnsView startAnimation];
                     }
                 }
-            } else {
-                current = 0;
-            }
+            } 
         }
     }
 }
