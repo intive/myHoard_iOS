@@ -43,6 +43,8 @@
 {
     [super viewDidLoad];
     
+    checked = NO;
+    
     _waitDialog = [[MHWaitDialog alloc] init];
     _progress = [[MHProgressView alloc]init];
 
@@ -115,6 +117,8 @@
                                                  selector:@selector(keyboardDidHide:)
                                                      name:UIKeyboardDidHideNotification
                                                    object:nil];
+        self.checkBoxOutlet.hidden = YES;
+        self.rememebrMeLabel.hidden = YES;
     }
 
 }
@@ -315,7 +319,13 @@
         [_waitDialog show];
         
         if (_flowType == MHLoginFlow) {
-            [self login];
+            if (!checked){
+                [self login];
+            }
+            if (checked){
+                [self rememberMe];
+            }
+
         } else { //register and then login
             [[MHAPI getInstance] createUser:_emailTextField.text withPassword:_passwordTextField.text completionBlock:^(id object, NSError *error) {
                 if (error) {
@@ -386,6 +396,31 @@
             }
         }
     }];
+}
+
+- (IBAction)checkBoxAction:(id)sender {
+    if (!checked){
+        [self.checkBoxOutlet setImage:[UIImage imageNamed:@"checkBoxMarked.png"] forState:UIControlStateNormal];
+        checked = YES;
+    }
+    else if (checked){
+        [self.checkBoxOutlet setImage:[UIImage imageNamed:@"checkBox.png"] forState:UIControlStateNormal];
+        checked = NO;
+    }
+}
+
+- (void) rememberMe{
+    [[MHAPI getInstance]refreshTokenForUser:self.emailTextField.text withPassword:self.passwordTextField.text completionBlock:^(id object, NSError *error){
+        if (error){
+            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Error" message:error.localizedDescription delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            [alert show];
+        }
+        else
+        {
+            NSLog(@"remebered");
+        }
+    }];
+    
 }
 
 @end

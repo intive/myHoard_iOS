@@ -68,6 +68,11 @@ static MHAPI *_sharedAPI = nil;
     _userId = nil;
     _userPassword = nil;
     completionBlock(nil, nil);
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults removeObjectForKey:@"refreshToken"];
+    [defaults synchronize];
+
 }
 
 - (BOOL)activeSession {
@@ -237,6 +242,11 @@ static MHAPI *_sharedAPI = nil;
     operation.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", nil];
     [self.operationQueue addOperation:operation];
     
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:_refreshToken forKey:@"refreshToken"];
+    [defaults synchronize];
+
+    
     return operation;
 }
 
@@ -270,6 +280,10 @@ static MHAPI *_sharedAPI = nil;
     operation.responseSerializer = [AFJSONResponseSerializer serializer];
     operation.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", nil];
     [self.operationQueue addOperation:operation];
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:_refreshToken forKey:@"refreshToken"];
+    [defaults synchronize];
     
     return operation;
 }
