@@ -20,7 +20,9 @@ static const CGFloat MINIMUM_SCROLL_FRACTION = 0.01;
 static const CGFloat MAXIMUM_SCROLL_FRACTION = 0.8;
 static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 220;
 
-@interface MHAddItemViewController ()
+@interface MHAddItemViewController () {
+    NSMutableArray *_newArray;
+}
 @property (readwrite) CGFloat animatedDistance;
 @property (readwrite) int objectToRemove;
 @end
@@ -117,6 +119,7 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 220;
         _commentaryTextView.text = _item.objDescription;
         _collectionButton.enabled = NO;
         self.defaultLabel.hidden = ([_commentaryTextView.text length] > 0);
+        _newArray = [[NSMutableArray alloc]init];
     }
 }
 
@@ -493,30 +496,121 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 220;
 }
 
 - (void)updateItem:(MHItem *)item withName:(NSString *)name {
+    
+    __block MHWaitDialog* wait = [[MHWaitDialog alloc] init];
+    
     item.objName = name;
     item.objDescription = _commentaryTextView.text;
     item.collection.objModifiedDate = [NSDate date];
     item.objLocation = self.selectedLocation;
     [[MHCoreDataContext getInstance] saveContext];
-    if([[MHAPI getInstance] activeSession] == YES) {
-        if (![self.selectedCollection.objType isEqualToString:collectionTypeOffline]) {
-            __block MHWaitDialog* wait = [[MHWaitDialog alloc] init];
-            [wait show];
-            [[MHAPI getInstance] updateItem:_item completionBlock:^(id object, NSError *error)
-             {
-                 [wait dismiss];
-                 if (error) {
-                     UIAlertView *alert = [[UIAlertView alloc]
-                                           initWithTitle:@"Error"
-                                           message:error.localizedDescription
-                                           delegate:self
-                                           cancelButtonTitle:@"Ok"
-                                           otherButtonTitles:nil];
-                     [alert show];
-                 }
-             }];
+    
+    if ([_newArray count]) {
+        for (int i=0; i<[_newArray count]; i++)
+        {
+            
+            NSString *key = [[MHImageCache sharedInstance] cacheImage:[_newArray objectAtIndex:i]];
+            MHMedia *media = [MHDatabaseManager insertMediaWithCreatedDate:[NSDate date]
+                                                   objKey:key
+                                                     item:item
+                                                objStatus:objectStatusNew];
+        
+            if([[MHAPI getInstance] activeSession] == YES) {
+                if (![self.selectedCollection.objType isEqualToString:collectionTypeOffline]) {
+                    [wait show];
+                    [[MHAPI getInstance]createMedia:media completionBlock:^(id object, NSError *error) {
+                        if (error) {
+                            [wait dismiss];
+                            UIAlertView *alert = [[UIAlertView alloc]
+                                                  initWithTitle:@"Error"
+                                                  message:error.localizedDescription
+                                                  delegate:self
+                                                  cancelButtonTitle:@"Ok"
+                                                  otherButtonTitles:nil];
+                            [alert show];
+                        }else {
+                            if ([_newArray count] == 1) {
+                                [[MHAPI getInstance] updateItem:_item completionBlock:^(id object, NSError *error)
+                                 {
+                                     if (error) {
+                                         [wait dismiss];
+                                         UIAlertView *alert = [[UIAlertView alloc]
+                                                               initWithTitle:@"Error"
+                                                               message:error.localizedDescription
+                                                               delegate:self
+                                                               cancelButtonTitle:@"Ok"
+                                                               otherButtonTitles:nil];
+                                         [alert show];
+                                     }else {
+                                         [[MHAPI getInstance]updateCollection:_selectedCollection completionBlock:^(id object, NSError *error) {
+                                             if (error) {
+                                                 [wait dismiss];
+                                                 UIAlertView *alert = [[UIAlertView alloc]
+                                                                       initWithTitle:@"Error"
+                                                                       message:error.localizedDescription
+                                                                       delegate:self
+                                                                       cancelButtonTitle:@"Ok"
+                                                                       otherButtonTitles:nil];
+                                                 [alert show];
+                                             }
+                                         }];
+                                     }
+                                 }];
+                            }else if (i == [_newArray count] - 1) {
+                                [[MHAPI getInstance] updateItem:_item completionBlock:^(id object, NSError *error)
+                                 {
+                                     if (error) {
+                                         [wait dismiss];
+                                         UIAlertView *alert = [[UIAlertView alloc]
+                                                               initWithTitle:@"Error"
+                                                               message:error.localizedDescription
+                                                               delegate:self
+                                                               cancelButtonTitle:@"Ok"
+                                                               otherButtonTitles:nil];
+                                         [alert show];
+                                     }else {
+                                         [[MHAPI getInstance]updateCollection:_selectedCollection completionBlock:^(id object, NSError *error) {
+                                             if (error) {
+                                                 [wait dismiss];
+                                                 UIAlertView *alert = [[UIAlertView alloc]
+                                                                       initWithTitle:@"Error"
+                                                                       message:error.localizedDescription
+                                                                       delegate:self
+                                                                       cancelButtonTitle:@"Ok"
+                                                                       otherButtonTitles:nil];
+                                                 [alert show];
+                                             }
+                                         }];
+                                     }
+                                 }];
+                            }
+                        }
+                    }];
+                }
+            }
+        }
+    }else {
+        if([[MHAPI getInstance] activeSession] == YES) {
+            if (![self.selectedCollection.objType isEqualToString:collectionTypeOffline]) {
+                __block MHWaitDialog* wait = [[MHWaitDialog alloc] init];
+                [wait show];
+                [[MHAPI getInstance] updateItem:_item completionBlock:^(id object, NSError *error)
+                 {
+                     [wait dismiss];
+                     if (error) {
+                         UIAlertView *alert = [[UIAlertView alloc]
+                                               initWithTitle:@"Error"
+                                               message:error.localizedDescription
+                                               delegate:self
+                                               cancelButtonTitle:@"Ok"
+                                               otherButtonTitles:nil];
+                         [alert show];
+                     }
+                 }];
+            }
         }
     }
+    [wait dismiss];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -628,7 +722,10 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 220;
         if ([_array count]==1 && _objectToRemove==1) {
             [_array removeObjectAtIndex:0];
         }
+        
+        [_newArray insertObject:info[kMHImagePickerInfoImage] atIndex:[_newArray count]];
         [_array insertObject:info[kMHImagePickerInfoImage] atIndex:[_array count]];
+        
         [self.collectionView reloadData];
         [self dismissViewControllerAnimated:YES completion:^{
             if (self.view.bounds.size.height<500) {
