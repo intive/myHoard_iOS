@@ -16,9 +16,11 @@
 #import "MHDatabaseManager.h"
 #import "MHCollection.h"
 
-@interface MHItemDetailsViewController : MHBaseViewController <MKMapViewDelegate, UITextViewDelegate, UIActionSheetDelegate, UIAlertViewDelegate>
+@interface MHItemDetailsViewController : MHBaseViewController <MKMapViewDelegate, UITextViewDelegate, UIActionSheetDelegate, UIAlertViewDelegate, UIScrollViewDelegate>{
+	BOOL pageControlBeingUsed;
+}
 
-@property (weak, nonatomic) IBOutlet UIImageView *frontImage;
+@property (nonatomic, strong) NSMutableArray *array;
 @property (nonatomic, strong) UIImage *img;
 @property (weak, nonatomic) IBOutlet UINavigationItem *itemTitle;
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
@@ -30,7 +32,11 @@
 @property (weak, nonatomic) IBOutlet UIButton *locationButton;
 @property (weak, nonatomic) IBOutlet UIView *borderView;
 @property NSUInteger pageIndex;
+@property (nonatomic, retain) IBOutlet UIScrollView* scrollView;
+@property (nonatomic, retain) IBOutlet UIPageControl* pageControl;
 
+
+- (IBAction)changePage;
 - (IBAction)switchLocationImageViews:(id)sender;
 
 @property (nonatomic, strong) MHItem *item;

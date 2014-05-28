@@ -11,8 +11,8 @@
 #import "MHCollection.h"
 #import "MHCollectionDetailsViewController.h"
 #import "UIImage+customImage.h"
-#import "MHItemDetailsPageViewController.h"
 #import "MHAPI.h"
+#import "MHItemDetailsViewController.h"
 
 #define HEADER_HEIGHT 44
 
@@ -273,7 +273,7 @@ NSString *const scopeTypeDescription = @"Description";
         MHCollectionDetailsViewController * vc = [segue destinationViewController];
         vc.collection = sender;
     }else if ([segue.identifier isEqualToString:@"itemDetails"]) {
-        MHItemDetailsPageViewController * vc = [segue destinationViewController];
+        MHItemDetailsViewController * vc = [segue destinationViewController];
         vc.item = sender;
     }
 }
