@@ -236,6 +236,10 @@ typedef NS_ENUM(NSInteger, ItemSortMode) {
         UINavigationController *nc = segue.destinationViewController;
         MHAddCollectionViewController *vc = (MHAddCollectionViewController *)nc.visibleViewController;
         vc.collection = self.collection;
+        __block MHCollectionDetailsViewController *me = self;
+        vc.dismissCompletionBlock = ^(void){
+            [me.navigationController popViewControllerAnimated:YES];
+        };
     }
 }
 

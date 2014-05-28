@@ -308,7 +308,10 @@ const NSInteger kAlertViewOne = 1;
         [self deleteCollectionFromCoreData];
         [waitDialog dismiss];
     }
-    [self dismissViewControllerAnimated:YES completion:nil];
+    __block MHAddCollectionViewController *me = self;
+    [self dismissViewControllerAnimated:YES completion:^(){
+        me.dismissCompletionBlock();
+    }];
 }
 
 - (void)deleteCollectionFromCoreData {

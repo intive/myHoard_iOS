@@ -32,6 +32,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *pickerSaveColor;
 @property (weak, nonatomic) IBOutlet UINavigationItem *screenTitle;
 
+@property (nonatomic, copy) void (^dismissCompletionBlock)(void);
+
 @property (nonatomic, strong) MHCollection *collection;
 @property (weak, nonatomic) IBOutlet UIView *deleteCollectionView;
 @property (weak, nonatomic) IBOutlet UIButton *deleteCollectionButton;
