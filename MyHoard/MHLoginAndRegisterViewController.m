@@ -83,7 +83,11 @@
         
         [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_emailTextField attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:_passwordTextField attribute:NSLayoutAttributeTop multiplier:1.0 constant:-12]];
         
-        [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_passwordTextField attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:_goButton attribute:NSLayoutAttributeTop multiplier:1.0 constant:-40]];
+        [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_passwordTextField attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:_goButton attribute:NSLayoutAttributeTop multiplier:1.0 constant:-60]];
+        
+        [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.checkBoxOutlet attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.passwordTextField attribute:NSLayoutAttributeTop multiplier:1.0 constant:90]];
+        
+        [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.rememebrMeLabel attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.passwordTextField attribute:NSLayoutAttributeTop multiplier:1.0 constant:80]];
         
     }else if (_flowType == MHRegisterFlow) {
         
@@ -307,10 +311,12 @@
                                     [alert show];
                                     
                                 } else {
+                                    if (checked){
+                                        [[MHAPI getInstance] saveToken];
+                                    }
                                     [self synchronize];
                                 }
-                            }];
-}
+                            }];}
 
 - (IBAction)goButtonPressed:(id)sender {
     if( [self dataFieldsValid]) {
@@ -319,11 +325,26 @@
         [_waitDialog show];
         
         if (_flowType == MHLoginFlow) {
-            if (!checked){
-                [self login];
+            if ([[MHAPI getInstance]token]){
+                [[MHAPI getInstance]refreshTokenForUser:self.emailTextField.text withPassword:self.passwordTextField.text completionBlock:^(id object, NSError *error){
+                    if (error) {
+                        [_waitDialog dismiss];
+                        UIAlertView *alert = [[UIAlertView alloc]
+                                              initWithTitle:@"Error"
+                                              message:error.localizedDescription
+                                              delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+                        
+                        [alert show];
+                        
+                    } else {
+                        [[MHAPI getInstance]saveToken];
+                    }
+                }];
             }
-            if (checked){
-                [self rememberMe];
+            else{
+                [self login];
             }
 
         } else { //register and then login
@@ -409,18 +430,5 @@
     }
 }
 
-- (void) rememberMe{
-    [[MHAPI getInstance]refreshTokenForUser:self.emailTextField.text withPassword:self.passwordTextField.text completionBlock:^(id object, NSError *error){
-        if (error){
-            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Error" message:error.localizedDescription delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
-            [alert show];
-        }
-        else
-        {
-            NSLog(@"remebered");
-        }
-    }];
-    
-}
 
 @end

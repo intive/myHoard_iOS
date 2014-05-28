@@ -33,6 +33,10 @@ typedef void (^MHProgressBlock)(NSUInteger bytesRead, long long totalBytesRead, 
 
 - (NSString *)serverUrl;
 
+- (BOOL)token;
+
+- (void)saveToken;
+
 - (AFHTTPRequestOperation *)createUser:(NSString *)email
                           withPassword:(NSString *)password
                        completionBlock:(MHAPICompletionBlock)completionBlock;

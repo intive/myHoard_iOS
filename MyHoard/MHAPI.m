@@ -17,6 +17,7 @@
 #import "MHImageCache.h"
 
 static MHAPI *_sharedAPI = nil;
+static const NSString *_refresh = @"refreshToken";
 
 @interface MHAPI() {
     
@@ -60,6 +61,26 @@ static MHAPI *_sharedAPI = nil;
     return [NSString stringWithFormat:@"%@/%@/", [self serverUrl], path];
 }
 
+- (BOOL)token{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if ([defaults objectForKey:_refresh]){
+        return YES;
+    }
+    else {
+       return NO;
+  }
+
+}
+
+- (void)saveToken{
+    if (_refreshToken){
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults setObject:_refreshToken forKey:_refresh];
+        [defaults synchronize];
+    }
+    
+}
+
 #pragma User + Authorization & Authentication
 
 - (void)logout:(MHAPICompletionBlock)completionBlock {
@@ -70,7 +91,7 @@ static MHAPI *_sharedAPI = nil;
     completionBlock(nil, nil);
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults removeObjectForKey:@"refreshToken"];
+    [defaults removeObjectForKey:_refresh];
     [defaults synchronize];
 
 }
@@ -242,9 +263,9 @@ static MHAPI *_sharedAPI = nil;
     operation.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", nil];
     [self.operationQueue addOperation:operation];
     
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:_refreshToken forKey:@"refreshToken"];
-    [defaults synchronize];
+    /*NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:_refreshToken forKey:_refresh];
+    [defaults synchronize];*/
 
     
     return operation;
@@ -281,9 +302,9 @@ static MHAPI *_sharedAPI = nil;
     operation.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", nil];
     [self.operationQueue addOperation:operation];
     
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:_refreshToken forKey:@"refreshToken"];
-    [defaults synchronize];
+    /*NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:_refreshToken forKey:_refresh];
+    [defaults synchronize];*/
     
     return operation;
 }
