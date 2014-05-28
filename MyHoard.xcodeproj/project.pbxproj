@@ -21,6 +21,7 @@
 		1A13578C190500BB0060DD31 /* MJGeocoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A13577D190500BB0060DD31 /* MJGeocoder.m */; };
 		1A13578D190500BB0060DD31 /* MJPlacesFinder.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A135780190500BB0060DD31 /* MJPlacesFinder.m */; };
 		1A13578F190500BB0060DD31 /* Place.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A135784190500BB0060DD31 /* Place.m */; };
+		1A185910191B780D006E2A2B /* MHItemDetailsPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A18590F191B780D006E2A2B /* MHItemDetailsPageViewController.m */; };
 		1A29F6B418EF324C00BCFB11 /* MHLocalizationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A29F6B318EF324C00BCFB11 /* MHLocalizationViewController.m */; };
 		2302787418B4C0A900FCD528 /* GcovTestObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 2302787318B4C0A900FCD528 /* GcovTestObserver.m */; };
 		235EB3C618DDAE3C0032D769 /* MHPasswordStrengthView.m in Sources */ = {isa = PBXBuildFile; fileRef = 235EB3C518DDAE3C0032D769 /* MHPasswordStrengthView.m */; };
@@ -141,6 +142,8 @@
 		1A135780190500BB0060DD31 /* MJPlacesFinder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPlacesFinder.m; sourceTree = "<group>"; };
 		1A135783190500BB0060DD31 /* Place.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Place.h; sourceTree = "<group>"; };
 		1A135784190500BB0060DD31 /* Place.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Place.m; sourceTree = "<group>"; };
+		1A18590E191B780D006E2A2B /* MHItemDetailsPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHItemDetailsPageViewController.h; sourceTree = "<group>"; };
+		1A18590F191B780D006E2A2B /* MHItemDetailsPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHItemDetailsPageViewController.m; sourceTree = "<group>"; };
 		1A29F6B218EF324C00BCFB11 /* MHLocalizationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MHLocalizationViewController.h; sourceTree = "<group>"; };
 		1A29F6B318EF324C00BCFB11 /* MHLocalizationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MHLocalizationViewController.m; sourceTree = "<group>"; };
 		1ABD549C18F03C0700992A44 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -508,6 +511,8 @@
 				1A0D0B6518C7C742004B99BA /* MHLocation.h */,
 				1A0D0B6618C7C742004B99BA /* MHLocation.m */,
 				23D321B2184BBFFA002FC13A /* Main.storyboard */,
+				1A18590E191B780D006E2A2B /* MHItemDetailsPageViewController.h */,
+				1A18590F191B780D006E2A2B /* MHItemDetailsPageViewController.m */,
 				CEF82A0818F0384700058BB8 /* Profile */,
 				231A904F18F5C53500FE4596 /* SlideMenu */,
 				CEA8F94318DE024600B75355 /* MHStartScreenViewController.h */,
@@ -714,6 +719,9 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = BLStream;
 				TargetAttributes = {
+					23D3219C184BBFF9002FC13A = {
+						DevelopmentTeam = XTRY58ZV6V;
+					};
 					23D321BD184BBFFA002FC13A = {
 						TestTargetID = 23D3219C184BBFF9002FC13A;
 					};
@@ -841,6 +849,7 @@
 				537CF83618AD8FBF008A7E04 /* MHDatabaseManager.m in Sources */,
 				23CD275C19012931005203C2 /* MHImageCache.m in Sources */,
 				9370CAEB18CFC1E400C77461 /* MHCollectionCell.m in Sources */,
+				1A185910191B780D006E2A2B /* MHItemDetailsPageViewController.m in Sources */,
 				CE09D99318F2CAE5007E8885 /* MHUserProfile.m in Sources */,
 				23C4E68318FC7542002FB84D /* NSString+RFC3339.m in Sources */,
 				23F27A5518D8E59F00877D30 /* MHDropDownMenuViewController.m in Sources */,
