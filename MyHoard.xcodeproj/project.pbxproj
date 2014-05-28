@@ -714,9 +714,6 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = BLStream;
 				TargetAttributes = {
-					23D3219C184BBFF9002FC13A = {
-						DevelopmentTeam = 2U92954B8N;
-					};
 					23D321BD184BBFFA002FC13A = {
 						TestTargetID = 23D3219C184BBFF9002FC13A;
 					};
