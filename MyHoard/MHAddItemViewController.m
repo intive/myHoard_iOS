@@ -77,7 +77,7 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 220;
         _singleImageView.image=_selectedImage;
         [_array addObject: self.selectedImage];
     }else{
-        _singleImageView.image=[UIImage imageNamed:@"camera_y@2x"];
+        _singleImageView.image = [UIImage imageNamed:@"camera_y"];
         _singleImageView.contentMode = UIViewContentModeCenter;
     }
     if(_item.objLocation) {
@@ -656,6 +656,7 @@ static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 220;
         [subview removeFromSuperview];
     if(indexPath.row==[_array count]) {
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        [button setFrame:CGRectMake(0, 0, 100, 100)];
         [button setImage:[UIImage imageNamed:@"camera_y"] forState:UIControlStateNormal];
         [button addTarget:self
               action:@selector(showAddMenu:)
