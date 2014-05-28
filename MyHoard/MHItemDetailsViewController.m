@@ -27,12 +27,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    _array = [[NSMutableArray alloc] init];
-    
-    for(MHMedia *media in _item.media) {
-        [_array addObject:[[MHImageCache sharedInstance] imageForKey:media.objKey]];
-    }
-    
     _mapViewEnabled = NO;
     
     _bottomViewExpanded = NO;
@@ -52,12 +46,13 @@
     _itemTitleLabel.textColor = [UIColor collectionNameFrontColor];
     _itemTitleLabel.backgroundColor = [UIColor clearColor];
     _itemTitleLabel.clipsToBounds = YES;
-    
+
     
     
     _borderView.backgroundColor = [UIColor clearColor];
     _borderView.layer.borderColor = (__bridge CGColorRef)([UIColor grayColor]);
     _borderView.layer.borderWidth = 1.0f;
+    _frontImage.image=_img;
     _itemTitle.title = _item.objName;
     _itemMapView.hidden = YES;
     if(_item.objLocation) {
@@ -65,14 +60,13 @@
         MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(myLoc.coordinate, 0.5*METERS_PER_MILE, 0.5*METERS_PER_MILE);
         [_itemMapView setRegion:viewRegion animated:YES];
         
-        
+
         MKPointAnnotation *annotation = [[MKPointAnnotation alloc] init];
         [annotation setCoordinate:myLoc.coordinate];
         [_itemMapView addAnnotation:annotation];
     } else {
         _locationButton.hidden = YES;
     }
-    [self setupScrollView];
 }
 
 
@@ -87,31 +81,6 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
--(void) setupScrollView {
-    _pageControl.currentPageIndicatorTintColor = [UIColor blackColor];
-    pageControlBeingUsed = NO;
-    self.view.backgroundColor=[UIColor blackColor];
-    for (int i = 0; i < _array.count; i++) {
-        CGRect frame;
-        frame.origin.x = self.scrollView.frame.size.width * i;
-        frame.origin.y = 0;
-        frame.size = self.scrollView.frame.size;
-        
-        UIImageView *image = [[UIImageView alloc] initWithFrame:frame];
-        image.image = [_array objectAtIndex:i];
-        image.contentMode = UIViewContentModeScaleAspectFit;
-        [self.scrollView addSubview:image];
-    }
-    
-    if(_array.count<2){
-        _pageControl.alpha=0.0;
-    }else {
-        _pageControl.numberOfPages =_array.count;
-    }
-    self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width * _array.count, 1);
-    
 }
 
 - (void)expandBottomView {
@@ -174,41 +143,17 @@
 
 
 - (IBAction)switchLocationImageViews:(id)sender {
-    
+   
     if (!_itemMapView.hidden) {
         _locationButton.selected = NO;
-        _scrollView.hidden = NO;
+        _frontImage.hidden = NO;
         _itemMapView.hidden = YES;
     } else {
         _locationButton.selected = YES;
         _itemMapView.hidden = NO;
-        _scrollView.hidden = YES;
+        _frontImage.hidden = YES;
     }
     
-}
-
-- (void)scrollViewDidScroll:(UIScrollView *)sender {
-    // Update the page when more than 50% of the previous/next page is visible
-    CGFloat pageWidth = self.scrollView.frame.size.width;
-    int page = floor((self.scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
-    self.pageControl.currentPage = page;
-}
-
-- (IBAction)changePage {
-    // update the scroll view to the appropriate page
-    CGRect frame;
-    frame.origin.x = self.scrollView.frame.size.width * self.pageControl.currentPage;
-    frame.origin.y = 0;
-    frame.size = self.scrollView.frame.size;
-    [self.scrollView scrollRectToVisible:frame animated:YES];
-}
-
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-    pageControlBeingUsed = NO;
-}
-
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-    pageControlBeingUsed = NO;
 }
 
 @end
