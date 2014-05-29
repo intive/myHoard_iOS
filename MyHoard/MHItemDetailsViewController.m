@@ -20,7 +20,7 @@
     BOOL _bottomViewExpanded;
     BOOL _mapViewEnabled;
 }
-
+@property (readwrite) NSUInteger numberOfLoadedPages;
 @end
 
 @implementation MHItemDetailsViewController
@@ -28,18 +28,19 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    _array = [[NSMutableArray alloc] init];
     _arrayOfImages = [[NSMutableArray alloc] init];
+    [_item.media enumerateObjectsUsingBlock:^(MHMedia *obj, BOOL *stop) {
+        [_arrayOfImages addObject:[[MHImageCache sharedInstance] imageForKey:obj.objKey]];
+        *stop = YES;
+    }];
     
-    for(MHMedia *media in _item.media) {
-        [_array addObject:media.objKey];
-    }
-    if (_array.count>0) {
-        [_arrayOfImages addObject:[[MHImageCache sharedInstance] imageForKey:[_array objectAtIndex:0]]];
-    }
-    if (_array.count>1) {
-        [_arrayOfImages addObject:[[MHImageCache sharedInstance] imageForKey:[_array objectAtIndex:1]]];
-    }
+    NSOperationQueue *queue = [NSOperationQueue new];
+    NSInvocationOperation *operation = [[NSInvocationOperation alloc]
+                                        initWithTarget:self
+                                        selector:@selector(loadImage)
+                                        object:nil];
+    [queue addOperation:operation];
+    _numberOfLoadedPages=0;
     
     _mapViewEnabled = NO;
     
@@ -97,36 +98,38 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)loadImage {
+    bool a=0;
+    for(MHMedia *media in _item.media) {
+        if (a==1) {
+            [_arrayOfImages addObject:[[MHImageCache sharedInstance] imageForKey:media.objKey]];
+        }else{
+            a=1;
+        }
+    }
+}
+
+
 -(void) setupScrollView {
     _pageControl.currentPageIndicatorTintColor = [UIColor blackColor];
     pageControlBeingUsed = NO;
     self.view.backgroundColor=[UIColor blackColor];
-    int j;
-    if(_arrayOfImages.count==2){
-        j=2;
-    }else if(_arrayOfImages.count==1){
-        j=1;
-    }else{
-        j=0;
-    }
-    for (int i = 0; i < j; i++) {
         CGRect frame;
-        frame.origin.x = self.scrollView.frame.size.width * i;
+    frame.origin.x = 0;//self.scrollView.frame.size.width;
         frame.origin.y = 0;
         frame.size = self.scrollView.frame.size;
         
         UIImageView *image = [[UIImageView alloc] initWithFrame:frame];
-        image.image = [_arrayOfImages objectAtIndex:i];
+        image.image = [_arrayOfImages objectAtIndex:0];
         image.contentMode = UIViewContentModeScaleAspectFit;
         [self.scrollView addSubview:image];
-    }
     
-    if(_array.count<2){
+    if(_item.media.count<2){
         _pageControl.alpha=0.0;
     }else {
-        _pageControl.numberOfPages =_array.count;
+        _pageControl.numberOfPages =_item.media.count;
     }
-    self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width * _array.count, 1);
+    self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width * _item.media.count, 1);
     
 }
 
@@ -209,7 +212,7 @@
     int page = floor((self.scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
     self.pageControl.currentPage = page;
     
-    if(_arrayOfImages.count-2<=page&&_arrayOfImages.count>3){
+    if (_numberOfLoadedPages<_pageControl.currentPage) {
     CGRect frame;
     frame.origin.x = self.scrollView.frame.size.width * page;
     frame.origin.y = 0;
@@ -219,10 +222,7 @@
     image.image = [_arrayOfImages objectAtIndex:page];
     image.contentMode = UIViewContentModeScaleAspectFit;
     [self.scrollView addSubview:image];
-    }
-    
-    if(_arrayOfImages.count<=page+1&&_arrayOfImages.count<_array.count){
-        [_arrayOfImages addObject:[[MHImageCache sharedInstance] imageForKey:[_array objectAtIndex:page+1]]];
+    _numberOfLoadedPages+=1;
     }
 }
 
