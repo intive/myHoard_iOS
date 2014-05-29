@@ -9,6 +9,7 @@
 #import "MHItemDetailsViewController.h"
 #import "MHImageCache.h"
 #import "MHAddItemViewController.h"
+#import "MHCoreDataContext.h"
 
 #define BOTTOM_VIEW_COLLAPSED_HEIGHT 95
 #define METERS_PER_MILE 1609.344
@@ -209,6 +210,131 @@
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     pageControlBeingUsed = NO;
+}
+
+#pragma mark - edit item menu methods
+
+- (IBAction)doneButton:(id)sender {
+    UIActionSheet *actionSheet = [[UIActionSheet alloc]initWithTitle:nil
+                                                            delegate:self
+                                                   cancelButtonTitle:@"Cancel"
+                                              destructiveButtonTitle:@"Delete item"
+                                                   otherButtonTitles:@"Edit item", nil];
+    [actionSheet showInView:self.view];
+    
+}
+
+-(void) actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil
+                                                   message:@"Do you want to delete the item?"
+                                                  delegate:self
+                                         cancelButtonTitle:@"Cancel"
+                                         otherButtonTitles:@"OK", nil];
+    
+    switch (buttonIndex) {
+        case 0:
+            [alert show];
+            break;
+        case 1:
+            [self performSegueWithIdentifier:@"ChangeItemSettingsSegue" sender:_item];
+            break;
+        default:
+            break;
+    }
+}
+
+-(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"ChangeItemSettingsSegue"]) {
+        UINavigationController *nc = segue.destinationViewController;
+        MHItemDetailsViewController *vc = (MHItemDetailsViewController *)nc.visibleViewController;
+        vc.item = _item;
+    }
+}
+
+- (void) alertView:(UIAlertView *)alert clickedButtonAtIndex:(NSInteger)buttonIndex{
+    __block MHWaitDialog *waitDialog = [[MHWaitDialog alloc]init];
+    switch (buttonIndex) {
+        case 1:
+            [waitDialog show];
+            if ([[MHAPI getInstance]userId]&&([self.item.collection.objType isEqualToString:collectionTypePrivate] || [self.item.collection.objType isEqualToString:collectionTypePublic]) && ![_item.objStatus isEqualToString:objectStatusNew]){
+                MHCollection *acollection = self.item.collection;
+                self.item.collection = nil;
+                self.item.objStatus = @"deleted";
+                NSArray *itemMedia = [self.item.media allObjects];
+                for (int i=0; i<[itemMedia count]; i++){
+                    MHMedia *media = [itemMedia objectAtIndex:i];
+                    [[MHImageCache sharedInstance] removeDataForKey:media.objKey];
+                    [[MHCoreDataContext getInstance].managedObjectContext deleteObject:media];
+                }
+                [[MHCoreDataContext getInstance].managedObjectContext deleteObject:self.item];
+                [[MHAPI getInstance] deleteItemWithId: self.item completionBlock:^(id object, NSError *error){
+                    if (error){
+                        [waitDialog dismiss];
+                        UIAlertView *err = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                                      message:error.localizedDescription
+                                                                     delegate:nil
+                                                            cancelButtonTitle:@"OK"
+                                                            otherButtonTitles:nil];
+                        [err show];
+                        [self.navigationController popViewControllerAnimated:YES];
+                    }
+                    else
+                    {
+                        for (int i=0; i<[itemMedia count]; i++){
+                            MHMedia *media = [itemMedia objectAtIndex:i];
+                            [[MHAPI getInstance]deleteMedia:media completionBlock:^(id object, NSError *error){
+                                if (error){
+                                    [waitDialog dismiss];
+                                    UIAlertView *err = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                                                  message:error.localizedDescription
+                                                                                 delegate:nil
+                                                                        cancelButtonTitle:@"OK"
+                                                                        otherButtonTitles:nil];
+                                    [err show];
+                                    [self.navigationController popViewControllerAnimated:YES];
+                                }
+                                else
+                                    [waitDialog dismiss];
+                            }];
+                        }
+                        
+                        [[MHAPI getInstance]updateCollection:acollection completionBlock:^(id object, NSError *error){
+                            if (error){
+                                [waitDialog dismiss];
+                                UIAlertView *err = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                                              message:error.localizedDescription
+                                                                             delegate:nil
+                                                                    cancelButtonTitle:@"OK"
+                                                                    otherButtonTitles:nil];
+                                [err show];
+                                [self.navigationController popViewControllerAnimated:YES];
+                            }
+                            else
+                                [waitDialog dismiss];
+                        }];
+                        [waitDialog dismiss];
+                        [self.navigationController popViewControllerAnimated:YES];
+                    };
+                    
+                }];
+                
+            }
+            else
+            {
+                self.item.collection = nil;
+                NSArray *itemMedia = [self.item.media allObjects];
+                for (int i=0; i<[itemMedia count]; i++){
+                    MHMedia *media = [itemMedia objectAtIndex:i];
+                    [[MHImageCache sharedInstance] removeDataForKey:media.objKey];
+                    [[MHCoreDataContext getInstance].managedObjectContext deleteObject:media];
+                }
+                [[MHCoreDataContext getInstance].managedObjectContext deleteObject:self.item];
+                [waitDialog dismiss];
+                [self.navigationController popViewControllerAnimated:YES];
+            }
+            break;
+            
+    }
 }
 
 @end
