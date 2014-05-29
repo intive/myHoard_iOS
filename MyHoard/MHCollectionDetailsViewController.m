@@ -202,6 +202,13 @@ typedef NS_ENUM(NSInteger, ItemSortMode) {
     cell.itemTitle.text = item.objName;
     cell.mediaView.image = nil;
 
+    if (item.objLocation != nil) {
+        cell.itemLocalization.image = [UIImage imageNamed:@"pin_y"];
+    } else {
+        cell.itemLocalization.image = nil;
+    }
+
+    
     for(MHMedia *media in item.media) {
         cell.mediaView.image = [[MHImageCache sharedInstance] thumbnailForKey:media.objKey];
         break; //just read first item
