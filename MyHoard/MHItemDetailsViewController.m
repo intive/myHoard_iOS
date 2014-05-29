@@ -29,9 +29,16 @@
 {
     [super viewDidLoad];
     _array = [[NSMutableArray alloc] init];
+    _arrayOfImages = [[NSMutableArray alloc] init];
     
     for(MHMedia *media in _item.media) {
-        [_array addObject:[[MHImageCache sharedInstance] imageForKey:media.objKey]];
+        [_array addObject:media.objKey];
+    }
+    if (_array.count>0) {
+        [_arrayOfImages addObject:[[MHImageCache sharedInstance] imageForKey:[_array objectAtIndex:0]]];
+    }
+    if (_array.count>1) {
+        [_arrayOfImages addObject:[[MHImageCache sharedInstance] imageForKey:[_array objectAtIndex:1]]];
     }
     
     _mapViewEnabled = NO;
@@ -94,14 +101,22 @@
     _pageControl.currentPageIndicatorTintColor = [UIColor blackColor];
     pageControlBeingUsed = NO;
     self.view.backgroundColor=[UIColor blackColor];
-    for (int i = 0; i < _array.count; i++) {
+    int j;
+    if(_arrayOfImages.count==2){
+        j=2;
+    }else if(_arrayOfImages.count==1){
+        j=1;
+    }else{
+        j=0;
+    }
+    for (int i = 0; i < j; i++) {
         CGRect frame;
         frame.origin.x = self.scrollView.frame.size.width * i;
         frame.origin.y = 0;
         frame.size = self.scrollView.frame.size;
         
         UIImageView *image = [[UIImageView alloc] initWithFrame:frame];
-        image.image = [_array objectAtIndex:i];
+        image.image = [_arrayOfImages objectAtIndex:i];
         image.contentMode = UIViewContentModeScaleAspectFit;
         [self.scrollView addSubview:image];
     }
@@ -193,6 +208,22 @@
     CGFloat pageWidth = self.scrollView.frame.size.width;
     int page = floor((self.scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
     self.pageControl.currentPage = page;
+    
+    if(_arrayOfImages.count-2<=page&&_arrayOfImages.count>3){
+    CGRect frame;
+    frame.origin.x = self.scrollView.frame.size.width * page;
+    frame.origin.y = 0;
+    frame.size = self.scrollView.frame.size;
+    
+    UIImageView *image = [[UIImageView alloc] initWithFrame:frame];
+    image.image = [_arrayOfImages objectAtIndex:page];
+    image.contentMode = UIViewContentModeScaleAspectFit;
+    [self.scrollView addSubview:image];
+    }
+    
+    if(_arrayOfImages.count<=page+1&&_arrayOfImages.count<_array.count){
+        [_arrayOfImages addObject:[[MHImageCache sharedInstance] imageForKey:[_array objectAtIndex:page+1]]];
+    }
 }
 
 - (IBAction)changePage {

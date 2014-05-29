@@ -21,6 +21,7 @@
 }
 
 @property (nonatomic, strong) NSMutableArray *array;
+@property (nonatomic, strong) NSMutableArray *arrayOfImages;
 @property (nonatomic, strong) UIImage *img;
 @property (weak, nonatomic) IBOutlet UINavigationItem *itemTitle;
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
