@@ -29,7 +29,6 @@ NSString *const stringTypeServerThree = @"Java_two";
 }
 
 + (MHServerType)serverType {
-    
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *defaultsResult = [NSString stringWithFormat:@"%@",[defaults objectForKey:@"server_preference"]];
 

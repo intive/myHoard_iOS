@@ -85,9 +85,9 @@
         
         [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_passwordTextField attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:_goButton attribute:NSLayoutAttributeTop multiplier:1.0 constant:-60]];
         
-        [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.checkBoxOutlet attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.passwordTextField attribute:NSLayoutAttributeTop multiplier:1.0 constant:90]];
+        [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.checkBoxOutlet attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.goButton attribute:NSLayoutAttributeTop multiplier:1.0 constant:-15]];
         
-        [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.rememebrMeLabel attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.passwordTextField attribute:NSLayoutAttributeTop multiplier:1.0 constant:80]];
+        [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.rememebrMeLabel attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.goButton attribute:NSLayoutAttributeTop multiplier:1.0 constant:-20]];
         
     }else if (_flowType == MHRegisterFlow) {
         
@@ -121,8 +121,6 @@
                                                  selector:@selector(keyboardDidHide:)
                                                      name:UIKeyboardDidHideNotification
                                                    object:nil];
-        self.checkBoxOutlet.hidden = YES;
-        self.rememebrMeLabel.hidden = YES;
     }
 
 }

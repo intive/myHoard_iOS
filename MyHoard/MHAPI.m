@@ -17,8 +17,8 @@
 #import "MHImageCache.h"
 
 static MHAPI *_sharedAPI = nil;
-static const NSString *_refresh = @"refreshToken";
-static const NSString *_access = @"accessToken";
+static NSString* const _refresh = @"refreshToken";
+static NSString* const _access = @"accessToken";
 
 @interface MHAPI() {
     
@@ -253,9 +253,7 @@ static const NSString *_access = @"accessToken";
     
     NSMutableURLRequest *request = [jsonRequest requestWithMethod:@"POST"
                                                         URLString:[self urlWithPath:@"oauth/token"]
-                                                       parameters:@{@"email": email,
-                                                                    @"password": password,
-                                                                    @"grant_type": @"refresh_token",
+                                                       parameters:@{@"grant_type": @"refresh_token",
                                                                     @"refresh_token": refreshTokenA}
                                                             error:&error];
     
