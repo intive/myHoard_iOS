@@ -313,6 +313,10 @@
                                 } else {
                                     if (checked){
                                         [[MHAPI getInstance] saveToken];
+                                        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+                                        [defaults setObject:self.emailTextField.text forKey:@"email"];
+                                        [defaults setObject:self.passwordTextField.text forKey:@"password"];
+                                        [defaults synchronize];
                                     }
                                     [self synchronize];
                                 }
@@ -325,28 +329,7 @@
         [_waitDialog show];
         
         if (_flowType == MHLoginFlow) {
-            if ([[MHAPI getInstance]token]){
-                [[MHAPI getInstance]refreshTokenForUser:self.emailTextField.text withPassword:self.passwordTextField.text completionBlock:^(id object, NSError *error){
-                    if (error) {
-                        [_waitDialog dismiss];
-                        UIAlertView *alert = [[UIAlertView alloc]
-                                              initWithTitle:@"Error"
-                                              message:error.localizedDescription
-                                              delegate:nil
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil];
-                        
-                        [alert show];
-                        
-                    } else {
-                        [[MHAPI getInstance]saveToken];
-                    }
-                }];
-            }
-            else{
                 [self login];
-            }
-
         } else { //register and then login
             [[MHAPI getInstance] createUser:_emailTextField.text withPassword:_passwordTextField.text completionBlock:^(id object, NSError *error) {
                 if (error) {
@@ -429,6 +412,5 @@
         checked = NO;
     }
 }
-
 
 @end

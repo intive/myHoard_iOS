@@ -18,6 +18,7 @@
 
 static MHAPI *_sharedAPI = nil;
 static const NSString *_refresh = @"refreshToken";
+static const NSString *_access = @"accessToken";
 
 @interface MHAPI() {
     
@@ -77,6 +78,11 @@ static const NSString *_refresh = @"refreshToken";
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         [defaults setObject:_refreshToken forKey:_refresh];
         [defaults synchronize];
+        if (_accessToken){
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            [defaults setObject:_accessToken forKey:_access];
+            [defaults synchronize];
+        }
     }
     
 }
@@ -237,15 +243,20 @@ static const NSString *_refresh = @"refreshToken";
                                 completionBlock:(MHAPICompletionBlock)completionBlock {
     NSError *error;
     
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *accessTokenA = [defaults stringForKey:_access];
+    NSString *refreshTokenA = [defaults stringForKey:_refresh];
+    
     AFJSONRequestSerializer* jsonRequest = [AFJSONRequestSerializer serializer];
-    [jsonRequest setValue:_accessToken forHTTPHeaderField:@"Authorization"];
+    [jsonRequest setValue:accessTokenA forHTTPHeaderField:@"Autorization"];
+    NSDictionary *dicr = jsonRequest.HTTPRequestHeaders;
     
     NSMutableURLRequest *request = [jsonRequest requestWithMethod:@"POST"
                                                         URLString:[self urlWithPath:@"oauth/token"]
                                                        parameters:@{@"email": email,
                                                                     @"password": password,
                                                                     @"grant_type": @"refresh_token",
-                                                                    @"refresh_token": _refreshToken}
+                                                                    @"refresh_token": refreshTokenA}
                                                             error:&error];
     
     AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
@@ -262,11 +273,6 @@ static const NSString *_refresh = @"refreshToken";
     operation.responseSerializer = [AFJSONResponseSerializer serializer];
     operation.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", nil];
     [self.operationQueue addOperation:operation];
-    
-    /*NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:_refreshToken forKey:_refresh];
-    [defaults synchronize];*/
-
     
     return operation;
 }
@@ -302,9 +308,10 @@ static const NSString *_refresh = @"refreshToken";
     operation.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", nil];
     [self.operationQueue addOperation:operation];
     
-    /*NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setObject:_refreshToken forKey:_refresh];
-    [defaults synchronize];*/
+    [defaults setObject:_accessToken forKey:_access];
+    [defaults synchronize];
     
     return operation;
 }
