@@ -17,7 +17,9 @@ typedef enum  {
 
 typedef void(^LoginCompletionBlock)();
 
-@interface MHLoginAndRegisterViewController : MHBaseViewController
+@interface MHLoginAndRegisterViewController : MHBaseViewController{
+    BOOL checked;
+}
 
 @property (weak, nonatomic) IBOutlet UITextField *emailTextField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
@@ -27,5 +29,8 @@ typedef void(^LoginCompletionBlock)();
 @property (weak, nonatomic) IBOutlet MHRoundButton *goButton;
 
 @property (nonatomic, copy) LoginCompletionBlock loginCompletionBlock;
+@property (weak, nonatomic) IBOutlet UIButton *checkBoxOutlet;
+- (IBAction)checkBoxAction:(id)sender;
+@property (weak, nonatomic) IBOutlet UILabel *rememebrMeLabel;
 
 @end

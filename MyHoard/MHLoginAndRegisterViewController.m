@@ -43,6 +43,8 @@
 {
     [super viewDidLoad];
     
+    checked = NO;
+    
     _waitDialog = [[MHWaitDialog alloc] init];
     _progress = [[MHProgressView alloc]init];
 
@@ -81,7 +83,11 @@
         
         [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_emailTextField attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:_passwordTextField attribute:NSLayoutAttributeTop multiplier:1.0 constant:-12]];
         
-        [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_passwordTextField attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:_goButton attribute:NSLayoutAttributeTop multiplier:1.0 constant:-40]];
+        [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_passwordTextField attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:_goButton attribute:NSLayoutAttributeTop multiplier:1.0 constant:-60]];
+        
+        [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.checkBoxOutlet attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.goButton attribute:NSLayoutAttributeTop multiplier:1.0 constant:-15]];
+        
+        [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.rememebrMeLabel attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.goButton attribute:NSLayoutAttributeTop multiplier:1.0 constant:-20]];
         
     }else if (_flowType == MHRegisterFlow) {
         
@@ -303,10 +309,16 @@
                                     [alert show];
                                     
                                 } else {
+                                    if (checked){
+                                        [[MHAPI getInstance] saveToken];
+                                        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+                                        [defaults setObject:self.emailTextField.text forKey:@"email"];
+                                        [defaults setObject:self.passwordTextField.text forKey:@"password"];
+                                        [defaults synchronize];
+                                    }
                                     [self synchronize];
                                 }
-                            }];
-}
+                            }];}
 
 - (IBAction)goButtonPressed:(id)sender {
     if( [self dataFieldsValid]) {
@@ -315,7 +327,7 @@
         [_waitDialog show];
         
         if (_flowType == MHLoginFlow) {
-            [self login];
+                [self login];
         } else { //register and then login
             [[MHAPI getInstance] createUser:_emailTextField.text withPassword:_passwordTextField.text completionBlock:^(id object, NSError *error) {
                 if (error) {
@@ -386,6 +398,17 @@
             }
         }
     }];
+}
+
+- (IBAction)checkBoxAction:(id)sender {
+    if (!checked){
+        [self.checkBoxOutlet setImage:[UIImage imageNamed:@"checkBoxMarked.png"] forState:UIControlStateNormal];
+        checked = YES;
+    }
+    else if (checked){
+        [self.checkBoxOutlet setImage:[UIImage imageNamed:@"checkBox.png"] forState:UIControlStateNormal];
+        checked = NO;
+    }
 }
 
 @end

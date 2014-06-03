@@ -17,6 +17,8 @@
 #import "MHImageCache.h"
 
 static MHAPI *_sharedAPI = nil;
+static NSString* const _refresh = @"refreshToken";
+static NSString* const _access = @"accessToken";
 
 @interface MHAPI() {
     
@@ -60,6 +62,31 @@ static MHAPI *_sharedAPI = nil;
     return [NSString stringWithFormat:@"%@/%@/", [self serverUrl], path];
 }
 
+- (BOOL)token{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if ([defaults objectForKey:_refresh]){
+        return YES;
+    }
+    else {
+       return NO;
+  }
+
+}
+
+- (void)saveToken{
+    if (_refreshToken){
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults setObject:_refreshToken forKey:_refresh];
+        [defaults synchronize];
+        if (_accessToken){
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            [defaults setObject:_accessToken forKey:_access];
+            [defaults synchronize];
+        }
+    }
+    
+}
+
 #pragma User + Authorization & Authentication
 
 - (void)logout:(MHAPICompletionBlock)completionBlock {
@@ -68,6 +95,11 @@ static MHAPI *_sharedAPI = nil;
     _userId = nil;
     _userPassword = nil;
     completionBlock(nil, nil);
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults removeObjectForKey:_refresh];
+    [defaults synchronize];
+
 }
 
 - (BOOL)activeSession {
@@ -211,15 +243,18 @@ static MHAPI *_sharedAPI = nil;
                                 completionBlock:(MHAPICompletionBlock)completionBlock {
     NSError *error;
     
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *accessTokenA = [defaults stringForKey:_access];
+    NSString *refreshTokenA = [defaults stringForKey:_refresh];
+    
     AFJSONRequestSerializer* jsonRequest = [AFJSONRequestSerializer serializer];
-    [jsonRequest setValue:_accessToken forHTTPHeaderField:@"Authorization"];
+    [jsonRequest setValue:accessTokenA forHTTPHeaderField:@"Autorization"];
+    NSDictionary *dicr = jsonRequest.HTTPRequestHeaders;
     
     NSMutableURLRequest *request = [jsonRequest requestWithMethod:@"POST"
                                                         URLString:[self urlWithPath:@"oauth/token"]
-                                                       parameters:@{@"email": email,
-                                                                    @"password": password,
-                                                                    @"grant_type": @"refresh_token",
-                                                                    @"refresh_token": _refreshToken}
+                                                       parameters:@{@"grant_type": @"refresh_token",
+                                                                    @"refresh_token": refreshTokenA}
                                                             error:&error];
     
     AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request
@@ -270,6 +305,11 @@ static MHAPI *_sharedAPI = nil;
     operation.responseSerializer = [AFJSONResponseSerializer serializer];
     operation.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", nil];
     [self.operationQueue addOperation:operation];
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:_refreshToken forKey:_refresh];
+    [defaults setObject:_accessToken forKey:_access];
+    [defaults synchronize];
     
     return operation;
 }

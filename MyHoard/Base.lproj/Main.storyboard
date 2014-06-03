@@ -97,6 +97,24 @@
                                     <action selector="goButtonPressed:" destination="Glg-jT-EFI" eventType="touchUpInside" id="6Yd-0t-qVM"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AEW-eT-Bav">
+                                <rect key="frame" x="61" y="333" width="22" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <state key="normal" image="checkBox">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="checkBoxAction:" destination="Glg-jT-EFI" eventType="touchUpInside" id="NO1-BF-0UH"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Remember password" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ckq-wo-HxK">
+                                <rect key="frame" x="98" y="334" width="161" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -125,6 +143,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="checkBoxOutlet" destination="AEW-eT-Bav" id="GZ8-bq-67f"/>
                         <outlet property="emailTextField" destination="zzs-ql-wjz" id="Gme-RU-0Lz"/>
                         <outlet property="goButton" destination="VQa-Jj-hVx" id="GBu-eC-03S"/>
                         <outlet property="passwordStrength" destination="6Ea-CQ-cYX" id="YG4-gU-xjF"/>
@@ -132,6 +151,7 @@
                         <outlet property="passwordStrengthLabel1" destination="sWc-8U-92y" id="wcp-Ba-HaV"/>
                         <outlet property="passwordStrengthView" destination="6Ea-CQ-cYX" id="HgL-ER-R6A"/>
                         <outlet property="passwordTextField" destination="4ln-Wa-0fB" id="M1O-eQ-J4P"/>
+                        <outlet property="rememebrMeLabel" destination="Ckq-wo-HxK" id="H5a-ed-Xyg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FQe-ic-Fjv" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1888,6 +1908,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="checkBox" width="36" height="37"/>
         <image name="pin" width="22" height="22"/>
         <image name="pin_y" width="22" height="22"/>
         <image name="plus_y" width="30" height="30"/>

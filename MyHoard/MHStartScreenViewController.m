@@ -22,6 +22,29 @@
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc]initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:nil];
     [[self navigationItem] setBackBarButtonItem:backButton];
     
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *user = [defaults stringForKey:@"email"];
+    NSString *password = [defaults stringForKey:@"password"];
+    if ([[MHAPI getInstance]token]){
+        [[MHAPI getInstance]refreshTokenForUser:user withPassword:password completionBlock:^(id object, NSError *error){
+            if (error) {
+                UIAlertView *alert = [[UIAlertView alloc]
+                                      initWithTitle:@"Error"
+                                      message:error.localizedDescription
+                                      delegate:nil
+                                      cancelButtonTitle:@"OK"
+                                      otherButtonTitles:nil];
+                
+                [alert show];
+                
+            } else {
+                [[MHAPI getInstance]saveToken];
+                [self performSegueWithIdentifier:@"collectionSegue" sender:nil];
+            }
+        }];
+    }
+    
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -41,7 +64,7 @@
     };
     
     if ([segue.identifier isEqualToString:@"LoginSegue"]) {
-        
+
         UINavigationController* nc = segue.destinationViewController;
         MHLoginAndRegisterViewController * loginAndRegisterViewController = (MHLoginAndRegisterViewController *)nc.visibleViewController;
         loginAndRegisterViewController.flowType = MHLoginFlow;
